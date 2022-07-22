@@ -1,12 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/emergency_logic.dart';
 
 class EmergencyPage extends StatelessWidget with Emergency_Logic{
-  double Help_Button_Radius = 60,
+  late double Help_Button_Radius,
          Help_Buttons_Padding = 12.5;
 
   @override
   Widget build(BuildContext context) {
+    Help_Button_Radius = min((MediaQuery.of(context).size.width), (MediaQuery.of(context).size.height)) / 3;
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Container( //This contains the whole page
@@ -47,8 +50,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
                       child: SizedBox(
-                        height: Help_Button_Radius*2,
-                        width: Help_Button_Radius*2,
+                        height: Help_Button_Radius,
+                        width: Help_Button_Radius,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: new RoundedRectangleBorder(
@@ -62,8 +65,19 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
-                              Text("Medical Help"),
-                              Icon(Icons.medical_services),
+                              Icon(
+                                Icons.medical_services,
+                                color: Color.fromARGB(63, 255, 255, 255),
+                                size: Help_Button_Radius*0.75,
+                              ),
+                              Text(
+                                "Medical Help",
+                                textScaleFactor: 1.5,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
                             ],
                           ),
                         ),
@@ -79,8 +93,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
                       child: SizedBox(
-                        height: Help_Button_Radius*2,
-                        width: Help_Button_Radius*2,
+                        height: Help_Button_Radius,
+                        width: Help_Button_Radius,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(
@@ -101,8 +115,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
                       child: SizedBox(
-                        height: Help_Button_Radius*2,
-                        width: Help_Button_Radius*2,
+                        height: Help_Button_Radius,
+                        width: Help_Button_Radius,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(
@@ -119,8 +133,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
                       child: SizedBox(
-                        height: Help_Button_Radius*2,
-                        width: Help_Button_Radius*2,
+                        height: Help_Button_Radius,
+                        width: Help_Button_Radius,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               shape: new RoundedRectangleBorder(
