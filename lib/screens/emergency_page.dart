@@ -58,7 +58,14 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                           onPressed: () {
                             Medical_Emergency_Help();
                           },
-                          child: Icon(Icons.medical_services)
+                          // child: Icon(Icons.medical_services),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              Text("Medical Help"),
+                              Icon(Icons.medical_services),
+                            ],
+                          ),
                         ),
                       ),
                       // child: IconButton(
