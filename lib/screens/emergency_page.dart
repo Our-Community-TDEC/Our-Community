@@ -88,13 +88,6 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                             ),
                           ),
                         ),
-                        // child: IconButton(
-                        //   onPressed: () {
-                        //     Medical_Emergency_Help();
-                        //   },
-                        //   icon: Icon(Icons.medical_services),
-                        //   color: Color.fromARGB(66, 265, 265, 265),
-                        //   ),
                       ),
                       Padding(
                         padding: EdgeInsets.all(Help_Buttons_Padding),
@@ -108,8 +101,27 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                               ),
                             ),
                             onPressed: () {
-                              Electrical_Emergency_Help();
-                            }, child: Icon(Icons.electric_bolt),
+                              Medical_Emergency_Help();
+                            },
+                            // child: Icon(Icons.medical_services),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Icon(
+                                  Icons.electric_bolt,
+                                  color: Color.fromARGB(63, 255, 255, 255),
+                                  size: Help_Button_Radius*0.75,
+                                ),
+                                Text(
+                                    "Electrical Help",
+                                    textScaleFactor: 1.5,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500
+                                    )
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -130,9 +142,27 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                               ),
                             ),
                             onPressed: () {
-                              Car_Emergency_Help();
+                              Medical_Emergency_Help();
                             },
-                            child: Icon(Icons.car_crash),
+                            // child: Icon(Icons.medical_services),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Icon(
+                                  Icons.car_crash,
+                                  color: Color.fromARGB(63, 255, 255, 255),
+                                  size: Help_Button_Radius*0.75,
+                                ),
+                                Text(
+                                    "Car Help",
+                                    textScaleFactor: 1.5,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500
+                                    )
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -142,15 +172,33 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                           height: Help_Button_Radius,
                           width: Help_Button_Radius,
                           child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(32.0),
-                                ),
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(32.0),
                               ),
+                            ),
                             onPressed: () {
-                              Fire_Emergency_Help();
+                              Medical_Emergency_Help();
                             },
-                            child: Icon(Icons.local_fire_department)
+                            // child: Icon(Icons.medical_services),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Icon(
+                                  Icons.local_fire_department_rounded,
+                                  color: Color.fromARGB(63, 255, 255, 255),
+                                  size: Help_Button_Radius*0.75,
+                                ),
+                                Text(
+                                    "Fire Help",
+                                    textScaleFactor: 1.5,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500
+                                    )
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
