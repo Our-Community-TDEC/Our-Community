@@ -46,29 +46,43 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                   children: [
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
-                      child: CircleAvatar(
-                        radius: Help_Button_Radius,
-                        backgroundColor: Color.fromARGB(255, 17, 165, 250),
-                        child: IconButton(
+                      child: SizedBox(
+                        height: Help_Button_Radius*2,
+                        width: Help_Button_Radius*2,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(32.0),
+                              ),
+                            ),
                           onPressed: () {
                             Medical_Emergency_Help();
                           },
-                          icon: Icon(Icons.medical_services),
-                          color: Color.fromARGB(66, 265, 265, 265),
+                          child: Icon(Icons.medical_services)
                         ),
                       ),
+                      // child: IconButton(
+                      //   onPressed: () {
+                      //     Medical_Emergency_Help();
+                      //   },
+                      //   icon: Icon(Icons.medical_services),
+                      //   color: Color.fromARGB(66, 265, 265, 265),
+                      //   ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
-                      child: CircleAvatar(
-                        radius: Help_Button_Radius,
-                        backgroundColor: Color.fromARGB(255, 17, 165, 250),
-                        child: IconButton(
+                      child: SizedBox(
+                        height: Help_Button_Radius*2,
+                        width: Help_Button_Radius*2,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(32.0),
+                            ),
+                          ),
                           onPressed: () {
                             Electrical_Emergency_Help();
-                          },
-                          icon: Icon(Icons.electric_bolt),
-                          color: Color.fromARGB(66, 265, 265, 265),
+                          }, child: Icon(Icons.electric_bolt),
                         ),
                       ),
                     ),
@@ -79,29 +93,37 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                   children: [
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
-                      child: CircleAvatar(
-                        radius: Help_Button_Radius,
-                        backgroundColor: Color.fromARGB(255, 17, 165, 250),
-                        child: IconButton(
+                      child: SizedBox(
+                        height: Help_Button_Radius*2,
+                        width: Help_Button_Radius*2,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(32.0),
+                            ),
+                          ),
                           onPressed: () {
                             Car_Emergency_Help();
                           },
-                          icon: Icon(Icons.car_crash),
-                          color: Color.fromARGB(66, 265, 265, 265),
+                          child: Icon(Icons.car_crash),
                         ),
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
-                      child: CircleAvatar(
-                        radius: Help_Button_Radius,
-                        backgroundColor: Color.fromARGB(255, 17, 165, 250),
-                        child: IconButton(
+                      child: SizedBox(
+                        height: Help_Button_Radius*2,
+                        width: Help_Button_Radius*2,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: new RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(32.0),
+                              ),
+                            ),
                           onPressed: () {
                             Fire_Emergency_Help();
                           },
-                          icon: Icon(Icons.local_fire_department),
-                          color: Color.fromARGB(66, 265, 265, 265),
+                          child: Icon(Icons.local_fire_department)
                         ),
                       ),
                     ),
