@@ -1,11 +1,12 @@
 import 'dart:math' as math;
 import 'dart:io';
 
+import 'package:final_year_project/logic/voting_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 // import 'package:fl_chart/fl_chart.dart';
 
-class Pie_Chart_Widget extends StatelessWidget {
+class Pie_Chart_Widget extends StatelessWidget with voting_logic {
 
   late int person_1_votes = 2, person_2_votes = 3;
   late String person_1_name = "Aksh", person_2_name = "College";
@@ -48,8 +49,8 @@ class Pie_Chart_Widget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("1")),
-                ElevatedButton(onPressed: () {}, child: Text("2")),
+                ElevatedButton(onPressed: () {votted("1");}, child: Text("1")),
+                ElevatedButton(onPressed: () {votted("2");}, child: Text("2")),
               ],
             ),
           ],
