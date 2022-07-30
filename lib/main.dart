@@ -5,7 +5,7 @@ import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:final_year_project/screens/noticeboard_page.dart';
 import 'package:final_year_project/screens/complaints_main_page.dart';
 import 'package:final_year_project/screens/other_complaints_page.dart';
-import 'package:final_year_project/screens/BetaTestSection/PiCharts.dart';
+import 'package:final_year_project/screens/PiCharts.dart';
 
 void main() => runApp (
     MaterialApp (
