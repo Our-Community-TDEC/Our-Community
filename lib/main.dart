@@ -6,6 +6,7 @@ import 'package:final_year_project/screens/noticeboard_page.dart';
 import 'package:final_year_project/screens/complaints_main_page.dart';
 import 'package:final_year_project/screens/other_complaints_page.dart';
 import 'package:final_year_project/screens/PiCharts.dart';
+import 'package:final_year_project/screens/BetaTestSection/DynamicNumTesting.dart';
 
 void main() => runApp (
     MaterialApp (
@@ -96,6 +97,18 @@ class BasePage extends StatelessWidget {
                       );
                     },
                     child: Text("Pie Chart (Beta)"),
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: 200,
+                  child:RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DynamicNumTesting()),
+                      );
+                    },
+                    child: Text("Test"),
                   ),
                 ),
               ],
