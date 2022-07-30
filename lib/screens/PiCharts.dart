@@ -9,23 +9,26 @@ class Pie_Chart_Widget extends StatelessWidget with voting_logic {
 
   Map<String, double> datamap = {
     "person_1_name": 1,
-    "person_2_name": 2,
+    "person_2_name": 1,
+    "person_3_name": 1,
+    "person_4_name": 1,
+    "person_5_name": 1,
   };
 
-  // late Map<String, double> dataMap = {};
-  // dataMap[person_1_name] = person_1_votes;
-
-  // Map datamap = new Map<String, double>.fromIterable(letters, numbers);
-  // Map datamap = new Map();
-  // datamap.putIfAbsent("Aksh", () => 1);
-
-
   List<Color> colorList = [
-    Color(0xff000000),
-    Color(0xff3BD580),
+    Color(0xff531CB3),
+    Color(0xff944BBB),
+    Color(0xffAA7BC3),
+    Color(0xffCC92C2),
+    Color(0xffDBA8AC),
   ];
 
   Widget build(BuildContext context) {
+    int mapSize = datamap.length;
+    print("Map Length = $mapSize");
+    datamap.clear();
+    datamap["Aksh"] = 100;
+    datamap["🐼"] = 135;
     return Scaffold(
       body: Container(
         child: Column(
