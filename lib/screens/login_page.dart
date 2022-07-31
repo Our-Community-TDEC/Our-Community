@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import '../logic/login_logic.dart';
 
-class LogIn extends StatelessWidget {
+class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
   @override
@@ -8,11 +9,10 @@ class LogIn extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [gradient_top, gradient_bot],
-          )
-      ),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [gradient_top, gradient_bot],
+      )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
@@ -47,7 +47,7 @@ class LogIn extends StatelessWidget {
                 obscuringCharacter: "●",
               ),
               RaisedButton(
-                onPressed: () { },
+                onPressed: () {someFunctionIdk();},
                 child: Text(
                   "Sign In",
                 ),
