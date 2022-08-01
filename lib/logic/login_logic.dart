@@ -1,6 +1,5 @@
 class Login_Logic {
   void signInButtonPressed(String email, String pass) {
-    // print("Hoi! A button was PRESSED!!!!!!!!!!!!!!!!!!");
     print("MailID: $email");
     print("Passwd: $pass");
 
@@ -11,6 +10,13 @@ class Login_Logic {
 
     print(email.indexOf('@'));
     print(email.lastIndexOf('.'));
+
+    if(email == "aksh.d.4002@gmail.com" && pass == "Aksh1234;") {
+      print("Username and Password ok\nTaking you to next page...");
+    }
+    else {
+      print("Something wrong.\nPlease try again.");
+    }
   }
 
   bool emailValidityTest(String email) {
