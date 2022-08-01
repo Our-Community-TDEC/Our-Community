@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import '../logic/login_logic.dart';
 
@@ -6,6 +8,10 @@ class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_bot = Color(0xE02E2F36);
   @override
   Widget build(BuildContext context) {
+
+    TextEditingController emailController = new TextEditingController();
+    TextEditingController passController = new TextEditingController();
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -23,7 +29,7 @@ class LogIn extends StatelessWidget with Login_Logic {
             children: <Widget>[
               Text("Username"),
               TextField(
-                obscureText: true,
+                controller: emailController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.blue,
@@ -35,6 +41,7 @@ class LogIn extends StatelessWidget with Login_Logic {
               Text("Username"),
               TextField(
                 obscureText: true,
+                controller: passController,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.red,
@@ -47,10 +54,10 @@ class LogIn extends StatelessWidget with Login_Logic {
                 obscuringCharacter: "●",
               ),
               RaisedButton(
-                onPressed: () {someFunctionIdk();},
-                child: Text(
-                  "Sign In",
-                ),
+                onPressed: () {
+                  signInButtonPressed(emailController.text, passController.text);
+                },
+                child: Text("Sign In",),
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(45),
                 ),
