@@ -4,15 +4,21 @@ class Login_Logic {
     print("MailID: $email");
     print("Passwd: $pass");
 
-    if(email.indexOf('@') != -1)
-      if(email.lastIndexOf('.') > email.indexOf('@'))
-        print("ok");
-      else
-        print("Not ok");
+    if(emailValidityTest(email))
+      print("Ok");
     else
-      print("Not ok");
+      print("There is an issue");
 
     print(email.indexOf('@'));
     print(email.lastIndexOf('.'));
+  }
+
+  bool emailValidityTest(String email) {
+    if(email.indexOf(' ') == -1)
+      if(email.indexOf('@') != -1)
+        if(email.lastIndexOf('.') > email.indexOf('@'))
+          return true;
+
+    return false;
   }
 }
