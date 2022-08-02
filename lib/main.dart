@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
-import 'package:final_year_project/screens/complaints_main_page.dart';
+import 'package:final_year_project/screens/complains_main_page.dart';
 import 'package:final_year_project/screens/other_complaints_page.dart';
 import 'package:final_year_project/screens/BetaTestSection/PiCharts.dart';
 import 'package:final_year_project/screens/settings_page.dart';

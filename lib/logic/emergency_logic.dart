@@ -1,5 +1,5 @@
 class Emergency_Logic {
-  void PleasePutSomeCodeHere() {
-
+  void EmergencyLogicFunction() {
+    
   }
 }
