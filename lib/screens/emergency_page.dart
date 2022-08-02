@@ -65,7 +65,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                                 ),
                               ),
                             onPressed: () {
-                              Medical_Emergency_Help();
+
                             },
                             // child: Icon(Icons.medical_services),
                             child: Stack(
@@ -101,7 +101,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                               ),
                             ),
                             onPressed: () {
-                              Medical_Emergency_Help();
+
                             },
                             // child: Icon(Icons.medical_services),
                             child: Stack(
@@ -142,7 +142,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                               ),
                             ),
                             onPressed: () {
-                              Medical_Emergency_Help();
+
                             },
                             // child: Icon(Icons.medical_services),
                             child: Stack(
@@ -178,7 +178,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                               ),
                             ),
                             onPressed: () {
-                              Medical_Emergency_Help();
+
                             },
                             // child: Icon(Icons.medical_services),
                             child: Stack(
@@ -221,7 +221,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                                   backgroundColor: Color.fromARGB(255, 17, 165, 250),
                                   child: IconButton(
                                     onPressed: () {
-                                      Police_Contact();
+
                                     },
                                     icon: Icon(Icons.local_police),
                                     color: Color.fromARGB(66, 265, 265, 265),
@@ -243,7 +243,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                                   backgroundColor: Color.fromARGB(255, 17, 165, 250),
                                   child: IconButton(
                                     onPressed: () {
-                                      Ambulance_Contact();
+
                                     },
                                     icon: Icon(Icons.medical_services_outlined),
                                     color: Color.fromARGB(66, 265, 265, 265),
@@ -265,7 +265,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                                   backgroundColor: Color.fromARGB(255, 17, 165, 250),
                                   child: IconButton(
                                     onPressed: () {
-                                      Security_Contact();
+
                                     },
                                     icon: Icon(Icons.security),
                                     color: Color.fromARGB(66, 265, 265, 265),
@@ -287,7 +287,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                                   backgroundColor: Color.fromARGB(255, 17, 165, 250),
                                   child: IconButton(
                                     onPressed: () {
-                                      MainGate_Contact();
+
                                     },
                                     icon: Icon(Icons.door_back_door_outlined),
                                     color: Color.fromARGB(66, 265, 265, 265),
@@ -316,11 +316,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                   Expanded(
 
                     child: ElevatedButton(
-                      ButtonTheme(
-
-                      )
                       onPressed: () {
-                        Emergency_SOS();
+
                       },
                       child: Text("Emergency SOS"),
                     ),
