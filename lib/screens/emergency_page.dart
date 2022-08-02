@@ -209,7 +209,6 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     color: Colors.white,
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -315,8 +314,11 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic{
                     thickness: Divider_Thickness,
                   ),
                   Expanded(
-                    flex: 1,
+
                     child: ElevatedButton(
+                      ButtonTheme(
+
+                      )
                       onPressed: () {
                         Emergency_SOS();
                       },
