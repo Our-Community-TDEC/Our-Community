@@ -3,3 +3,4 @@ class voting_logic {
     print("You just voted for: " + s);
   }
 }
+

@@ -2,8 +2,14 @@ import 'package:final_year_project/logic/voting_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class Voting_Page extends StatelessWidget with voting_logic {
+class Voting_Page extends StatefulWidget with voting_logic {
+  @override
+  State<Voting_Page> createState() => _Voting_PageState();
+}
+
+class _Voting_PageState extends State<Voting_Page> with voting_logic {
   late int person_1_votes = 0, person_2_votes = 0;
+
   late String person_1_name = "Aksh", person_2_name = "College";
 
   Map<String, double> datamap = {
@@ -50,6 +56,9 @@ class Voting_Page extends StatelessWidget with voting_logic {
                 ElevatedButton(
                     onPressed: () {
                       votted("1");
+                      setState(() {
+                        datamap["Aksh"] = datamap["Aksh"].value + 1;
+                      });
                     },
                     child: Text("1")),
                 ElevatedButton(
