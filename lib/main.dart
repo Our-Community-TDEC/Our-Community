@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_year_project/screens/emergency_page.dart';
+import 'package:final_year_project/screens/chatting_page.dart';
 
 void main() => runApp(MaterialApp(
       home: BasePage(),
@@ -23,11 +23,10 @@ class BasePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => EmergencyPage()),
+                        MaterialPageRoute(builder: (context) => ChattingPage()),
                       );
                     },
-                    child: Text("Emergency Page"),
+                    child: Text("Chatting Page"),
                   ),
                 ),
               ],
