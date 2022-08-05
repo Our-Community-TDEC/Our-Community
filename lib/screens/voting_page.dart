@@ -2,7 +2,7 @@ import 'package:final_year_project/logic/voting_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class Pie_Chart_Widget extends StatelessWidget with voting_logic {
+class Voting_Page extends StatelessWidget with voting_logic {
   late int person_1_votes = 0, person_2_votes = 0;
   late String person_1_name = "Aksh", person_2_name = "College";
 
