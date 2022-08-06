@@ -29,8 +29,6 @@ class _Voting_PageState extends State<Voting_Page> with voting_logic {
   ];
 
   Widget build(BuildContext context) {
-    int mapSize = datamap.length;
-    print("Map Length = $mapSize");
     datamap.clear();
     datamap["Aksh"] = 100;
     datamap["🐼"] = 135;
@@ -57,7 +55,7 @@ class _Voting_PageState extends State<Voting_Page> with voting_logic {
                     onPressed: () {
                       votted("1");
                       setState(() {
-                        datamap["Aksh"] = datamap["Aksh"].value + 1;
+
                       });
                     },
                     child: Text("1")),
