@@ -6,7 +6,7 @@ import 'package:final_year_project/logic/emergency_logic.dart';
 class EmergencyPage extends StatelessWidget with Emergency_Logic {
   late double Help_Button_Radius,
       Help_Buttons_Padding = 12.5,
-      Divider_Thickness = 2.5;
+      Divider_Thickness = 2;
 
   @override
   Widget build(BuildContext context) {
