@@ -287,7 +287,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                             Text(
                               "Main Gate",
-                              style: TextStyle(
+                              s g
+      tyle: TextStyle(
                                 fontFamily: 'Poppins-medium',
                                 color: Colors.white,
                                 fontSize: 15,
