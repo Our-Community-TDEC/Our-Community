@@ -57,7 +57,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                 onPressed: () {
                   signInButtonPressed(emailController.text, passController.text);
                 },
-                child: Text("Sign In",),
+                child: Text("Go",),
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(45),
                 ),
