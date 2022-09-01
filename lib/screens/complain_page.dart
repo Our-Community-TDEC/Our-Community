@@ -7,8 +7,27 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
-      body: Container(),
-    );
+        backgroundColor: Colors.grey[800],
+        body: Container(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("Parking Issue")),
+                ElevatedButton(
+                    onPressed: () {}, child: Text("Street Light Issue")),
+                ElevatedButton(onPressed: () {}, child: Text("Water Issue")),
+                ElevatedButton(
+                    onPressed: () {}, child: Text("Gas Pipline Issue")),
+                ElevatedButton(onPressed: () {}, child: Text("Drainage Issue")),
+                ElevatedButton(
+                    onPressed: () {}, child: Text("Electrical Issue")),
+                ElevatedButton(onPressed: () {}, child: Text("Road Issue")),
+              ],
+            ),
+          ],
+        )));
   }
 }
