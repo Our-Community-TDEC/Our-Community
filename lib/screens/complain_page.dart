@@ -15,7 +15,15 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("Parking Issue")),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.local_parking),
+                      Text("Parking Issue")
+                    ],
+                  )
+                ),
                 ElevatedButton(
                     onPressed: () {}, child: Text("Street Light Issue")),
                 ElevatedButton(onPressed: () {}, child: Text("Water Issue")),
