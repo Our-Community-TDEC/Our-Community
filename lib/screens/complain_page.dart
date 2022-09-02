@@ -16,23 +16,76 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                    onPressed: () {},
+                    child: Row(
+                      children: [
+                        Icon(Icons.local_parking),
+                        Text("Parking Issue")
+                      ],
+                    )),
+                ElevatedButton(
                   onPressed: () {},
                   child: Row(
                     children: [
-                      Icon(Icons.local_parking),
-                      Text("Parking Issue")
+                      Icon(Icons.lightbulb),
+                      Text("Street Light Issue"),
                     ],
-                  )
+                  ),
                 ),
                 ElevatedButton(
-                    onPressed: () {}, child: Text("Street Light Issue")),
-                ElevatedButton(onPressed: () {}, child: Text("Water Issue")),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.water_drop),
+                      Text("Water Issue"),
+                    ],
+                  ),
+                ),
                 ElevatedButton(
-                    onPressed: () {}, child: Text("Gas Pipline Issue")),
-                ElevatedButton(onPressed: () {}, child: Text("Drainage Issue")),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.gas_meter),
+                      Text("Gas Pipline Issue"),
+                    ],
+                  ),
+                ),
                 ElevatedButton(
-                    onPressed: () {}, child: Text("Electrical Issue")),
-                ElevatedButton(onPressed: () {}, child: Text("Road Issue")),
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.drag_indicator), //TODO: find better icon
+                      Text("Drainage Issue"),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.electric_bolt),
+                      Text("Electricity Issue"),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.remove_road),
+                      Text("Road Issue"),
+                    ],
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Icon(Icons.emoji_emotions),
+                      Text("Other Complains"),
+                    ],
+                  ),
+                ),
               ],
             ),
           ],
