@@ -16,7 +16,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      parkingIssue();
+                    },
                     child: Row(
                       children: [
                         Icon(Icons.local_parking),
@@ -24,7 +26,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                       ],
                     )),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    StreetLightIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.lightbulb),
@@ -33,7 +37,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    WaterIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.water_drop),
@@ -42,7 +48,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    GasLineIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.gas_meter),
@@ -51,7 +59,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    DrainageIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.drag_indicator), //TODO: find better icon
@@ -60,7 +70,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    ElecricalIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.electric_bolt),
@@ -69,7 +81,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    RoadIssue();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.remove_road),
@@ -78,7 +92,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    OtherComplains();
+                  },
                   child: Row(
                     children: [
                       Icon(Icons.emoji_emotions),

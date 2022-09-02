@@ -4,26 +4,30 @@ class Complain_Logic {
   }
 
   void StreetLightIssue() {
-    print("Parking issue clicked.");
+    print("Street Light issue clicked.");
   }
 
   void WaterIssue() {
-    print("Parking issue clicked.");
+    print("Water issue clicked.");
   }
 
   void GasLineIssue() {
-    print("Parking issue clicked.");
+    print("Gas Pipline issue clicked.");
   }
 
-  void GrainageIssue() {
-    print("Parking issue clicked.");
+  void DrainageIssue() {
+    print("Drainage issue clicked.");
   }
 
   void ElecricalIssue() {
-    print("Parking issue clicked.");
+    print("Electrical issue clicked.");
   }
 
-  void RCCIssue() {
-    print("Parking issue clicked.");
+  void RoadIssue() {
+    print("Road issue clicked.");
+  }
+
+  void OtherComplains() {
+    print("Other Complains clicked.");
   }
 }
