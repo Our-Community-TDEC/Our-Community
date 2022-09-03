@@ -18,7 +18,7 @@ class BasePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ButtonTheme(
-                  minWidth: 200,
+                  minWidth: 300,
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.push(

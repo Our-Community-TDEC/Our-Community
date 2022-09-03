@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/complain_logic.dart';
+import 'package:final_year_project/screens/Complain Pages/OtherComplains.dart';
 
 class ComplainPage extends StatelessWidget with Complain_Logic {
   @override
@@ -25,15 +26,18 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                         Text("Parking Issue")
                       ],
                     )),
-                ElevatedButton(
-                  onPressed: () {
-                    StreetLightIssue();
-                  },
-                  child: Row(
-                    children: [
-                      Icon(Icons.lightbulb),
-                      Text("Street Light Issue"),
-                    ],
+                ButtonTheme(
+                  minWidth: 500,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      StreetLightIssue();
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.lightbulb),
+                        Text("Street Light Issue"),
+                      ],
+                    ),
                   ),
                 ),
                 ElevatedButton(
@@ -94,6 +98,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 ElevatedButton(
                   onPressed: () {
                     OtherComplains();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OtherComplains()),
+                    );
                   },
                   child: Row(
                     children: [
