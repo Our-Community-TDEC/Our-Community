@@ -99,7 +99,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Electrical_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -137,7 +137,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Car_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -170,7 +170,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Fire_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -317,3 +317,6 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
     );
   }
 }
+
+
+// TODO: change onPredded functions for top right and bottom 2 buttons
