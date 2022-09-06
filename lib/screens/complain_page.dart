@@ -80,7 +80,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   child: Row(
                     children: [
                       Icon(Icons.electric_bolt),
-                      Text("Electricity Issue"),
+                      Text("Electricity Issues"),
                     ],
                   ),
                 ),
