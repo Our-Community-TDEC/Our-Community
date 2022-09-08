@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import '../logic/login_logic.dart';
+import '../logic/search_login.dart';
 
-class SearchPage extends StatelessWidget with Login_Logic {
+class SearchPage extends StatelessWidget with Search_Logic {
+  TextEditingController queryString = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,10 +17,13 @@ class SearchPage extends StatelessWidget with Login_Logic {
             Text("Search Someone"),
             TextField(
               maxLines: 1,
+              controller: queryString,
             ),
             ElevatedButton(
-              onPressed: () {},
-              child: Text("mic"),
+              onPressed: () {
+                search(queryString.text);
+              },
+              child: Text("Search"),
             )
           ],
         ),
