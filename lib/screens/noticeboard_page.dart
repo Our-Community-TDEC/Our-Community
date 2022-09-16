@@ -19,6 +19,7 @@ class NoticeBoardPage extends StatelessWidget {
                 RaisedButton(
                   onPressed: () {  },
                   child: Text("Get Started"),
+
                 ),
               ],
             ),
