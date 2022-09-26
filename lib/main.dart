@@ -19,7 +19,7 @@ class BasePage extends StatelessWidget {
               children: [
                 ButtonTheme(
                   minWidth: 300,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
