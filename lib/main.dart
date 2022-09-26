@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
+import 'package:final_year_project/screens/SuggestionsList.dart';
 
 void main() => runApp(MaterialApp(
       home: BasePage(),
@@ -27,7 +28,20 @@ class BasePage extends StatelessWidget {
                             builder: (context) => EmergencyPage()),
                       );
                     },
-                    child: Text("Emergency Page"),
+                    child: Text("New Suggestions"),
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: 200,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SuggestionsList()),
+                      );
+                    },
+                    child: Text("Suggestions List"),
                   ),
                 ),
               ],
