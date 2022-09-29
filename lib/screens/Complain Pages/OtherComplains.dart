@@ -25,7 +25,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           child: IconButton(
                             onPressed: () => {
-                             
+                             Navigator.pop(context)
                             },
                             icon: Icon(
                               Icons.arrow_back_ios,
@@ -34,17 +34,14 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 400,
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Other Complaint",
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            )),
+                      Container(
+                        child: Text(
+                          "Other Complaint",
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
                       )
                     ],
                   ),
@@ -98,17 +95,20 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
               // height: 200,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: "Enter Your Concern Here!!!",
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                      )),
+                child: Container(
+                  height: 200,
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: "Enter Your Concern Here!!!",
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10)),
+                        )),
+                  ),
                 ),
               ),
               width: 450,
