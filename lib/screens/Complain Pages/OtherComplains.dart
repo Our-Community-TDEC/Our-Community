@@ -25,7 +25,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           child: IconButton(
                             onPressed: () => {
-                             Navigator.pop(context)
+                              Navigator.pop(context)
                             },
                             icon: Icon(
                               Icons.arrow_back_ios,
@@ -34,14 +34,17 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           ),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "Other Complaint",
-                          style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
+                      SizedBox(
+                        width: 400,
+                        child: Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Other Complaint",
+                              style: TextStyle(
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white),
+                            )),
                       )
                     ],
                   ),
