@@ -27,10 +27,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                               child: IconButton(
-                                onPressed: () => {},
+                                onPressed: () => {
+                                  Navigator.pop(context)
+                                },
                                 icon: Icon(
                                   Icons.arrow_back_ios,
                                   color: Color.fromARGB(255, 0, 141, 241),
+                                  
                                 ),
                               ),
                             ),
@@ -40,7 +43,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Other Complaint",
+                                  "Complains",
                                   style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.w500,
@@ -50,13 +53,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                         ],
                       ),
                     ),
-                  ],
-                ),
                 Divider(
                   thickness: 1.5,
-                  color: Colors.black,
+                  color: Colors.white,
                   indent: 10,
                   endIndent: 10,
+                ),
+                  ],
                 ),
                 Container(
                   width: 379,
