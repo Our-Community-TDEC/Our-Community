@@ -24,9 +24,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           child: IconButton(
-                            onPressed: () => {
-                             
-                            },
+                            onPressed: () => {},
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: Color.fromARGB(255, 0, 141, 241),
@@ -120,7 +118,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    RaiseComplain();
+                    Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(
