@@ -15,10 +15,10 @@ class LogIn extends StatelessWidget with Login_Logic {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [gradient_top, gradient_bot],
-      )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [gradient_top, gradient_bot],
+          )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
@@ -27,6 +27,7 @@ class LogIn extends StatelessWidget with Login_Logic {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
+              Image(image: AssetImage('assets/images/Trees.png'),),
               Text("Username"),
               TextField(
                 controller: emailController,
@@ -42,11 +43,11 @@ class LogIn extends StatelessWidget with Login_Logic {
               TextField(
                 obscureText: true,
                 controller: passController,
-                decoration: InputDecoration(
+                decoration: InputDecoration(suffixIcon: Icon(Icons.key),
                   filled: true,
                   fillColor: Colors.red,
                   border: OutlineInputBorder(),
-                  labelText: 'Password',
+                  labelText: '..........',
                   hintText: 'Enter Password',
                 ),
                 enableSuggestions: false,
@@ -57,7 +58,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                 onPressed: () {
                   signInButtonPressed(emailController.text, passController.text);
                 },
-                child: Text("Go",),
+                child: Text("Sign in",),
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(45),
                 ),
