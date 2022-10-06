@@ -11,8 +11,29 @@ class BasePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(25),
-        child: Row(
+        padding: EdgeInsets.all(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+                  child: IconButton(
+                    onPressed: () => print('clicked on list'),
+                    icon: Icon(Icons.list),
+                    color: Colors.blue,
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    "New Suggestions"
+                  ),
+                ),
+              ],
+            ),
+
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
@@ -20,7 +41,7 @@ class BasePage extends StatelessWidget {
               children: [
                 ButtonTheme(
                   minWidth: 200,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -33,7 +54,7 @@ class BasePage extends StatelessWidget {
                 ),
                 ButtonTheme(
                   minWidth: 200,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
@@ -48,7 +69,10 @@ class BasePage extends StatelessWidget {
             ),
           ],
         ),
+  ],
       ),
+
+    ),
     );
   }
 }

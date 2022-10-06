@@ -8,6 +8,8 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
       Help_Buttons_Padding = 12.5,
       Divider_Thickness = 2.5;
 
+  SuggestionsList({super.key});
+
   @override
   Widget build(BuildContext context) {
     Help_Button_Radius = min((MediaQuery.of(context).size.width),
@@ -17,13 +19,42 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
       backgroundColor: Colors.grey[800],
       body: Container(
         //This contains the whole page
-        constraints: BoxConstraints.expand(),
-        padding: EdgeInsets.all(Help_Buttons_Padding),
+        constraints: const BoxConstraints.expand(),
+        padding: const EdgeInsets.all(10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Suggestions"),
-            Divider(
-              thickness: 1,
+        Row(
+        children: [
+        CircleAvatar(
+        backgroundColor: Colors.black38,
+          child: IconButton(
+            onPressed: () => print('clicked on list'),
+            icon: const Icon(Icons.list),
+            color: Colors.blue,
+          ),
+        ),
+        Container(
+          width: 200,
+          alignment: Alignment.center,
+
+          child: const Text(
+              "New Suggestions",
+              style: TextStyle(
+                color: Colors.white38,
+                fontFamily: 'Poppins-SemiBold',
+              ),
+
+          ),
+
+        ),
+        ],
+      ),
+        Column(
+          children: [
+
+            const Divider(
+              thickness: 2,
             ),
             Row(
               children: [
@@ -31,19 +62,94 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
                 Image.asset('2147.jpeg'),
                 // Text("Img"),
                 Column(
-                  children: [
-                    Text("Aksh Desai"),
+                  children: const [
+                    Text("Darshan Bhuva"),
                     Text("Garden"),
                   ],
                 )
               ],
             ),
-            Card(
+            const Card(
               child: Text(
-                  "Hey, this is Aksh and, I have an idea by which we can improve out Garden in our society."),
+                  "Hi,I am Prushti. I have one idea to improve our society facilities."),
             ),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+
+                  child: IconButton(
+                    onPressed: () => print('clicked on list'),
+                    icon: const Icon(Icons.check_circle_outline),
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(5),
+                  ),
+                ),
+
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+                  child: IconButton(
+                    onPressed: () => print('clicked on list'),
+                    icon: const Icon(Icons.cancel_outlined),
+                    color: Colors.blue,
+
+                  ),
+                ),
+              ],
+            ),
+
+
+            const Divider(
+              thickness: 2,
+            ),
+            Row(
+              children: [
+                //TODO: Add an Image
+                Image.asset('2147.jpeg'),
+                // Text("Img"),
+                Column(
+                  children: const [
+                    Text("Darshan Bhuva"),
+                    Text("Parking"),
+                  ],
+                )
+              ],
+            ),
+            const Card(
+              child: Text(
+                  "Hi,I am Prushti. I have one idea to improve our society facilities."),
+            ),
+            Row(
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+
+                  child: IconButton(
+                    onPressed: () => print('clicked on list'),
+                    icon: const Icon(Icons.check_circle_outline),
+                    color: Colors.blue,
+                    padding: const EdgeInsets.all(5),
+                  ),
+                ),
+
+                CircleAvatar(
+                  backgroundColor: Colors.black38,
+                  child: IconButton(
+                    onPressed: () => print('clicked on list'),
+                    icon: const Icon(Icons.cancel_outlined),
+                    color: Colors.blue,
+
+                  ),
+                ),
+              ],
+            ),
+
+
+
           ],
         ),
+  ],
+      ),
       ),
     );
   }
