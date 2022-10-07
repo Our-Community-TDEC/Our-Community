@@ -23,12 +23,12 @@ class BasePage extends StatelessWidget {
                 children: [
                   ButtonTheme(
                     minWidth: 300,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ComplainPage())
-                        );
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ComplainPage()));
                       },
                       child: Text("Complain Page"),
                     ),
