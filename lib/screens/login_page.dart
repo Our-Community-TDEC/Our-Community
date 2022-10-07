@@ -73,22 +73,34 @@ class LogIn extends StatelessWidget with Login_Logic {
                 ),
               ),
 
-              SizedBox(
+              Container(
                 width: 400,
-                child: Row(
-                  mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                  children: [
-                    Icon(
-                      Icons.facebook,
-                      color:Colors.blue,
-                    ),
-                    Icon(
-                      Icons.apple,
-                      color:Colors.black,
-                      size: 35,
-                    ),
-                    Image.asset('assets/images/image 3.png',width: 30,),
-                  ],),
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                      width: 2.0,
+                      color: Colors.blue,
+                      style: BorderStyle.solid,
+                  ),
+                ),
+                child: SizedBox(
+                  width: 600,
+                  child: Row(
+                    mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset('assets/images/image 3.png',width: 30,),
+                      Icon(
+                        Icons.apple,
+                        color:Colors.black,
+                        size: 35,
+                      ), Icon(
+                        Icons.facebook,
+                        color:Colors.blue,
+                        size: 30,
+                      ),
+                    ],),
+                ),
               ),
             ],
           ),
