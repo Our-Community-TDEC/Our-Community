@@ -69,8 +69,9 @@ flutter:
   - assets/Images/Services/Plumber/image 73.png
   - assets/Images/Services/Plumber/image 76.png
   - assets/Images/Welcome/WelcomeImage.png
+  - assets/images/
 
-  # An image asset can refer to one or more resolution-specific "variants", see
+  # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
   # For details regarding adding assets from package dependencies, see
