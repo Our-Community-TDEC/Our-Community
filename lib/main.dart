@@ -1,4 +1,9 @@
+// import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'dart:developer';
+
+import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 
 void main() => runApp(MaterialApp(
@@ -17,17 +22,54 @@ class BasePage extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ButtonTheme(
-                  minWidth: 200,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EmergencyPage()),
-                      );
-                    },
-                    child: Text("Emergency Page"),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EmergencyPage()),
+                        );
+                      },
+                      child: Text("Emergency Page"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ComplainPage()),
+                        );
+                      },
+                      child: Text("Complains Page"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Plumber()),
+                        );
+                      },
+                      child: Text("Services(Plumber) Page"),
+                    ),
                   ),
                 ),
               ],
