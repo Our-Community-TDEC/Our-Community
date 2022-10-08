@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import '../logic/login_logic.dart';
 
 class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
+
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = new TextEditingController();
@@ -34,20 +37,20 @@ class LogIn extends StatelessWidget with Login_Logic {
                 controller: emailController,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.blue,
+                  fillColor: Colors.grey,
                   border: OutlineInputBorder(),
-                  labelText: 'name@example.com',
+                  labelText: 'example@gmail.com',
                   hintText: 'Enter E-Mail ID',
                 ),
               ),
-              Text("Username"),
+              Text("password"),
               TextField(
                 obscureText: true,
                 controller: passController,
                 decoration: InputDecoration(
                   suffixIcon: Icon(Icons.key),
                   filled: true,
-                  fillColor: Colors.red,
+                  fillColor: Colors.grey,
                   border: OutlineInputBorder(),
                   labelText: '..........',
                   hintText: 'Enter Password',
@@ -67,6 +70,44 @@ class LogIn extends StatelessWidget with Login_Logic {
                 // shape: RoundedRectangleBorder(
                 //   borderRadius: new BorderRadius.circular(45),
                 // ),
+              ),
+              Text(
+                "-----------< Or continue with >-----------",
+                style: TextStyle(color: Colors.white),
+              ),
+              Container(
+                width: 400,
+                height: 200,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  border: Border.all(
+                    width: 2.0,
+                    color: Colors.blue,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                child: SizedBox(
+                  width: 600,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        'assets/images/image 3.png',
+                        width: 30,
+                      ),
+                      Icon(
+                        Icons.apple,
+                        color: Colors.black,
+                        size: 35,
+                      ),
+                      Icon(
+                        Icons.facebook,
+                        color: Colors.blue,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
