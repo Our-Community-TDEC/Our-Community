@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_year_project/screens/login_page.dart';
-import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
-import 'package:final_year_project/screens/noticeboard_page.dart';
-import 'package:final_year_project/screens/other_complaints_page.dart';
 
 void main() => runApp(MaterialApp(
       home: BasePage(),
@@ -23,7 +19,7 @@ class BasePage extends StatelessWidget {
               children: [
                 ButtonTheme(
                   minWidth: 200,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     // onPressed: () {  },
                     onPressed: () {
                       Navigator.push(
@@ -32,44 +28,6 @@ class BasePage extends StatelessWidget {
                       );
                     },
                     child: Text("Welcome Page"),
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 200,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LogIn()),
-                      );
-                    },
-                    child: Text("LogIn Page"),
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 200,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => EmergencyPage()),
-                      );
-                    },
-                    child: Text("Emergency Page"),
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 200,
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Other_Complaints_Page()),
-                      );
-                    },
-                    child: Text("Other Complaints Page"),
                   ),
                 ),
               ],
