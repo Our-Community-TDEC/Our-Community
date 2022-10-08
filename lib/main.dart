@@ -1,10 +1,9 @@
-// import 'package:final_year_project/screens/Services/Plumber.dart';
-import 'dart:developer';
-
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
+import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/welcome_page.dart';
 
 void main() => runApp(MaterialApp(
       home: BasePage(),
@@ -22,6 +21,24 @@ class BasePage extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      // onPressed: () {  },
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WelcomePage()),
+                        );
+                      },
+                      child: Text("Welcome Page"),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: SizedBox(
