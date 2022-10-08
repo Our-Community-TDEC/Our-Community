@@ -43,7 +43,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                 ),
               ),
               Text("password"),
-
               TextField(
                 obscureText: true,
                 controller: passController,
@@ -62,7 +61,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                 onPressed: () {
                   signInButtonPressed(emailController.text, passController.text);
                 },
-                child: Text("Sign in",),
+                child:  Text("Sign in",),
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(45),
                 ),
