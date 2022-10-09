@@ -8,7 +8,9 @@ class HomePage extends StatelessWidget with HomePage_Logic {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Container(
+      ),
+      backgroundColor: Colors.grey,
     );
   }
 }
