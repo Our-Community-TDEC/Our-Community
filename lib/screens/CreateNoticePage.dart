@@ -63,6 +63,7 @@ class CreateNoticePage extends StatelessWidget {
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.white,
+              fontSize: 20,
             ),
           ),
           // TextField(),
@@ -85,6 +86,7 @@ class CreateNoticePage extends StatelessWidget {
             textAlign: TextAlign.left,
             style: TextStyle(
               color: Colors.white,
+              fontSize: 20,
             ),
           ),
           // TextField(),
@@ -104,46 +106,91 @@ class CreateNoticePage extends StatelessWidget {
               ),
             ),
           ),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Column(
                 children: [
-                  Text('Time'),
-                  // TextField(
-                  //   obscureText: true,
-                  //   decoration: InputDecoration(
-                  //     filled: true,
-                  //     fillColor: Colors.blue,
-                  //     border: OutlineInputBorder(),
-                  //     labelText: 'name@example.com',
-                  //     hintText: 'Enter E-Mail ID',
-                  //   ),
-                  // ),
+                  Text('Time',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  TextField(
+                    // obscureText: true,
+                    // cursorColor: Colors.black38,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.black38,
+                      border: OutlineInputBorder(),
+                      labelText: 'Notice Description',
+                      hintText: 'Enter Notice Description here',
+                      hintStyle: TextStyle(
+                          color: Colors.white),
+                      labelStyle: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
                 ],
               ),
               Column(
                 children: [
-                  Text('Date'),
+                  Text('Date',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
+                  ),
+                  TextField(
+                    // obscureText: true,
+                    // cursorColor: Colors.black38,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.black38,
+                      border: OutlineInputBorder(),
+                      labelText: 'Notice Description',
+                      hintText: 'Enter Notice Description here',
+                      hintStyle: TextStyle(
+                          color: Colors.white),
+                      labelStyle: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              // TextField(
-              //   obscureText: true,
-              //   decoration: InputDecoration(
-              //     filled: true,
-              //     fillColor: Colors.blue,
-              //     border: OutlineInputBorder(),
-              //     labelText: 'name@example.com',
-              //     hintText: 'Enter E-Mail ID',
-              //   ),
-              // ),
+              SizedBox(
+                // height: 50,
+                // width: 100,
+                child:ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    // fixedSize: const Size(300, 100),
+                      primary: Colors.blue, //background color of button
+                      shadowColor: Colors.blue,
+                      side: BorderSide(width:3, color:Colors.blue), //border width and color
+                      elevation: 3, //elevation of button
+                      shape: RoundedRectangleBorder( //to set border radius to button
+                          borderRadius: BorderRadius.circular(30)
+                      ),
+                      // minimumSize: Size(100, 40),
+                      padding: EdgeInsets.all(20) //  content padding inside button
+                  ),
+                  onPressed: (){
+                    //code to execute when this button is pressed.
+                    print('Clicked on button');
+                  },
+                  child: Text("Submit",
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ),
             ],
-          ),
-          ElevatedButton(
-              onPressed: (){},
-            child: Text(
-            'Submit'
-          ),
           ),
         ],
       ),
