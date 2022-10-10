@@ -8,7 +8,7 @@ class WelcomePage extends StatelessWidget {
     const double pad = 15;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    double hw_min = min(height, width) - pad;
+    double hw_min = min(height, width) - pad * 2;
     return Scaffold(
       backgroundColor: Colors.black87,
       body: Container(
