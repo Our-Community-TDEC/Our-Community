@@ -108,6 +108,19 @@ class SocietyDesignerPage extends StatelessWidget
               ),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                  width: width * 0.25,
+                  child:
+                      ElevatedButton(onPressed: () {}, child: Text("Cancle"))),
+              SizedBox(
+                  width: width * 0.25,
+                  child:
+                      ElevatedButton(onPressed: () {}, child: Text("Submit"))),
+            ],
+          ),
         ],
       ),
     );
