@@ -8,14 +8,30 @@ class SocietyDesignerPage extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        
+        child: Icon(Icons.arrow_back),
+      ),
       body: Column(
         children: [
-          Text("Manage Address"),
+          Text(
+            "Manage Address",
+            style: TextStyle(
+              fontSize: width * 0.075,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          Padding(padding: EdgeInsets.all(height * 0.025)),
           TextField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              hintText: 'Enter a search term',
+              hintText: 'Address',
             ),
           ),
           Row(
@@ -25,7 +41,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'Pin Code',
                   ),
                 ),
               ),
@@ -34,7 +50,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'City/Town',
                   ),
                 ),
               ),
@@ -47,7 +63,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'State',
                   ),
                 ),
               ),
@@ -56,7 +72,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'Landmark',
                   ),
                 ),
               ),
@@ -93,7 +109,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'Sector Number',
                   ),
                 ),
               ),
@@ -102,7 +118,7 @@ class SocietyDesignerPage extends StatelessWidget
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Enter a search term',
+                    hintText: 'House Number',
                   ),
                 ),
               ),
