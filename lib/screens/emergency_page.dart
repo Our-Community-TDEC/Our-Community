@@ -6,7 +6,7 @@ import 'package:final_year_project/logic/emergency_logic.dart';
 class EmergencyPage extends StatelessWidget with Emergency_Logic {
   late double Help_Button_Radius,
       Help_Buttons_Padding = 12.5,
-      Divider_Thickness = 2.5;
+      Divider_Thickness = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +14,13 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
             (MediaQuery.of(context).size.height)) /
         3;
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: Icon(Icons.arrow_back),
+      ),
       backgroundColor: Colors.grey[800],
       body: Container(
         //This contains the whole page
@@ -99,7 +106,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Electrical_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -137,7 +144,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Car_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -170,7 +177,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             ),
                           ),
                           onPressed: () {
-                            Medical_Emergency_Help();
+                            Fire_Emergency_Help();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
