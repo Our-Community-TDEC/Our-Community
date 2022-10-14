@@ -12,16 +12,15 @@ class HomePage extends StatelessWidget with HomePage_Logic {
       body: Container(
         height: 1000,
         width: 200,
-        decoration: const BoxDecoration(
-
-          boxShadow: [
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(50),
+          boxShadow: const [
             BoxShadow(
               color: Colors.grey,
               spreadRadius: 20,
               offset: Offset(0, 7),
               // changes position of shadow
             ),
-
           ],
         ),
       ),
