@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:final_year_project/utilities/lang.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    int lang = 1;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
@@ -22,19 +24,16 @@ class WelcomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Image.asset('assets/Images/Welcome/WelcomeImage.png'),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Welcome To Our Community",
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
+                Text(
+                  Lang.text("wcm", lang),
+                  style: TextStyle(
+                    fontSize: 35,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
                   ),
                 ),
-                const Text(
-                  "Let's Get Started",
+                Text(
+                  Lang.text("lgs", lang),
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
@@ -50,8 +49,8 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text(
-                    "Get Started",
+                  child: Text(
+                    Lang.text("gs", lang),
                     style: TextStyle(
                       fontSize: 26,
                       fontWeight: FontWeight.w500,
