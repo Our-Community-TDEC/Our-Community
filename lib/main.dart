@@ -1,3 +1,5 @@
+import 'package:final_year_project/theme/theme_constant.dart';
+import 'package:final_year_project/theme/theme_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/home_page.dart';
 
@@ -5,7 +7,10 @@ void main() => runApp(MaterialApp(
       home: BasePage(),
     ));
 
+ThemeManager _themeManager = ThemeManager();
+
 class BasePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

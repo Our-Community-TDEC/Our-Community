@@ -8,9 +8,24 @@ class HomePage extends StatelessWidget with HomePage_Logic {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
       body: Container(
+        height: 1000,
+        width: 200,
+        decoration: const BoxDecoration(
+
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              spreadRadius: 20,
+              offset: Offset(0, 7),
+              // changes position of shadow
+            ),
+
+          ],
+        ),
       ),
-      backgroundColor: Colors.grey,
+
     );
   }
 }
