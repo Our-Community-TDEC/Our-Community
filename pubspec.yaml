@@ -39,6 +39,17 @@ dependencies:
   fl_chart: ^0.55.0
   syncfusion_flutter_charts: ^20.2.39
 
+  # google signin
+  firebase_auth: ^3.11.2
+  google_sign_in: ^5.4.2
+
+  # state managemet
+  provider: ^6.0.4
+
+  # Google icon
+  font_awesome_flutter: ^10.2.1
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,13 +74,13 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-  - assets/Images/Services/Plumber/background.png
-  - assets/Images/Services/Plumber/image 71.png
-  - assets/Images/Services/Plumber/image 73.png
-  - assets/Images/Services/Plumber/image 76.png
-  - assets/Images/Welcome/WelcomeImage.png
-  - assets/images/
+assets:
+- assets/Images/Services/Plumber/background.png
+- assets/Images/Services/Plumber/image 71.png
+- assets/Images/Services/Plumber/image 73.png
+- assets/Images/Services/Plumber/image 76.png
+- assets/Images/Welcome/WelcomeImage.png
+- assets/images/
 
   # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
