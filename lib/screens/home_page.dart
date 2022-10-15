@@ -7,8 +7,10 @@ class HomePage extends StatelessWidget with HomePage_Logic {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Color(0xFF2E2F36),
       body: Container(
         height: 1000,
         width: 200,
@@ -16,8 +18,8 @@ class HomePage extends StatelessWidget with HomePage_Logic {
           borderRadius: BorderRadius.circular(50),
           boxShadow: const [
             BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 20,
+              color: Color(0xFF2C2D31),
+              spreadRadius: 15,
               offset: Offset(0, 7),
               // changes position of shadow
             ),
@@ -33,8 +35,7 @@ class HomePage extends StatelessWidget with HomePage_Logic {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
 
-
-            Text("Maintenance",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+            Text("Maintenance",style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,)),
             Text("New Suggestion",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text("Complaint",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text("Notice",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
@@ -44,10 +45,12 @@ class HomePage extends StatelessWidget with HomePage_Logic {
             Text("Help",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text("Feedback",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text('logout',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-
+            Text('Theme',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
           ],),
-          ),
-      );
 
+          ),
+
+      );
 }
 }
+
