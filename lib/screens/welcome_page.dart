@@ -5,7 +5,7 @@ class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    int lang = 0;
+    int lang = 1;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
