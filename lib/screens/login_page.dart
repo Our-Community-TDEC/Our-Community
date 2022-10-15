@@ -2,7 +2,9 @@
 
 import 'dart:ffi';
 
+import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
 
 class LogIn extends StatelessWidget with Login_Logic {
@@ -28,10 +30,12 @@ class LogIn extends StatelessWidget with Login_Logic {
           margin: EdgeInsets.all(25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Image(
-                image: AssetImage('assets/images/Trees.png'),
-              ),
+            children: [
+              SizedBox(
+                  width: 200,
+                  child: Image(
+                    image: AssetImage('assets/Images/Welcome/WelcomeImage.png'),
+                  )),
               Text("Username"),
               TextField(
                 controller: emailController,
@@ -61,11 +65,25 @@ class LogIn extends StatelessWidget with Login_Logic {
               ),
               ElevatedButton(
                 onPressed: () {
-                  signInButtonPressed(
-                      emailController.text, passController.text);
+                  final prov =
+                      Provider.of<GoogleSignInProviderss>(context, listen: false);
+                  prov.googleLogIn();
                 },
                 child: Text(
                   "Sign in",
+                ),
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: new BorderRadius.circular(45),
+                // ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  final prov =
+                      Provider.of<GoogleSignInProviderss>(context, listen: false);
+                  prov.googleSignOut();
+                },
+                child: Text(
+                  "Sign out",
                 ),
                 // shape: RoundedRectangleBorder(
                 //   borderRadius: new BorderRadius.circular(45),
@@ -91,10 +109,10 @@ class LogIn extends StatelessWidget with Login_Logic {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        'assets/images/image 3.png',
-                        width: 30,
-                      ),
+                      // Image.asset(
+                      //   'assets/images/image 3.png',
+                      //   width: 30,
+                      // ),
                       Icon(
                         Icons.apple,
                         color: Colors.black,
