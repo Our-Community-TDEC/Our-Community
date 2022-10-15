@@ -23,8 +23,31 @@ class HomePage extends StatelessWidget with HomePage_Logic {
             ),
           ],
         ),
-      ),
+      /*   child:const CircleAvatar(
+                backgroundImage: NetworkImage('',
+                child: Icon(Icons.add)),
+                radius: 1.0
+              
+            ), */
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: const [
 
-    );
-  }
+
+            Text("Maintenance",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold)),
+            Text("New Suggestion",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Complaint",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Notice",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Voting",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Services",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Setting",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Help",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text("Feedback",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+            Text('logout',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+
+          ],),
+          ),
+      );
+
+}
 }
