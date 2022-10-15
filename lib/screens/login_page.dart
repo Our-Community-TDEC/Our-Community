@@ -73,7 +73,7 @@ class LogIn extends StatelessWidget with Login_Logic {
               ),
               Text(
                 "-----------< Or continue with >-----------",
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white)
               ),
               Container(
                 width: 400,
