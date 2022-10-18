@@ -3,19 +3,26 @@
 import 'dart:ffi';
 
 import 'package:final_year_project/provider/googlesignin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
 
 class LogIn extends StatelessWidget with Login_Logic {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
 
   @override
-  Widget build(BuildContext context) {
-    TextEditingController emailController = new TextEditingController();
-    TextEditingController passController = new TextEditingController();
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    dispose();
+    // super.dispose();
+  }
 
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -50,7 +57,7 @@ class LogIn extends StatelessWidget with Login_Logic {
               Text("password"),
               TextField(
                 obscureText: true,
-                controller: passController,
+                controller: passwordController,
                 decoration: InputDecoration(
                   suffixIcon: Icon(Icons.key),
                   filled: true,
@@ -65,21 +72,19 @@ class LogIn extends StatelessWidget with Login_Logic {
               ),
               ElevatedButton(
                 onPressed: () {
-                  final prov =
-                      Provider.of<GoogleSignInProviderss>(context, listen: false);
+                  final prov = Provider.of<GoogleSignInProviderss>(context,
+                      listen: false);
                   prov.googleLogIn();
                 },
                 child: Text(
                   "Sign in",
                 ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: new BorderRadius.circular(45),
-                // ),
+                
               ),
               ElevatedButton(
                 onPressed: () {
-                  final prov =
-                      Provider.of<GoogleSignInProviderss>(context, listen: false);
+                  final prov = Provider.of<GoogleSignInProviderss>(context,
+                      listen: false);
                   prov.googleSignOut();
                 },
                 child: Text(
@@ -88,6 +93,17 @@ class LogIn extends StatelessWidget with Login_Logic {
                 // shape: RoundedRectangleBorder(
                 //   borderRadius: new BorderRadius.circular(45),
                 // ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
+                },
+                child: Text(
+                  "Log in",
+                ),
               ),
               Text(
                 "-----------< Or continue with >-----------",
