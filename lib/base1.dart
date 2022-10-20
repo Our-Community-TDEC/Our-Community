@@ -4,10 +4,12 @@ import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class base1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(25),
@@ -39,9 +41,9 @@ class base1 extends StatelessWidget {
                     width: 200,
                     height: 30,
                     child: ElevatedButton(
-                      // onPressed: () {  },  
+                      // onPressed: () {  },
                       onPressed: () {
-                        Navigator.push( 
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => WelcomePage()),
@@ -101,6 +103,18 @@ class base1 extends StatelessWidget {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () => FirebaseAuth.instance.signOut(),
+                      child: Text("Log out"),
+                    ),
+                  ),
+                ),
+                Text(user.email!)
               ],
             ),
           ],
