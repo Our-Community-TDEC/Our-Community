@@ -1,4 +1,8 @@
+import 'package:final_year_project/base1.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -8,11 +12,14 @@ class WelcomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LogIn()),
+          );
         },
         child: Icon(Icons.arrow_back),
       ),
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.all(15),
         child: Row(
@@ -49,7 +56,12 @@ class WelcomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogIn()),
+                    );
+                  },
                   child: const Text(
                     "Get Started",
                     style: TextStyle(

@@ -2,6 +2,7 @@
 
 import 'dart:ffi';
 
+import 'package:final_year_project/base1.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,10 @@ class LogIn extends StatelessWidget with Login_Logic {
             children: [
               SizedBox(
                   width: 200,
-                  child: Image(
-                    image: AssetImage('assets/Images/Welcome/WelcomeImage.png'),
-                  )),
+                  // child: Image(
+                  //   image: AssetImage('assets/Images/Welcome/WelcomeImage.png'),
+                  // )
+                  ),
               Text("Username"),
               TextField(
                 controller: emailController,
@@ -75,11 +77,15 @@ class LogIn extends StatelessWidget with Login_Logic {
                   final prov = Provider.of<GoogleSignInProviderss>(context,
                       listen: false);
                   prov.googleLogIn();
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => base1()),
+                  );
                 },
                 child: Text(
                   "Sign in",
                 ),
-                
               ),
               ElevatedButton(
                 onPressed: () {
@@ -109,44 +115,49 @@ class LogIn extends StatelessWidget with Login_Logic {
                 "-----------< Or continue with >-----------",
                 style: TextStyle(color: Colors.white),
               ),
-              Container(
-                width: 400,
-                height: 200,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    width: 2.0,
-                    color: Colors.blue,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-                child: SizedBox(
-                  width: 600,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Image.asset(
-                      //   'assets/images/image 3.png',
-                      //   width: 30,
-                      // ),
-                      Icon(
-                        Icons.apple,
-                        color: Colors.black,
-                        size: 35,
-                      ),
-                      Icon(
-                        Icons.facebook,
-                        color: Colors.blue,
-                        size: 30,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              // Container(
+              //   width: 400,
+              //   height: 200,
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(100),
+              //     border: Border.all(
+              //       width: 2.0,
+              //       color: Colors.blue,
+              //       style: BorderStyle.solid,
+              //     ),
+              //   ),
+              //   child: SizedBox(
+              //     width: 600,
+              //     child: Row(
+              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //       children: [
+              //         // Image.asset(
+              //         //   'assets/images/image 3.png',
+              //         //   width: 30,
+              //         // ),
+              //         Icon(
+              //           Icons.apple,
+              //           color: Colors.black,
+              //           size: 35,
+              //         ),
+              //         Icon(
+              //           Icons.facebook,
+              //           color: Colors.blue,
+              //           size: 30,
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
       ),
     );
+
+  Future SignIn() async {
+    
+  }
+
   }
 }

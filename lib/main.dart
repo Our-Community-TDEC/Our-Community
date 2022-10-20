@@ -12,6 +12,7 @@ import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MultiProvider(
     providers: [
@@ -22,7 +23,6 @@ Future<void> main() async {
       home: BasePage(),
     ),
   ));
-  // runApp(base1());
 }
 
 class BasePage extends StatelessWidget {
@@ -33,7 +33,7 @@ class BasePage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return WelcomePage();
+            return base1();
           } else {
             return LogIn();
           }
