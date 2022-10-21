@@ -1,4 +1,5 @@
 import 'package:final_year_project/base1.dart';
+import 'package:final_year_project/logic/login_logic.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,11 @@ class BasePage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Something went wrong"));
+          } else if (snapshot.hasData) {
             return base1();
           } else {
             return LogIn();
