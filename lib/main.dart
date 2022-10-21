@@ -6,7 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 
+// void main() => runApp(MaterialApp(
+//       locale: Locale('es', ''),
+//       home: BasePage(),
+//       title: 'Flutter Demo',
+//     ));
+
 void main() => runApp(MaterialApp(
+      title: 'Localizations Sample App',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('en', ''), // English, no country code
+        Locale('es', ''), // Spanish, no country code
+      ],
       home: BasePage(),
     ));
 
