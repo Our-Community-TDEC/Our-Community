@@ -2,7 +2,6 @@ import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
-import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 
@@ -14,11 +13,11 @@ import 'package:final_year_project/screens/login_page.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Localizations Sample App',
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+      // localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      // ],
       supportedLocales: [
         Locale('en', ''), // English, no country code
         Locale('es', ''), // Spanish, no country code
