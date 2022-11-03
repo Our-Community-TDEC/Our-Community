@@ -1,3 +1,5 @@
+import 'package:final_year_project/screens/CreateNoticePage.dart';
+import 'package:final_year_project/screens/NoticeBoard_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/complain_page.dart';
@@ -7,7 +9,7 @@ import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 
 void main() => runApp(MaterialApp(
-      home: BasePage(),
+      home: Notice_Board_Page(),
     ));
 
 class BasePage extends StatelessWidget {

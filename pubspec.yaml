@@ -29,7 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  table_calendar: ^3.0.7
+  syncfusion_flutter_calendar: ^20.2.50
+  syncfusion_flutter_core: ^20.2.50
 
 
   # The following adds the Cupertino Icons font to your application.
