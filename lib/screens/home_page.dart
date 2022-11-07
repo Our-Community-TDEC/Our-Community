@@ -34,7 +34,6 @@ class HomePage extends StatelessWidget with HomePage_Logic {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: const [
-
             Text("Maintenance",style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold,)),
             Text("New Suggestion",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text("Complaint",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
@@ -47,9 +46,7 @@ class HomePage extends StatelessWidget with HomePage_Logic {
             Text('logout',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
             Text('Theme',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
           ],),
-
           ),
-
       );
 }
 }
