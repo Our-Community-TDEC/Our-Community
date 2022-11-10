@@ -8,16 +8,13 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey[800],
-        body: Container(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: Column(
           children: [
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.black38,
@@ -32,107 +29,107 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 400,
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Other Complaint",
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            )),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                        child: Text(
+                          "Other Complaint",
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
                       )
                     ],
                   ),
                 ),
-              ],
-            ),
-            Divider(
-              thickness: 2.5,
-              color: Colors.black,
-              indent: 10,
-              endIndent: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
-                  child: Text(
-                    "Title",
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(
+                    thickness: 5,
+                    indent: 12,
+                    endIndent: 12,
+                    color: Colors.black,
                   ),
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-              child: SizedBox(
-                width: 450,
-                // height: 300,
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: "Complain title",
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(borderSide: BorderSide.none)),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
-                  child: Text(
-                    "Write short discription",
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              // height: 200,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: TextField(
-                  decoration: InputDecoration(
-                      labelText: "Enter Your Concern Here!!!",
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                      )),
-                ),
-              ),
-              width: 450,
-            ),
-            SizedBox(
-              width: 341,
-              height: 78,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(44.0),
+                Column(
+                  children: [
+                    Container(
+                      child: SizedBox(
+                        width: 380,
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "Title",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white),
+                        ),
+                      ),
                     ),
-                  ),
-                  child: Text(
-                    "Raise Complain",
-                    style: TextStyle(fontSize: 26),
-                  ),
+                    SizedBox(
+                      width: 380,
+                      // height: 300,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: "Complain title",
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: SizedBox(
+                        width: 380,
+                        child: Text(
+                          textAlign: TextAlign.start,
+                          "Write Short Description",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 380,
+                      // height: 300,
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: "Enter Your concern Here!!!",
+                            filled: true,
+                            fillColor: Colors.grey[200],
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 341,
+                      height: 78,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: new RoundedRectangleBorder(
+                              borderRadius: new BorderRadius.circular(44.0),
+                            ),
+                          ),
+                          child: Text(
+                            "Raise Complain",
+                            style: TextStyle(fontSize: 26),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
+              ],
             ),
           ],
-        )));
+        ));
   }
 }
