@@ -1,6 +1,3 @@
-import 'package:final_year_project/base1.dart';
-import 'package:final_year_project/main.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
@@ -13,10 +10,7 @@ class WelcomePage extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => LogIn()),
-          );
+          Navigator.pop(context);
         },
         child: Icon(Icons.arrow_back),
       ),
@@ -76,7 +70,6 @@ class WelcomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        
                       ],
                     ),
                   ),
@@ -85,27 +78,27 @@ class WelcomePage extends StatelessWidget {
                   width: 259,
                   height: 78,
                   child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.grey[600],
-                            elevation: 20,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(44),
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => LogIn()),
-                            );
-                          },
-                          child: const Text(
-                            "Get Started",
-                            style: TextStyle(
-                              fontSize: 26,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
+                    style: ElevatedButton.styleFrom(
+                      shadowColor: Colors.grey[600],
+                      elevation: 20,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(44),
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LogIn()),
+                      );
+                    },
+                    child: const Text(
+                      "Get Started",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
