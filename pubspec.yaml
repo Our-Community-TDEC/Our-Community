@@ -68,6 +68,18 @@ flutter:
     - assets/Images/Services/Plumber/image 71.png
     - assets/Images/Services/Plumber/image 73.png
     - assets/Images/Services/Plumber/image 76.png
+    - assets/Images/Services/Doctor/Doc_ser.png
+    - assets/Images/Services/Doctor/ste.png
+    - assets/Images/Services/Doctor/injection.png
+    - assets/Images/Services/Doctor/1st_aid.png
+    - assets/Images/Services/Clean/clean.png
+    - assets/Images/Services/Clean/vacume.png
+    - assets/Images/Services/Clean/vacume_1.png
+    - assets/Images/Services/Clean/bright.png
+    - assets/Images/Services/electric/ele_1.png
+    - assets/Images/Services/electric/ele_2.png
+    - assets/Images/Services/electric/ele_3.png
+    - assets/Images/Services/electric/ele_4.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

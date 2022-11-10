@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../logic/services/plumber/PLumber_logic.dart';
 
-class Plumber extends StatelessWidget with Plumber_logic {
+class Electronic extends StatelessWidget with Plumber_logic {
+  const Electronic({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,13 +12,13 @@ class Plumber extends StatelessWidget with Plumber_logic {
       body: Container(
         child: Column(children: [
           Row(children: [
-            Image.asset('assets/Images/Services/Plumber/background.png'),
+            Image.asset('assets/Images/Services/electric/ele_1.png'),
           ]),
           Row(children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Select Services",
                   style: TextStyle(
                     color: Colors.white,
@@ -32,7 +34,7 @@ class Plumber extends StatelessWidget with Plumber_logic {
                           Drainage();
                         }),
                         style: ElevatedButton.styleFrom(
-                            primary: Color((0xffb4D4E54))),
+                            primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
                           width: 60,
                           height: 106,
@@ -40,14 +42,13 @@ class Plumber extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Plumber/image 71.png',
+                                'assets/Images/Services/electric/ele_2.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
-                                children: [
-                                  Text("Drainage"),
-                                  Text("System"),
+                                children: const [
+                                  Text("Electric"),
                                 ],
                               )
                             ],
@@ -59,7 +60,7 @@ class Plumber extends StatelessWidget with Plumber_logic {
                           Repair();
                         }),
                         style: ElevatedButton.styleFrom(
-                            primary: Color((0xffb4D4E54))),
+                            primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
                           width: 60,
                           height: 106,
@@ -67,14 +68,14 @@ class Plumber extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Plumber/image 73.png',
+                                'assets/Images/Services/electric/ele_3.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
-                                children: [
-                                  Text("Repair"),
-                                  Text("Pipe"),
+                                children: const [
+                                  Text("Telecoms "),
+                                  Text("broadcasting "),
                                 ],
                               )
                             ],
@@ -86,7 +87,7 @@ class Plumber extends StatelessWidget with Plumber_logic {
                           Fitting();
                         }),
                         style: ElevatedButton.styleFrom(
-                            primary: Color((0xffb4D4E54))),
+                            primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
                           width: 60,
                           height: 106,
@@ -94,14 +95,14 @@ class Plumber extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Plumber/image 76.png',
+                                'assets/Images/Services/electric/ele_4.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
-                                children: [
-                                  Text("Fitting"),
-                                  Text("Pipe"),
+                                children: const [
+                                  Text("Physical"),
+                                  Text("goods"),
                                 ],
                               )
                             ],
@@ -112,9 +113,9 @@ class Plumber extends StatelessWidget with Plumber_logic {
                   ),
                 ),
                 Row(
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: Text(
                         "Data",
                         style: TextStyle(
