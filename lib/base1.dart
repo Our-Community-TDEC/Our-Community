@@ -99,7 +99,7 @@ class base1 extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Plumber()),
                         );
                       },
-                      child: Text("Services(Plumber) Page"),
+                      child: Text("service(Plumber) Page"),
                     ),
                   ),
                 ),

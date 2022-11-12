@@ -116,12 +116,12 @@ class LogIn extends StatelessWidget with Login_Logic {
                       primary: Colors.transparent,
                     ),
                     onPressed: () async {
-                      // showDialog(
-                      //   context: context,
-                      //   barrierDismissible: false,
-                      //   builder: (context) =>
-                      //       Center(child: CircularProgressIndicator()),
-                      // );
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: emailController.text.trim(),
