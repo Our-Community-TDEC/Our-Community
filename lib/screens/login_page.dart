@@ -1,8 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:ffi';
-
-import 'package:final_year_project/base1.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
