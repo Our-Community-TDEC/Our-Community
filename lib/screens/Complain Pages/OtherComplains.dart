@@ -1,11 +1,29 @@
-import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/OtherComplaints_logic.dart';
 
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   @override
   Widget build(BuildContext context) {
+    TextEditingController complaint_title = TextEditingController();
+    TextEditingController complaint_description = TextEditingController();
+    String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
+    void add_data() async {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      String title = complaint_title.text.trim();
+      String description = complaint_description.text.trim();
+
+      complaint_description.clear();
+      complaint_title.clear();
+
+      if (title != '' && description != '') {
+        firestore.collection('complaint').doc().set(
+            {"title": title, "descriptoin": description, "time": datetime});
+      }
+    }
+
     return Scaffold(
         backgroundColor: Colors.grey[800],
         body: Column(
@@ -60,9 +78,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           textAlign: TextAlign.start,
                           "Title",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.white),
                         ),
                       ),
                     ),
@@ -70,6 +88,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       width: 380,
                       // height: 300,
                       child: TextField(
+                        controller: complaint_title,
                         decoration: InputDecoration(
                             labelText: "Complain title",
                             filled: true,
@@ -96,6 +115,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       width: 380,
                       // height: 300,
                       child: TextField(
+                        controller: complaint_description,
                         decoration: InputDecoration(
                             labelText: "Enter Your concern Here!!!",
                             filled: true,
@@ -111,7 +131,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            add_data();
                           },
                           style: ElevatedButton.styleFrom(
                             shape: new RoundedRectangleBorder(

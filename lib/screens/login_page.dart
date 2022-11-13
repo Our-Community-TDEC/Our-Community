@@ -1,8 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:ffi';
-
-import 'package:final_year_project/base1.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -116,12 +111,11 @@ class LogIn extends StatelessWidget with Login_Logic {
                       primary: Colors.transparent,
                     ),
                     onPressed: () async {
-                      // showDialog(
-                      //   context: context,
-                      //   barrierDismissible: false,
-                      //   builder: (context) =>
-                      //       Center(child: CircularProgressIndicator()),
-                      // );
+                      showDialog(
+                        context: context,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: emailController.text.trim(),
@@ -130,6 +124,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
+                      Navigator.of(context).pop();
                     },
                     child: Text(
                       "Log in",
@@ -154,10 +149,16 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 primary: Colors.transparent,
                               ),
                               onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                      child: CircularProgressIndicator()),
+                                );
                                 final prov =
                                     Provider.of<GoogleSignInProviderss>(context,
                                         listen: false);
                                 prov.googleLogIn();
+                                Navigator.of(context).pop();
                               },
                               child: Image(
                                 image: AssetImage(
