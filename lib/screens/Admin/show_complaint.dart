@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class show_complaint extends StatelessWidget {
@@ -49,13 +50,14 @@ class show_complaint extends StatelessWidget {
 
     //   await firestore.collection("Complaint").doc("2").delete();
     // }
+    final user = FirebaseAuth.instance.currentUser!;
+
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
         body: Column(
       children: [
-        SizedBox(),
         StreamBuilder<QuerySnapshot>(
-          stream: firestore.collection('Complaint').snapshots(),
+          stream: firestore.collection('complaint').orderBy('time' ,descending: true).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData && snapshot.data != null) {
@@ -63,12 +65,25 @@ class show_complaint extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      Map<String, dynamic> complaint =
+                      Map<String, dynamic> show_complaint =
                           snapshot.data!.docs[index].data()
                               as Map<String, dynamic>;
                       return ListTile(
-                        title: Text(complaint["title"]),
-                        subtitle: Text(complaint["description"]),
+                        // title: Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       Text(user.email!), 
+                        //       Text(show_complaint["title"]),
+                        //       Text(show_complaint["descriptoin"]),
+                        //     ]),
+                        title: Text(show_complaint["title"] + show_complaint["time"]),
+                        subtitle: Text(show_complaint["descriptoin"]),
+                        trailing: IconButton(
+                          onPressed: () {
+                            firestore.collection("complaint").doc(snapshot.data!.docs[index].reference.id.toString()).delete();
+                          },
+                          icon: Icon(Icons.delete),
+                        ),
                       );
                     },
                   ),
@@ -82,7 +97,7 @@ class show_complaint extends StatelessWidget {
               );
             }
           },
-        )
+        ),
       ],
     ));
   }

@@ -111,12 +111,11 @@ class LogIn extends StatelessWidget with Login_Logic {
                       primary: Colors.transparent,
                     ),
                     onPressed: () async {
-                      // showDialog(
-                      //   context: context,
-                      //   barrierDismissible: false,
-                      //   builder: (context) =>
-                      //       Center(child: CircularProgressIndicator()),
-                      // );
+                      showDialog(
+                        context: context,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
                           email: emailController.text.trim(),
@@ -125,6 +124,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
+                      Navigator.of(context).pop();
                     },
                     child: Text(
                       "Log in",
@@ -149,10 +149,16 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 primary: Colors.transparent,
                               ),
                               onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                      child: CircularProgressIndicator()),
+                                );
                                 final prov =
                                     Provider.of<GoogleSignInProviderss>(context,
                                         listen: false);
                                 prov.googleLogIn();
+                                Navigator.of(context).pop();
                               },
                               child: Image(
                                 image: AssetImage(

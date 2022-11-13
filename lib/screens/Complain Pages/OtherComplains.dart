@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/OtherComplaints_logic.dart';
 
@@ -7,6 +8,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   Widget build(BuildContext context) {
     TextEditingController complaint_title = TextEditingController();
     TextEditingController complaint_description = TextEditingController();
+    String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
     void add_data() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -16,8 +18,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       complaint_description.clear();
       complaint_title.clear();
 
-      if (title != '' && description != '' ) {
-        firestore.collection('Complaint').doc('1').set({"title": title, "descriptoin": description}); 
+      if (title != '' && description != '') {
+        firestore.collection('complaint').doc().set(
+            {"title": title, "descriptoin": description, "time": datetime});
       }
     }
 
