@@ -1,4 +1,5 @@
 import 'package:final_year_project/base1.dart';
+import 'package:final_year_project/screens/home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ Future<void> main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<GoogleSignInProviderss>(
-        create: (context) => GoogleSignInProviderss())
+          create: (context) => GoogleSignInProviderss())
     ],
     child: MaterialApp(
       home: BasePage(),
@@ -29,7 +30,7 @@ class BasePage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return base1();
+            return HomePage();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
