@@ -32,6 +32,8 @@ dependencies:
   table_calendar: ^3.0.7
   flutter_localizations:
     sdk: flutter
+  firebase_core: ^2.1.1
+  firebase_auth: ^4.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -42,6 +44,16 @@ dependencies:
   syncfusion_flutter_charts: ^20.2.39
   localization: ^2.1.0
   intl: ^0.17.0
+  syncfusion_flutter_calendar: ^20.3.56
+
+  # google signin
+  google_sign_in: ^5.4.2
+
+  # state managemet
+  provider: ^6.0.4
+
+  # Google icon
+  font_awesome_flutter: ^10.2.1
 
 dev_dependencies:
   flutter_test:
@@ -68,12 +80,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/Images/Services/Plumber/background.png
-  - assets/Images/Services/Plumber/image 71.png
-  - assets/Images/Services/Plumber/image 73.png
-  - assets/Images/Services/Plumber/image 76.png
-  - assets/Images/Welcome/WelcomeImage.png
-  - assets/images/
+  - assets/Images/Services/Plumber/
+  - assets/Images/Services/Plumber/
+  - assets/Images/Services/Plumber/
+  - assets/Images/Services/Plumber/
+  - assets/Images/Welcome/
+  - assets/Images/Login/
 
   # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

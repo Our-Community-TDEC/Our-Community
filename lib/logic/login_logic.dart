@@ -1,6 +1,10 @@
 // ignore_for_file: avoid_print
 
 class Login_Logic {
+  void google_button_clicked() {
+    print("Pandu");
+  }
+
   void signInButtonPressed(String email, String pass) {
     print("MailID: $email");
     print("Passwd: $pass");
