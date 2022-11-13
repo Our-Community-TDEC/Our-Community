@@ -1,3 +1,4 @@
+import 'package:final_year_project/screens/Admin/show_complaint.dart';
 import 'package:final_year_project/screens/Complain%20Pages/complain_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
@@ -100,6 +101,22 @@ class base1 extends StatelessWidget {
                         );
                       },
                       child: Text("service(Plumber) Page"),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 200,
+                    height: 30,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => show_complaint()),
+                        );
+                      },
+                      child: Text("Admin Complaint show"),
                     ),
                   ),
                 ),

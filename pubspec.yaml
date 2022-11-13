@@ -45,15 +45,13 @@ dependencies:
   localization: ^2.1.0
   intl: ^0.17.0
   syncfusion_flutter_calendar: ^20.3.56
-
   # google signin
+  firebase_auth: ^3.11.2
   google_sign_in: ^5.4.2
-
-  # state managemet
   provider: ^6.0.4
-
-  # Google icon
   font_awesome_flutter: ^10.2.1
+  firebase_core: ^1.24.0
+  cloud_firestore: ^3.5.1
 
 dev_dependencies:
   flutter_test:
