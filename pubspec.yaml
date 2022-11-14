@@ -30,10 +30,8 @@ dependencies:
   flutter:
     sdk: flutter
   table_calendar: ^3.0.7
-  flutter_localizations:
-    sdk: flutter
-  firebase_core: ^2.1.1
-  firebase_auth: ^4.1.1
+  firebase_core: ^2.2.0
+  firebase_auth: ^4.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -45,7 +43,6 @@ dependencies:
   localization: ^2.1.0
   intl: ^0.17.0
   syncfusion_flutter_calendar: ^20.3.56
-  # google signin
   google_sign_in: ^5.4.2
   provider: ^6.0.4
   font_awesome_flutter: ^10.2.1
