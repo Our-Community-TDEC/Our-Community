@@ -1,4 +1,6 @@
+import 'package:final_year_project/main.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
+import 'package:final_year_project/screens/Maintanance/Pay_maintanance.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +127,10 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
-                      Navigator.of(context).pop();
+                      Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BasePage()),
+                );
                     },
                     child: Text(
                       "Log in",

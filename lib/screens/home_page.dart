@@ -1,11 +1,14 @@
 import 'dart:math';
 import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
+
+import 'Maintanance/Pay_maintanance.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -69,6 +72,20 @@ class HomePage extends StatelessWidget {
               ),
               onTap: () {},
             ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Maintenance"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Pay_maintenance()),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -87,12 +104,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LogIn()),
-                  );
-                },
+                onPressed: () => FirebaseAuth.instance.signOut(),
                 child: Text(
                   "Logout",
                   style: TextStyle(

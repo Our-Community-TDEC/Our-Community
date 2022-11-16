@@ -25,7 +25,9 @@ dependencies:
   google_sign_in: ^5.4.2
   provider: ^6.0.4
   font_awesome_flutter: ^10.2.1
-  cloud_firestore: ^3.5.1
+  cloud_firestore: ^4.0.5
+  pay: ^1.0.11
+  upi_india: ^3.0.1
 
 dev_dependencies:
   flutter_test:
@@ -34,5 +36,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
   assets:
-  - assets/
+    - assets/Images/
+    - assets/Images/Services/Plumber/image 71.png
+    - assets/Images/Services/Plumber/image 73.png
+    - assets/Images/Services/Plumber/image 76.png
+    - assets/Images/Services/Plumber/background.png
+    - assets/gpay.json
