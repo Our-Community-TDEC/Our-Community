@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/emergency_logic.dart';
 
@@ -8,6 +7,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
       Help_Buttons_Padding = 12.5,
       Divider_Thickness = 2;
 
+  
   @override
   Widget build(BuildContext context) {
     Help_Button_Radius = min((MediaQuery.of(context).size.width),
@@ -74,6 +74,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                           ),
                           onPressed: () {
                             Medical_Emergency_Help();
+                            shownotification();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(

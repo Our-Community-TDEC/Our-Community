@@ -19,8 +19,16 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       complaint_title.clear();
 
       if (title != '' && description != '') {
-        firestore.collection('complaint').doc().set(
-            {"title": title, "descriptoin": description, "time": datetime});
+        firestore.collection('complaint').doc().set({
+          "title": title,
+          "descriptoin": description,
+          "time": datetime
+        }).then((result) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Data Added Successfully"),
+            backgroundColor: Colors.blue,
+          ));
+        });
       }
     }
 
@@ -90,11 +98,11 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       child: TextField(
                         controller: complaint_title,
                         decoration: InputDecoration(
-                            labelText: "Complain title",
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none)),
+                          labelText: "Complain title",
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(),
+                        ),
                       ),
                     ),
                     Padding(
@@ -129,7 +137,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       height: 78,
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                        child: ElevatedButton(
+                        child: ElevatedButton(  
                           onPressed: () {
                             add_data();
                           },

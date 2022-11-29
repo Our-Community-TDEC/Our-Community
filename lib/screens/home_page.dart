@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:final_year_project/razer_pay.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,8 @@ class HomePage extends StatelessWidget {
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.45;
-    String email = "aksh.d.4002@gmail.com";
+    final user = FirebaseAuth.instance.currentUser!;
+    String email = user.email!;
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
@@ -83,6 +85,20 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Pay_maintenance()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Razer"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => razer_pay()),
                 );
               },
             ),

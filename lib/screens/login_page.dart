@@ -128,9 +128,9 @@ class LogIn extends StatelessWidget with Login_Logic {
                         print(e);
                       }
                       Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BasePage()),
-                );
+                        context,
+                        MaterialPageRoute(builder: (context) => BasePage()),
+                      );
                     },
                     child: Text(
                       "Log in",
@@ -162,9 +162,13 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 );
                                 final prov =
                                     Provider.of<GoogleSignInProviderss>(context,
-                                        listen: false);
+                                      listen: false);
                                 prov.googleLogIn();
-                                Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BasePage()),
+                                );
                               },
                               child: Image(
                                 image: AssetImage(

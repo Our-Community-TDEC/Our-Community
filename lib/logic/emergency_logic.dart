@@ -1,7 +1,25 @@
+import 'package:final_year_project/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
 class Emergency_Logic {
   Medical_Emergency_Help() {
     print(
         "emergency_logic.Medical_Emergency_Help: Medical Help Button was clicked.");
+  }
+
+  void shownotification() async {
+    AndroidNotificationDetails andr_details = AndroidNotificationDetails(
+        "channelId", "channelName",
+        enableVibration: true,
+        priority: Priority.max,
+        importance: Importance.max);
+    DarwinNotificationDetails ios_details = DarwinNotificationDetails(
+        presentAlert: true, presentBadge: true, presentSound: true);
+
+    NotificationDetails notidetail =
+        NotificationDetails(android: andr_details, iOS: ios_details);
+
+    await notification.show(1, "title", "body", notidetail);
   }
 
   Electrical_Emergency_Help() {
