@@ -135,7 +135,13 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => FirebaseAuth.instance.signOut(),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) =>  LogIn()),
+  );
+                },
                 child: Text(
                   "Logout",
                   style: TextStyle(
