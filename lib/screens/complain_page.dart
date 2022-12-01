@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/complain_logic.dart';
 import 'package:final_year_project/screens/Complain Pages/OtherComplains.dart';
@@ -27,7 +25,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                               child: IconButton(
-                                onPressed: () => {},
+                                onPressed: () => {Navigator.pop(context)},
                                 icon: Icon(
                                   Icons.arrow_back_ios,
                                   color: Color.fromARGB(255, 0, 141, 241),
@@ -40,7 +38,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "Other Complaint",
+                                  "Complaint",
                                   style: TextStyle(
                                       fontSize: 32,
                                       fontWeight: FontWeight.w500,
@@ -74,9 +72,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.local_parking),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Parking Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Parking Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -101,9 +101,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.lightbulb),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Street light Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Street light Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -128,9 +130,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.water_drop),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Water Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Water Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -155,9 +159,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.gas_meter),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Gas pipeline Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Gas pipeline Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -182,9 +188,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.drag_indicator),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Drainage Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Drainage Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -209,9 +217,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.electric_bolt),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Electricity Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Electricity Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -236,9 +246,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.add_road),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Rcc Road Issuee",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Rcc Road Issuee",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
@@ -253,8 +265,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
-                        context,
-                      MaterialPageRoute(builder: (context) =>  OtherComplains()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OtherComplains()));
                       },
                       style: ElevatedButton.styleFrom(
                         shape: new RoundedRectangleBorder(
@@ -272,9 +285,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               children: [
                                 Icon(Icons.emoji_emotions),
                                 Padding(
-                                  padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                  child: Text("Other Complaint",
-                                    style: TextStyle(fontSize:20 ),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                  child: Text(
+                                    "Other Complaint",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ),
                               ],
