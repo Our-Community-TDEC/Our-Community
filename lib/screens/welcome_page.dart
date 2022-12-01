@@ -28,16 +28,14 @@ class WelcomePage extends StatelessWidget {
                     width: 400,
                   ),
                 ),
-                // ignore: prefer_const_literals_to_create_immutables
               ],
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // ignore:
               children: [
                 SizedBox(
                   width: 400,
-                  height: 338,
+                  // height: 338,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: Column(

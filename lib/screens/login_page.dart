@@ -127,7 +127,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
-                      Navigator.push(
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => BasePage()),
                       );
@@ -162,12 +163,13 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 );
                                 final prov =
                                     Provider.of<GoogleSignInProviderss>(context,
-                                      listen: false);
+                                        listen: false);
                                 prov.googleLogIn();
-                                Navigator.push(
+                                Navigator.popUntil(context, (route) => route.isFirst);
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => BasePage()),
+                                      builder: (context) => BasePage()),
                                 );
                               },
                               child: Image(

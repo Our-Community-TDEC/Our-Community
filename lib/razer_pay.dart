@@ -1,81 +1,108 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+// import 'package:toast/toast.dart';
 
 class razer_pay extends StatefulWidget {
-  const razer_pay({Key? key}) : super(key: key);
   @override
   razer_pay_State createState() => razer_pay_State();
 }
 
 class razer_pay_State extends State<razer_pay> {
-  var _razorpay = Razorpay();
-  TextEditingController pay_amount = TextEditingController();
+  late Razorpay razorpay;
+  TextEditingController textEditingController = new TextEditingController();
 
+  @override
   void initState() {
-    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     super.initState();
+
+    razorpay = new Razorpay();
+
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    // Do something when payment succeeds
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Payment Successfully done"),
-      backgroundColor: Colors.blue,
-    ));
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    razorpay.clear();
   }
 
-  void _handlePaymentError(PaymentFailureResponse response) {
-    // Do something when payment fails
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Payment not Successfully done"),
-      backgroundColor: Colors.blue,
-    ));
+  void openCheckout() {
+    var options = {
+      "key": "rzp_test_gJeLNNHamaCv8J",
+      "amount": num.parse(textEditingController.text) * 100,
+      "name": "Sample App",
+      "description": "Payment for the some random product",
+      "prefill": {"contact": "2323232323", "email": "shdjsdh@gmail.com"},
+      // "external": {
+      //   "wallets": ["paytm"]
+      // }
+    };
+
+    try {
+      razorpay.open(options);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.blue,
+      ));
+    }
   }
 
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    // Do something when an external wallet is selected
+  void handlerPaymentSuccess(PaymentSuccessResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text("Payment Successfully done"),
-      backgroundColor: Colors.blue,
-    ));
+        content: Text(response.toString()),
+        backgroundColor: Colors.blue,
+      ));
+    // Toast.show("Pament success", context);
+  }
+
+  void handlerErrorFailure(PaymentFailureResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(response.toString()),
+        backgroundColor: Colors.blue,
+      ));
+    // Toast.show("Pament error", context);
+  }
+
+  void handlerExternalWallet(ExternalWalletResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(response.toString()),
+        backgroundColor: Colors.blue,
+      ));
+    // Toast.show("External Wallet", context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-        TextField(
-          // controller: pay_amount,
-          decoration: InputDecoration(hintText: "Enter Your Amount"),
+      appBar: AppBar(
+        title: Text("Razor Pay Tutorial"),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: textEditingController,
+              decoration: InputDecoration(hintText: "amount to pay"),
+            ),
+            SizedBox(
+                child: ElevatedButton(
+              child: Text(
+                "Donate Now",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                openCheckout();
+              },
+            ))
+          ],
         ),
-        ElevatedButton(
-            onPressed: () {
-              var options = {
-                'key': 'rzp_test_VFhcRHJ3J2DDsw',
-                'amount': (int.parse(pay_amount.text)*100).toString(), //in the smallest currency sub-unit.
-                'name': 'Darshan',
-                'description': 'Demo',
-                'timeout': 300, // in seconds
-                'prefill': {
-                  'contact': '9099366492',
-                  'email': 'zdken999.zd@gmail.com'
-                }
-              };
-              _razorpay.open(options);
-            },
-            child: Text("Pay Maintenance"))
-      ]),
+      ),
     );
-  }
-
-  void dispose() {
-    _razorpay.clear(); // Removes all listeners
-    super.dispose();
   }
 }
