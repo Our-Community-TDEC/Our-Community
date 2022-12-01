@@ -24,10 +24,10 @@ class LogIn extends StatelessWidget with Login_Logic {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [gradient_top, gradient_bot],
-      )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [gradient_top, gradient_bot],
+          )),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
@@ -127,7 +127,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
-                      Navigator.push(
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => BasePage()),
                       );
@@ -161,13 +162,14 @@ class LogIn extends StatelessWidget with Login_Logic {
                                       child: CircularProgressIndicator()),
                                 );
                                 final prov =
-                                    Provider.of<GoogleSignInProviderss>(context,
-                                      listen: false);
+                                Provider.of<GoogleSignInProviderss>(context,
+                                    listen: false);
                                 prov.googleLogIn();
-                                Navigator.push(
+                                Navigator.popUntil(context, (route) => route.isFirst);
+                                Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => BasePage()),
+                                      builder: (context) => BasePage()),
                                 );
                               },
                               child: Image(
