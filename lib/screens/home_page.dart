@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
+import 'package:final_year_project/screens/Chats/Chat_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +100,20 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => razer_pay()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Chat"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatPage()),
                 );
               },
             ),
