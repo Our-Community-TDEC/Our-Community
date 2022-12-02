@@ -20,6 +20,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
       ),
       backgroundColor: Colors.grey[800],
       body: Container(
+<<<<<<< HEAD
         margin: EdgeInsets.all(20),
         child: Table(
           defaultColumnWidth: FixedColumnWidth(120.0),
@@ -195,6 +196,38 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                 ),
               ],
             ),
+=======
+        //This contains the whole page
+        constraints: BoxConstraints.expand(),
+        padding: EdgeInsets.all(Help_Buttons_Padding),
+        child: Column(
+          children: [
+            Text("New Suggestion",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                )),
+            Divider(
+              thickness: 1,
+              color: Colors.white,
+            ),
+            Text("Title",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 20,
+                )),
+            TextField(),
+            Text("Write a short description",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w300,
+                  fontSize: 20,
+                )),
+            TextField(),
+            ElevatedButton(onPressed: () {}, child: Text("Submit"))
+>>>>>>> 2663f534a7ecd2ecb2a008f9e4d6defcda1f21f3
           ],
         ),
       ),

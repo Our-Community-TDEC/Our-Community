@@ -68,6 +68,8 @@ class BasePage extends StatelessWidget {
           }
         },
       ),
+
+    ),
     );
   }
 }
