@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/emergency_logic.dart';
 
@@ -8,11 +7,9 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
       Help_Buttons_Padding = 12.5,
       Divider_Thickness = 2;
 
+  
   @override
   Widget build(BuildContext context) {
-    Help_Button_Radius = min((MediaQuery.of(context).size.width),
-            (MediaQuery.of(context).size.height)) /
-        3;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
@@ -23,43 +20,34 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
       ),
       backgroundColor: Colors.grey[800],
       body: Container(
-        //This contains the whole page
-        constraints: BoxConstraints.expand(),
-        padding: EdgeInsets.all(Help_Buttons_Padding),
-        child: Column(
-          //This is to arrange every page element in a column fashion
+        margin: EdgeInsets.all(20),
+        child: Table(
+          defaultColumnWidth: FixedColumnWidth(120.0),
+          border: TableBorder.all(
+              color: Colors.black, style: BorderStyle.solid, width: 2),
           children: [
-            Column(
-              //This column is for the 2 texts (maybe unnessesery and might remove.)
+            TableRow(
               children: [
-                Text(
-                  "Emergency",
-                  style: TextStyle(
-                    fontFamily: 'Poppins-SemiBold',
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 35,
-                  ),
+                Column(
+                  children: [
+                    Text("data"),
+                  ],
                 ),
-                Text(
-                  "Contact Emergency Services\nAnd Run Automated Actions",
-                  style: TextStyle(
-                    fontFamily: 'Poppins-medium',
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
+                Column(
+                  children: [
+                    Text("data"),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("data"),
+                  ],
                 ),
               ],
             ),
-            Divider(
-              thickness: Divider_Thickness,
-              color: Colors.white,
-            ),
-            Column(
-              //This colums will contain 2 rows for the 4 boxes
+            TableRow(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
@@ -74,6 +62,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                           ),
                           onPressed: () {
                             Medical_Emergency_Help();
+                            shownotification();
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -129,8 +118,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
                     Padding(
                       padding: EdgeInsets.all(Help_Buttons_Padding),
@@ -200,121 +188,10 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                     ),
                   ],
                 ),
-                Divider(
-                  thickness: Divider_Thickness,
-                  color: Colors.white,
-                ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 17, 165, 250),
-                              child: IconButton(
-                                onPressed: () {
-                                  Police_Contact();
-                                },
-                                icon: Icon(Icons.local_police),
-                                color: Color.fromARGB(66, 265, 265, 265),
-                              ),
-                            ),
-                            Text(
-                              "Police",
-                              style: TextStyle(
-                                fontFamily: 'Poppins-medium',
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 17, 165, 250),
-                              child: IconButton(
-                                onPressed: () {
-                                  Ambulance_Contact();
-                                },
-                                icon: Icon(Icons.medical_services_outlined),
-                                color: Color.fromARGB(66, 265, 265, 265),
-                              ),
-                            ),
-                            Text(
-                              "Ambulance",
-                              style: TextStyle(
-                                fontFamily: 'Poppins-medium',
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 17, 165, 250),
-                              child: IconButton(
-                                onPressed: () {
-                                  Security_Contact();
-                                },
-                                icon: Icon(Icons.security),
-                                color: Color.fromARGB(66, 265, 265, 265),
-                              ),
-                            ),
-                            Text(
-                              "Security",
-                              style: TextStyle(
-                                fontFamily: 'Poppins-medium',
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor:
-                                  Color.fromARGB(255, 17, 165, 250),
-                              child: IconButton(
-                                onPressed: () {
-                                  MainGate_Contact();
-                                },
-                                icon: Icon(Icons.door_back_door_outlined),
-                                color: Color.fromARGB(66, 265, 265, 265),
-                              ),
-                            ),
-                            Text(
-                              "Main Gate",
-                              style: TextStyle(
-                                fontFamily: 'Poppins-medium',
-                                color: Colors.white,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                    Text("data"),
                   ],
-                ),
-                Divider(
-                  color: Colors.white,
-                  thickness: Divider_Thickness,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Emergency_SOS();
-                  },
-                  child: Text("Emergency SOS"),
                 ),
               ],
             ),

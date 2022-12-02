@@ -28,16 +28,14 @@ class WelcomePage extends StatelessWidget {
                     width: 400,
                   ),
                 ),
-                // ignore: prefer_const_literals_to_create_immutables
               ],
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // ignore:
               children: [
                 SizedBox(
                   width: 400,
-                  height: 338,
+                  // height: 338,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: Column(
@@ -60,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(4, 5, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                           child: const Text(
                             "Let's Get Started",
                             style: TextStyle(
@@ -74,28 +72,31 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 259,
-                  height: 78,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.grey[600],
-                      elevation: 20,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(44),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: SizedBox(
+                    width: 259,
+                    height: 78,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.grey[600],
+                        elevation: 20,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(44),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LogIn()),
-                      );
-                    },
-                    child: const Text(
-                      "Get Started",
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w500,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LogIn()),
+                        );
+                      },
+                      child: const Text(
+                        "Get Started",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),

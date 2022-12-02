@@ -10,7 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class base1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser!;  
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(25),
@@ -100,7 +100,7 @@ class base1 extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => Plumber()),
                         );
                       },
-                      child: Text("Services(Plumber) Page"),
+                      child: Text("service(Plumber) Page"),
                     ),
                   ),
                 ),

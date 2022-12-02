@@ -1,4 +1,6 @@
+import 'package:final_year_project/main.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
+import 'package:final_year_project/screens/Maintanance/Pay_maintanance.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +24,10 @@ class LogIn extends StatelessWidget with Login_Logic {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [gradient_top, gradient_bot],
-      )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [gradient_top, gradient_bot],
+          )),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
@@ -113,6 +115,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                     onPressed: () async {
                       showDialog(
                         context: context,
+                        barrierDismissible: false,
                         builder: (context) =>
                             Center(child: CircularProgressIndicator()),
                       );
@@ -124,7 +127,11 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } on FirebaseAuthException catch (e) {
                         print(e);
                       }
-                      Navigator.of(context).pop();
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => BasePage()),
+                      );
                     },
                     child: Text(
                       "Log in",
@@ -158,7 +165,12 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     Provider.of<GoogleSignInProviderss>(context,
                                         listen: false);
                                 prov.googleLogIn();
-                                Navigator.of(context).pop();
+                                Navigator.popUntil(context, (route) => route.isFirst);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BasePage()),
+                                );
                               },
                               child: Image(
                                 image: AssetImage(
