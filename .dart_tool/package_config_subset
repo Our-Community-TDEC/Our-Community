@@ -235,9 +235,15 @@ pay_platform_interface
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pay_platform_interface-1.0.2/
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pay_platform_interface-1.0.2/lib/
 petitparser
+<<<<<<< HEAD
 2.16
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.0.0/
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.0.0/lib/
+=======
+2.18
+file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.1.0/
+file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/petitparser-5.1.0/lib/
+>>>>>>> d109644ee9fe474fc5f1b59ab7800f88a9fbd88f
 pie_chart
 2.12
 file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/pie_chart-5.3.2/
@@ -368,6 +374,11 @@ file:///C:/src/flutter/packages/flutter_web_plugins/
 file:///C:/src/flutter/packages/flutter_web_plugins/lib/
 final_year_project
 2.17
+<<<<<<< HEAD
 file:///D:/last%20Project/Final-Year-Project/
 file:///D:/last%20Project/Final-Year-Project/lib/
+=======
+file:///D:/project/Final-Year-Project/
+file:///D:/project/Final-Year-Project/lib/
+>>>>>>> d109644ee9fe474fc5f1b59ab7800f88a9fbd88f
 2

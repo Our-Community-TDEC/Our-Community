@@ -162,8 +162,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                                       child: CircularProgressIndicator()),
                                 );
                                 final prov =
-                                Provider.of<GoogleSignInProviderss>(context,
-                                    listen: false);
+                                    Provider.of<GoogleSignInProviderss>(context,
+                                        listen: false);
                                 prov.googleLogIn();
                                 Navigator.popUntil(context, (route) => route.isFirst);
                                 Navigator.pushReplacement(

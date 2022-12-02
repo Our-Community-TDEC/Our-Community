@@ -7,7 +7,7 @@ class Register extends StatelessWidget {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
 
-  var elivator;
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +88,39 @@ class Register extends StatelessWidget {
                               ),
                             ),
                           ),
-                        ]
-                    ),
-                  ),
-                ]
-            ),
+
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Registration ",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: RichText(
+                              text: TextSpan(
+                                text: 'Join us before ',
+                                style: TextStyle(color: Colors.white, fontSize: 18.0),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      style: TextStyle(fontWeight: FontWeight.bold, )
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+
+                   ),
           ),
-        ),
-      ),
-    );
-  }
-}
+                   ],
+                  ),
+          ),
+                 ),
+                  ),
+                );
+            }
+           }
+
+

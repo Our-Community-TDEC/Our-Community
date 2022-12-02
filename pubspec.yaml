@@ -1,52 +1,54 @@
-name: final_year_project
-description: A new Flutter project.
+  git checkout main
+  name: final_year_project
+  description: A new Flutter project.
 
-publish_to: 'none'
+  publish_to: 'none'
 
-version: 1.0.0+1
+  version: 1.0.0+1
 
-environment:
-  sdk: ">=2.17.5 <3.0.0"
+  environment:
+    sdk: ">=2.17.5 <3.0.0"
 
-dependencies:
+  dependencies:
+    flutter:
+      sdk: flutter
+    table_calendar: ^3.0.7
+    firebase_core: ^2.2.0
+    firebase_auth: ^4.1.2
+
+    cupertino_icons: ^1.0.2
+    pie_chart: ^5.3.2
+    fl_chart: ^0.55.0
+    syncfusion_flutter_charts: ^20.2.39
+    localization: ^2.1.0
+    intl: ^0.17.0
+    syncfusion_flutter_calendar: ^20.3.56
+    google_sign_in: ^5.4.2
+    provider: ^6.0.4
+    font_awesome_flutter: ^10.2.1
+    cloud_firestore: ^4.0.5
+    pay: ^1.0.11
+    upi_india: ^3.0.1
+    razorpay_flutter: ^1.2.1
+    http: ^0.13.5
+    flutter_local_notifications: ^12.0.3+1
+    fluttertoast: ^8.1.1
+
+  dev_dependencies:
+    flutter_test:
+      sdk: flutter
+    flutter_lints: ^2.0.0
+
   flutter:
-    sdk: flutter
-  table_calendar: ^3.0.7
-  firebase_core: ^2.2.0
-  firebase_auth: ^4.1.2
+    uses-material-design: true
 
-  cupertino_icons: ^1.0.2
-  pie_chart: ^5.3.2
-  fl_chart: ^0.55.0
-  syncfusion_flutter_charts: ^20.2.39
-  localization: ^2.1.0
-  intl: ^0.17.0
-  syncfusion_flutter_calendar: ^20.3.56
-  google_sign_in: ^5.4.2
-  provider: ^6.0.4
-  font_awesome_flutter: ^10.2.1
-  cloud_firestore: ^4.0.5
-  pay: ^1.0.11
-  upi_india: ^3.0.1
-  razorpay_flutter: ^1.2.1
-  http: ^0.13.5
-  flutter_local_notifications: ^12.0.3+1
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^2.0.0
-
-flutter:
-  uses-material-design: true
-
-  assets:
-    - assets/Images/
-    - assets/Images/Services/Plumber/image 71.png
-    - assets/Images/Services/Plumber/image 73.png
-    - assets/Images/Services/Plumber/image 76.png
-    - assets/Images/Services/Plumber/background.png
-    - assets/gpay.json
-    - assets/Images/Login/image 3.png
-    - assets/Images/Login/Trees.png
-    - assets/Images/Welcome/WelcomeImage.png
+    assets:
+      - assets/Images/
+      - assets/Images/Services/Plumber/image 71.png
+      - assets/Images/Services/Plumber/image 73.png
+      - assets/Images/Services/Plumber/image 76.png
+      - assets/Images/Services/Plumber/background.png
+      - assets/gpay.json
+      - assets/Images/Login/image 3.png
+      - assets/Images/Login/Trees.png
+      - assets/Images/Welcome/WelcomeImage.png
