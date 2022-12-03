@@ -52,12 +52,59 @@ class Suggestions extends StatelessWidget with Emergency_Logic {
     ),
     ],
     ),
-    ],
+      Column(
+        children: [
+
+          const Divider(
+            thickness: 2,
+          ),
+          Row(
+            children: [
+              //TODO: Add an Image
+              Image.asset('2147.jpeg'),
+              // Text("Img"),
+              Column(
+                children: const [
+                  Text("Darshan Bhuva"),
+                  Text("Garden"),
+                ],
+              )
+            ],
+          ),
+          const Card(
+            child: Text(
+                "Hi,I am Twisha patel. I have one idea to improve our society facilities."),
+          ),
+          Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.black38,
+
+                child: IconButton(
+                  onPressed: () => print('clicked on list'),
+                  icon: const Icon(Icons.check_circle_outline),
+                  color: Colors.blue,
+                  padding: const EdgeInsets.all(5),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.black38,
+                child: IconButton(
+                  onPressed: () => print('clicked on list'),
+                  icon: const Icon(Icons.cancel_outlined),
+                  color: Colors.blue,
+
+                ),
+              ),
+            ],
+    ),
+      ]
+    ),
+    ]
     ),
     ),
     );
-
-    }
+  }
 }
 
 
