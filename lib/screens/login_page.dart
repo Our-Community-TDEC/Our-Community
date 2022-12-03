@@ -1,6 +1,7 @@
 import 'package:final_year_project/main.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:final_year_project/screens/Maintanance/Pay_maintanance.dart';
+import 'package:final_year_project/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,13 +22,20 @@ class LogIn extends StatelessWidget with Login_Logic {
   }
 
   Widget build(BuildContext context) {
+    snackBar(show_msg) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(show_msg),
+        backgroundColor: Colors.blue,
+      ));
+    }
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [gradient_top, gradient_bot],
-          )),
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [gradient_top, gradient_bot],
+      )),
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Colors.transparent,
@@ -125,7 +133,17 @@ class LogIn extends StatelessWidget with Login_Logic {
                           password: passwordController.text.trim(),
                         );
                       } on FirebaseAuthException catch (e) {
-                        print(e);
+                        if (e.code == 'wrong-passord') {
+                          snackBar('your password is wrong');
+                        } else if (e.code == 'invalid-email') {
+                          snackBar('Inavalid Email');
+                        } else if (e.code == 'user-disabled') {
+                          snackBar('User is disabled');
+                        } else if (e.code == 'user-not-found') {
+                          snackBar("user Doesn't exist");
+                        }
+                      } catch (e) {
+                        snackBar(e.toString());
                       }
                       Navigator.popUntil(context, (route) => route.isFirst);
                       Navigator.pushReplacement(
@@ -138,6 +156,12 @@ class LogIn extends StatelessWidget with Login_Logic {
                     ),
                   ),
                 ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Register()));
+                    },
+                    child: Text("Register")),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: Column(
@@ -165,7 +189,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     Provider.of<GoogleSignInProviderss>(context,
                                         listen: false);
                                 prov.googleLogIn();
-                                Navigator.popUntil(context, (route) => route.isFirst);
+                                Navigator.popUntil(
+                                    context, (route) => route.isFirst);
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

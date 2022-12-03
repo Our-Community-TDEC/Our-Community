@@ -5,12 +5,11 @@ import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:final_year_project/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 
+import 'Complain Pages/complain_page.dart';
 import 'Maintanance/Pay_maintanance.dart';
 
 class HomePage extends StatelessWidget {
@@ -108,19 +107,13 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-
-
-
                   Text("Register"),
-
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-=
                   MaterialPageRoute(builder: (context) => Register()),
-
                 );
               },
             ),
@@ -145,9 +138,9 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                   Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  LogIn()),
-  );
+                    context,
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                  );
                 },
                 child: Text(
                   "Logout",

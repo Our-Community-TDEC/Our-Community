@@ -36,10 +36,7 @@ class razer_pay_State extends State<razer_pay> {
       "amount": num.parse(textEditingController.text) * 100,
       "name": "Sample App",
       "description": "Payment for the some random product",
-      "prefill": {"contact": "2323232323", "email": "shdjsdh@gmail.com"},
-      // "external": {
-      //   "wallets": ["paytm"]
-      // }
+      "prefill": {"contact" : "2323232323", "email" : "shdjsdh@gmail.com"},
     };
 
     try {
@@ -54,25 +51,25 @@ class razer_pay_State extends State<razer_pay> {
 
   void handlerPaymentSuccess(PaymentSuccessResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(response.toString()),
-        backgroundColor: Colors.blue,
-      ));
+      content: Text(response.toString()),
+      backgroundColor: Colors.blue,
+    ));
     // Toast.show("Pament success", context);
   }
 
   void handlerErrorFailure(PaymentFailureResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(response.toString()),
-        backgroundColor: Colors.blue,
-      ));
+      content: Text(response.toString()),
+      backgroundColor: Colors.blue,
+    ));
     // Toast.show("Pament error", context);
   }
 
   void handlerExternalWallet(ExternalWalletResponse response) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(response.toString()),
-        backgroundColor: Colors.blue,
-      ));
+      content: Text(response.toString()),
+      backgroundColor: Colors.blue,
+    ));
     // Toast.show("External Wallet", context);
   }
 
