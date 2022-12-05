@@ -133,7 +133,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                       );
                     },
                     child: Text(
-                      "Log in",
+                      "Sign in",
                     ),
                   ),
                 ),
