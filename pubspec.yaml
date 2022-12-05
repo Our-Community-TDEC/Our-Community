@@ -54,6 +54,7 @@ dependencies:
   pie_chart: ^5.3.2
   fl_chart: ^0.55.0
   syncfusion_flutter_charts: ^20.2.39
+  flutter_neumorphic: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +86,8 @@ flutter:
   - assets/Images/Services/Plumber/image 73.png
   - assets/Images/Services/Plumber/image 76.png
   - assets/Images/Welcome/WelcomeImage.png
-  - assets/images/
+  - assets/Images/Login/image 3.png
+  - assets/Images/Login/Trees.png
 
   # An images asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

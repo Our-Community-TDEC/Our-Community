@@ -32,10 +32,10 @@ Future<void> main() async {
   InitializationSettings both_ios_andr_noti_intia_setting =
       InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
 
-  bool? intialized = await notification.initialize(both_ios_andr_noti_intia_setting);
+  bool? intialized =
+      await notification.initialize(both_ios_andr_noti_intia_setting);
 
   log("Notification $intialized");
-
 
   await Firebase.initializeApp();
   runApp(MultiProvider(
@@ -53,8 +53,7 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      StreamBuilder<User?>(
+      body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -68,8 +67,6 @@ class BasePage extends StatelessWidget {
           }
         },
       ),
-
-    ),
     );
   }
 }

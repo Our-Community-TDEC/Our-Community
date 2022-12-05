@@ -2,7 +2,11 @@ import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
 import 'package:final_year_project/screens/Chats/Chat_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:final_year_project/screens/SuggestionsList.dart';
 import 'package:final_year_project/screens/register/register.dart';
+import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
+import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
+import 'package:final_year_project/screens/suggestions/suggestions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
@@ -199,12 +203,11 @@ class HomePage extends StatelessWidget {
                         width: boxL,
                         child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => SuggestionsPage()),
-                              // );
-                              // TODO: Add suggestions page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => show_suggestion()),
+                              );
                             },
                             child: Text("Suggestions")),
                       ),
