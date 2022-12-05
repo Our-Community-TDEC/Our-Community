@@ -1,16 +1,17 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
-import 'package:final_year_project/screens/Chats/Chat_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:final_year_project/screens/pages/chat_page.dart';
 import 'package:final_year_project/screens/register/register.dart';
+import 'package:final_year_project/screens/suggestion/suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:final_year_project/screens/complain_page.dart';
+// import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
-
+import 'package:final_year_project/screens/helper/helper_function.dart';
+import 'Complain Pages/complain_page.dart';
 import 'Maintanance/Pay_maintanance.dart';
 
 class HomePage extends StatelessWidget {
@@ -108,19 +109,27 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-
-
-
                   Text("Register"),
-
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-=
                   MaterialPageRoute(builder: (context) => Register()),
-
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Chat"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ChatPage(groupId: '', groupName: '', userName: '',)),
                 );
               },
             ),
@@ -206,11 +215,11 @@ class HomePage extends StatelessWidget {
                         width: boxL,
                         child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => SuggestionsPage()),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Suggestions()),
+                              );
                               // TODO: Add suggestions page
                             },
                             child: Text("Suggestions")),
