@@ -1,0 +1,1 @@
+class HomePage_Logic {}
