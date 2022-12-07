@@ -3,9 +3,11 @@ import 'package:final_year_project/screens/Services/Cleaning.dart';
 import 'package:final_year_project/screens/Services/Doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/complain_page.dart';
+import 'package:final_year_project/Onboarding/Onboard.dart';
 
+import 'logic/Onboarding/Onboard.dart';
 void main() => runApp(MaterialApp(
-      home: Plumber(),
+      home: MyApp(),
     ));
 
 class BasePage extends StatelessWidget {
