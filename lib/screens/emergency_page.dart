@@ -10,6 +10,8 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
   
   @override
   Widget build(BuildContext context) {
+    Help_Button_Radius = min((MediaQuery.of(context).size.width),
+            (MediaQuery.of(context).size.height)) / 3;
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: FloatingActionButton(
