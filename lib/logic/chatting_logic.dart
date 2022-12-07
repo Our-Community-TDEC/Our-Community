@@ -1,0 +1,1 @@
+class Chatting_Logic {}

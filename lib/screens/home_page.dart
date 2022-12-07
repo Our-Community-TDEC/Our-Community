@@ -1,0 +1,253 @@
+import 'dart:math';
+import 'package:final_year_project/razer_pay.dart';
+import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:final_year_project/screens/SuggestionsList.dart';
+import 'package:final_year_project/screens/register/register.dart';
+import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
+import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
+import 'package:final_year_project/screens/suggestions/suggestions.dart';
+import 'package:final_year_project/screens/theme/theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/emergency_page.dart';
+import 'package:final_year_project/screens/login_page.dart';
+import 'package:final_year_project/screens/welcome_page.dart';
+
+import 'Complain Pages/complain_page.dart';
+import 'Maintanance/Pay_maintanance.dart';
+import 'manageaddress.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    double minHW = min(
+        MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
+    double boxL = minHW * 0.45;
+    final user = FirebaseAuth.instance.currentUser!;
+    String email = user.email!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Home Page"),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.home),
+                  Text("Home"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.medical_services),
+                  Text("Services: Doctor"),
+                ],
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.water_damage),
+                  Text("Services: Plumber"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Plumber()),
+                );
+              },
+            ),
+          
+    ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.electric_bolt),
+                  Text("Services: Electrician"),
+                ],
+              ),
+              onTap: () {},
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Theme"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Theme1()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Razer"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => razer_pay()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+<<<<<<< HEAD
+                  Icon(Icons.water_damage),
+                  Text("manageaddress"),
+=======
+                  Icon(Icons.paid),
+                  Text("Register"),
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+<<<<<<< HEAD
+                  MaterialPageRoute(builder: (context) => ManageAddress()),
+=======
+                  MaterialPageRoute(builder: (context) => Register()),
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Hey, " + email,
+                style: TextStyle(
+                  fontSize: minHW * 0.05,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                  );
+                },
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontSize: minHW * 0.035,
+                  ),
+                ),
+              )
+            ],
+          ),
+          Text(
+            "Welcome to your community",
+            style: TextStyle(
+              fontSize: minHW * 0.07,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        height: boxL,
+                        width: boxL,
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text("Notice Board")),
+                      ),
+                      SizedBox(
+                          height: boxL,
+                          width: boxL,
+                          child: ElevatedButton(
+                              onPressed: () {}, child: Text("Events"))),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                          height: boxL,
+                          width: boxL,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ComplainPage()),
+                                );
+                              },
+                              child: Text("Complains"))),
+                      SizedBox(
+                        height: boxL,
+                        width: boxL,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => show_suggestion()),
+                              );
+                            },
+                            child: Text("Suggestions")),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: minHW * 0.075,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => EmergencyPage()),
+                );
+              },
+              child: Text("EMERGENCY"),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+

@@ -1,0 +1,1 @@
+class BuildingsDesignerPage_Logic {}
