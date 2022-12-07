@@ -207,7 +207,7 @@ class _MyAppState extends State<MyApp> {
         borderRadius: defaultSkipButtonBorderRadius,
         onTap: () {
           Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Home)
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
         },
         child: const Padding(
           padding: defaultSkipButtonPadding,
