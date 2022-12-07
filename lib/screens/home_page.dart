@@ -68,7 +68,8 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
+          
+    ListTile(
               title: Row(
                 children: [
                   Icon(Icons.electric_bolt),
@@ -130,6 +131,20 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ChatPage(groupId: '', groupName: '', userName: '',)),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.water_damage),
+                  Text("suggestion"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => suggestion ()),
                 );
               },
             ),
@@ -251,3 +266,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
