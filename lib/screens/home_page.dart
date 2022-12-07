@@ -7,6 +7,7 @@ import 'package:final_year_project/screens/register/register.dart';
 import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
 import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
 import 'package:final_year_project/screens/suggestions/suggestions.dart';
+import 'package:final_year_project/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
@@ -83,13 +84,13 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-                  Text("Maintenance"),
+                  Text("Theme"),
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Pay_maintenance()),
+                  MaterialPageRoute(builder: (context) => Theme1()),
                 );
               },
             ),
