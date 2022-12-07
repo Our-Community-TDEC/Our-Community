@@ -53,7 +53,6 @@ class Emergency_Logic {
   }
 
   Emergency_SOS() {
-    print(
-        "emergency_logic.Emergency_SOS: SOS!!!!!!!!!! CONTACTING EVERYONE!!!!!!!!!.");
+    print("emergency_logic.Emergency_SOS: SOS!!!!!!!!!! CONTACTING EVERYONE!!!!!!!!!.");
   }
 }
