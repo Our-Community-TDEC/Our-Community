@@ -52,14 +52,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    flavorDimensions "default"
-    productFlavors {
-        dev {
-            dimension "default"
-            versionNameSuffix "--dev"
-        }
 
-    }
     splits {
         abi {
             enable true
