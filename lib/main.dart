@@ -1,3 +1,7 @@
+import 'package:final_year_project/theme/theme_constant.dart';
+import 'package:final_year_project/theme/theme_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/home_page.dart';
 import 'dart:developer';
 import 'package:final_year_project/screens/helper/helper_function.dart';
 import 'package:final_year_project/screens/constants.dart';
@@ -14,10 +18,6 @@ import 'package:final_year_project/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
-
-FlutterLocalNotificationsPlugin notification =
-    FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,9 +51,13 @@ Future<void> main() async {
   ));
 }
 
+ThemeManager _themeManager = ThemeManager();
+
 class BasePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body:
       StreamBuilder<User?>(
@@ -70,8 +74,6 @@ class BasePage extends StatelessWidget {
           }
         },
       ),
-
-    ),
     );
   }
 }
