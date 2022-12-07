@@ -203,3 +203,6 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
     );
   }
 }
+
+
+// TODO: change onPredded functions for top right and bottom 2 buttons
