@@ -104,4 +104,3 @@ class BasePage1 extends StatelessWidget {
       ),
     );
   }
-}
