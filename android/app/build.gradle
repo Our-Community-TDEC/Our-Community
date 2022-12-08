@@ -37,7 +37,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.final_year_project"
-        // You can update the following values to match your application needs.
+        // You can update the following values to match your application needs. 
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
@@ -52,11 +52,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-<<<<<<< HEAD
-
-=======
    
->>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
     splits {
         abi {
             enable true

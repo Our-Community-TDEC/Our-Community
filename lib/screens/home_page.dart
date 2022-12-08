@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
-import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:final_year_project/screens/Services/Doctor.dart';
 import 'package:final_year_project/screens/SuggestionsList.dart';
 import 'package:final_year_project/screens/register/register.dart';
 import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
@@ -111,23 +111,14 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-<<<<<<< HEAD
-                  Icon(Icons.water_damage),
-                  Text("manageaddress"),
-=======
                   Icon(Icons.paid),
                   Text("Register"),
->>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-<<<<<<< HEAD
-                  MaterialPageRoute(builder: (context) => ManageAddress()),
-=======
                   MaterialPageRoute(builder: (context) => Register()),
->>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
                 );
               },
             ),
