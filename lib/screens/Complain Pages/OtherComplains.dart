@@ -1,23 +1,48 @@
-import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/OtherComplaints_logic.dart';
 
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   @override
   Widget build(BuildContext context) {
+    TextEditingController complaint_title = TextEditingController();
+    TextEditingController complaint_description = TextEditingController();
+    String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
+    void add_data() async {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      String title = complaint_title.text.trim();
+      String description = complaint_description.text.trim();
+
+      complaint_description.clear();
+      complaint_title.clear();
+
+      if (title != '' && description != '') {
+        firestore.collection('complaint').doc().set({
+          "title": title,
+          "descriptoin": description,
+          "time": datetime
+        }).then((result) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("Data Added Successfully"),
+            backgroundColor: Colors.blue,
+          ));
+        });
+      }
+    }
+
     return Scaffold(
         backgroundColor: Colors.grey[800],
-        body: Container(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+        body: Column(
           children: [
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.black38,
@@ -25,6 +50,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           child: IconButton(
                             onPressed: () => {Navigator.pop(context)},
+                            
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: Color.fromARGB(255, 0, 141, 241),
@@ -32,36 +58,26 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 400,
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Other Complaint",
-                              style: TextStyle(
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            )),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                        child: Text(
+                          "Other Complaint",
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white),
+                        ),
                       )
                     ],
                   ),
                 ),
-              ],
-            ),
-            Divider(
-              thickness: 2.5,
-              color: Colors.black,
-              indent: 10,
-              endIndent: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
-                  child: Text(
-                    "Title",
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Divider(
+                    thickness: 5,
+                    indent: 12,
+                    endIndent: 12,
+                    color: Colors.black,
                   ),
                 ),
               ],
@@ -118,7 +134,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    RaiseComplain();
                   },
                   style: ElevatedButton.styleFrom(
                     shape: new RoundedRectangleBorder(
@@ -131,8 +147,10 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                   ),
                 ),
               ),
+              
+        
             ),
           ],
-        )));
+        ));
   }
 }

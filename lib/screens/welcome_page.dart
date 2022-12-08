@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:final_year_project/utilities/lang.dart';
+
+import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -14,46 +15,90 @@ class WelcomePage extends StatelessWidget {
         },
         child: Icon(Icons.arrow_back),
       ),
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.grey[800],
       body: Container(
         padding: const EdgeInsets.all(15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset('assets/Images/Welcome/WelcomeImage.png'),
-                Text(
-                  Lang.text("wcm", lang),
-                  style: TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: Image.asset(
+                    'assets/Images/Welcome/WelcomeImage.png',
+                    width: 400,
                   ),
                 ),
-                Text(
-                  Lang.text("lgs", lang),
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shadowColor: Colors.grey[600],
-                    elevation: 20,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 400,
+                  // height: 338,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Welcome, To",
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Text(
+                          "Community",
+                          style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
+                          child: const Text(
+                            "Let's Get Started",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  onPressed: () {},
-                  child: Text(
-                    Lang.text("gs", lang),
-                    style: TextStyle(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w500,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: SizedBox(
+                    width: 259,
+                    height: 78,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shadowColor: Colors.grey[600],
+                        elevation: 20,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(44),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LogIn()),
+                        );
+                      },
+                      child: const Text(
+                        "Get Started",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                 ),

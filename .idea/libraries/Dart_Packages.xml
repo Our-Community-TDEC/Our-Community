@@ -135,13 +135,6 @@
             </list>
           </value>
         </entry>
-        <entry key="simple_gesture_detector">
-          <value>
-            <list>
-              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="sky_engine">
           <value>
             <list>
@@ -177,6 +170,13 @@
             </list>
           </value>
         </entry>
+        <entry key="syncfusion_flutter_calendar">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_calendar-20.2.50/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="syncfusion_flutter_charts">
           <value>
             <list>
@@ -187,14 +187,14 @@
         <entry key="syncfusion_flutter_core">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.39/lib" />
+              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.50/lib" />
             </list>
           </value>
         </entry>
-        <entry key="table_calendar">
+        <entry key="syncfusion_flutter_datepicker">
           <value>
             <list>
-              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.7/lib" />
+              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-20.2.50/lib" />
             </list>
           </value>
         </entry>
@@ -209,6 +209,13 @@
           <value>
             <list>
               <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.12/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="timezone">
+          <value>
+            <list>
+              <option value="$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/timezone-0.8.0/lib" />
             </list>
           </value>
         </entry>
@@ -239,16 +246,17 @@
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/meta-1.8.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/path-1.8.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/pie_chart-5.3.2/lib" />
-      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/simple_gesture_detector-0.2.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/source_span-1.9.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stack_trace-1.10.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/stream_channel-2.1.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.1/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_calendar-20.2.50/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_charts-20.2.39/lib" />
-      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.39/lib" />
-      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.7/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.2.50/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-20.2.50/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.1/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/test_api-0.4.12/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/timezone-0.8.0/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/.pub-cache/hosted/pub.dartlang.org/vector_math-2.1.2/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/bin/cache/pkg/sky_engine/lib" />
       <root url="file://$PROJECT_DIR$/../../../../src/flutter/packages/flutter/lib" />
