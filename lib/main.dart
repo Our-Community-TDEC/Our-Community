@@ -14,9 +14,6 @@ import 'package:provider/provider.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-FlutterLocalNotificationsPlugin notification =
-    FlutterLocalNotificationsPlugin();
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -45,9 +42,7 @@ Future<void> main() async {
     ],
     child: MaterialApp(
       home: BasePage(),
-    ),
-  ));
-}
+    ));
 
 class BasePage extends StatelessWidget {
   @override
@@ -92,8 +87,6 @@ class BasePage1 extends StatelessWidget {
           }
         },
       ),
-
-    ),
     );
   }
 }

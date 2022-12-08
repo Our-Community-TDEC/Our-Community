@@ -2,30 +2,36 @@ import 'package:final_year_project/logic/voting_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
-class Pie_Chart_Widget extends StatelessWidget with voting_logic {
+class Voting_Page extends StatefulWidget with voting_logic {
+  @override
+  State<Voting_Page> createState() => _Voting_PageState();
+}
 
+class _Voting_PageState extends State<Voting_Page> with voting_logic {
   late int person_1_votes = 0, person_2_votes = 0;
+
   late String person_1_name = "Aksh", person_2_name = "College";
 
   Map<String, double> datamap = {
     "person_1_name": 1,
-    "person_2_name": 2,
+    "person_2_name": 1,
+    "person_3_name": 1,
+    "person_4_name": 1,
+    "person_5_name": 1,
   };
 
-  // late Map<String, double> dataMap = {};
-  // dataMap[person_1_name] = person_1_votes;
-
-  // Map datamap = new Map<String, double>.fromIterable(letters, numbers);
-  // Map datamap = new Map();
-  // datamap.putIfAbsent("Aksh", () => 1);
-
-
   List<Color> colorList = [
-    Color(0xff000000),
-    Color(0xff3BD580),
+    Color(0xff531CB3),
+    Color(0xff944BBB),
+    Color(0xffAA7BC3),
+    Color(0xffCC92C2),
+    Color(0xffDBA8AC),
   ];
 
   Widget build(BuildContext context) {
+    datamap.clear();
+    datamap["Aksh"] = 100;
+    datamap["🐼"] = 135;
     return Scaffold(
       body: Container(
         child: Column(
@@ -45,8 +51,19 @@ class Pie_Chart_Widget extends StatelessWidget with voting_logic {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {votted("1");}, child: Text("1")),
-                ElevatedButton(onPressed: () {votted("2");}, child: Text("2")),
+                ElevatedButton(
+                    onPressed: () {
+                      votted("1");
+                      setState(() {
+
+                      });
+                    },
+                    child: Text("1")),
+                ElevatedButton(
+                    onPressed: () {
+                      votted("2");
+                    },
+                    child: Text("2")),
               ],
             ),
           ],
