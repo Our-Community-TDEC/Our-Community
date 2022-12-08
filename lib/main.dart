@@ -66,7 +66,10 @@ class BasePage extends StatelessWidget {
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
         lightSource: LightSource.topLeft,
+        shadowLightColor: Color.fromARGB(166, 255, 255, 255),
+        shadowDarkColor: Colors.black,
         depth: 6,
+        intensity:1,
       ),
       home: BasePage1(),
     );
