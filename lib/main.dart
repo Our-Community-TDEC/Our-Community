@@ -4,9 +4,11 @@ import 'package:final_year_project/base1.dart';
 import 'package:final_year_project/screens/Admin/show_complaint.dart';
 import 'package:final_year_project/screens/home_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
+import 'package:final_year_project/screens/theme/theme.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/login_page.dart';
@@ -32,10 +34,10 @@ Future<void> main() async {
   InitializationSettings both_ios_andr_noti_intia_setting =
       InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
 
-  bool? intialized = await notification.initialize(both_ios_andr_noti_intia_setting);
+  bool? intialized =
+      await notification.initialize(both_ios_andr_noti_intia_setting);
 
   log("Notification $intialized");
-
 
   await Firebase.initializeApp();
   runApp(MultiProvider(
@@ -64,7 +66,10 @@ class BasePage extends StatelessWidget {
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
         lightSource: LightSource.topLeft,
+        shadowLightColor: Color.fromARGB(166, 255, 255, 255),
+        shadowDarkColor: Colors.black,
         depth: 6,
+        intensity:1,
       ),
       home: BasePage1(),
     );
@@ -74,8 +79,7 @@ class BasePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      StreamBuilder<User?>(
+      body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {

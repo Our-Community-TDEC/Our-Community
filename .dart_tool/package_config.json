@@ -182,6 +182,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_neumorphic",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_neumorphic-3.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/flutter_svg-1.1.6",
       "packageUri": "lib/",
@@ -560,7 +566,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-12-03T08:34:46.681779Z",
+  "generated": "2022-12-05T06:01:00.057911Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

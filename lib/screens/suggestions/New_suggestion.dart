@@ -3,34 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:final_year_project/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 
-class OtherComplains extends StatelessWidget with OtherComplains_Logic {
+import '../../logic/suggestion_logic.dart';
+
+class NewSuggestion extends StatelessWidget with AddNewSuggestion {
   @override
   Widget build(BuildContext context) {
-    TextEditingController complaint_title = TextEditingController();
-    TextEditingController complaint_description = TextEditingController();
+    TextEditingController suggestion_title = TextEditingController();
+    TextEditingController suggestion_description = TextEditingController();
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
     void add_data() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      String title = complaint_title.text.trim();
-      String description = complaint_description.text.trim();
+      String title = suggestion_title.text.trim();
+      String description = suggestion_description.text.trim();
 
-      complaint_description.clear();
-      complaint_title.clear();
+      suggestion_description.clear();
+      suggestion_title.clear();
 
       if (title != '' && description != '') {
-        firestore.collection('complaint').doc().set({
+        firestore.collection('suggestion').doc().set({
           "title": title,
           "descriptoin": description,
           "time": datetime
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Data Added Successfully"),
-            backgroundColor: Colors.blue,
-          ));
-        }).catchError((onError){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(onError),
             backgroundColor: Colors.blue,
           ));
         });
@@ -64,7 +61,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
                         child: Text(
-                          "Other Complaint",
+                          "Other Suggestions",
                           style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w500,
@@ -91,9 +88,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 width: 450,
                 // height: 300,
                 child: TextField(
-                  controller: complaint_title,
+                  controller: suggestion_title,
                   decoration: InputDecoration(
-                      labelText: "Complain title",
+                      labelText: "Suggestion title",
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: OutlineInputBorder(borderSide: BorderSide.none)),
@@ -117,7 +114,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: TextField(
-                  controller: complaint_description,
+                  controller: suggestion_description,
                   decoration: InputDecoration(
                       labelText: "Enter Your Concern Here!!!",
                       filled: true,
@@ -147,7 +144,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                     ),
                   ),
                   child: Text(
-                    "Raise Complain",
+                    "Suggest",
                     style: TextStyle(fontSize: 26),
                   ),
                 ),
