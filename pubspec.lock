@@ -318,7 +318,7 @@ packages:
   lints:
     dependency: transitive
     description:
-      name: lints
+      name: localization
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
@@ -637,6 +637,7 @@ packages:
     version: "20.3.56"
   syncfusion_flutter_core:
     dependency: "direct main"
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
@@ -680,7 +681,7 @@ packages:
   typed_data:
     dependency: transitive
     description:
-      name: typed_data
+      name: timezone
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
