@@ -1,5 +1,10 @@
 import 'dart:developer';
-
+import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/home_page.dart';
+import 'dart:developer';
+import 'package:final_year_project/screens/helper/helper_function.dart';
+import 'package:final_year_project/screens/constants.dart';
 import 'package:final_year_project/base1.dart';
 import 'package:final_year_project/screens/Admin/show_complaint.dart';
 import 'package:final_year_project/screens/home_page.dart';
@@ -13,9 +18,7 @@ import 'package:final_year_project/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-FlutterLocalNotificationsPlugin notification =
-    FlutterLocalNotificationsPlugin();
+import 'package:final_year_project/screens/chatting_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,10 +35,10 @@ Future<void> main() async {
   InitializationSettings both_ios_andr_noti_intia_setting =
       InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
 
-  bool? intialized = await notification.initialize(both_ios_andr_noti_intia_setting);
+  bool? intialized =
+      await notification.initialize(both_ios_andr_noti_intia_setting);
 
   log("Notification $intialized");
-
 
   await Firebase.initializeApp();
   runApp(MultiProvider(
@@ -45,9 +48,7 @@ Future<void> main() async {
     ],
     child: MaterialApp(
       home: BasePage(),
-    ),
-  ));
-}
+    ));
 
 class BasePage extends StatelessWidget {
 
@@ -79,8 +80,7 @@ class BasePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      StreamBuilder<User?>(
+      body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -94,10 +94,5 @@ class BasePage1 extends StatelessWidget {
           }
         },
       ),
-
-    ),
     );
   }
-}
-Footer
-© 2022 GitHub, Inc.

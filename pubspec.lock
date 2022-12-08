@@ -28,7 +28,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.9.0"
+    version: "2.8.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -77,14 +77,14 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.5"
+    version: "4.1.0"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
       name: cloud_firestore_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.8.5"
+    version: "5.9.0"
   cloud_firestore_web:
     dependency: transitive
     description:
@@ -194,7 +194,7 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "12.0.3+1"
+    version: "12.0.4"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
@@ -214,6 +214,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_neumorphic:
+    dependency: "direct main"
+    description:
+      name: flutter_neumorphic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   flutter_svg:
     dependency: transitive
     description:
@@ -356,14 +363,14 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.12"
+    version: "0.12.11"
   material_color_utilities:
     dependency: transitive
     description:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.1.4"
   meta:
     dependency: transitive
     description:
@@ -381,21 +388,21 @@ packages:
   path:
     dependency: transitive
     description:
-      name: path
+      name: package_info_plus
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.2"
-  pedantic:
+    version: "1.4.3+1"
+  package_info_plus_linux:
     dependency: transitive
     description:
-      name: petitparser
+      name: package_info_plus_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.1.0"
-  pie_chart:
-    dependency: "direct main"
+    version: "1.0.5"
+  package_info_plus_macos:
+    dependency: transitive
     description:
-      name: pie_chart
+      name: package_info_plus_macos
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.3.2"
@@ -416,7 +423,7 @@ packages:
   quiver:
     dependency: transitive
     description:
-      name: quiver
+      name: petitparser
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
@@ -494,7 +501,7 @@ packages:
       name: syncfusion_flutter_calendar
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "20.2.50"
+    version: "20.3.56"
   syncfusion_flutter_charts:
     dependency: "direct main"
     description:
@@ -503,7 +510,7 @@ packages:
     source: hosted
     version: "20.3.56"
   syncfusion_flutter_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
@@ -519,7 +526,7 @@ packages:
   table_calendar:
     dependency: "direct main"
     description:
-      name: table_calendar
+      name: syncfusion_flutter_datepicker
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.7"
@@ -529,7 +536,7 @@ packages:
       name: term_glyph
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.0"
   test_api:
     dependency: transitive
     description:
@@ -537,10 +544,52 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.12"
-  typed_data:
+  url_launcher:
+    dependency: "direct main"
+    description:
+      name: url_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.1.6"
+  url_launcher_android:
     dependency: transitive
     description:
-      name: typed_data
+      name: url_launcher_android
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.19"
+  url_launcher_ios:
+    dependency: transitive
+    description:
+      name: url_launcher_ios
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.0.17"
+  url_launcher_linux:
+    dependency: transitive
+    description:
+      name: url_launcher_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
+  url_launcher_macos:
+    dependency: transitive
+    description:
+      name: url_launcher_macos
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
+  url_launcher_platform_interface:
+    dependency: transitive
+    description:
+      name: url_launcher_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.1"
+  url_launcher_web:
+    dependency: transitive
+    description:
+      name: url_launcher_web
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.1"
