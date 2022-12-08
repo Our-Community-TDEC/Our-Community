@@ -1,0 +1,3 @@
+class suggestion_logic{
+
+}
