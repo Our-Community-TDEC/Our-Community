@@ -54,6 +54,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.2.39
   google_translator: ^1.0.0
   flutter_neumorphic: ^3.2.0
+  shared_preferences: ^2.0.15
 
 dev_dependencies:
   flutter_test:
