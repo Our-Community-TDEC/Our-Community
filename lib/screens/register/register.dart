@@ -31,7 +31,7 @@ class Register extends StatelessWidget {
           UserCredential userCredential = await FirebaseAuth.instance
               .createUserWithEmailAndPassword(
                   email: email1, password: password);
-          snackBar("Registered successfully");
+          snackBar("Redistered successfully");
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
             snackBar('The password provided is too weak.');

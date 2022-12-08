@@ -115,51 +115,41 @@ class LogIn extends StatelessWidget with Login_Logic {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.transparent,
                     ),
                     onPressed: () async {
-                      if (emailController == "" && passwordController == "") {
-                        snackBar("Please enter all field");
-                      } else {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) =>
-                              Center(child: CircularProgressIndicator()),
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
                         );
-                        try {
-                          await FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim(),
-                          );
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'wrong-passord') {
-                            snackBar('your password is wrong');
-                          } else if (e.code == 'invalid-email') {
-                            snackBar('Inavalid Email');
-                          } else if (e.code == 'user-disabled') {
-                            snackBar('User is disabled');
-                          } else if (e.code == 'user-not-found') {
-                            snackBar("user Doesn't exist");
-                          }
-                        } catch (e) {
-                          snackBar(e.toString());
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'wrong-passord') {
+                          snackBar('your password is wrong');
+                        } else if (e.code == 'invalid-email') {
+                          snackBar('Inavalid Email');
+                        } else if (e.code == 'user-disabled') {
+                          snackBar('User is disabled');
+                        } else if (e.code == 'user-not-found') {
+                          snackBar("user Doesn't exist");
                         }
-                        // Navigator.popUntil(context, (route) => route.isFirst);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => BasePage()),
-                        );
-                        // Navigator.popUntil(context, (route) => route.isFirst);
-                        // Navigator.pushReplacement(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => BasePage()),
-                        // );
+                      } catch (e) {
+                        snackBar(e.toString());
                       }
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => BasePage()),
+                      );
                     },
                     child: Text(
                       "Log in",

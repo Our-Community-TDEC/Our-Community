@@ -121,21 +121,6 @@ class HomePage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Register()),
                 );
               },
-            ),  
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
-                  Text("LogOut"),
-                ],
-              ),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LogIn()),
-                  );
-              },
             ),
           ],
         ),
@@ -154,7 +139,21 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              
+              ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                  );
+                },
+                child: Text(
+                  "Logout",
+                  style: TextStyle(
+                    fontSize: minHW * 0.035,
+                  ),
+                ),
+              )
             ],
           ),
           Text(
