@@ -1,16 +1,18 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
-import 'package:final_year_project/screens/pages/chat_page.dart';
+import 'package:final_year_project/screens/SuggestionsList.dart';
 import 'package:final_year_project/screens/register/register.dart';
-import 'package:final_year_project/screens/suggestion/suggestion.dart';
+import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
+import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
+import 'package:final_year_project/screens/suggestions/suggestions.dart';
+import 'package:final_year_project/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
-import 'package:final_year_project/screens/helper/helper_function.dart';
+
 import 'Complain Pages/complain_page.dart';
 import 'Maintanance/Pay_maintanance.dart';
 
@@ -82,13 +84,13 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-                  Text("Maintenance"),
+                  Text("Theme"),
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Pay_maintenance()),
+                  MaterialPageRoute(builder: (context) => Theme1()),
                 );
               },
             ),
@@ -120,34 +122,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
-                  Text("Chat"),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ChatPage(groupId: '', groupName: '', userName: '',)),
-                );
-              },
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.water_damage),
-                  Text("suggestion"),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => suggestion ()),
-                );
-              },
-            ),
           ],
         ),
       ),
@@ -169,9 +143,9 @@ class HomePage extends StatelessWidget {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                   Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  LogIn()),
-  );
+                    context,
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                  );
                 },
                 child: Text(
                   "Logout",
@@ -233,9 +207,8 @@ class HomePage extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Suggestions()),
+                                    builder: (context) => show_suggestion()),
                               );
-                              // TODO: Add suggestions page
                             },
                             child: Text("Suggestions")),
                       ),
