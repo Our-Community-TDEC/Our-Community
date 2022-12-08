@@ -17,6 +17,7 @@ import 'package:final_year_project/screens/login_page.dart';
 import 'package:provider/provider.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:final_year_project/screens/chatting_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
