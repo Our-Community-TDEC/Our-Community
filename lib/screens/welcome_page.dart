@@ -56,7 +56,12 @@ class WelcomePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogIn()),
+                );
+              },
               child: const Text(
                 "Get Started",
                 style: TextStyle(
