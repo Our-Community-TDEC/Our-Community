@@ -27,7 +27,11 @@
     },
     {
       "name": "characters",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/characters-1.2.1",
+=======
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0",
+>>>>>>> main
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -513,7 +517,11 @@
     },
     {
       "name": "timezone",
+<<<<<<< HEAD
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/timezone-0.9.0",
+=======
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/timezone-0.8.0",
+>>>>>>> main
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -566,7 +574,11 @@
       "languageVersion": "2.17"
     }
   ],
+<<<<<<< HEAD
   "generated": "2022-12-05T06:01:00.057911Z",
+=======
+  "generated": "2022-07-23T14:33:25.433200Z",
+>>>>>>> main
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
