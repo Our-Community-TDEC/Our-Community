@@ -1,5 +1,4 @@
-import 'package:final_year_project/theme/theme_constant.dart';
-import 'package:final_year_project/theme/theme_manager.dart';
+import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:flutter/material.dart';
 import 'package:final_year_project/screens/home_page.dart';
 import 'dart:developer';
@@ -39,19 +38,9 @@ Future<void> main() async {
   log("Notification $intialized");
 
 
-  await Firebase.initializeApp();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<GoogleSignInProviderss>(
-          create: (context) => GoogleSignInProviderss())
-    ],
-    child: MaterialApp(
+void main() => runApp(MaterialApp(
       home: BasePage(),
-    ),
-  ));
-}
-
-ThemeManager _themeManager = ThemeManager();
+    ));
 
 class BasePage extends StatelessWidget {
 
