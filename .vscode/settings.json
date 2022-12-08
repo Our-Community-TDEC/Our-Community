@@ -1,4 +1,8 @@
 {
     "cmake.sourceDirectory": "${workspaceFolder}/linux",
+<<<<<<< HEAD
     "java.configuration.updateBuildConfiguration": "disabled"
+=======
+    "java.configuration.updateBuildConfiguration": "interactive"
+>>>>>>> 910ccaab42b51d4d41fcf2c2b6a2980df3563f42
 }
