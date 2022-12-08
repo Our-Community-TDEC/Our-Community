@@ -1,5 +1,5 @@
 import 'package:our_community/main.dart';
-import 'package:our_community/lib/logic/Home_page.dart';
+import 'package:our_community/logic/HomePage_logic.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class Emergency_Logic {
