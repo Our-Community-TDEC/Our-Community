@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/emergency_logic.dart';
+import 'package:our_community/logic/emergency_logic.dart';
 
 class EmergencyPage extends StatelessWidget with Emergency_Logic {
   late double Help_Button_Radius,

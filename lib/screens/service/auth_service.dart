@@ -1,5 +1,5 @@
-import 'package:final_year_project/screens/helper/helper_function.dart';
-import 'package:final_year_project/screens/service/database_service.dart';
+import 'package:our_community/screens/helper/helper_function.dart';
+import 'package:our_community/screens/service/database_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -9,7 +9,7 @@ class AuthService {
   Future loginWithUserNameandPassword(String email, String password) async {
     try {
       User user = (await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password))
+              email: email, password: password))
           .user!;
 
       if (user != null) {
@@ -25,7 +25,7 @@ class AuthService {
       String fullName, String email, String password) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
-          email: email, password: password))
+              email: email, password: password))
           .user!;
 
       if (user != null) {

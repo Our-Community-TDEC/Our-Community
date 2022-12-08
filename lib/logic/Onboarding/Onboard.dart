@@ -1,4 +1,4 @@
-import 'package:final_year_project/screens/home_page.dart';
+import 'package:our_community/screens/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
@@ -208,7 +208,8 @@ class _MyAppState extends State<MyApp> {
         borderRadius: defaultSkipButtonBorderRadius,
         onTap: () {
           Navigator.popUntil(context, (route) => route.isFirst);
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
         },
         child: const Padding(
           padding: defaultSkipButtonPadding,

@@ -1,4 +1,4 @@
-import 'package:final_year_project/screens/suggestions/suggestions.dart';
+import 'package:our_community/screens/suggestions/suggestions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -8,8 +8,6 @@ class Theme1 extends StatelessWidget {
   const Theme1({super.key});
 
   @override
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: NeumorphicFloatingActionButton(
@@ -95,5 +93,3 @@ class Theme1 extends StatelessWidget {
     }
   }
 }
-
-

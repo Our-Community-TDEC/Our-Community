@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/society_designer_logic.dart';
+import 'package:our_community/logic/society_designer_logic.dart';
 
 class SocietyDesignerPage extends StatelessWidget
     with SocietyDesignerPage_Logic {
@@ -15,7 +15,6 @@ class SocietyDesignerPage extends StatelessWidget
         onPressed: () {
           Navigator.pop(context);
         },
-        
         child: Icon(Icons.arrow_back),
       ),
       body: Column(

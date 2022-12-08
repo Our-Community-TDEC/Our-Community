@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/buildings_designer_logic.dart';
+import 'package:our_community/logic/buildings_designer_logic.dart';
 
 class BuildingsDesignerPage extends StatelessWidget
     with BuildingsDesignerPage_Logic {

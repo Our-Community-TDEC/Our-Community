@@ -1,4 +1,4 @@
-import 'package:final_year_project/logic/voting_logic.dart';
+import 'package:our_community/logic/voting_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -54,9 +54,7 @@ class _Voting_PageState extends State<Voting_Page> with voting_logic {
                 ElevatedButton(
                     onPressed: () {
                       votted("1");
-                      setState(() {
-
-                      });
+                      setState(() {});
                     },
                     child: Text("1")),
                 ElevatedButton(

@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:final_year_project/screens/Complain%20Pages/OtherComplains.dart';
+import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/complain_logic.dart';
-// import 'package:final_year_project/screens/Complain Pages/OtherComplains.dart';
+import 'package:our_community/logic/complain_logic.dart';
+// import 'package:our_community/screens/Complain Pages/OtherComplains.dart';
 
 class ComplainPage extends StatelessWidget with Complain_Logic {
   @override
@@ -70,8 +70,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.local_parking,
-                        size: 40,
+                        Icon(
+                          Icons.local_parking,
+                          size: 40,
                         ),
                         Text(
                           "Parking Issuee",
@@ -88,7 +89,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                       onPressed: () {},
                       child: Row(
                         children: [
-                          Icon(Icons.lightbulb,size: 40,),
+                          Icon(
+                            Icons.lightbulb,
+                            size: 40,
+                          ),
                           Text(
                             "Street light Issuee",
                             style: TextStyle(fontSize: 20),
@@ -104,7 +108,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.water_drop,size: 40,),
+                        Icon(
+                          Icons.water_drop,
+                          size: 40,
+                        ),
                         Text(
                           "Water Issuee",
                           style: TextStyle(fontSize: 20),
@@ -119,7 +126,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.gas_meter,size: 40,),
+                        Icon(
+                          Icons.gas_meter,
+                          size: 40,
+                        ),
                         Text(
                           "Gas pipeline Issuee",
                           style: TextStyle(fontSize: 20),
@@ -134,7 +144,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.drag_indicator,size: 40,),
+                        Icon(
+                          Icons.drag_indicator,
+                          size: 40,
+                        ),
                         Text(
                           "Drainage Issuee",
                           style: TextStyle(fontSize: 20),
@@ -149,7 +162,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.electric_bolt,size: 40,),
+                        Icon(
+                          Icons.electric_bolt,
+                          size: 40,
+                        ),
                         Text(
                           "Electricity Issuee",
                           style: TextStyle(fontSize: 20),
@@ -164,7 +180,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     onPressed: () {},
                     child: Row(
                       children: [
-                        Icon(Icons.add_road,size: 40,),
+                        Icon(
+                          Icons.add_road,
+                          size: 40,
+                        ),
                         Text(
                           "Road Issuee",
                           style: TextStyle(fontSize: 20),
@@ -191,7 +210,10 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.emoji_emotions,size: 40,),
+                        Icon(
+                          Icons.emoji_emotions,
+                          size: 40,
+                        ),
                         Text(
                           "Other Complaint",
                           style: TextStyle(fontSize: 20),

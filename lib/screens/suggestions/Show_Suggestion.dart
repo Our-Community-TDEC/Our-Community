@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
+import 'package:our_community/screens/suggestions/New_suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -70,9 +70,9 @@ class show_suggestion extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () => {
             Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NewSuggestion()),
-                )
+              context,
+              MaterialPageRoute(builder: (context) => NewSuggestion()),
+            )
           },
           child: NeumorphicIcon(
             Icons.add_circle,

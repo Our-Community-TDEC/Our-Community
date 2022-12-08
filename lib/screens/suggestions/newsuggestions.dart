@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/emergency_logic.dart';
+import 'package:our_community/logic/emergency_logic.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 abstract class newsuggestions extends StatelessWidget with Emergency_Logic {
@@ -13,14 +13,8 @@ abstract class newsuggestions extends StatelessWidget with Emergency_Logic {
 
   @override
   Widget build(BuildContext context) {
-    Help_Button_Radius = min((MediaQuery
-        .of(context)
-        .size
-        .width),
-        (MediaQuery
-            .of(context)
-            .size
-            .height)) /
+    Help_Button_Radius = min((MediaQuery.of(context).size.width),
+            (MediaQuery.of(context).size.height)) /
         3;
     return Scaffold(
       backgroundColor: Colors.grey[800],
@@ -44,23 +38,18 @@ abstract class newsuggestions extends StatelessWidget with Emergency_Logic {
                 Container(
                   width: 200,
                   alignment: Alignment.center,
-
                   child: const Text(
                     "New Suggestions",
                     style: TextStyle(
                       color: Colors.white38,
                       fontFamily: 'Poppins-SemiBold',
-
                     ),
-
                   ),
-
                 ),
               ],
             ),
             Column(
               children: [
-
                 const Divider(
                   thickness: 2,
                 ),
@@ -72,4 +61,3 @@ abstract class newsuggestions extends StatelessWidget with Emergency_Logic {
     );
   }
 }
-

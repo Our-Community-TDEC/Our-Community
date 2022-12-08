@@ -1,6 +1,6 @@
-import 'package:final_year_project/screens/home_page.dart';
-import 'package:final_year_project/screens/service/database_service.dart';
-import 'package:final_year_project/screens/widgets/widgets.dart';
+import 'package:our_community/screens/home_page.dart';
+import 'package:our_community/screens/service/database_service.dart';
+import 'package:our_community/screens/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,9 +10,9 @@ class GroupInfo extends StatefulWidget {
   final String adminName;
   const GroupInfo(
       {Key? key,
-        required this.adminName,
-        required this.groupName,
-        required this.groupId})
+      required this.adminName,
+      required this.groupName,
+      required this.groupId})
       : super(key: key);
 
   @override
@@ -63,7 +63,7 @@ class _GroupInfoState extends State<GroupInfo> {
                       return AlertDialog(
                         title: const Text("Exit"),
                         content:
-                        const Text("Are you sure you exit the group? "),
+                            const Text("Are you sure you exit the group? "),
                         actions: [
                           IconButton(
                             onPressed: () {
@@ -77,12 +77,12 @@ class _GroupInfoState extends State<GroupInfo> {
                           IconButton(
                             onPressed: () async {
                               DatabaseService(
-                                  uid: FirebaseAuth
-                                      .instance.currentUser!.uid)
+                                      uid: FirebaseAuth
+                                          .instance.currentUser!.uid)
                                   .toggleGroupJoin(
-                                  widget.groupId,
-                                  getName(widget.adminName),
-                                  widget.groupName)
+                                      widget.groupId,
+                                      getName(widget.adminName),
+                                      widget.groupName)
                                   .whenComplete(() {
                                 nextScreenReplace(context, const HomePage());
                               });
@@ -159,7 +159,7 @@ class _GroupInfoState extends State<GroupInfo> {
                 itemBuilder: (context, index) {
                   return Container(
                     padding:
-                    const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                        const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 30,
@@ -193,8 +193,8 @@ class _GroupInfoState extends State<GroupInfo> {
         } else {
           return Center(
               child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor,
-              ));
+            color: Theme.of(context).primaryColor,
+          ));
         }
       },
     );

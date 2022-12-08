@@ -1,7 +1,7 @@
-import 'package:final_year_project/main.dart';
-import 'package:final_year_project/provider/googlesignin.dart';
-import 'package:final_year_project/screens/Maintanance/Pay_maintanance.dart';
-import 'package:final_year_project/screens/register/register.dart';
+import 'package:our_community/main.dart';
+import 'package:our_community/provider/googlesignin.dart';
+import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
+import 'package:our_community/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

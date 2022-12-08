@@ -1,5 +1,5 @@
-import 'package:final_year_project/screens/pages/chat_page.dart';
-import 'package:final_year_project/screens/widgets/widgets.dart';
+import 'package:our_community/screens/pages/chat_page.dart';
+import 'package:our_community/screens/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class GroupTile extends StatefulWidget {
@@ -8,9 +8,9 @@ class GroupTile extends StatefulWidget {
   final String groupName;
   const GroupTile(
       {Key? key,
-        required this.groupId,
-        required this.groupName,
-        required this.userName})
+      required this.groupId,
+      required this.groupName,
+      required this.userName})
       : super(key: key);
 
   @override

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/OtherComplaints_logic.dart';
+import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 
 import '../../logic/suggestion_logic.dart';
@@ -50,7 +50,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                           child: IconButton(
                             onPressed: () => {Navigator.pop(context)},
-                            
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: Color.fromARGB(255, 0, 141, 241),
@@ -149,8 +148,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                   ),
                 ),
               ),
-              
-        
             ),
           ],
         ));

@@ -1,16 +1,16 @@
 import 'dart:math';
-import 'package:final_year_project/razer_pay.dart';
-import 'package:final_year_project/screens/Services/Doctor.dart';
-import 'package:final_year_project/screens/SuggestionsList.dart';
-import 'package:final_year_project/screens/register/register.dart';
-import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
-import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
-import 'package:final_year_project/screens/suggestions/suggestions.dart';
-import 'package:final_year_project/screens/theme/theme.dart';
+import 'package:our_community/razer_pay.dart';
+import 'package:our_community/screens/Services/Doctor.dart';
+import 'package:our_community/screens/SuggestionsList.dart';
+import 'package:our_community/screens/register/register.dart';
+import 'package:our_community/screens/suggestions/New_suggestion.dart';
+import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
+import 'package:our_community/screens/suggestions/suggestions.dart';
+import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:final_year_project/screens/login_page.dart';
-import 'package:final_year_project/screens/welcome_page.dart';
+import 'package:our_community/screens/login_page.dart';
+import 'package:our_community/screens/welcome_page.dart';
 
 import '../screens/emergency_page.dart';
 import 'Complain Pages/complain_page.dart';
@@ -130,12 +130,12 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                  FirebaseAuth.instance.signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LogIn()),
-                  );
-                },
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogIn()),
+                );
+              },
             ),
           ],
         ),

@@ -1,27 +1,26 @@
-import 'package:final_year_project/logic/noticeboard_logic.dart';
-import 'package:final_year_project/screens/CreateNoticePage.dart';
+import 'package:our_community/logic/noticeboard_logic.dart';
+import 'package:our_community/screens/CreateNoticePage.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import 'CreateNoticePage.dart';
-void main()
-{
+
+void main() {
   runApp(Notice_Board_Page());
 }
+
 List<Meeting> _getDataSource() {
   final List<Meeting> meetings = <Meeting>[];
   final DateTime today = DateTime.now();
   final DateTime startTime =
-  DateTime(today.year, today.month, today.day, 9, 0, 0);
+      DateTime(today.year, today.month, today.day, 9, 0, 0);
   final DateTime endTime = startTime.add(const Duration(hours: 2));
   meetings.add(Meeting(
       'Conference', startTime, endTime, const Color(0xFF0F8644), false));
-  meetings.add(Meeting('Meeting', startTime, endTime, const Color(0xffe580ff), false));
+  meetings.add(
+      Meeting('Meeting', startTime, endTime, const Color(0xffe580ff), false));
   return meetings;
-
 }
-
-
 
 class MeetingDataSource extends CalendarDataSource {
   MeetingDataSource(List<Meeting> source) {
@@ -65,20 +64,20 @@ class Meeting {
 }
 
 class Notice_Board_Page extends StatelessWidget with noticeboaard_logic {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            print('Clicked here');
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => CreateNoticePage()));
-          },
-          backgroundColor: Colors.black38,
-        child: const Icon(Icons.add,color: Colors.blue,),
+        onPressed: () {
+          print('Clicked here');
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreateNoticePage()));
+        },
+        backgroundColor: Colors.black38,
+        child: const Icon(
+          Icons.add,
+          color: Colors.blue,
+        ),
       ),
       backgroundColor: Colors.grey[800],
       body: Container(
@@ -93,14 +92,14 @@ class Notice_Board_Page extends StatelessWidget with noticeboaard_logic {
                     CircleAvatar(
                       backgroundColor: Colors.black38,
                       child: IconButton(
-                        onPressed:() => print('Clicked on list'),
+                        onPressed: () => print('Clicked on list'),
                         icon: Icon(Icons.list),
                         color: Colors.blue,
                       ),
                     ),
                     SizedBox(
                         width: 400,
-                        child:Container(
+                        child: Container(
                           alignment: Alignment.center,
                           child: Text(
                             "Notice",
@@ -113,8 +112,7 @@ class Notice_Board_Page extends StatelessWidget with noticeboaard_logic {
                               fontSize: 35,
                             ),
                           ),
-                        )
-                    )
+                        ))
                   ],
                 ),
                 // CircleAvatar(
@@ -175,7 +173,6 @@ class Notice_Board_Page extends StatelessWidget with noticeboaard_logic {
                     shape: BoxShape.rectangle,
                   ),
                 ),
-
 
                 // children: [
                 //   CircleAvatar(
