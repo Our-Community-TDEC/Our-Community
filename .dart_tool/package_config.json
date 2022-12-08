@@ -27,6 +27,12 @@
     },
     {
       "name": "characters",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "clock",
       "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
@@ -545,19 +551,19 @@
     },
     {
       "name": "syncfusion_flutter_core",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.3.56",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/syncfusion_flutter_core-20.3.56",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "syncfusion_flutter_datepicker",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-20.3.56",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/syncfusion_flutter_datepicker-20.3.56",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "table_calendar",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/table_calendar-3.0.7",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/table_calendar-3.0.7",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -575,7 +581,7 @@
     },
     {
       "name": "timezone",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/timezone-0.9.0",
+      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/timezone-0.8.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -587,7 +593,7 @@
     },
     {
       "name": "upi_india",
-      "rootUri": "file:///C:/src/flutter/.pub-cache/hosted/pub.dartlang.org/upi_india-3.0.1",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/upi_india-3.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -628,7 +634,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-10-10T12:29:39.747941Z",
+  "generated": "2022-07-23T14:33:25.433200Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
