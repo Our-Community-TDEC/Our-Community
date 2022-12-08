@@ -36,7 +36,7 @@ Future<void> main() async {
               create: (context) => GoogleSignInProviderss())
         ],
         child: MaterialApp(
-          home: BasePage(),
+          home: BasePage1(),
         )),
   );
 }
