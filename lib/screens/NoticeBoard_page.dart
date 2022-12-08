@@ -70,14 +70,14 @@ class Notice_Board_Page extends StatelessWidget with noticeboaard_logic {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          print('Clicked here');
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => CreateNoticePage()));
-        },
-        backgroundColor: Colors.black38,
+          onPressed: (){
+            print('Clicked here');
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CreateNoticePage()));
+          },
+          backgroundColor: Colors.black38,
         child: const Icon(Icons.add,color: Colors.blue,),
       ),
       backgroundColor: Colors.grey[800],

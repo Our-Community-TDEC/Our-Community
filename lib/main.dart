@@ -19,6 +19,14 @@ import 'package:provider/provider.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:final_year_project/screens/chatting_page.dart';
+import 'package:final_year_project/screens/NoticeBoard_page.dart';
+import 'package:flutter/material.dart';
+import 'package:final_year_project/screens/login_page.dart';
+import 'package:final_year_project/screens/emergency_page.dart';
+import 'package:final_year_project/screens/welcome_page.dart';
+import 'package:final_year_project/screens/complaints_main_page.dart';
+import 'package:final_year_project/screens/other_complaints_page.dart';
+import 'package:final_year_project/screens/BetaTestSection/PiCharts.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
