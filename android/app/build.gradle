@@ -52,7 +52,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
     splits {
         abi {
             enable true

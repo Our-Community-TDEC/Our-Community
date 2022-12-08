@@ -1,7 +1,11 @@
 import 'package:final_year_project/main.dart';
 import 'package:final_year_project/provider/googlesignin.dart';
 import 'package:final_year_project/screens/Maintanance/Pay_maintanance.dart';
+<<<<<<< HEAD
 // import 'package:final_year_project/screens/register/register.dart';
+=======
+import 'package:final_year_project/screens/register/register.dart';
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +57,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                         ],
                       ),
                     ),
+<<<<<<< HEAD
                     Padding(
                       padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
                       child: SizedBox(
@@ -66,6 +71,96 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.grey[700],
+=======
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                    ),
+                    onPressed: () async {
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) =>
+                            Center(child: CircularProgressIndicator()),
+                      );
+                      try {
+                        await FirebaseAuth.instance.signInWithEmailAndPassword(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'wrong-passord') {
+                          snackBar('your password is wrong');
+                        } else if (e.code == 'invalid-email') {
+                          snackBar('Inavalid Email');
+                        } else if (e.code == 'user-disabled') {
+                          snackBar('User is disabled');
+                        } else if (e.code == 'user-not-found') {
+                          snackBar("user Doesn't exist");
+                        }
+                      } catch (e) {
+                        snackBar(e.toString());
+                      }
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => BasePage()),
+                      );
+                    },
+                    child: Text(
+                      "Log in",
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Register()));
+                    },
+                    child: Text("Register")),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: Column(
+                    children: [
+                      Text(
+                        "-----------< Or continue with >-----------",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.transparent,
+                              ),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Center(
+                                      child: CircularProgressIndicator()),
+                                );
+                                final prov =
+                                    Provider.of<GoogleSignInProviderss>(context,
+                                        listen: false);
+                                prov.googleLogIn();
+                                Navigator.popUntil(
+                                    context, (route) => route.isFirst);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BasePage()),
+                                );
+                              },
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/Images/Login/image 3.png'),
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
                               ),
                             ),
                             TextField(

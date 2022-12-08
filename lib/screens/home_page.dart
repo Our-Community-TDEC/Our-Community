@@ -1,14 +1,19 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
+import 'package:final_year_project/screens/SuggestionsList.dart';
+import 'package:final_year_project/screens/register/register.dart';
+import 'package:final_year_project/screens/suggestions/New_suggestion.dart';
+import 'package:final_year_project/screens/suggestions/Show_Suggestion.dart';
+import 'package:final_year_project/screens/suggestions/suggestions.dart';
+import 'package:final_year_project/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:final_year_project/screens/complain_page.dart';
 import 'package:final_year_project/screens/emergency_page.dart';
 import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 
+import 'Complain Pages/complain_page.dart';
 import 'Maintanance/Pay_maintanance.dart';
 import 'manageaddress.dart';
 
@@ -66,7 +71,8 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
+          
+    ListTile(
               title: Row(
                 children: [
                   Icon(Icons.electric_bolt),
@@ -79,13 +85,13 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-                  Text("Maintenance"),
+                  Text("Theme"),
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Pay_maintenance()),
+                  MaterialPageRoute(builder: (context) => Theme1()),
                 );
               },
             ),
@@ -106,14 +112,23 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
+<<<<<<< HEAD
                   Icon(Icons.water_damage),
                   Text("manageaddress"),
+=======
+                  Icon(Icons.paid),
+                  Text("Register"),
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
                 ],
               ),
               onTap: () {
                 Navigator.push(
                   context,
+<<<<<<< HEAD
                   MaterialPageRoute(builder: (context) => ManageAddress()),
+=======
+                  MaterialPageRoute(builder: (context) => Register()),
+>>>>>>> 5b8ec7fd7dcebada58b58b84aa3d929a0c49e445
                 );
               },
             ),
@@ -135,7 +150,13 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () => FirebaseAuth.instance.signOut(),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LogIn()),
+                  );
+                },
                 child: Text(
                   "Logout",
                   style: TextStyle(
@@ -193,12 +214,11 @@ class HomePage extends StatelessWidget {
                         width: boxL,
                         child: ElevatedButton(
                             onPressed: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => SuggestionsPage()),
-                              // );
-                              // TODO: Add suggestions page
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => show_suggestion()),
+                              );
                             },
                             child: Text("Suggestions")),
                       ),
@@ -229,3 +249,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+

@@ -56,6 +56,13 @@ class show_complaint extends StatelessWidget {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Icon(Icons.arrow_back),
+        ),
         body: Column(
       children: [
         StreamBuilder<QuerySnapshot>(
