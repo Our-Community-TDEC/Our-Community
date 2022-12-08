@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:final_year_project/logic/emergency_logic.dart';
+// import 'package:final_year_project/logic/emergency_logic.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Suggestions extends StatelessWidget with Emergency_Logic {
+class Suggestions extends StatelessWidget  {
   late double Help_Button_Radius,
       Help_Buttons_Padding = 12.5,
       Divider_Thickness = 2.5;

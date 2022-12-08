@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:final_year_project/razer_pay.dart';
-import 'package:final_year_project/screens/Chats/Chat_page.dart';
 import 'package:final_year_project/screens/Services/Plumber.dart';
 import 'package:final_year_project/screens/SuggestionsList.dart';
 import 'package:final_year_project/screens/register/register.dart';
@@ -71,7 +70,8 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
+          
+    ListTile(
               title: Row(
                 children: [
                   Icon(Icons.electric_bolt),
@@ -240,3 +240,5 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+
