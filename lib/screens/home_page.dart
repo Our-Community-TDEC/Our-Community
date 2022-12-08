@@ -10,6 +10,7 @@ import 'package:final_year_project/screens/login_page.dart';
 import 'package:final_year_project/screens/welcome_page.dart';
 
 import 'Maintanance/Pay_maintanance.dart';
+import 'manageaddress.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -99,6 +100,20 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => razer_pay()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.water_damage),
+                  Text("manageaddress"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ManageAddress()),
                 );
               },
             ),
