@@ -54,7 +54,6 @@ class Suggestions extends StatelessWidget with Emergency_Logic {
               children: [
                 //TODO: Add an Image
                 Image.asset('2147.jpeg'),
-                // Text("Img"),
                 Column(
                   children: const [
                     Text("Darshan Bhuva"),

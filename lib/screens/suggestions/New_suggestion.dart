@@ -85,7 +85,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
               padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: SizedBox(
                 width: 450,
-                // height: 300,
                 child: TextField(
                   controller: suggestion_title,
                   decoration: InputDecoration(
@@ -109,7 +108,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
               ],
             ),
             SizedBox(
-              // height: 200,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: TextField(

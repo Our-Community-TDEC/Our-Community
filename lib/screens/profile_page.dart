@@ -5,7 +5,6 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // padding: EdgeInsets.all(25),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -49,7 +48,6 @@ class ProfilePage extends StatelessWidget {
                   ),
                   Container(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 75),
-                    // padding: EdgeInsets.all(75),
                     child: CircleAvatar(
                       child: Image(
                           image:

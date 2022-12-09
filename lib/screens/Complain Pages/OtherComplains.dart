@@ -88,7 +88,6 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
               padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: SizedBox(
                 width: 450,
-                // height: 300,
                 child: TextField(
                   controller: complaint_title,
                   decoration: InputDecoration(
@@ -112,7 +111,6 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
               ],
             ),
             SizedBox(
-              // height: 200,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                 child: TextField(

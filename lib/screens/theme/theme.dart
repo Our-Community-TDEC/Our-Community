@@ -63,7 +63,6 @@ class Theme1 extends StatelessWidget {
                   shape: NeumorphicShape.flat,
                   boxShape:
                       NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
-                  //border: NeumorphicBorder()
                 ),
                 padding: const EdgeInsets.all(12.0),
                 child: Text(

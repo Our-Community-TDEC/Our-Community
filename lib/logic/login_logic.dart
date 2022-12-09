@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print
-
 class Login_Logic {
   void google_button_clicked() {
     print("Pandu");

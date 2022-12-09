@@ -10,48 +10,6 @@ class show_suggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     void main() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // //fetch data
-      // QuerySnapshot snapshot = await firestore.collection("Complaint").get();
-      // for (var doc in snapshot.docs) {
-      //   Text(doc.data().toString());
-      // }
-
-      //Single user
-      // DocumentSnapshot snapshot1 = await firestore
-      //     .collection("complaint")
-      //     .doc("8iAmDuN2gVlk4qwi5NJ8")
-      //     .get();
-      // log("message");
-      // log(snapshot1.data().toString());
-
-      // //Add data with Auto id
-      // Map<String, dynamic> newComplaint = {
-      //   "title": "Garden",
-      //   "description": "clean Garden"
-      // };
-      // await firestore.collection('Complaint').add(newComplaint);
-
-      // //Add data with manual id
-      // await firestore.collection('Complaint').doc("1").set(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("2")
-      //     .set({"title": "Garden2", "description": "clean Garden2"});
-
-      // //Update data
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update({"description": "clean all Garden"});
-
-      // //delete data
-
-      // await firestore.collection("Complaint").doc("2").delete();
     }
 
     final user = FirebaseAuth.instance.currentUser!;
@@ -59,13 +17,6 @@ class show_suggestion extends StatelessWidget {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     return Scaffold(
-        // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-        // floatingActionButton: FloatingActionButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   child: Icon(Icons.arrow_back),
-        // ),
         backgroundColor: Colors.grey[800],
         floatingActionButton: FloatingActionButton(
           onPressed: () => {
@@ -186,22 +137,6 @@ class show_suggestion extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            // title: Row(
-                            //   children: [
-                            //     Image.asset('2147.jpeg'),
-                            //     // Text("Img"),
-                            //     Column(
-                            //       children: const [
-                            //         Text(user.email!),
-                            //         Text(show_suggestion["title"]),
-                            //       Text(show_suggestion["descriptoin"]),
-                            //       ],
-                            //     )
-                            //   ],
-                            // ),
-                            // title: Text(
-                            //     show_complaint["title"] + show_complaint["time"]),
-                            // subtitle: Text(show_complaint["descriptoin"]),
                             trailing: IconButton(
                               onPressed: () {
                                 firestore

@@ -218,64 +218,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                     ],
                   ),
                 ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     final prov = Provider.of<GoogleSignInProviderss>(context,
-                //         listen: false);
-                //     prov.googleLogIn();
-                //   },
-                //   child: Text(
-                //     "Sign in",
-                //   ),
-                // ),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     final prov = Provider.of<GoogleSignInProviderss>(context,
-                //         listen: false);
-                //     prov.googleSignOut();
-                //   },
-                //   child: Text(
-                //     "Sign out",
-                //   ),
-                //   // shape: RoundedRectangleBorder(
-                //   //   borderRadius: new BorderRadius.circular(45),
-                //   // ),
-                // ),
-                // ElevatedButton(
-                //   onPressed: () async {
-                //     showDialog(
-                //       context: context,
-                //       barrierDismissible: false,
-                //       builder: (context) =>
-                //           Center(child: CircularProgressIndicator()),
-                //     );
-                //     try {
-                //       await FirebaseAuth.instance.signInWithEmailAndPassword(
-                //         email: emailController.text.trim(),
-                //         password: passwordController.text.trim(),
-                //       );
-                //     } on FirebaseAuthException catch (e) {
-                //       print(e);
-                //     }
-                //   },
-                //   child: Text(
-                //     "Log in",
-                //   ),
-                // ),
-
-                // Container(
-                //   width: 400,
-                //   height: 200,
-                //   decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(100),
-                //     border: Border.all(
-                //       width: 2.0,
-                //       color: Colors.blue,
-                //       style: BorderStyle.solid,
-                //     ),
-                //   ),
-
-                // ),
               ],
             ),
           ),
