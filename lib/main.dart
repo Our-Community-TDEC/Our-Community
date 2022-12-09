@@ -8,13 +8,12 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:our_community/provider/googlesignin.dart';
-// import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   AndroidInitializationSettings andr_noti_setting =
-  AndroidInitializationSettings("@mipmap/ic_launcher");
+      AndroidInitializationSettings("@mipmap/ic_launcher");
 
   DarwinInitializationSettings ios_noti_setting = DarwinInitializationSettings(
       requestAlertPermission: true,
@@ -23,7 +22,7 @@ Future<void> main() async {
       requestCriticalPermission: true);
 
   InitializationSettings both_ios_andr_noti_intia_setting =
-  InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
+      InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
   // bool? intialized =
   // await notification.initialize(both_ios_andr_noti_intia_setting);
 
