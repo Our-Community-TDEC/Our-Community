@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:our_community/razer_pay.dart';
+import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/SuggestionsList.dart';
 import 'package:our_community/screens/register/register.dart';
@@ -176,7 +177,14 @@ class HomePage extends StatelessWidget {
                         height: boxL,
                         width: boxL,
                         child: ElevatedButton(
-                            onPressed: () {}, child: Text("Notice Board")),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Notice_Board_Page()),
+                              );
+                            },
+                            child: Text("Notice Board")),
                       ),
                       SizedBox(
                           height: boxL,
