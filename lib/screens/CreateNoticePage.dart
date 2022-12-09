@@ -1,5 +1,6 @@
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:flutter/material.dart';
+// import 'o';
 
 class CreateNoticePage extends StatelessWidget {
   const CreateNoticePage({Key? key}) : super(key: key);
@@ -37,6 +38,8 @@ class CreateNoticePage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             "New Notice",
+                            // textAlign:TextAlign.center,
+                            // textDirection: TextDirection.ltr,
                             style: TextStyle(
                               fontFamily: 'Poppins-SemiBold',
                               color: Colors.white,
@@ -61,7 +64,9 @@ class CreateNoticePage extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
+            // TextField(),
             TextField(
+              // obscureText: true,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.black38,
@@ -80,7 +85,10 @@ class CreateNoticePage extends StatelessWidget {
                 fontSize: 20,
               ),
             ),
+            // TextField(),
             TextField(
+              // obscureText: true,
+              // cursorColor: Colors.black38,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.black38,
@@ -105,6 +113,8 @@ class CreateNoticePage extends StatelessWidget {
                       ),
                     ),
                     TextField(
+                      // obscureText: true,
+                      // cursorColor: Colors.black38,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black38,
@@ -128,6 +138,8 @@ class CreateNoticePage extends StatelessWidget {
                       ),
                     ),
                     TextField(
+                      // obscureText: true,
+                      // cursorColor: Colors.black38,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.black38,
@@ -141,8 +153,11 @@ class CreateNoticePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
+                  // height: 50,
+                  // width: 100,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
+                        // fixedSize: const Size(300, 100),
                         primary: Colors.blue, //background color of button
                         shadowColor: Colors.blue,
                         side: BorderSide(

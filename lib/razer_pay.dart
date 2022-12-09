@@ -24,6 +24,7 @@ class razer_pay_State extends State<razer_pay> {
 
   @override
   void dispose() {
+    // TODO: implement dispose
     super.dispose();
     razorpay.clear();
   }
@@ -52,6 +53,7 @@ class razer_pay_State extends State<razer_pay> {
       content: Text(response.toString()),
       backgroundColor: Colors.blue,
     ));
+    // Toast.show("Pament success", context);
   }
 
   void handlerErrorFailure(PaymentFailureResponse response) {
@@ -59,6 +61,7 @@ class razer_pay_State extends State<razer_pay> {
       content: Text(response.toString()),
       backgroundColor: Colors.blue,
     ));
+    // Toast.show("Pament error", context);
   }
 
   void handlerExternalWallet(ExternalWalletResponse response) {
@@ -66,6 +69,7 @@ class razer_pay_State extends State<razer_pay> {
       content: Text(response.toString()),
       backgroundColor: Colors.blue,
     ));
+    // Toast.show("External Wallet", context);
   }
 
   @override

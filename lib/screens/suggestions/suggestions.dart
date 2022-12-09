@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+// import 'package:our_community/logic/emergency_logic.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Suggestions extends StatelessWidget {
@@ -51,7 +52,9 @@ class Suggestions extends StatelessWidget {
             ),
             Row(
               children: [
+                //TODO: Add an Image
                 Image.asset('2147.jpeg'),
+                // Text("Img"),
                 Column(
                   children: const [
                     Text("Darshan Bhuva"),

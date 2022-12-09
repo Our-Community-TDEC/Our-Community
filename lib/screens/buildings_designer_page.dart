@@ -18,7 +18,9 @@ class BuildingsDesignerPage extends StatelessWidget
       ),
       body: Padding(
         padding: const EdgeInsets.all(50),
+        // padding: const EdgeInsets.all(0),
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("City"),

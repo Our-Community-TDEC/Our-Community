@@ -18,6 +18,7 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Container(
+        //This contains the whole page
         constraints: const BoxConstraints.expand(),
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -55,6 +56,7 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
                   children: [
                     //TODO: Add an Image
                     Image.asset('2147.jpeg'),
+                    // Text("Img"),
                     Column(
                       children: const [
                         Text("Darshan Bhuva"),
@@ -95,6 +97,7 @@ class SuggestionsList extends StatelessWidget with Emergency_Logic {
                   children: [
                     //TODO: Add an Image
                     Image.asset('2147.jpeg'),
+                    // Text("Img"),
                     Column(
                       children: const [
                         Text("Darshan Bhuva"),

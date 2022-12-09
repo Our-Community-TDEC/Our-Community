@@ -75,6 +75,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                             Medical_Emergency_Help();
                             shownotification();
                           },
+                          // child: Icon(Icons.medical_services),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -107,6 +108,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                           onPressed: () {
                             Electrical_Emergency_Help();
                           },
+                          // child: Icon(Icons.medical_services),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -144,6 +146,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                           onPressed: () {
                             Car_Emergency_Help();
                           },
+                          // child: Icon(Icons.medical_services),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
@@ -176,6 +179,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                           onPressed: () {
                             Fire_Emergency_Help();
                           },
+                          // child: Icon(Icons.medical_services),
                           child: Stack(
                             alignment: Alignment.center,
                             children: [
