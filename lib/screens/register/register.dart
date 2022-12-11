@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +18,8 @@ class Register extends StatelessWidget {
       ));
     }
 
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
     void createAccount() async {
       String email1 = emailController.text.toString().trim();
       String password = passwordController.text.toString()..trim();
@@ -28,18 +31,21 @@ class Register extends StatelessWidget {
         snackBar("Password And Confirm Password not match!");
       } else {
         try {
-          UserCredential userCredential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(
-                  email: email1, password: password);
-          snackBar("Redistered successfully");
+          Null userCredential = await FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email1, password: password)
+              .then((user) {
+                snackBar("registerd successfully");
+              }).catchError((error) {
+                snackBar("Something went Wrong");
+              });
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
             snackBar('The password provided is too weak.');
           } else if (e.code == 'email-already-in-use') {
             snackBar('The account already exists for that email.');
-          }else if (e.code == 'invalid-email') {
+          } else if (e.code == 'invalid-email') {
             snackBar('Inavalid Email');
-          }else if (e.code == 'operation-not-allowed') {
+          } else if (e.code == 'operation-not-allowed') {
             snackBar('Account is disabled');
           }
         } catch (e) {
