@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../login_page.dart';
+
 class Register extends StatelessWidget {
   final emailController = TextEditingController();
+  final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   final cPassword = TextEditingController();
   Color gradient_top = Color(0xFF2E2F36);
@@ -21,23 +24,36 @@ class Register extends StatelessWidget {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     void createAccount() async {
-      String email1 = emailController.text.toString().trim();
+      String email = emailController.text.toString().trim();
+      String userName = userNameController.text.toString().trim();
       String password = passwordController.text.toString()..trim();
       String confirmpassword = cPassword.text.toString()..trim();
 
-      if (email1 == "" || password == "" || confirmpassword == "") {
+      if (email == "" || password == "" || confirmpassword == "") {
         snackBar("Fill all the field");
       } else if (password != confirmpassword) {
         snackBar("Password And Confirm Password not match!");
       } else {
         try {
-          Null userCredential = await FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email1, password: password)
+          FirebaseAuth.instance
+              .createUserWithEmailAndPassword(email: email, password: password)
               .then((user) {
-                snackBar("registerd successfully");
-              }).catchError((error) {
-                snackBar("Something went Wrong");
-              });
+            snackBar("registerd successfully");
+            // UserRecord userRecord = FirebaseAuth.getInstance().getUserByPhoneNumber(phoneNumber);
+            firestore
+                .collection("user")
+                .doc(FirebaseAuth.instance.currentUser?.displayName)
+                .set({
+              "userName": userName,
+              "email": email,
+              "password": password,
+            }).then((value) => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LogIn()),
+                    ));
+          }).catchError((error) {
+            snackBar("Something went Wrong");
+          });
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
             snackBar('The password provided is too weak.');
@@ -72,6 +88,18 @@ class Register extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: Column(
                     children: <Widget>[
+                      Text("UserId"),
+                      TextField(
+                        controller: userNameController,
+                        decoration: const InputDecoration(
+                          filled: true,
+                          fillColor: Colors.grey,
+                          border: OutlineInputBorder(),
+                          labelText: 'name@example.com',
+                          hintText: 'Enter E-Mail ID',
+                          suffixIcon: Icon(Icons.alternate_email),
+                        ),
+                      ),
                       Text("EmailId"),
                       TextField(
                         controller: emailController,

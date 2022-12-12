@@ -1,25 +1,22 @@
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
-import 'package:our_community/screens/SuggestionsList.dart';
 import 'package:our_community/screens/register/register.dart';
-import 'package:our_community/screens/suggestions/New_suggestion.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
-import 'package:our_community/screens/suggestions/suggestions.dart';
 import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
-import 'package:our_community/screens/welcome_page.dart';
 
 import '../screens/emergency_page.dart';
 import 'Complain Pages/complain_page.dart';
-import 'Maintanance/Pay_maintanance.dart';
-import 'manageaddress.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +25,18 @@ class HomePage extends StatelessWidget {
     double boxL = minHW * 0.45;
     final user = FirebaseAuth.instance.currentUser!;
     String email = user.email!;
+
+    FirebaseAuth userauthdata = FirebaseAuth.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // DocumentSnapshot snapshot = firestore
+    //     .collection("users")
+    //     .doc(userauthdata.currentUser?.uid)
+    //     .snapshots() as DocumentSnapshot;
+
+    // var userdata = snapshot.data as DocumentSnapshot;
+    // String username = userdata["userName"];
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page"),
