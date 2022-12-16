@@ -115,20 +115,20 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
-                  Text("Register"),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Register()),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(Icons.paid),
+            //       Text("Register"),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => Register()),
+            //     );
+            //   },
+            // ),
             ListTile(
               title: Row(
                 children: [
