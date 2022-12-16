@@ -30,12 +30,16 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
   runApp(
+    // A provider that merges multiple providers into a single linear widget tree.
     MultiProvider(
         providers: [
+          // A wrapper around InheritedWidget to make them easier to
+          //use and more reusable.So here we are Inheriting GoogleSignInProviderss
           ChangeNotifierProvider<GoogleSignInProviderss>(
               create: (context) => GoogleSignInProviderss())
         ],
         child: MaterialApp(
+          
           home: BasePage1(),
         )),
   );
@@ -44,11 +48,13 @@ Future<void> main() async {
 class BasePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Use for theme
+
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Neumorphic App',
       themeMode: ThemeMode.light,
-      theme: NeumorphicThemeData(
+      theme: NeumorphicThemeData( 
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
         depth: 10,

@@ -26,8 +26,8 @@ class Register extends StatelessWidget {
     void createAccount() async {
       String email = emailController.text.toString().trim();
       String userName = userNameController.text.toString().trim();
-      String password = passwordController.text.toString()..trim();
-      String confirmpassword = cPassword.text.toString()..trim();
+      String password = passwordController.text.toString().trim();
+      String confirmpassword = cPassword.text.toString().trim();
 
       if (email == "" || password == "" || confirmpassword == "") {
         snackBar("Fill all the field");
