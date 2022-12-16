@@ -156,7 +156,6 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                FirebaseAuth.instance.signOut();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Voting_Page()),
