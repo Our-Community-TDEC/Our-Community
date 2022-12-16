@@ -18,13 +18,6 @@ class WelcomePage extends StatelessWidget {
     
 
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Icon(Icons.arrow_back),
-      ),
       backgroundColor: Colors.grey[800],
       body: Container(
         padding: const EdgeInsets.all(pad),
@@ -74,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                   fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),
-              ),
+              ),        
             ),
           ],
         ),

@@ -7,6 +7,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
   @override
+  
   Widget build(BuildContext context) {
     void main() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -57,6 +58,7 @@ class show_suggestion extends StatelessWidget {
     final user = FirebaseAuth.instance.currentUser!;
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+        
 
     return Scaffold(
         // floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -72,12 +74,13 @@ class show_suggestion extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => NewSuggestion()),
-            )
+            ),
           },
-          child: NeumorphicIcon(
-            Icons.add_circle,
-            size: 80,
-          ),
+          backgroundColor: Colors.black38,
+          child: const Icon(
+          Icons.add,
+          color: Colors.blue,
+        ),
         ),
         body: Column(
           children: [
@@ -114,7 +117,7 @@ class show_suggestion extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 1),
                   child: Divider(
                     thickness: 5,
                     indent: 12,
@@ -140,26 +143,28 @@ class show_suggestion extends StatelessWidget {
                               snapshot.data!.docs[index].data()
                                   as Map<String, dynamic>;
                           return ListTile(
-                            title: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/Images/Services/Plumber/image 76.png',
-                                  width: 40,
-                                ),
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(user.email!),
-                                      Text(show_suggestion["title"]),
-                                    ]),
-                              ],
+                            title: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/Images/Services/Plumber/image 76.png',
+                                    width: 40,
+                                  ),
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(user.email!),
+                                        Text(show_suggestion["title"]),
+                                      ]),
+                                ],
+                              ),
                             ),
                             subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Card(
-                                  child: Text(show_suggestion["descriptoin"]),
-                                ),
+                                Text(show_suggestion["descriptoin"]),
                                 Row(
                                   children: [
                                     CircleAvatar(

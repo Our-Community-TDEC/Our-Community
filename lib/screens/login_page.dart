@@ -121,11 +121,14 @@ class LogIn extends StatelessWidget with Login_Logic {
                       primary: Colors.transparent,
                     ),
                     onPressed: () async {
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (context) =>
-                            Center(child: CircularProgressIndicator()),
+                      // showDialog(
+                      //   context: context,
+                      //   barrierDismissible: false,
+                      //   builder: (context) =>
+                      //       Center(child: CircularProgressIndicator()),
+                      // );
+                      CircularProgressIndicator(
+                        color: Colors.black,
                       );
                       try {
                         await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -145,6 +148,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                       } catch (e) {
                         snackBar(e.toString());
                       }
+
                       Navigator.popUntil(context, (route) => route.isFirst);
                       Navigator.pushReplacement(
                         context,

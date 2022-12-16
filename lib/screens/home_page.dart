@@ -15,9 +15,6 @@ import 'Complain Pages/complain_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  
-
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -58,15 +55,15 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.medical_services),
-                  Text("Services: Doctor"),
-                ],
-              ),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(Icons.medical_services),
+            //       Text("Services: Doctor"),
+            //     ],
+            //   ),
+            //   onTap: () {},
+            // ),
             ListTile(
               title: Row(
                 children: [
@@ -81,15 +78,15 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.electric_bolt),
-                  Text("Services: Electrician"),
-                ],
-              ),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(Icons.electric_bolt),
+            //       Text("Services: Electrician"),
+            //     ],
+            //   ),
+            //   onTap: () {},
+            // ),
             ListTile(
               title: Row(
                 children: [

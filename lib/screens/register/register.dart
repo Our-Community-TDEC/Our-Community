@@ -70,6 +70,12 @@ class Register extends StatelessWidget {
       }
     }
 
+    const same = TextStyle(color: Colors.white, fontSize: 18.0);
+    const align_start = CrossAxisAlignment.start;
+    
+    
+
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -88,61 +94,93 @@ class Register extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: Column(
                     children: <Widget>[
-                      Text("UserId"),
-                      TextField(
-                        controller: userNameController,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          border: OutlineInputBorder(),
-                          labelText: 'name@example.com',
-                          hintText: 'Enter E-Mail ID',
-                          suffixIcon: Icon(Icons.alternate_email),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                        child: SizedBox(
+                          height: MediaQuery. of(context). size. height*0.51,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                crossAxisAlignment: align_start,
+                                children: [
+                                  Text("UserId",style: same,),
+                                  TextField(
+                                    controller: userNameController,
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Your Name',
+                                      hintText: 'Enter Your Name',
+                                      suffixIcon: Icon(Icons.account_circle_outlined),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: align_start,
+                                children: [
+                                  Text("EmailId",style: same,),
+                                  TextField(
+                                    controller: emailController,
+                                    decoration: const InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'name@example.com',
+                                      hintText: 'Enter E-Mail ID',
+                                      suffixIcon: Icon(Icons.alternate_email),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: align_start,
+                                children: [
+                                  Text("Password",style: same),
+                                  TextField(
+                                    obscureText: true,
+                                    controller: passwordController,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Password',
+                                      hintText: 'Enter Password',
+                                      suffixIcon: Icon(Icons.key),
+                                    ),
+                                    enableSuggestions: false,
+                                    autocorrect: false,
+                                    obscuringCharacter: "●",
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: align_start,
+                                children: [
+                                  Text("Confirm Password",style: same),
+                                  TextField(
+                                    obscureText: true,
+                                    controller: cPassword,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.grey,
+                                      border: OutlineInputBorder(),
+                                      labelText: 'Confirm Password',
+                                      suffixIcon: Icon(Icons.key),
+                                      hintText:
+                                          'Confirm Password must be same as Password',
+                                    ),
+                                    enableSuggestions: false,
+                                    autocorrect: false,
+                                    obscuringCharacter: "●",
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Text("EmailId"),
-                      TextField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          border: OutlineInputBorder(),
-                          labelText: 'name@example.com',
-                          hintText: 'Enter E-Mail ID',
-                          suffixIcon: Icon(Icons.alternate_email),
-                        ),
-                      ),
-                      Text("mobile no"),
-                      TextField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          border: OutlineInputBorder(),
-                          labelText: 'Password',
-                          hintText: 'Enter Password',
-                          suffixIcon: Icon(Icons.people),
-                        ),
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscuringCharacter: "●",
-                      ),
-                      Text("password"),
-                      TextField(
-                        obscureText: true,
-                        controller: cPassword,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Colors.grey,
-                          border: OutlineInputBorder(),
-                          labelText: 'Mobile No',
-                          suffixIcon: Icon(Icons.call),
-                          hintText: 'Enter Mobile No',
-                        ),
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        obscuringCharacter: "●",
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20.0),
