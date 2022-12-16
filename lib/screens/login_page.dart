@@ -8,9 +8,9 @@ import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
 import 'dart:math';
 
-class LogIn extends StatelessWidget with Login_Logic {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
 

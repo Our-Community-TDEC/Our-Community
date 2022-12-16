@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +22,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
       suggestion_title.clear();
 
       if (title != '' && description != '') {
-        firestore.collection('suggestion').doc().set({
+        firestore.collection('suggestion').doc(FirebaseAuth.instance.currentUser?.uid).set({
           "title": title,
           "descriptoin": description,
           "time": datetime

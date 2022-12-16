@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../login_page.dart';
 
+  TextEditingController  emailController = TextEditingController();
+  TextEditingController  userNameController = TextEditingController();
+  TextEditingController  passwordController = TextEditingController();
+  TextEditingController  cPassword = TextEditingController();
 class Register extends StatelessWidget {
-  final emailController = TextEditingController();
-  final userNameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final cPassword = TextEditingController();
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
 
@@ -42,7 +42,7 @@ class Register extends StatelessWidget {
             // UserRecord userRecord = FirebaseAuth.getInstance().getUserByPhoneNumber(phoneNumber);
             firestore
                 .collection("user")
-                .doc(FirebaseAuth.instance.currentUser?.displayName)
+                .doc(FirebaseAuth.instance.currentUser?.uid)
                 .set({
               "userName": userName,
               "email": email,

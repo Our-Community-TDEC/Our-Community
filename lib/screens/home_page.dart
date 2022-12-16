@@ -9,6 +9,7 @@ import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
+import 'package:our_community/screens/voting_page.dart';
 
 import '../screens/emergency_page.dart';
 import 'Complain Pages/complain_page.dart';
@@ -141,6 +142,21 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LogIn()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Voting"),
+                ],
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Voting_Page()),
                 );
               },
             ),
