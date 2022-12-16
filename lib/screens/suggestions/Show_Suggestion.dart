@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
+
+import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
@@ -6,52 +9,63 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+String test_string(String? name) {
+  String output = "";
+  try {output = name!;} catch(e) {print("Hoi");}
+  print("FunctionSAAA: " + output);
+  return output;
+}
+
+    String? getUserName(String UID) {
+      print("hi");
+      print("searching for: " + UID);
+      int i = 0;
+      String out = "init1";
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final docRef = firestore.collection("user").doc(UID);
+      docRef.get().then(
+        (DocumentSnapshot doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          out = data['userName'].toString();
+          print("returning " + out + " index:" + (++i).toString());
+          return out;
+        },
+        onError: (e) => print("Error getting document: $e"),
+      );
+      print("out = " + out + (++i).toString());
+      return out + (++i).toString();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     void main() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // //fetch data
-      // QuerySnapshot snapshot = await firestore.collection("Complaint").get();
-      // for (var doc in snapshot.docs) {
-      //   Text(doc.data().toString());
-      // }
-
-      //Single user
-      // DocumentSnapshot snapshot1 = await firestore
-      //     .collection("complaint")
-      //     .doc("8iAmDuN2gVlk4qwi5NJ8")
-      //     .get();
-      // log("message");
-      // log(snapshot1.data().toString());
-
-      // //Add data with Auto id
-      // Map<String, dynamic> newComplaint = {
-      //   "title": "Garden",
-      //   "description": "clean Garden"
-      // };
-      // await firestore.collection('Complaint').add(newComplaint);
-
-      // //Add data with manual id
-      // await firestore.collection('Complaint').doc("1").set(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("2")
-      //     .set({"title": "Garden2", "description": "clean Garden2"});
-
-      // //Update data
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update({"description": "clean all Garden"});
-
-      // //delete data
-
-      // await firestore.collection("Complaint").doc("2").delete();
     }
 
     final user = FirebaseAuth.instance.currentUser!;
@@ -62,7 +76,8 @@ class show_suggestion extends StatelessWidget {
         fontSize: 20,
         fontWeight: FontWeight.w500,
         color: Colors.white,
-        fontFamily: 'poppins');
+        fontFamily: 'poppins'
+        );
 
     const desc_text_style = TextStyle(
         fontSize: 15,
@@ -165,7 +180,7 @@ class show_suggestion extends StatelessWidget {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                user.email!,
+                                                "" + test_string(show_suggestion["UID"]),
                                                 style: title_text_style,
                                               ),
                                               Text(
