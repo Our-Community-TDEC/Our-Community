@@ -22,7 +22,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
       suggestion_title.clear();
 
       if (title != '' && description != '') {
-        firestore.collection('suggestion').doc(FirebaseAuth.instance.currentUser?.uid).set({
+        firestore.collection('suggestion').doc().set({
           "title": title,
           "descriptoin": description,
           "time": datetime,
