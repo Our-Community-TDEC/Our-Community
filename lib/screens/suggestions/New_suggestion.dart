@@ -25,7 +25,8 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
         firestore.collection('suggestion').doc(FirebaseAuth.instance.currentUser?.uid).set({
           "title": title,
           "descriptoin": description,
-          "time": datetime
+          "time": datetime,
+          "UID" : FirebaseAuth.instance.currentUser!.uid
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Data Added Successfully"),

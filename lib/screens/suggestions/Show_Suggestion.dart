@@ -17,39 +17,32 @@ class show_suggestion extends StatelessWidget {
 
 
 
+  // String getUserName(String UID) {
+  //   String out;
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   final docRef = firestore.collection("user").doc(UID);
+  //     return docRef.get().then((DocumentSnapshot doc) {
+  //       final data = doc.data() as Map<String, dynamic>;
+  //       out = data['userName'].toString();
+  //       print("SSS: " + out.toString());
+  //       return out.toString();
+  //     });
+  //   // return show.toString();
+  // }
 
 
-
-
-
-
-
-String test_string(String? name) {
-  String output = "";
-  try {output = name!;} catch(e) {print("Hoi");}
-  print("FunctionSAAA: " + output);
-  return output;
+  Future<String> getName(String documentId) async {
+  DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection("user").doc(documentId).get();
+  return snapshot.get("userName");
 }
 
-    String? getUserName(String UID) {
-      print("hi");
-      print("searching for: " + UID);
-      int i = 0;
-      String out = "init1";
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      final docRef = firestore.collection("user").doc(UID);
-      docRef.get().then(
-        (DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          out = data['userName'].toString();
-          print("returning " + out + " index:" + (++i).toString());
-          return out;
-        },
-        onError: (e) => print("Error getting document: $e"),
-      );
-      print("out = " + out + (++i).toString());
-      return out + (++i).toString();
-    }
+//   Future<String> getUserName(String UID) async {
+//   FirebaseFirestore firestore = FirebaseFirestore.instance;
+//   final docRef = firestore.collection("user").doc(UID);
+//   final DocumentSnapshot doc = await docRef.get();
+//   final data = doc.data() as Map<String, dynamic>;
+//   return data['userName'].toString();
+// }
 
 
 
@@ -61,6 +54,7 @@ String test_string(String? name) {
 
 
 
+  
 
   @override
   Widget build(BuildContext context) {
@@ -76,15 +70,13 @@ String test_string(String? name) {
         fontSize: 20,
         fontWeight: FontWeight.w500,
         color: Colors.white,
-        fontFamily: 'poppins'
-        );
+        fontFamily: 'poppins');
 
     const desc_text_style = TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
         color: Colors.white,
         fontFamily: 'poppins');
-
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
@@ -158,7 +150,7 @@ String test_string(String? name) {
                         return Expanded(
                           child: ListView.builder(
                             itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
+                            itemBuilder: (context, index)  {
                               Map<String, dynamic> show_suggestion =
                                   snapshot.data!.docs[index].data()
                                       as Map<String, dynamic>;
@@ -168,9 +160,12 @@ String test_string(String? name) {
                                       const EdgeInsets.fromLTRB(0, 6, 0, 0),
                                   child: Row(
                                     children: [
-                                      Image.asset(
-                                        'assets/Images/Services/Plumber/image 76.png',
-                                        width: 40,
+                                      CircleAvatar(
+                                        radius: 30,
+                                        child: Image.asset(
+                                          'assets/Images/user.png',
+                                          width: 40,
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
@@ -179,33 +174,59 @@ String test_string(String? name) {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                "" + test_string(show_suggestion["UID"]),
-                                                style: title_text_style,
-                                              ),
+                                              // Text(
+                                              //   await getName(show_suggestion["UID"]),
+                                              //   style: title_text_style,
+                                              // ), //Darshan
+
+
+                                              
+
+
                                               Text(
                                                 show_suggestion["title"],
                                                 style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w300,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
                                                     color: Colors.white,
                                                     fontFamily: 'poppins'),
                                               ),
+
+
+
+
+
+FutureBuilder<String>(
+  future: getName(show_suggestion["UID"]),
+  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+    if (snapshot.hasData) {
+      return Text(snapshot.data.toString(), style: title_text_style);
+    } else if (snapshot.hasError) {
+      return Text("Loading.....");
+    } else {
+      return Text("Loading...", style: title_text_style);
+    }
+  },
+),
+
+
+
+
+
                                             ]),
                                       ),
                                     ],
                                   ),
                                 ),
                                 subtitle: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           10, 0, 0, 0),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 6),
                                         child: Text(
                                           show_suggestion["descriptoin"],
                                           style: desc_text_style,
@@ -218,7 +239,8 @@ String test_string(String? name) {
                                       child: Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 0, 10, 0),
                                             child: CircleAvatar(
                                               backgroundColor: Colors.black38,
                                               child: IconButton(
