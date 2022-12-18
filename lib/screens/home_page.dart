@@ -101,7 +101,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.bedtime_outlined),
                   Text("Theme"),
                 ],
               ),
@@ -126,25 +126,11 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
-                  Text("LogOut"),
-                ],
-              ),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LogIn()),
-                );
-              },
-            ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.how_to_vote_outlined),
                   Text("Voting"),
                 ],
               ),
@@ -158,7 +144,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.report_problem_outlined),
                   Text("Complaint"),
                 ],
               ),
@@ -166,6 +152,21 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => show_complaint()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("LogOut"),
+                ],
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LogIn()),
                 );
               },
             ),
