@@ -22,10 +22,11 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
       suggestion_title.clear();
 
       if (title != '' && description != '') {
-        firestore.collection('suggestion').doc(FirebaseAuth.instance.currentUser?.uid).set({
+        firestore.collection('suggestion').doc().set({
           "title": title,
           "descriptoin": description,
-          "time": datetime
+          "time": datetime,
+          "UID" : FirebaseAuth.instance.currentUser?.uid,
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Data Added Successfully"),
@@ -34,7 +35,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
         });
       }
     }
-
     return Scaffold(
         backgroundColor: Colors.grey[800],
         body: Column(

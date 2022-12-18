@@ -8,8 +8,9 @@ import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
 import 'dart:math';
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+final emailController = TextEditingController();
+final passwordController = TextEditingController();
+
 class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
@@ -39,6 +40,7 @@ class LogIn extends StatelessWidget with Login_Logic {
         CircularProgressIndicator(
           color: Colors.black,
         );
+
         try {
           await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text.trim(),
@@ -57,13 +59,9 @@ class LogIn extends StatelessWidget with Login_Logic {
         } catch (e) {
           snackBar(e.toString());
         }
-
-        Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => BasePage()),
-        );
       }
+      emailController.text = "";
+      passwordController.text = "";
     }
 
     var text_style = TextStyle(
@@ -160,6 +158,11 @@ class LogIn extends StatelessWidget with Login_Logic {
                           //       Center(child: CircularProgressIndicator()),
                           // );
                           log_in();
+                          Navigator.popUntil(context, (route) => route.isFirst);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => BasePage()),
+                          );
                         },
                         child: Text(
                           "Log in",
@@ -255,7 +258,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                     Container(
                       height: 200,
                       width: 200,
-                      
                     )
                     // ElevatedButton(
                     //   onPressed: () {
@@ -323,5 +325,3 @@ class LogIn extends StatelessWidget with Login_Logic {
         ));
   }
 }
-
-

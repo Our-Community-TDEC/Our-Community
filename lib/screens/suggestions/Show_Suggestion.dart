@@ -1,3 +1,6 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
+
+import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
@@ -6,52 +9,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
+  // String getUserName(String UID) {
+  //   String out;
+  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //   final docRef = firestore.collection("user").doc(UID);
+  //     return docRef.get().then((DocumentSnapshot doc) {
+  //       final data = doc.data() as Map<String, dynamic>;
+  //       out = data['userName'].toString();
+  //       print("SSS: " + out.toString());
+  //       return out.toString();
+  //     });
+  //   // return show.toString();
+  // }
+
+  Future<String> getName(String documentId) async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(documentId)
+        .get();
+    return snapshot.get("userName");
+  }
+
+//   Future<String> getUserName(String UID) async {
+//   FirebaseFirestore firestore = FirebaseFirestore.instance;
+//   final docRef = firestore.collection("user").doc(UID);
+//   final DocumentSnapshot doc = await docRef.get();
+//   final data = doc.data() as Map<String, dynamic>;
+//   return data['userName'].toString();
+// }
+
   @override
   Widget build(BuildContext context) {
     void main() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-      // //fetch data
-      // QuerySnapshot snapshot = await firestore.collection("Complaint").get();
-      // for (var doc in snapshot.docs) {
-      //   Text(doc.data().toString());
-      // }
-
-      //Single user
-      // DocumentSnapshot snapshot1 = await firestore
-      //     .collection("complaint")
-      //     .doc("8iAmDuN2gVlk4qwi5NJ8")
-      //     .get();
-      // log("message");
-      // log(snapshot1.data().toString());
-
-      // //Add data with Auto id
-      // Map<String, dynamic> newComplaint = {
-      //   "title": "Garden",
-      //   "description": "clean Garden"
-      // };
-      // await firestore.collection('Complaint').add(newComplaint);
-
-      // //Add data with manual id
-      // await firestore.collection('Complaint').doc("1").set(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("2")
-      //     .set({"title": "Garden2", "description": "clean Garden2"});
-
-      // //Update data
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update(newComplaint);
-      // await firestore
-      //     .collection('Complaint')
-      //     .doc("Aieho6zTq9qQw12u1KkT")
-      //     .update({"description": "clean all Garden"});
-
-      // //delete data
-
-      // await firestore.collection("Complaint").doc("2").delete();
     }
 
     final user = FirebaseAuth.instance.currentUser!;
@@ -69,7 +59,6 @@ class show_suggestion extends StatelessWidget {
         fontWeight: FontWeight.w400,
         color: Colors.white,
         fontFamily: 'poppins');
-
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
@@ -164,18 +153,46 @@ class show_suggestion extends StatelessWidget {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                user.email!,
-                                                style: title_text_style,
-                                              ),
+                                              // Text(
+                                              //   await getName(show_suggestion["UID"]),
+                                              //   style: title_text_style,
+                                              // ), //Darshan
+
                                               Text(
                                                 show_suggestion["title"],
                                                 style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.w300,
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w700,
                                                     color: Colors.white,
                                                     fontFamily: 'poppins'),
+                                              ),
+
+                                              FutureBuilder<String>(
+                                                future: getName(
+                                                    show_suggestion["UID"]),
+                                                builder: (BuildContext context,
+                                                    AsyncSnapshot<String>
+                                                        snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    return Text(
+                                                        snapshot.data
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.w300,
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                'poppins'));
+                                                  } else if (snapshot
+                                                      .hasError) {
+                                                    return Text("Loading.....");
+                                                  } else {
+                                                    return Text("Loading...",
+                                                        style:
+                                                            title_text_style);
+                                                  }
+                                                },
                                               ),
                                             ]),
                                       ),
@@ -183,14 +200,14 @@ class show_suggestion extends StatelessWidget {
                                   ),
                                 ),
                                 subtitle: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.fromLTRB(
                                           10, 0, 0, 0),
                                       child: Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 6),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 6),
                                         child: Text(
                                           show_suggestion["descriptoin"],
                                           style: desc_text_style,
@@ -203,7 +220,8 @@ class show_suggestion extends StatelessWidget {
                                       child: Row(
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.fromLTRB(0,0,10,0),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                0, 0, 10, 0),
                                             child: CircleAvatar(
                                               backgroundColor: Colors.black38,
                                               child: IconButton(

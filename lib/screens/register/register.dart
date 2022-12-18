@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../login_page.dart';
 
-  TextEditingController  emailController = TextEditingController();
-  TextEditingController  userNameController = TextEditingController();
-  TextEditingController  passwordController = TextEditingController();
-  TextEditingController  cPassword = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController userNameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController cPassword = TextEditingController();
+
 class Register extends StatelessWidget {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
@@ -51,8 +52,6 @@ class Register extends StatelessWidget {
                       context,
                       MaterialPageRoute(builder: (context) => LogIn()),
                     ));
-          }).catchError((error) {
-            snackBar("Something went Wrong");
           });
         } on FirebaseAuthException catch (e) {
           if (e.code == 'weak-password') {
@@ -72,9 +71,6 @@ class Register extends StatelessWidget {
 
     const same = TextStyle(color: Colors.white, fontSize: 18.0);
     const align_start = CrossAxisAlignment.start;
-    
-    
-
 
     return Container(
       decoration: BoxDecoration(
@@ -97,14 +93,17 @@ class Register extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 11.0),
                         child: SizedBox(
-                          height: MediaQuery. of(context). size. height*0.51,
+                          height: MediaQuery.of(context).size.height * 0.51,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Column(
                                 crossAxisAlignment: align_start,
                                 children: [
-                                  Text("UserId",style: same,),
+                                  Text(
+                                    "UserId",
+                                    style: same,
+                                  ),
                                   TextField(
                                     controller: userNameController,
                                     decoration: const InputDecoration(
@@ -113,7 +112,8 @@ class Register extends StatelessWidget {
                                       border: OutlineInputBorder(),
                                       labelText: 'Your Name',
                                       hintText: 'Enter Your Name',
-                                      suffixIcon: Icon(Icons.account_circle_outlined),
+                                      suffixIcon:
+                                          Icon(Icons.account_circle_outlined),
                                     ),
                                   ),
                                 ],
@@ -121,7 +121,10 @@ class Register extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: align_start,
                                 children: [
-                                  Text("EmailId",style: same,),
+                                  Text(
+                                    "EmailId",
+                                    style: same,
+                                  ),
                                   TextField(
                                     controller: emailController,
                                     decoration: const InputDecoration(
@@ -138,7 +141,7 @@ class Register extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: align_start,
                                 children: [
-                                  Text("Password",style: same),
+                                  Text("Password", style: same),
                                   TextField(
                                     obscureText: true,
                                     controller: passwordController,
@@ -159,7 +162,7 @@ class Register extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: align_start,
                                 children: [
-                                  Text("Confirm Password",style: same),
+                                  Text("Confirm Password", style: same),
                                   TextField(
                                     obscureText: true,
                                     controller: cPassword,

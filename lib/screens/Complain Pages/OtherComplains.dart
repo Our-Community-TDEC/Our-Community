@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +23,8 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
         firestore.collection('complaint').doc().set({
           "title": title,
           "descriptoin": description,
-          "time": datetime
+          "time": datetime,
+          "UID":FirebaseAuth.instance.currentUser?.uid
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Data Added Successfully"),

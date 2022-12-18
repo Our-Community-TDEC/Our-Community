@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/razer_pay.dart';
+import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/register/register.dart';
@@ -12,10 +13,19 @@ import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
 
 import '../screens/emergency_page.dart';
+import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  Future<String> getName() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return snapshot.get("userName");
+  }
+
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -59,15 +69,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.medical_services),
-            //       Text("Services: Doctor"),
-            //     ],
-            //   ),
-            //   onTap: () {},
-            // ),
             ListTile(
               title: Row(
                 children: [
@@ -82,15 +83,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.electric_bolt),
-            //       Text("Services: Electrician"),
-            //     ],
-            //   ),
-            //   onTap: () {},
-            // ),
             ListTile(
               title: Row(
                 children: [
@@ -119,20 +111,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.paid),
-            //       Text("Register"),
-            //     ],
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => Register()),
-            //     );
-            //   },
-            // ),
             ListTile(
               title: Row(
                 children: [
@@ -162,45 +140,71 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Complaint"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => show_complaint()),
+                );
+              },
+            ),
           ],
         ),
       ),
       body: Container(
         decoration: BoxDecoration(
-          // color: Colors.black87,
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
+            // color: Colors.black87,
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
               Color.fromARGB(217, 46, 47, 54),
               Color.fromARGB(255, 13, 14, 16),
-            ]
-          )
-        ),
+            ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FutureBuilder<String>(
+                      future: getName(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text("Hello, " + snapshot.data.toString(),
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontFamily: 'poppins'));
+                        } else if (snapshot.hasError) {
+                          return Text("Loading.....");
+                        } else {
+                          return Text("Loading...");
+                        }
+                      },
+                    ),
+                  ],
+                ),
                 Text(
-                  "Hey, " + email,
+                  "Welcome to your community",
                   style: TextStyle(
-                    fontSize: minHW * 0.05,
+                    fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
               ],
-            ),
-            Text(
-              "Welcome to your community",
-              style: TextStyle(
-                fontSize: minHW * 0.07,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
@@ -224,21 +228,22 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Notice_Board_Page()),
+                                        builder: (context) =>
+                                            Notice_Board_Page()),
                                   );
                                 },
                                 child: Text("NoticeBoard")),
                           ),
                         ),
-                    Padding(padding: EdgeInsets.all(square_pad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         SizedBox(
                             height: boxL,
                             width: boxL,
                             child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(),
+                              ),
                               child: ElevatedButton(
                                   onPressed: () {}, child: Text("Events")),
                             )),
@@ -251,10 +256,10 @@ class HomePage extends StatelessWidget {
                             height: boxL,
                             width: boxL,
                             child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(),
+                              ),
                               child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -265,7 +270,7 @@ class HomePage extends StatelessWidget {
                                   },
                                   child: Text("Complains")),
                             )),
-                    Padding(padding: EdgeInsets.all(square_pad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         SizedBox(
                           height: boxL,
                           width: boxL,
@@ -279,7 +284,8 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => show_suggestion()),
+                                        builder: (context) =>
+                                            show_suggestion()),
                                   );
                                 },
                                 child: Text("Suggestions")),
@@ -295,10 +301,10 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.8,
               height: minHW * 0.15,
               child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(),
+                ),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(
