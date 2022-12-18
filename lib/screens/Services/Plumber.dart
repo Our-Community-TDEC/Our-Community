@@ -3,7 +3,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../logic/services/plumber/plumber_logic.dart';
 
-class Doctor extends StatelessWidget with Plumber_logic {
+class Plumber extends StatelessWidget with Plumber_logic {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class Doctor extends StatelessWidget with Plumber_logic {
         child: Column(children: [
           Row(children: [
             Image.asset(
-              'assets/Images/Services/Doctor/Doc_ser.png',
+              'assets/Images/Services/Plumber/background.png',
               width: 410,
             ),
           ]),
@@ -33,7 +33,7 @@ class Doctor extends StatelessWidget with Plumber_logic {
                     "Select Services",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -55,14 +55,14 @@ class Doctor extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Doctor/1st_aid.png',
+                                'assets/Images/Services/Plumber/image 71.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
                                 children: const [
-                                  Text("Diagnosis"),
-                                  Text("treatment"),
+                                  Text("Drainage"),
+                                  Text("system"),
                                 ],
                               )
                             ],
@@ -82,14 +82,14 @@ class Doctor extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Doctor/injection.png',
+                                'assets/Images/Services/Plumber/image 73.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
                                 children: const [
-                                  Text("Information"),
-                                  Text("Advice"),
+                                  Text("Repair"),
+                                  Text("Pipe"),
                                 ],
                               )
                             ],
@@ -109,14 +109,14 @@ class Doctor extends StatelessWidget with Plumber_logic {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
-                                'assets/Images/Services/Doctor/ste.png',
+                                'assets/Images/Services/Plumber/image 76.png',
                                 width: 60,
                                 height: 40,
                               ),
                               Column(
                                 children: const [
-                                  Text("Coordinating"),
-                                  Text("healthcare"),
+                                  Text("Fitting"),
+                                  Text("Pipe"),
                                 ],
                               )
                             ],
@@ -129,7 +129,7 @@ class Doctor extends StatelessWidget with Plumber_logic {
                 Row(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      padding: EdgeInsets.fromLTRB(27, 5, 0, 5),
                       child: Text(
                         "Data",
                         style: TextStyle(

@@ -15,6 +15,7 @@ import 'package:our_community/screens/voting_page.dart';
 import '../screens/emergency_page.dart';
 import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
+import 'Services/Plumber.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -80,6 +81,20 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Plumber()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.water_damage),
+                  Text("Services: Doctor"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Doctor()),
                 );
               },
             ),

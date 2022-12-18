@@ -41,7 +41,7 @@ class show_complaint extends StatelessWidget {
               onPressed: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewSuggestion()),
+                  MaterialPageRoute(builder: (context) => show_complaint()),
                 ),
               },
               backgroundColor: Colors.black38,

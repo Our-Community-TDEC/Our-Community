@@ -200,6 +200,24 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "firebase_database",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_database-10.0.7",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_database_platform_interface",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_database_platform_interface-0.2.2+15",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_database_web",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_database_web-0.2.1+17",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "fl_chart",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/fl_chart-0.55.2",
       "packageUri": "lib/",
@@ -782,7 +800,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-12-17T07:22:07.384865Z",
+  "generated": "2022-12-18T06:11:11.547885Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

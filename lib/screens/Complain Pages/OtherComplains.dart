@@ -24,7 +24,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
           "title": title,
           "descriptoin": description,
           "time": datetime,
-          "UID":FirebaseAuth.instance.currentUser?.uid
+          "UID": FirebaseAuth.instance.currentUser?.uid
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Data Added Successfully"),
@@ -38,6 +38,12 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
         });
       }
     }
+
+    const text_style = TextStyle(
+      color: Colors.white,
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    );
 
     return Scaffold(
         backgroundColor: Colors.grey[800],
@@ -86,52 +92,72 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-              child: SizedBox(
-                width: 450,
-                // height: 300,
-                child: TextField(
-                  controller: complaint_title,
-                  decoration: InputDecoration(
-                      labelText: "Complain title",
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(borderSide: BorderSide.none)),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
+                      child: Text(
+                        "Title",
+                        textAlign: TextAlign.start,
+                        style: text_style,
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
-                  child: Text(
-                    "Write short discription",
-                    textAlign: TextAlign.start,
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.93,
+                    child: TextField(
+                      controller: complaint_title,
+                      decoration: InputDecoration(
+                          labelText: "Complaint title",
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border:
+                              OutlineInputBorder(borderSide: BorderSide.none)),
+                    ),
                   ),
                 ),
               ],
             ),
-            SizedBox(
-              // height: 200,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                child: TextField(
-                  controller: complaint_description,
-                  decoration: InputDecoration(
-                      labelText: "Enter Your Concern Here!!!",
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(10),
-                            bottomRight: Radius.circular(10)),
-                      )),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
+                      child: Text(
+                        "Write short discription",
+                        style: text_style,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              width: 450,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.93,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    child: TextField(
+                      controller: complaint_description,
+                      decoration: InputDecoration(
+                          labelText: "Enter Your Concern Here!!!",
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                          )),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               width: 341,
