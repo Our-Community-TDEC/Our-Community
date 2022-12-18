@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
 
 import 'dart:io';
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
+
+import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
@@ -9,6 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
+
+
+
+
+
+
+
+
   // String getUserName(String UID) {
   //   String out;
   //   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -22,13 +33,11 @@ class show_suggestion extends StatelessWidget {
   //   // return show.toString();
   // }
 
+
   Future<String> getName(String documentId) async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection("user")
-        .doc(documentId)
-        .get();
-    return snapshot.get("userName");
-  }
+  DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection("user").doc(documentId).get();
+  return snapshot.get("userName");
+}
 
 //   Future<String> getUserName(String UID) async {
 //   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -37,6 +46,18 @@ class show_suggestion extends StatelessWidget {
 //   final data = doc.data() as Map<String, dynamic>;
 //   return data['userName'].toString();
 // }
+
+
+
+
+
+
+
+
+
+
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +153,7 @@ class show_suggestion extends StatelessWidget {
                         return Expanded(
                           child: ListView.builder(
                             itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
+                            itemBuilder: (context, index)  {
                               Map<String, dynamic> show_suggestion =
                                   snapshot.data!.docs[index].data()
                                       as Map<String, dynamic>;
@@ -142,9 +163,12 @@ class show_suggestion extends StatelessWidget {
                                       const EdgeInsets.fromLTRB(0, 6, 0, 0),
                                   child: Row(
                                     children: [
-                                      Image.asset(
-                                        'assets/Images/Services/Plumber/image 76.png',
-                                        width: 40,
+                                      CircleAvatar(
+                                        radius: 30,
+                                        child: Image.asset(
+                                          'assets/Images/user.png',
+                                          width: 40,
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(
@@ -158,6 +182,10 @@ class show_suggestion extends StatelessWidget {
                                               //   style: title_text_style,
                                               // ), //Darshan
 
+
+                                              
+
+
                                               Text(
                                                 show_suggestion["title"],
                                                 style: TextStyle(
@@ -167,33 +195,27 @@ class show_suggestion extends StatelessWidget {
                                                     fontFamily: 'poppins'),
                                               ),
 
-                                              FutureBuilder<String>(
-                                                future: getName(
-                                                    show_suggestion["UID"]),
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot<String>
-                                                        snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return Text(
-                                                        snapshot.data
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            color: Colors.white,
-                                                            fontFamily:
-                                                                'poppins'));
-                                                  } else if (snapshot
-                                                      .hasError) {
-                                                    return Text("Loading.....");
-                                                  } else {
-                                                    return Text("Loading...",
-                                                        style:
-                                                            title_text_style);
-                                                  }
-                                                },
-                                              ),
+
+
+
+
+FutureBuilder<String>(
+  future: getName(show_suggestion["UID"]),
+  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+    if (snapshot.hasData) {
+      return Text(snapshot.data.toString(), style: title_text_style);
+    } else if (snapshot.hasError) {
+      return Text("Loading.....");
+    } else {
+      return Text("Loading...", style: title_text_style);
+    }
+  },
+),
+
+
+
+
+
                                             ]),
                                       ),
                                     ],
