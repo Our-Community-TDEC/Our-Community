@@ -23,14 +23,9 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
 
       if (title != '' && description != '') {
         firestore.collection('suggestion').doc().set({
-        firestore.collection('suggestion').doc().set({
           "title": title,
           "descriptoin": description,
           "time": datetime,
-<<<<<<< HEAD
-=======
-          "UID" : FirebaseAuth.instance.currentUser!.uid
->>>>>>> 733daa348b92d9e24c4e187fa5492f9ae96d0ca6
           "UID" : FirebaseAuth.instance.currentUser?.uid,
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
