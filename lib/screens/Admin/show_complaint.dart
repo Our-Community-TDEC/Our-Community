@@ -19,6 +19,7 @@ class show_complaint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
+    String? user_name = user.displayName;
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -156,12 +157,12 @@ class show_complaint extends StatelessWidget {
                                                             fontWeight:
                                                                 FontWeight.w300,
                                                             color: Colors.white,
-                                                            fontFamily:
-                                                                'poppins'));
+                                                            ));
                                                   } else if (snapshot
                                                       .hasError) {
-                                                    return Text("Loading.....");
-                                                  } else {
+                                                    return Text("Loading...",style: title_text_style,);
+                                                  } 
+                                                  else {
                                                     return Text("Loading...",
                                                         style:
                                                             title_text_style);
@@ -233,7 +234,7 @@ class show_complaint extends StatelessWidget {
                                 // trailing: IconButton(
                                 //   onPressed: () {
                                 //     firestore
-                                //         .collection("suggestion")
+                                //         .collection("complaint")
                                 //         .doc(snapshot
                                 //             .data!.docs[index].reference.id
                                 //             .toString())

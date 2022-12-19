@@ -29,7 +29,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
           "UID": FirebaseAuth.instance.currentUser?.uid,
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Data Added Successfully"),
+            content: Text("Suggstion Posted"),
             backgroundColor: Colors.blue,
           ));
         });

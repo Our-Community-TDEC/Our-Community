@@ -1,10 +1,8 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/razer_pay.dart';
-import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
-import 'package:our_community/screens/register/register.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,11 +31,18 @@ class HomePage extends StatelessWidget {
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
     final user = FirebaseAuth.instance.currentUser!;
+    String? name = user.displayName;
     String email = user.email!;
     double square_pad = 10;
 
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    const User_name_style = TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  fontFamily: 'poppins');
 
     // DocumentSnapshot snapshot = firestore
     //     .collection("users")
@@ -116,7 +121,7 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-                  Text("Razer"),
+                  Text("Maintenance"),
                 ],
               ),
               onTap: () {
@@ -126,7 +131,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            
             ListTile(
               title: Row(
                 children: [
@@ -158,7 +162,7 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.logout),
                   Text("LogOut"),
                 ],
               ),
@@ -198,13 +202,9 @@ class HomePage extends StatelessWidget {
                           AsyncSnapshot<String> snapshot) {
                         if (snapshot.hasData) {
                           return Text("Hello, " + snapshot.data.toString(),
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontFamily: 'poppins'));
+                              style: User_name_style);
                         } else if (snapshot.hasError) {
-                          return Text("Loading.....");
+                          return Text(name!,style: User_name_style,);
                         } else {
                           return Text("Loading...");
                         }
