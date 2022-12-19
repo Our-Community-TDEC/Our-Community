@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/main.dart';
 import 'package:our_community/provider/googlesignin.dart';
 import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
@@ -14,6 +15,8 @@ final passwordController = TextEditingController();
 class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
+
+  final user_detail = FirebaseAuth.instance.currentUser;
 
   @override
   void dispose() {
@@ -34,31 +37,41 @@ class LogIn extends StatelessWidget with Login_Logic {
     void log_in() async {
       String email = emailController.text.toString().trim();
       String password = passwordController.text.toString().trim();
+      // emailController.text = "";
+      // passwordController.text = "";
       if (email == "" || password == "") {
         snackBar("Fill all the field");
       } else {
         CircularProgressIndicator(
           color: Colors.black,
         );
-
         try {
           await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
         } on FirebaseAuthException catch (e) {
-          if (e.code == 'wrong-passord') {
-            snackBar('your password is wrong');
+          if (e.code == 'network-request-failed') {
+            snackBar('Check your internet connection');
           } else if (e.code == 'invalid-email') {
             snackBar('Inavalid Email');
+          } else if (e.code == 'wrong-password') {
+            snackBar("your password is wrong");
           } else if (e.code == 'user-disabled') {
             snackBar('User is disabled');
           } else if (e.code == 'user-not-found') {
             snackBar("user Doesn't exist");
+          } else {
+            snackBar(e.code);
           }
         } catch (e) {
           snackBar(e.toString());
         }
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => BasePage()),
+        );
       }
       emailController.text = "";
       passwordController.text = "";
@@ -158,11 +171,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                           //       Center(child: CircularProgressIndicator()),
                           // );
                           log_in();
-                          Navigator.popUntil(context, (route) => route.isFirst);
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => BasePage()),
-                          );
                         },
                         child: Text(
                           "Log in",
@@ -226,6 +234,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                                             context,
                                             listen: false);
                                     prov.googleLogIn();
+
                                     Navigator.popUntil(
                                         context, (route) => route.isFirst);
                                     Navigator.pushReplacement(

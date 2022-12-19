@@ -48,7 +48,7 @@ class Register extends StatelessWidget {
               "userName": userName,
               "email": email,
               "password": password,
-            }).then((value) => {Navigator.pop(context),
+            }).then((value) => {
               emailController.text = "",
               passwordController.text = "",
               cPasswordController.text = "",
@@ -56,16 +56,20 @@ class Register extends StatelessWidget {
             });
           });
         } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
+          if (e.code == 'invalid-email') {
             snackBar('The password provided is too weak.');
-          } else if (e.code == 'email-already-in-use') {
-            snackBar('The account already exists for that email.');
-          } else if (e.code == 'invalid-email') {
+          } 
+          else if (e.code == 'weak-password') {
             snackBar('Inavalid Email');
-          } else if (e.code == 'operation-not-allowed') {
+          } 
+          else if (e.code == 'email-already-in-use') {
+            snackBar('The account already exists for that email.');
+          } 
+          else if (e.code == 'operation-not-allowed') {
             snackBar('Account is disabled');
           }
-        } catch (e) {
+        } 
+        catch (e) {
           snackBar(e.toString());
         }
       }

@@ -27,7 +27,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
           "UID": FirebaseAuth.instance.currentUser?.uid
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Data Added Successfully"),
+            content: Text("Comlaint Posted"),
             backgroundColor: Colors.blue,
           ));
         }).catchError((onError) {

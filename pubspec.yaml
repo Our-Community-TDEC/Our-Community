@@ -33,7 +33,7 @@ dependencies:
   syncfusion_flutter_core: ^20.2.50
   table_calendar: ^3.0.7
   firebase_core: ^2.2.0
-  firebase_auth: ^4.1.2
+  firebase_auth: ^4.2.1
 
   localization: ^2.1.0
   intl: ^0.17.0
@@ -57,6 +57,8 @@ dependencies:
   flutter_neumorphic: ^3.2.0
   shared_preferences: ^2.0.15
   firebase_database: ^10.0.7
+  connectivity_plus: ^3.0.2
+
 
 dev_dependencies:
   flutter_test:

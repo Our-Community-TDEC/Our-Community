@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
-
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -23,8 +22,8 @@ class show_suggestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final user = FirebaseAuth.instance.currentUser!;
+    String? user_name = user.displayName;
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -153,17 +152,22 @@ class show_suggestion extends StatelessWidget {
                                                       snapshot) {
                                                 if (snapshot.hasData) {
                                                   return Text(
-                                                      snapshot.data
-                                                          .toString(),
-                                                      style:
-                                                          title_text_style);
-                                                } else if (snapshot
-                                                    .hasError) {
-                                                  return Text("Loading.....");
+                                                      snapshot.data.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          color: Colors.white,
+                                                          fontFamily:
+                                                              'poppins'));
+                                                } else if (snapshot.hasError) {
+                                                  return Text(
+                                                    "Loading...",
+                                                    style: title_text_style,
+                                                  );
                                                 } else {
                                                   return Text("Loading...",
-                                                      style:
-                                                          title_text_style);
+                                                      style: title_text_style);
                                                 }
                                               },
                                             ),
