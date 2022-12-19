@@ -28,14 +28,6 @@ class HomePage extends StatelessWidget {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    // DocumentSnapshot snapshot = firestore
-    //     .collection("users")
-    //     .doc(userauthdata.currentUser?.uid)
-    //     .snapshots() as DocumentSnapshot;
-
-    // var userdata = snapshot.data as DocumentSnapshot;
-    // String username = userdata["userName"];
-
     double offset_val = 2.5;
 
     return Scaffold(
@@ -59,15 +51,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.medical_services),
-            //       Text("Services: Doctor"),
-            //     ],
-            //   ),
-            //   onTap: () {},
-            // ),
             ListTile(
               title: Row(
                 children: [
@@ -82,15 +65,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.electric_bolt),
-            //       Text("Services: Electrician"),
-            //     ],
-            //   ),
-            //   onTap: () {},
-            // ),
             ListTile(
               title: Row(
                 children: [
@@ -119,20 +93,6 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.paid),
-            //       Text("Register"),
-            //     ],
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => Register()),
-            //     );
-            //   },
-            // ),
             ListTile(
               title: Row(
                 children: [
