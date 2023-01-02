@@ -51,7 +51,7 @@ class BasePage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use for theme
     return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: false,
       title: 'Neumorphic App',
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData( 

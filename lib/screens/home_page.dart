@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
                 FirebaseAuth.instance.signOut();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LogIn()),
+                  MaterialPageRoute(builder: (context ) => LogIn()),
                 );
               },
             ),
@@ -179,7 +179,6 @@ class HomePage extends StatelessWidget {
       ),
       body: Container(
         decoration: BoxDecoration(
-            // color: Colors.black87,
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -212,6 +211,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
+                Text(user.displayName.toString()),
                 Text(
                   "Welcome to your community",
                   style: TextStyle(

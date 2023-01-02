@@ -129,7 +129,7 @@ class Plumber extends StatelessWidget with Plumber_logic {
                 Row(
                   children: const [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(27, 5, 0, 5),
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: Text(
                         "Data",
                         style: TextStyle(

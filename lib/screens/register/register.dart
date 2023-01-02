@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +12,8 @@ TextEditingController passwordController = TextEditingController();
 TextEditingController cPasswordController = TextEditingController();
 
 class Register extends StatelessWidget {
-  Color gradient_top = Color(0xFF2E2F36);
-  Color gradient_bot = Color(0xE02E2F36);
+  Color gradient_top = const Color(0xFF2E2F36);
+  Color gradient_bot = const Color(0xE02E2F36);
 
   @override
   Widget build(BuildContext context) {
@@ -49,34 +51,40 @@ class Register extends StatelessWidget {
               "email": email,
               "password": password,
             }).then((value) => {
-              emailController.text = "",
-              passwordController.text = "",
-              cPasswordController.text = "",
-              userNameController.text = ""
-            });
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return LogIn();
+                        },
+                      )),
+                      // emailController.text = "",
+                      // passwordController.text = "",
+                      // cPasswordController.text = "",
+                      // userNameController.text = ""
+                    });
           });
         } on FirebaseAuthException catch (e) {
           if (e.code == 'invalid-email') {
             snackBar('The password provided is too weak.');
-          } 
-          else if (e.code == 'weak-password') {
+          } else if (e.code == 'weak-password') {
             snackBar('Inavalid Email');
-          } 
-          else if (e.code == 'email-already-in-use') {
+          } else if (e.code == 'email-already-in-use') {
             snackBar('The account already exists for that email.');
-          } 
-          else if (e.code == 'operation-not-allowed') {
+          } else if (e.code == 'operation-not-allowed') {
             snackBar('Account is disabled');
           }
-        } 
-        catch (e) {
-          snackBar(e.toString());
         }
+        //  catch (e) {
+        //   snackBar(e.toString());
+        // }
       }
     }
 
-    const text_head = TextStyle(color: Colors.white, fontSize: 18.0,fontWeight: FontWeight.w600);
-    const lable_style = TextStyle(color: Colors.white, fontSize: 18.0,);
+    const text_head = TextStyle(
+        color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
+    const lable_style = TextStyle(
+      color: Colors.white,
+      fontSize: 18.0,
+    );
     const align_start = CrossAxisAlignment.start;
 
     return Theme(
@@ -164,17 +172,16 @@ class Register extends StatelessWidget {
                                       obscureText: true,
                                       controller: passwordController,
                                       decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
-                                        ),
-                                        labelText: 'Password',
-                                        hintText: 'Password',
-                                        suffixIcon: Icon(Icons.key),
-                                        labelStyle: lable_style
-                                      ),
+                                          filled: true,
+                                          fillColor: Colors.grey,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                          ),
+                                          labelText: 'Password',
+                                          hintText: 'Password',
+                                          suffixIcon: Icon(Icons.key),
+                                          labelStyle: lable_style),
                                       enableSuggestions: false,
                                       autocorrect: false,
                                       obscuringCharacter: "●",
@@ -189,17 +196,16 @@ class Register extends StatelessWidget {
                                       obscureText: true,
                                       controller: cPasswordController,
                                       decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
-                                        ),
-                                        labelText: 'Confirm Password',
-                                        hintText: 'Confirm Password',
-                                        suffixIcon: Icon(Icons.key),
-                                        labelStyle: lable_style
-                                      ),
+                                          filled: true,
+                                          fillColor: Colors.grey,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                          ),
+                                          labelText: 'Confirm Password',
+                                          hintText: 'Confirm Password',
+                                          suffixIcon: Icon(Icons.key),
+                                          labelStyle: lable_style),
                                       enableSuggestions: false,
                                       autocorrect: false,
                                       obscuringCharacter: "●",
