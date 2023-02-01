@@ -30,12 +30,14 @@ class razer_pay_State extends State<razer_pay> {
   }
 
   void openCheckout() {
+    print("object");
+    // textEditingController.text = "";
     var options = {
-      "key": "rzp_test_gJeLNNHamaCv8J",
+      "key": "rzp_test_gHGLmhz0gITxJn",
       "amount": num.parse(textEditingController.text) * 100,
       "name": "Sample App",
       "description": "Payment for the some random product",
-      "prefill": {"contact" : "2323232323", "email" : "shdjsdh@gmail.com"},
+      "prefill": {"contact": "2323232323", "email": "shdjsdh@gmail.com"},
     };
 
     try {
@@ -76,7 +78,7 @@ class razer_pay_State extends State<razer_pay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Razor Pay Tutorial"),
+        title: Text("Maintenance"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -89,7 +91,7 @@ class razer_pay_State extends State<razer_pay> {
             SizedBox(
                 child: ElevatedButton(
               child: Text(
-                "Donate Now",
+                "Pay Maintenance",
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {

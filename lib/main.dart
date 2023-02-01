@@ -38,8 +38,9 @@ Future<void> main() async {
           ChangeNotifierProvider<GoogleSignInProviderss>(
               create: (context) => GoogleSignInProviderss())
         ],
+        // MaterialApp is a widget that introduces a number of widgets Navigator, 
+        //Theme that are required to build a material design app.
         child: MaterialApp(
-          
           home: BasePage1(),
         )),
   );
@@ -49,9 +50,8 @@ class BasePage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Use for theme
-
     return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
+    debugShowCheckedModeBanner: false,
       title: 'Neumorphic App',
       themeMode: ThemeMode.light,
       theme: NeumorphicThemeData( 
@@ -76,9 +76,12 @@ class BasePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // StreamBuilder is a widget that builds itself based on the latest snapshot of interaction with a stream.
+      // Ex. chat application clock applications where the widget needs to rebuild itself to show the current snapshot of data.
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          // 
           if (snapshot.hasData) {
             return HomePage();
           } else if (snapshot.connectionState == ConnectionState.waiting) {

@@ -1,5 +1,8 @@
 import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:intl/intl.dart';
 import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/complain_logic.dart';
@@ -10,6 +13,29 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
   Widget build(BuildContext context) {
     double fullheight = MediaQuery.of(context).size.height;
     double fullwidth = MediaQuery.of(context).size.width;
+    String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
+
+    void add_data(compaint_title, complaint_desc) async {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      firestore.collection('complaint').doc().set({
+        "title": compaint_title,
+        "descriptoin": complaint_desc,
+        "time": datetime,
+        "UID": FirebaseAuth.instance.currentUser?.uid
+      }).then((result) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Complaint Added Successfully"),
+          backgroundColor: Colors.blue,
+        ));
+      }).catchError((onError) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(onError),
+          backgroundColor: Colors.blue,
+        ));
+      });
+      // }
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[800],
       body: Column(
@@ -67,7 +93,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Parking" , "I have a Parking Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -86,7 +114,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   child: SizedBox(
                     height: 68,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      add_data("Street light" , "I have a Street light Issue");
+                      },
                       child: Row(
                         children: [
                           Icon(
@@ -105,7 +135,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Water" , "I have a Water Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -123,7 +155,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Gas pipeline" , "I have a Gas pipeline Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -141,7 +175,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Drainage" , "I have a Drainage Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -159,7 +195,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Electricity" , "I have a Electricity Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -177,7 +215,9 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 SizedBox(
                   height: 68,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      add_data("Road" , "I have a Road Issue");
+                    },
                     child: Row(
                       children: [
                         Icon(

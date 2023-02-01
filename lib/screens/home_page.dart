@@ -1,9 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
-import 'package:our_community/screens/register/register.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,22 +13,46 @@ import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
 
 import '../screens/emergency_page.dart';
+import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
+import 'Services/Plumber.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  Future<String> getName() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return snapshot.get("userName");
+  }
+
   @override
   Widget build(BuildContext context) {
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
     final user = FirebaseAuth.instance.currentUser!;
+    String? name = user.displayName;
     String email = user.email!;
     double square_pad = 10;
 
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+    const User_name_style = TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+        fontFamily: 'poppins');
+
+    // DocumentSnapshot snapshot = firestore
+    //     .collection("users")
+    //     .doc(userauthdata.currentUser?.uid)
+    //     .snapshots() as DocumentSnapshot;
+
+    // var userdata = snapshot.data as DocumentSnapshot;
+    // String username = userdata["userName"];
     double offset_val = 2.5;
 
     return Scaffold(
@@ -68,7 +93,21 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.water_damage),
+                  Text("Services: Doctor"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Doctor()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.bedtime_outlined),
                   Text("Theme"),
                 ],
               ),
@@ -83,7 +122,7 @@ class HomePage extends StatelessWidget {
               title: Row(
                 children: [
                   Icon(Icons.paid),
-                  Text("Razer"),
+                  Text("Maintenance"),
                 ],
               ),
               onTap: () {
@@ -96,7 +135,35 @@ class HomePage extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  Icon(Icons.paid),
+                  Icon(Icons.how_to_vote_outlined),
+                  Text("Voting"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Voting_Page()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.report_problem_outlined),
+                  Text("Complaint"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => show_complaint()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.logout),
                   Text("LogOut"),
                 ],
               ),
@@ -108,59 +175,55 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
-                  Text("Voting"),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Voting_Page()),
-                );
-              },
-            ),
           ],
         ),
       ),
       body: Container(
         decoration: BoxDecoration(
-          // color: Colors.black87,
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
               Color.fromARGB(217, 46, 47, 54),
               Color.fromARGB(255, 13, 14, 16),
-            ]
-          )
-        ),
+            ])),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Column(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FutureBuilder<String>(
+                      future: getName(),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text("Hello, " + snapshot.data.toString(),
+                              style: User_name_style);
+                        } else if (snapshot.hasError) {
+                          return Text(
+                            name!,
+                            style: User_name_style,
+                          );
+                        } else {
+                          return Text("Loading...");
+                        }
+                      },
+                    ),
+                  ],
+                ),
                 Text(
-                  "Hey, " + email,
+                  "Welcome to your community",
                   style: TextStyle(
-                    fontSize: minHW * 0.05,
+                    fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
                   ),
                 ),
               ],
-            ),
-            Text(
-              "Welcome to your community",
-              style: TextStyle(
-                fontSize: minHW * 0.07,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
@@ -184,21 +247,22 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Notice_Board_Page()),
+                                        builder: (context) =>
+                                            Notice_Board_Page()),
                                   );
                                 },
                                 child: Text("NoticeBoard")),
                           ),
                         ),
-                    Padding(padding: EdgeInsets.all(square_pad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         SizedBox(
                             height: boxL,
                             width: boxL,
                             child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(),
+                              ),
                               child: ElevatedButton(
                                   onPressed: () {}, child: Text("Events")),
                             )),
@@ -211,10 +275,10 @@ class HomePage extends StatelessWidget {
                             height: boxL,
                             width: boxL,
                             child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(),
+                              ),
                               child: ElevatedButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -225,7 +289,7 @@ class HomePage extends StatelessWidget {
                                   },
                                   child: Text("Complains")),
                             )),
-                    Padding(padding: EdgeInsets.all(square_pad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         SizedBox(
                           height: boxL,
                           width: boxL,
@@ -239,7 +303,8 @@ class HomePage extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => show_suggestion()),
+                                        builder: (context) =>
+                                            show_suggestion()),
                                   );
                                 },
                                 child: Text("Suggestions")),
@@ -255,10 +320,10 @@ class HomePage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.8,
               height: minHW * 0.15,
               child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(),
+                ),
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(

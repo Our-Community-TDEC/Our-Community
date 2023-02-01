@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
 
 import 'dart:io';
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names, body_might_complete_normally_nullable
+
+import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
@@ -9,60 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class show_suggestion extends StatelessWidget {
-
-
-
-
-
-
-
-
-  // String getUserName(String UID) {
-  //   String out;
-  //   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  //   final docRef = firestore.collection("user").doc(UID);
-  //     return docRef.get().then((DocumentSnapshot doc) {
-  //       final data = doc.data() as Map<String, dynamic>;
-  //       out = data['userName'].toString();
-  //       print("SSS: " + out.toString());
-  //       return out.toString();
-  //     });
-  //   // return show.toString();
-  // }
-
-
   Future<String> getName(String documentId) async {
-  DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection("user").doc(documentId).get();
-  return snapshot.get("userName");
-}
-
-//   Future<String> getUserName(String UID) async {
-//   FirebaseFirestore firestore = FirebaseFirestore.instance;
-//   final docRef = firestore.collection("user").doc(UID);
-//   final DocumentSnapshot doc = await docRef.get();
-//   final data = doc.data() as Map<String, dynamic>;
-//   return data['userName'].toString();
-// }
-
-
-
-
-
-
-
-
-
-
-
-  
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(documentId)
+        .get();
+    return snapshot.get("userName");
+  }
 
   @override
   Widget build(BuildContext context) {
-    void main() async {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-    }
-
     final user = FirebaseAuth.instance.currentUser!;
+    String? user_name = user.displayName;
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
@@ -77,6 +38,7 @@ class show_suggestion extends StatelessWidget {
         fontWeight: FontWeight.w400,
         color: Colors.white,
         fontFamily: 'poppins');
+
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
@@ -116,9 +78,9 @@ class show_suggestion extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
                             child: Text(
-                              "New Suggestions",
+                              "Suggestions",
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.w400,
@@ -128,14 +90,11 @@ class show_suggestion extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: Divider(
-                        thickness: 5,
-                        indent: 12,
-                        endIndent: 12,
-                        color: Colors.black,
-                      ),
+                    Divider(
+                      thickness: 5,
+                      indent: 12,
+                      endIndent: 12,
+                      color: Colors.black,
                     ),
                   ],
                 ),
@@ -150,73 +109,71 @@ class show_suggestion extends StatelessWidget {
                         return Expanded(
                           child: ListView.builder(
                             itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index)  {
+                            itemBuilder: (context, index) {
                               Map<String, dynamic> show_suggestion =
                                   snapshot.data!.docs[index].data()
                                       as Map<String, dynamic>;
                               return ListTile(
-                                title: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 6, 0, 0),
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 30,
-                                        child: Image.asset(
-                                          'assets/Images/user.png',
-                                          width: 40,
-                                        ),
+                                title: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30,
+                                      child: Image.asset(
+                                        'assets/Images/user.png',
+                                        width: 40,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            10, 0, 0, 0),
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              // Text(
-                                              //   await getName(show_suggestion["UID"]),
-                                              //   style: title_text_style,
-                                              // ), //Darshan
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 0, 0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            // Text(
+                                            //   await getName(show_suggestion["UID"]),
+                                            //   style: title_text_style,
+                                            // ), //Darshan
 
+                                            Text(
+                                              show_suggestion["title"],
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.white,
+                                                  fontFamily: 'poppins'),
+                                            ),
 
-                                              
-
-
-                                              Text(
-                                                show_suggestion["title"],
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white,
-                                                    fontFamily: 'poppins'),
-                                              ),
-
-
-
-
-
-FutureBuilder<String>(
-  future: getName(show_suggestion["UID"]),
-  builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-    if (snapshot.hasData) {
-      return Text(snapshot.data.toString(), style: title_text_style);
-    } else if (snapshot.hasError) {
-      return Text("Loading.....");
-    } else {
-      return Text("Loading...", style: title_text_style);
-    }
-  },
-),
-
-
-
-
-
-                                            ]),
-                                      ),
-                                    ],
-                                  ),
+                                            FutureBuilder<String>(
+                                              future: getName(
+                                                  show_suggestion["UID"]),
+                                              builder: (BuildContext context,
+                                                  AsyncSnapshot<String>
+                                                      snapshot) {
+                                                if (snapshot.hasData) {
+                                                  return Text(
+                                                      snapshot.data.toString(),
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w300,
+                                                          color: Colors.white,
+                                                          fontFamily:
+                                                              'poppins'));
+                                                } else if (snapshot.hasError) {
+                                                  return Text(
+                                                    "Loading...",
+                                                    style: title_text_style,
+                                                  );
+                                                } else {
+                                                  return Text("Loading...",
+                                                      style: title_text_style);
+                                                }
+                                              },
+                                            ),
+                                          ]),
+                                    ),
+                                  ],
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,

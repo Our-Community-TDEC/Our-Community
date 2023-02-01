@@ -1,16 +1,19 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../login_page.dart';
 
-  TextEditingController  emailController = TextEditingController();
-  TextEditingController  userNameController = TextEditingController();
-  TextEditingController  passwordController = TextEditingController();
-  TextEditingController  cPassword = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController userNameController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+TextEditingController cPasswordController = TextEditingController();
+
 class Register extends StatelessWidget {
-  Color gradient_top = Color(0xFF2E2F36);
-  Color gradient_bot = Color(0xE02E2F36);
+  Color gradient_top = const Color(0xFF2E2F36);
+  Color gradient_bot = const Color(0xE02E2F36);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,7 @@ class Register extends StatelessWidget {
       String email = emailController.text.toString().trim();
       String userName = userNameController.text.toString().trim();
       String password = passwordController.text.toString().trim();
-      String confirmpassword = cPassword.text.toString().trim();
+      String confirmpassword = cPasswordController.text.toString().trim();
 
       if (email == "" || password == "" || confirmpassword == "") {
         snackBar("Fill all the field");
@@ -47,187 +50,219 @@ class Register extends StatelessWidget {
               "userName": userName,
               "email": email,
               "password": password,
-            }).then((value) => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LogIn()),
-                    ));
-          }).catchError((error) {
-            snackBar("Something went Wrong");
+            }).then((value) => {
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return LogIn();
+                        },
+                      )),
+                      // emailController.text = "",
+                      // passwordController.text = "",
+                      // cPasswordController.text = "",
+                      // userNameController.text = ""
+                    });
           });
         } on FirebaseAuthException catch (e) {
-          if (e.code == 'weak-password') {
+          if (e.code == 'invalid-email') {
             snackBar('The password provided is too weak.');
+          } else if (e.code == 'weak-password') {
+            snackBar('Inavalid Email');
           } else if (e.code == 'email-already-in-use') {
             snackBar('The account already exists for that email.');
-          } else if (e.code == 'invalid-email') {
-            snackBar('Inavalid Email');
           } else if (e.code == 'operation-not-allowed') {
             snackBar('Account is disabled');
           }
-        } catch (e) {
-          snackBar(e.toString());
         }
+        //  catch (e) {
+        //   snackBar(e.toString());
+        // }
       }
     }
 
-    const same = TextStyle(color: Colors.white, fontSize: 18.0);
+    const text_head = TextStyle(
+        color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600);
+    const lable_style = TextStyle(
+      color: Colors.white,
+      fontSize: 18.0,
+    );
     const align_start = CrossAxisAlignment.start;
-    
-    
 
-
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [gradient_top, gradient_bot],
-      )),
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 11.0),
-                        child: SizedBox(
-                          height: MediaQuery. of(context). size. height*0.51,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                crossAxisAlignment: align_start,
-                                children: [
-                                  Text("UserId",style: same,),
-                                  TextField(
-                                    controller: userNameController,
-                                    decoration: const InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Your Name',
-                                      hintText: 'Enter Your Name',
-                                      suffixIcon: Icon(Icons.account_circle_outlined),
+    return Theme(
+      data: ThemeData(fontFamily: 'poppins'),
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [gradient_top, gradient_bot],
+        )),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.51,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: align_start,
+                                  children: [
+                                    Text(
+                                      "Name",
+                                      style: text_head,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: align_start,
-                                children: [
-                                  Text("EmailId",style: same,),
-                                  TextField(
-                                    controller: emailController,
-                                    decoration: const InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'name@example.com',
-                                      hintText: 'Enter E-Mail ID',
-                                      suffixIcon: Icon(Icons.alternate_email),
+                                    TextField(
+                                      controller: userNameController,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.grey,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        labelText: 'Your Name',
+                                        hintText: 'Enter Your Name',
+                                        labelStyle: lable_style,
+                                        suffixIcon:
+                                            Icon(Icons.account_circle_outlined),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: align_start,
-                                children: [
-                                  Text("Password",style: same),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: passwordController,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Password',
-                                      hintText: 'Enter Password',
-                                      suffixIcon: Icon(Icons.key),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: align_start,
+                                  children: [
+                                    Text(
+                                      "Email",
+                                      style: text_head,
                                     ),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: align_start,
-                                children: [
-                                  Text("Confirm Password",style: same),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: cPassword,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(),
-                                      labelText: 'Confirm Password',
-                                      suffixIcon: Icon(Icons.key),
-                                      hintText:
-                                          'Confirm Password must be same as Password',
+                                    TextField(
+                                      controller: emailController,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: Colors.grey,
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32),
+                                        ),
+                                        labelText: 'name@gmail.com',
+                                        hintText: 'Enter Your Email',
+                                        labelStyle: lable_style,
+                                        suffixIcon:
+                                            Icon(Icons.alternate_email_sharp),
+                                      ),
                                     ),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
-                                  ),
-                                ],
-                              ),
-                            ],
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: align_start,
+                                  children: [
+                                    Text("Password", style: text_head),
+                                    TextField(
+                                      obscureText: true,
+                                      controller: passwordController,
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.grey,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                          ),
+                                          labelText: 'Password',
+                                          hintText: 'Password',
+                                          suffixIcon: Icon(Icons.key),
+                                          labelStyle: lable_style),
+                                      enableSuggestions: false,
+                                      autocorrect: false,
+                                      obscuringCharacter: "●",
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  crossAxisAlignment: align_start,
+                                  children: [
+                                    Text("Confirm Password", style: text_head),
+                                    TextField(
+                                      obscureText: true,
+                                      controller: cPasswordController,
+                                      decoration: InputDecoration(
+                                          filled: true,
+                                          fillColor: Colors.grey,
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(32),
+                                          ),
+                                          labelText: 'Confirm Password',
+                                          hintText: 'Confirm Password',
+                                          suffixIcon: Icon(Icons.key),
+                                          labelStyle: lable_style),
+                                      enableSuggestions: false,
+                                      autocorrect: false,
+                                      obscuringCharacter: "●",
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: RichText(
-                          text: TextSpan(
-                            text:
-                                'By signing up, you are agree to our Terms & condition and privacy policy',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: RichText(
+                            text: TextSpan(
+                              text:
+                                  'By signing up, you are agree to our Terms & condition and privacy policy',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          createAccount();
-                        },
-                        child: Text(
-                          "Registration ",
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'Join us before ',
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              )),
-                            ],
+                        ElevatedButton(
+                          onPressed: () {
+                            createAccount();
+                          },
+                          child: Text(
+                            "Registration ",
+                            style: TextStyle(fontSize: 20),
                           ),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'Join us before ',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

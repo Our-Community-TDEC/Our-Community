@@ -1,23 +1,28 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/main.dart';
 import 'package:our_community/provider/googlesignin.dart';
-import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
-import 'dart:math';
 
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+final emailTController = TextEditingController();
+final passwordTController = TextEditingController();
+
 class LogIn extends StatelessWidget with Login_Logic {
   Color gradient_top = Color(0xFF2E2F36);
   Color gradient_bot = Color(0xE02E2F36);
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final user_detail = FirebaseAuth.instance.currentUser;
+
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
+    emailTController.dispose();
+    passwordTController.dispose();
     dispose();
     // super.dispose();
   }
@@ -31,9 +36,7 @@ class LogIn extends StatelessWidget with Login_Logic {
     }
 
     void log_in() async {
-      String email = emailController.text.toString().trim();
-      String password = passwordController.text.toString().trim();
-      if (email == "" || password == "") {
+      if (emailTController.text.isEmpty || passwordTController.text.isEmpty) {
         snackBar("Fill all the field");
       } else {
         CircularProgressIndicator(
@@ -41,29 +44,41 @@ class LogIn extends StatelessWidget with Login_Logic {
         );
         try {
           await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
+            email: emailTController.text.trim(),
+            password: passwordTController.text.trim(),
           );
         } on FirebaseAuthException catch (e) {
-          if (e.code == 'wrong-passord') {
-            snackBar('your password is wrong');
+          if (e.code == 'network-request-failed') {
+            snackBar('Check your internet connection');
           } else if (e.code == 'invalid-email') {
             snackBar('Inavalid Email');
+          } else if (e.code == 'wrong-password') {
+            snackBar("your password is wrong");
           } else if (e.code == 'user-disabled') {
             snackBar('User is disabled');
           } else if (e.code == 'user-not-found') {
             snackBar("user Doesn't exist");
+          } else {
+            snackBar(e.code);
           }
         } catch (e) {
           snackBar(e.toString());
         }
-
         Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => BasePage()),
         );
       }
+      emailTController.text = "";
+      passwordTController.text = "";
+    }
+
+    onsuccess() {
+      print(user_detail?.displayName);
+      print(user_detail?.email);
+      // log(user_detail?.displayName.toString());
+      // log(user_detail?.email.toString());
     }
 
     var text_style = TextStyle(
@@ -109,7 +124,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                           children: [
                             Text("Username", style: text_style),
                             TextField(
-                              controller: emailController,
+                              controller: emailTController,
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
@@ -128,7 +143,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                             ),
                             TextField(
                               obscureText: true,
-                              controller: passwordController,
+                              controller: passwordTController,
                               decoration: InputDecoration(
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.never,
@@ -150,9 +165,14 @@ class LogIn extends StatelessWidget with Login_Logic {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: ElevatedButton(
                         onPressed: () async {
+                          showDialog(
+                              context: context,
+                              builder: (context) => Center(
+                                    child: CircularProgressIndicator(),
+                                  ));
                           // showDialog(
                           //   context: context,
                           //   barrierDismissible: false,
@@ -177,7 +197,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Register()));
@@ -213,16 +233,28 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     ),
                                   ),
                                   onPressed: () {
-                                    // showDialog(
-                                    //   context: context,
-                                    //   builder: (context) => Center(
-                                    //       child: CircularProgressIndicator()),
-                                    // );
                                     final prov =
                                         Provider.of<GoogleSignInProviderss>(
                                             context,
                                             listen: false);
-                                    prov.googleLogIn();
+                                    // prov.googleLogIn().then((value) => {
+                                    //       firestore
+                                    //           .collection('user')
+                                    //           .doc(user_detail?.uid)
+                                    //           .set({
+                                    //         "email": user_detail!.email,
+                                    //         "userName": user_detail!.displayName
+                                    //       }).then((value) => snackBar("show_msg1")),
+                                    //       snackBar("show_ms2")
+                                    //     });
+                                    prov
+                                        .googleLogIn()
+                                        .then((value) => {onsuccess()});
+                                    // prov.googleLogIn().then((value) => {
+                                    //       snackBar(user_detail!.email),
+                                    //       log(user_detail!.email.toString()),
+                                    //       print(user_detail!.email)
+                                    //     });
                                     Navigator.popUntil(
                                         context, (route) => route.isFirst);
                                     Navigator.pushReplacement(
@@ -255,66 +287,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                     Container(
                       height: 200,
                       width: 200,
-                      
                     )
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     final prov = Provider.of<GoogleSignInProviderss>(context,
-                    //         listen: false);
-                    //     prov.googleLogIn();
-                    //   },
-                    //   child: Text(
-                    //     "Sign in",
-                    //   ),
-                    // ),
-                    // ElevatedButton(
-                    //   onPressed: () {
-                    //     final prov = Provider.of<GoogleSignInProviderss>(context,
-                    //         listen: false);
-                    //     prov.googleSignOut();
-                    //   },
-                    //   child: Text(
-                    //     "Sign out",
-                    //   ),
-                    //   // shape: RoundedRectangleBorder(
-                    //   //   borderRadius: new BorderRadius.circular(45),
-                    //   // ),
-                    // ),
-                    // ElevatedButton(
-                    //   onPressed: () async {
-                    //     showDialog(
-                    //       context: context,
-                    //       barrierDismissible: false,
-                    //       builder: (context) =>
-                    //           Center(child: CircularProgressIndicator()),
-                    //     );
-                    //     try {
-                    //       await FirebaseAuth.instance.signInWithEmailAndPassword(
-                    //         email: emailController.text.trim(),
-                    //         password: passwordController.text.trim(),
-                    //       );
-                    //     } on FirebaseAuthException catch (e) {
-                    //       print(e);
-                    //     }
-                    //   },
-                    //   child: Text(
-                    //     "Log in",
-                    //   ),
-                    // ),
-
-                    // Container(
-                    //   width: 400,
-                    //   height: 200,
-                    //   decoration: BoxDecoration(
-                    //     borderRadius: BorderRadius.circular(100),
-                    //     border: Border.all(
-                    //       width: 2.0,
-                    //       color: Colors.blue,
-                    //       style: BorderStyle.solid,
-                    //     ),
-                    //   ),
-
-                    // ),
                   ],
                 ),
               ),
@@ -323,5 +296,3 @@ class LogIn extends StatelessWidget with Login_Logic {
         ));
   }
 }
-
-
