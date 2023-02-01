@@ -30,7 +30,8 @@ class razer_pay_State extends State<razer_pay> {
   }
 
   void openCheckout() {
-    textEditingController.text = "";
+    print("object");
+    // textEditingController.text = "";
     var options = {
       "key": "rzp_test_gHGLmhz0gITxJn",
       "amount": num.parse(textEditingController.text) * 100,

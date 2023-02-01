@@ -9,7 +9,7 @@
     },
     {
       "name": "_flutterfire_internals",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/_flutterfire_internals-1.0.10",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/_flutterfire_internals-1.0.12",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -195,7 +195,7 @@
     },
     {
       "name": "firebase_core",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-2.4.0",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core-2.4.1",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -207,7 +207,7 @@
     },
     {
       "name": "firebase_core_web",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-2.0.2",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_core_web-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -226,6 +226,24 @@
     {
       "name": "firebase_database_web",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_database_web-0.2.1+17",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_messaging",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_messaging-14.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_messaging_platform_interface",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_messaging_platform_interface-4.2.10",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
+      "name": "firebase_messaging_web",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/firebase_messaging_web-3.2.11",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -818,7 +836,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-01-02T01:44:44.656760Z",
+  "generated": "2023-01-19T12:32:29.034715Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }

@@ -58,6 +58,7 @@ dependencies:
   shared_preferences: ^2.0.15
   firebase_database: ^10.0.7
   connectivity_plus: ^3.0.2
+  firebase_messaging: ^14.2.1
 
 
 dev_dependencies:
@@ -70,6 +71,21 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/Images/
+    - assets/Images/Services/Plumber/image 71.png
+    - assets/Images/Services/Plumber/image 73.png
+    - assets/Images/Services/Plumber/image 76.png
+    - assets/Images/Services/Doctor/1st_aid.png
+    - assets/Images/Services/Doctor/Doc_ser.png
+    - assets/Images/Services/Doctor/injection.png
+    - assets/Images/Services/Doctor/ste.png
+    - assets/Images/Services/Plumber/background.png
+    - assets/gpay.json
+    - assets/Images/Login/image 3.png
+    - assets/Images/Login/Trees.png
+    - assets/Images/Welcome/WelcomeImage.png
+  uses-material-design: true
   fonts:
     - family: poppins
       fonts: 
@@ -91,18 +107,3 @@ flutter:
         - asset: assets/fonts/Poppins-SemiBoldItalic.ttf
         - asset: assets/fonts/Poppins-Thin.ttf
         - asset: assets/fonts/Poppins-ThinItalic.ttf
-  assets:
-    - assets/Images/
-    - assets/Images/Services/Plumber/image 71.png
-    - assets/Images/Services/Plumber/image 73.png
-    - assets/Images/Services/Plumber/image 76.png
-    - assets/Images/Services/Doctor/1st_aid.png
-    - assets/Images/Services/Doctor/Doc_ser.png
-    - assets/Images/Services/Doctor/injection.png
-    - assets/Images/Services/Doctor/ste.png
-    - assets/Images/Services/Plumber/background.png
-    - assets/gpay.json
-    - assets/Images/Login/image 3.png
-    - assets/Images/Login/Trees.png
-    - assets/Images/Welcome/WelcomeImage.png
-  uses-material-design: true

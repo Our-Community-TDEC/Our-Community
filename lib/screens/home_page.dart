@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/razer_pay.dart';
@@ -39,10 +41,10 @@ class HomePage extends StatelessWidget {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     const User_name_style = TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
-                                  fontFamily: 'poppins');
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: Colors.white,
+        fontFamily: 'poppins');
 
     // DocumentSnapshot snapshot = firestore
     //     .collection("users")
@@ -170,7 +172,7 @@ class HomePage extends StatelessWidget {
                 FirebaseAuth.instance.signOut();
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context ) => LogIn()),
+                  MaterialPageRoute(builder: (context) => LogIn()),
                 );
               },
             ),
@@ -203,7 +205,10 @@ class HomePage extends StatelessWidget {
                           return Text("Hello, " + snapshot.data.toString(),
                               style: User_name_style);
                         } else if (snapshot.hasError) {
-                          return Text(name!,style: User_name_style,);
+                          return Text(
+                            name!,
+                            style: User_name_style,
+                          );
                         } else {
                           return Text("Loading...");
                         }
@@ -211,7 +216,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text(user.displayName.toString()),
                 Text(
                   "Welcome to your community",
                   style: TextStyle(
