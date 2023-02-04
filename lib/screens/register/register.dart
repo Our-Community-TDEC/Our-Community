@@ -114,13 +114,21 @@ class Register extends StatelessWidget {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
+                                Text(
+                                  "Let's get you registered",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 35,
+                                    color: Colors.grey,
+                                  ),
+                                ),
                                 Column(
                                   crossAxisAlignment: align_start,
                                   children: [
-                                    Text(
-                                      "Name",
-                                      style: text_head,
-                                    ),
+                                    // Text(
+                                    //   "Name",
+                                    //   style: text_head,
+                                    // ),
                                     TextField(
                                       controller: userNameController,
                                       decoration: InputDecoration(
@@ -130,8 +138,8 @@ class Register extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(32),
                                         ),
-                                        labelText: 'Your Name',
-                                        hintText: 'Enter Your Name',
+                                        labelText: 'Name',
+                                        // hintText: 'Enter Your Name',
                                         labelStyle: lable_style,
                                         suffixIcon:
                                             Icon(Icons.account_circle_outlined),
@@ -142,10 +150,10 @@ class Register extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: align_start,
                                   children: [
-                                    Text(
-                                      "Email",
-                                      style: text_head,
-                                    ),
+                                    // Text(
+                                    //   "Email",
+                                    //   style: text_head,
+                                    // ),
                                     TextField(
                                       controller: emailController,
                                       decoration: InputDecoration(
@@ -155,8 +163,8 @@ class Register extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(32),
                                         ),
-                                        labelText: 'name@gmail.com',
-                                        hintText: 'Enter Your Email',
+                                        labelText: 'Email ID',
+                                        // hintText: 'Enter Your Email',
                                         labelStyle: lable_style,
                                         suffixIcon:
                                             Icon(Icons.alternate_email_sharp),
@@ -167,7 +175,7 @@ class Register extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: align_start,
                                   children: [
-                                    Text("Password", style: text_head),
+                                    // Text("Password", style: text_head),
                                     TextField(
                                       obscureText: true,
                                       controller: passwordController,
@@ -179,7 +187,7 @@ class Register extends StatelessWidget {
                                                 BorderRadius.circular(32),
                                           ),
                                           labelText: 'Password',
-                                          hintText: 'Password',
+                                          // hintText: 'Password',
                                           suffixIcon: Icon(Icons.key),
                                           labelStyle: lable_style),
                                       enableSuggestions: false,
@@ -191,7 +199,7 @@ class Register extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: align_start,
                                   children: [
-                                    Text("Confirm Password", style: text_head),
+                                    // Text("Confirm Password", style: text_head),
                                     TextField(
                                       obscureText: true,
                                       controller: cPasswordController,
@@ -203,7 +211,7 @@ class Register extends StatelessWidget {
                                                 BorderRadius.circular(32),
                                           ),
                                           labelText: 'Confirm Password',
-                                          hintText: 'Confirm Password',
+                                          // hintText: 'Confirm Password',
                                           suffixIcon: Icon(Icons.key),
                                           labelStyle: lable_style),
                                       enableSuggestions: false,
@@ -218,45 +226,47 @@ class Register extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text:
-                                  'By signing up, you are agree to our Terms & condition and privacy policy',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                )),
-                              ],
-                            ),
-                          ),
+                          // child: RichText(
+                            // text: TextSpan(
+                            //   text:
+                            //       'By signing up, you are agree to our Terms & condition and privacy policy',
+                            //   style: TextStyle(
+                            //       color: Colors.white, fontSize: 18.0),
+                            //   children: <TextSpan>[
+                            //     TextSpan(
+                            //         style: TextStyle(
+                            //       fontWeight: FontWeight.bold,
+                            //     )),
+                            //   ],
+                            // ),
+                          // ),
                         ),
                         ElevatedButton(
                           onPressed: () {
                             createAccount();
                           },
                           child: Text(
-                            "Registration ",
+                            "Register ",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Join us before ',
+                          child: InkWell(
+                            onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LogIn()),
+                                );
+                              },
+                            child: Text(
+                                "I'm already a member",
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                              children: <TextSpan>[
-                                TextSpan(
-                                    style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                )),
-                              ],
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
+                          )
                         ),
                       ],
                     ),

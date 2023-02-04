@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
-
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 class Notice_Board_Page extends StatefulWidget {
   const Notice_Board_Page({super.key});
 
@@ -74,7 +72,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
     }
   }
 
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  // CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDate;
 
@@ -181,6 +179,20 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
 
   @override
   Widget build(BuildContext context) {
+    final CalendarController _controller = CalendarController();
+    String selectedDate(CalendarSelectionDetails details) {
+      String _text;
+      if (_controller.view == CalendarView.month ||
+          _controller.view == CalendarView.timelineMonth) {
+        _text = DateFormat('dd, MMMM yyyy').format(details.date!).toString();
+      } else {
+        _text =
+            DateFormat('dd, MMMM yyyy hh:mm a')
+                .format(details.date!)
+                .toString();
+      }
+      return _text;
+    }
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddEventDialog(),
@@ -228,6 +240,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                       ),
                     ],
                   ),
+                  // Text(selectedDate()),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 1),
                     child: Divider(
@@ -239,34 +252,8 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                   ),
                 ],
               ),
-              TableCalendar(
-                firstDay: DateTime.utc(2010, 10, 16),
-                lastDay: DateTime.utc(2030, 3, 14),
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                onDaySelected: ((selectedDay, focusedDay) {
-                  if (!isSameDay(_selectedDate, selectedDay)) {
-                    setState(() {
-                      _selectedDate = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  }
-                }),
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDate, day);
-                },
-
-                // onFormatChanged: (format) {
-                //   if (_calendarFormat != format) {
-                //     setState(() {
-                //       _calendarFormat = format;
-                //     });
-                //   }
-                // },
-                // onPageChanged: (focusedDay) {
-                //   _focusedDay = focusedDay;
-                // },
-                eventLoader: _listOfDayEvents,
+              SfCalendar(
+                view: CalendarView.month,
               ),
               ..._listOfDayEvents(_selectedDate!).map(
                 ((myEvents) => ListTile(

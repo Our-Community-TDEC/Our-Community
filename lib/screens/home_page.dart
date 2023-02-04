@@ -6,6 +6,7 @@ import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
+import 'package:our_community/screens/testCal.dart';
 import 'package:our_community/screens/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -175,10 +176,26 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.calendar_month),
+                  Text("Calender Test Page"),
+                ],
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TestPage()),
+                );
+              },
+            ),
           ],
         ),
       ),
       body: Container(
+        padding: EdgeInsets.all(minHW*0.05),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
