@@ -82,7 +82,7 @@ class LogIn extends StatelessWidget with Login_Logic {
     }
 
     var text_style = TextStyle(
-        fontSize: 20,
+        fontSize: 15,
         fontWeight: FontWeight.w300,
         color: Colors.white,
         fontFamily: 'poppins');
@@ -94,10 +94,10 @@ class LogIn extends StatelessWidget with Login_Logic {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [gradient_top, gradient_bot],
-          )),
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [gradient_top, gradient_bot],
+              )),
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: Colors.transparent,
@@ -108,9 +108,12 @@ class LogIn extends StatelessWidget with Login_Logic {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                       child: Column(
-                        children: [
-                          Image(
-                            image: AssetImage('assets/Images/Login/Trees.png'),
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 64),
+                            child: Image(
+                              image: AssetImage('assets/Images/Login/Trees.png'),
+                            ),
                           ),
                         ],
                       ),
@@ -122,43 +125,43 @@ class LogIn extends StatelessWidget with Login_Logic {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Username", style: text_style),
-                            TextField(
-                              controller: emailTController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                filled: true,
-                                fillColor: Colors.grey,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32),
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: TextField(
+                                controller: emailTController,
+                                decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                                  filled: true,
+                                  fillColor: Colors.grey,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
+                                  labelText: 'User ID',
                                 ),
-                                labelText: 'Enter E-Mail ID',
-                                hintText: 'example@gmail.com',
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Text("Password", style: text_style),
-                            ),
-                            TextField(
-                              obscureText: true,
-                              controller: passwordTController,
-                              decoration: InputDecoration(
-                                floatingLabelBehavior:
-                                    FloatingLabelBehavior.never,
-                                suffixIcon: Icon(Icons.key),
-                                filled: true,
-                                fillColor: Colors.grey,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(32),
+                              padding: const EdgeInsets.all(8),
+                              child: TextField(
+                                obscureText: true,
+                                controller: passwordTController,
+                                decoration: InputDecoration(
+                                  floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                                  suffixIcon: Icon(Icons.key),
+                                  filled: true,
+                                  fillColor: Colors.grey,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32),
+                                  ),
+                                  labelText: 'Password',
+                                  hintText: 'Password',
                                 ),
-                                labelText: '..........',
-                                hintText: 'Enter Password',
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                obscuringCharacter: "●",
                               ),
-                              enableSuggestions: false,
-                              autocorrect: false,
-                              obscuringCharacter: "●",
                             ),
                           ],
                         ),
@@ -171,8 +174,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                           showDialog(
                               context: context,
                               builder: (context) => Center(
-                                    child: CircularProgressIndicator(),
-                                  ));
+                                child: CircularProgressIndicator(),
+                              ));
                           // showDialog(
                           //   context: context,
                           //   barrierDismissible: false,
@@ -191,10 +194,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "Joined us before?",
-                            style: text_style,
-                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
@@ -202,12 +201,10 @@ class LogIn extends StatelessWidget with Login_Logic {
                                   MaterialPageRoute(
                                       builder: (context) => Register()));
                             },
-                            child: Text(
-                              'Click me',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300,
-                                  color: Color(0xff11A5FA)),
+                            child:
+                            Text(
+                              "Not a member yet? ",
+                              style: text_style,
                             ),
                           ),
                         ],
@@ -217,68 +214,80 @@ class LogIn extends StatelessWidget with Login_Logic {
                       padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                       child: Column(
                         children: [
-                          Text(
-                            "-----------< Or continue with >-----------",
-                            style: TextStyle(color: Colors.white),
-                          ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(
-                                      color: Colors.transparent,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              color: Colors.grey,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(
+                                        color: Colors.transparent,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      final prov =
+                                      Provider.of<GoogleSignInProviderss>(
+                                          context,
+                                          listen: false);
+                                      // prov.googleLogIn().then((value) => {
+                                      //       firestore
+                                      //           .collection('user')
+                                      //           .doc(user_detail?.uid)
+                                      //           .set({
+                                      //         "email": user_detail!.email,
+                                      //         "userName": user_detail!.displayName
+                                      //       }).then((value) => snackBar("show_msg1")),
+                                      //       snackBar("show_ms2")
+                                      //     });
+                                      prov
+                                          .googleLogIn()
+                                          .then((value) => {onsuccess()});
+                                      // prov.googleLogIn().then((value) => {
+                                      //       snackBar(user_detail!.email),
+                                      //       log(user_detail!.email.toString()),
+                                      //       print(user_detail!.email)
+                                      //     });
+                                      Navigator.popUntil(
+                                          context, (route) => route.isFirst);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => BasePage()),
+                                      );
+                                    },
+                                    child: Text(
+                                      "G",
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 45,
+                                      ),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    final prov =
-                                        Provider.of<GoogleSignInProviderss>(
-                                            context,
-                                            listen: false);
-                                    // prov.googleLogIn().then((value) => {
-                                    //       firestore
-                                    //           .collection('user')
-                                    //           .doc(user_detail?.uid)
-                                    //           .set({
-                                    //         "email": user_detail!.email,
-                                    //         "userName": user_detail!.displayName
-                                    //       }).then((value) => snackBar("show_msg1")),
-                                    //       snackBar("show_ms2")
-                                    //     });
-                                    prov
-                                        .googleLogIn()
-                                        .then((value) => {onsuccess()});
-                                    // prov.googleLogIn().then((value) => {
-                                    //       snackBar(user_detail!.email),
-                                    //       log(user_detail!.email.toString()),
-                                    //       print(user_detail!.email)
-                                    //     });
-                                    Navigator.popUntil(
-                                        context, (route) => route.isFirst);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => BasePage()),
-                                    );
-                                  },
-                                  child: Image(
-                                    image: AssetImage(
-                                        'assets/Images/Login/image 3.png'),
+                                  Icon(
+                                    Icons.apple,
+                                    color: Colors.black,
+                                    size: 50,
                                   ),
-                                ),
-                                Icon(
-                                  Icons.apple,
-                                  color: Colors.black,
-                                  size: 35,
-                                ),
-                                Icon(
-                                  Icons.facebook,
-                                  color: Colors.blue,
-                                  size: 30,
-                                ),
-                              ],
+                                  // Icon(
+                                  //   Icons.facebook,
+                                  //   color: Colors.blue,
+                                  //   size: 30,
+                                  // ),
+                                  Text(
+                                    "F",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 54,
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],
