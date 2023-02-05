@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
     );
 
     return Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: NeumorphicTheme.baseColor(context),
         body: Column(
           children: [
             Column(
@@ -55,15 +57,15 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                   padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black38,
+                      	NeumorphicRadio(
+                        // backgroundColor: Colors.black38,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: IconButton(
+                          child: NeumorphicButton(
                             onPressed: () => {Navigator.pop(context)},
-                            icon: Icon(
+                            child: Icon(
                               Icons.arrow_back_ios,
-                              color: Color.fromARGB(255, 0, 141, 241),
+                              color: _iconsColor(context),
                             ),
                           ),
                         ),
@@ -182,5 +184,21 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
             ),
           ],
         ));
+  }
+  Color? _iconsColor(BuildContext context) {
+    final theme = NeumorphicTheme.of(context);
+    if (theme!.isUsingDark) {
+      return theme.current!.accentColor;
+    } else {
+      return null;
+    }
+  }
+
+  Color _textColor(BuildContext context) {
+    if (NeumorphicTheme.isUsingDark(context)) {
+      return Colors.white;
+    } else {
+      return Colors.black;
+    }
   }
 }

@@ -416,6 +416,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "lite_rolling_switch",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/lite_rolling_switch-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "localization",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/localization-2.1.0",
       "packageUri": "lib/",
