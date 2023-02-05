@@ -245,30 +245,41 @@ class Register extends StatelessWidget {
                           // ),
                         // ),
                       ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => LogIn()),
-                              );
-                            },
-                            child: const Text(
-                              "I'm already a member",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
                       Padding(
                         padding: const EdgeInsets.all(16),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            createAccount();
-                          },
-                          child: const Text(
-                            "Register",
-                            style: TextStyle(fontSize: 20),
+                        child: SizedBox(
+                          width: 200,
+                          height: 60,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shadowColor: Colors.grey[600],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                            ),
+                            onPressed: () {
+                              createAccount();
+                            },
+                            child: const Text(
+                              "Register",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LogIn()),
+                          );
+                        },
+                        child: const Text(
+                          "I'm already a member",
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
                         ),
                       ),
