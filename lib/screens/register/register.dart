@@ -15,12 +15,12 @@ class Register extends StatelessWidget {
   final Color gradientTop = const Color(0xFF2E2F36);
   final Color gradientBot = const Color(0xE02E2F36);
 
-
   const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double minHW = min((MediaQuery.of(context).size.width), (MediaQuery.of(context).size.height));
+    double minHW = min((MediaQuery.of(context).size.width),
+        (MediaQuery.of(context).size.height));
     snackBar(showMsg) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(showMsg),
@@ -139,14 +139,13 @@ class Register extends StatelessWidget {
                                       filled: true,
                                       fillColor: Colors.grey,
                                       border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32),
+                                        borderRadius: BorderRadius.circular(32),
                                       ),
                                       labelText: 'Name',
                                       // hintText: 'Enter Your Name',
                                       labelStyle: labelStyle,
-                                      suffixIcon:
-                                          const Icon(Icons.account_circle_outlined),
+                                      suffixIcon: const Icon(
+                                          Icons.account_circle_outlined),
                                     ),
                                   ),
                                 ],
@@ -164,14 +163,13 @@ class Register extends StatelessWidget {
                                       filled: true,
                                       fillColor: Colors.grey,
                                       border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(32),
+                                        borderRadius: BorderRadius.circular(32),
                                       ),
                                       labelText: 'Email ID',
                                       // hintText: 'Enter Your Email',
                                       labelStyle: labelStyle,
-                                      suffixIcon:
-                                          const Icon(Icons.alternate_email_sharp),
+                                      suffixIcon: const Icon(
+                                          Icons.alternate_email_sharp),
                                     ),
                                   ),
                                 ],
@@ -231,18 +229,18 @@ class Register extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.all(20.0),
                         // child: RichText(
-                          // text: TextSpan(
-                          //   text:
-                          //       'By signing up, you are agree to our Terms & condition and privacy policy',
-                          //   style: TextStyle(
-                          //       color: Colors.white, fontSize: 18.0),
-                          //   children: <TextSpan>[
-                          //     TextSpan(
-                          //         style: TextStyle(
-                          //       fontWeight: FontWeight.bold,
-                          //     )),
-                          //   ],
-                          // ),
+                        // text: TextSpan(
+                        //   text:
+                        //       'By signing up, you are agree to our Terms & condition and privacy policy',
+                        //   style: TextStyle(
+                        //       color: Colors.white, fontSize: 18.0),
+                        //   children: <TextSpan>[
+                        //     TextSpan(
+                        //         style: TextStyle(
+                        //       fontWeight: FontWeight.bold,
+                        //     )),
+                        //   ],
+                        // ),
                         // ),
                       ),
                       Padding(
@@ -267,13 +265,11 @@ class Register extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       InkWell(
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => LogIn()),
+                            MaterialPageRoute(builder: (context) => LogIn()),
                           );
                         },
                         child: const Text(

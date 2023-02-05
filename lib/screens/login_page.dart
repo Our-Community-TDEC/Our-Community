@@ -99,10 +99,10 @@ class LogIn extends StatelessWidget with Login_Logic {
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [gradient_top, gradient_bot],
-              )),
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [gradient_top, gradient_bot],
+          )),
           child: Scaffold(
             resizeToAvoidBottomInset: true,
             backgroundColor: Colors.transparent,
@@ -117,13 +117,13 @@ class LogIn extends StatelessWidget with Login_Logic {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 64),
                             child: Image(
-                              image: AssetImage('assets/Images/Login/Trees.png'),
+                              image:
+                                  AssetImage('assets/Images/Login/Trees.png'),
                             ),
                           ),
                         ],
                       ),
                     ),
-
                     const Text(
                       "Welcome home 😃",
                       style: TextStyle(
@@ -185,7 +185,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                         width: 200,
                         height: 60,
                         child: ElevatedButton(
-
                           style: ElevatedButton.styleFrom(
                             shadowColor: Colors.grey[600],
                             shape: RoundedRectangleBorder(
@@ -196,8 +195,8 @@ class LogIn extends StatelessWidget with Login_Logic {
                             showDialog(
                                 context: context,
                                 builder: (context) => Center(
-                                  child: CircularProgressIndicator(),
-                                ));
+                                      child: CircularProgressIndicator(),
+                                    ));
                             // showDialog(
                             //   context: context,
                             //   barrierDismissible: false,
@@ -209,35 +208,32 @@ class LogIn extends StatelessWidget with Login_Logic {
                           child: Text(
                             "Log in",
                             style: TextStyle(
-                                fontSize: 20,
-                              fontWeight: FontWeight.w500
-                            ),
+                                fontSize: 20, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
                     ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Register()));
-                            },
-                            child:
-                            Text(
-                              "Not a member yet? ",
-                              style: text_style,
-                            ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register()));
+                          },
+                          child: Text(
+                            "Not a member yet? ",
+                            style: text_style,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                             child: Container(
                               width: 200,
                               height: 40,
@@ -247,39 +243,38 @@ class LogIn extends StatelessWidget with Login_Logic {
                               child: SignInButton(
                                 Buttons.Google,
                                 onPressed: () {
-    final prov =
-    Provider.of<GoogleSignInProviderss>(
-    context,
-    listen: false);
-    // prov.googleLogIn().then((value) => {
-    //       firestore
-    //           .collection('user')
-    //           .doc(user_detail?.uid)
-    //           .set({
-    //         "email": user_detail!.email,
-    //         "userName": user_detail!.displayName
-    //       }).then((value) => snackBar("show_msg1")),
-    //       snackBar("show_ms2")
-    //     });
-    prov
-        .googleLogIn()
-        .then((value) => {onsuccess()});
-    // prov.googleLogIn().then((value) => {
-    //       snackBar(user_detail!.email),
-    //       log(user_detail!.email.toString()),
-    //       print(user_detail!.email)
-    //     });
-    Navigator.popUntil(
-    context, (route) => route.isFirst);
-    Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(
-    builder: (context) => BasePage()),
-    );
+                                  final prov =
+                                      Provider.of<GoogleSignInProviderss>(
+                                          context,
+                                          listen: false);
+                                  // prov.googleLogIn().then((value) => {
+                                  //       firestore
+                                  //           .collection('user')
+                                  //           .doc(user_detail?.uid)
+                                  //           .set({
+                                  //         "email": user_detail!.email,
+                                  //         "userName": user_detail!.displayName
+                                  //       }).then((value) => snackBar("show_msg1")),
+                                  //       snackBar("show_ms2")
+                                  //     });
+                                  prov
+                                      .googleLogIn()
+                                      .then((value) => {onsuccess()});
+                                  // prov.googleLogIn().then((value) => {
+                                  //       snackBar(user_detail!.email),
+                                  //       log(user_detail!.email.toString()),
+                                  //       print(user_detail!.email)
+                                  //     });
+                                  Navigator.popUntil(
+                                      context, (route) => route.isFirst);
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => BasePage()),
+                                  );
                                 },
                               ),
-                            )
-                        ),
+                            )),
                       ],
                     ),
                     Container(
