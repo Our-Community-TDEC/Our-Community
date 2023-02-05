@@ -87,6 +87,11 @@ class LogIn extends StatelessWidget with Login_Logic {
         color: Colors.white,
         fontFamily: 'poppins');
 
+    const labelStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 18.0,
+    );
+
     return Theme(
         data: ThemeData(
           fontFamily: 'poppins',
@@ -139,14 +144,13 @@ class LogIn extends StatelessWidget with Login_Logic {
                               child: TextField(
                                 controller: emailTController,
                                 decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
                                   filled: true,
                                   fillColor: Colors.grey,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(32),
                                   ),
                                   labelText: 'User ID',
+                                  labelStyle: labelStyle,
                                 ),
                               ),
                             ),
@@ -156,8 +160,6 @@ class LogIn extends StatelessWidget with Login_Logic {
                                 obscureText: true,
                                 controller: passwordTController,
                                 decoration: InputDecoration(
-                                  floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
                                   suffixIcon: Icon(Icons.key),
                                   filled: true,
                                   fillColor: Colors.grey,
@@ -166,6 +168,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                                   ),
                                   labelText: 'Password',
                                   hintText: 'Password',
+                                  labelStyle: labelStyle,
                                 ),
                                 enableSuggestions: false,
                                 autocorrect: false,
