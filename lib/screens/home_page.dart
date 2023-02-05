@@ -69,7 +69,6 @@ class _HomePageState extends State<HomePage> {
 
     // var userdata = snapshot.data as DocumentSnapshot;
     // String username = userdata["userName"];
-
     double offset_val = 2.5;
 
     return Scaffold(
