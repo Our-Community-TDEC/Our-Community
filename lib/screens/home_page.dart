@@ -2,6 +2,7 @@
 
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
@@ -11,20 +12,35 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/emergency_page.dart';
 import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
 import 'Services/Plumber.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   Future<String> getName() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     return snapshot.get("userName");
+  }
+
+  bool isSwitched = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getTheme();
   }
 
   @override
@@ -176,6 +192,34 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            ListTile(
+              title: Row(
+                children: [
+                  SizedBox(
+                    height: 30,
+                    child: LiteRollingSwitch(
+                      value: isSwitched,
+                      // width: 90,
+                      textOn: 'Dark',
+                      textOff: 'Light',
+                      colorOn: Colors.grey,
+                      colorOff: Colors.blue,
+                      iconOn: Icons.lightbulb_outline,
+                      iconOff: Icons.nightlight_outlined,
+                      animationDuration: const Duration(milliseconds: 300),
+                      onChanged: (isSwitched) async {
+                        var pref = await SharedPreferences.getInstance();
+                        pref.setBool("Theme", isSwitched);
+                        print("$isSwitched");
+                      },
+                      onTap: () {},
+                      onDoubleTap: () {},
+                      onSwipe: () {},
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -265,7 +309,14 @@ class HomePage extends StatelessWidget {
                                 border: Border.all(),
                               ),
                               child: ElevatedButton(
-                                  onPressed: () {}, child: Text("Events")),
+                                  onPressed: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //       builder: (context) => ()),
+                                    // );
+                                  },
+                                  child: Text("Events")),
                             )),
                       ],
                     ),
@@ -343,5 +394,10 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getTheme() async {
+    var pref = await SharedPreferences.getInstance();
+     isSwitched  = pref.getBool("Theme")!;
   }
 }

@@ -410,6 +410,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "lite_rolling_switch",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/lite_rolling_switch-1.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
       "name": "localization",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dartlang.org/localization-2.1.0",
       "packageUri": "lib/",
@@ -836,7 +842,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-01-19T12:32:29.034715Z",
+  "generated": "2023-02-03T12:43:44.621849Z",
   "generator": "pub",
   "generatorVersion": "2.18.2"
 }
