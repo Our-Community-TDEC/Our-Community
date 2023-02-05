@@ -176,21 +176,21 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.calendar_month),
-                  Text("Calender Test Page"),
-                ],
-              ),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TestPage()),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(Icons.calendar_month),
+            //       Text("Calender Test Page"),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     FirebaseAuth.instance.signOut();
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => TestPage()),
+            //     );
+            //   },
+            // ),
           ],
         ),
       ),
