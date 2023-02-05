@@ -35,23 +35,24 @@ class Theme1 extends StatelessWidget {
               ),
             ),
             NeumorphicButton(
-                margin: EdgeInsets.only(top: 12),
-                onPressed: () {
-                  NeumorphicTheme.of(context)?.themeMode =
-                      NeumorphicTheme.isUsingDark(context)
-                          ? ThemeMode.light
-                          : ThemeMode.dark;
-                },
-                style: NeumorphicStyle(
-                  shape: NeumorphicShape.flat,
-                  boxShape:
-                      NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
-                ),
-                padding: const EdgeInsets.all(12.0),
-                child: Text(
-                  "Toggle Theme",
-                  style: TextStyle(color: _textColor(context)),
-                )),
+              margin: EdgeInsets.only(top: 12),
+              onPressed: () {
+                NeumorphicTheme.of(context)?.themeMode =
+                    NeumorphicTheme.isUsingDark(context)
+                        ? ThemeMode.light
+                        : ThemeMode.dark;
+              },
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+              ),
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Toggle Theme",
+                style: TextStyle(color: _textColor(context)),
+              ),
+            ),
             NeumorphicButton(
                 margin: EdgeInsets.only(top: 12),
                 onPressed: () {
