@@ -296,6 +296,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_signin_button",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_signin_button-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_svg-1.1.6",
       "packageUri": "lib/",
@@ -321,7 +327,7 @@
     },
     {
       "name": "font_awesome_flutter",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-10.3.0",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/font_awesome_flutter-9.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -842,7 +848,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-02-05T08:51:25.136640Z",
+  "generated": "2023-02-05T11:06:38.813821Z",
   "generator": "pub",
   "generatorVersion": "2.19.1"
 }
