@@ -40,6 +40,8 @@ class Register extends StatelessWidget {
         snackBar("Fill all the field");
       } else if (password != confirmPassword) {
         snackBar("Password And Confirm Password not match!");
+      } else if (password.length < 6) {
+        snackBar("Please enter a password more than 6 characters long");
       } else {
         try {
           FirebaseAuth.instance
@@ -265,7 +267,7 @@ class Register extends StatelessWidget {
                             createAccount();
                           },
                           child: const Text(
-                            "Register ",
+                            "Register",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
