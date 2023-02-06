@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
+import '../../nuemorphism/colors.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -47,144 +49,223 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       fontWeight: FontWeight.w400,
     );
 
-    return Scaffold(
-        backgroundColor: NeumorphicTheme.baseColor(context),
-        body: Column(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
-                  child: Row(
+    return Theme(
+      data: ThemeData(
+        fontFamily: 'poppins',
+      ),
+      child: Scaffold(
+          backgroundColor: Colors.grey[800],
+          body: Column(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                    child: Row(
+                      children: [
+                        NeumorphicRadio(
+                          // backgroundColor: Colors.black38,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            child: NeumorphicButton(
+                              onPressed: () => {Navigator.pop(context)},
+                              child: Icon(
+                                Icons.arrow_back_ios,
+                                color: _iconsColor(context),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                          child: Text(
+                            "Other Complaint",
+                            style: TextStyle(
+                                fontSize: 32,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Divider(
+                      thickness: 5,
+                      indent: 12,
+                      endIndent: 12,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      	NeumorphicRadio(
-                        // backgroundColor: Colors.black38,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
+                        child: Text(
+                          "Title",
+                          textAlign: TextAlign.start,
+                          style: text_style,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.93,
+                      child: Container(
+                        height: 74,
+                        decoration: outer_shadow,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 70,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Neumorphic(
+                                  style: inner_shadow,
+                                  child: TextField(
+                                    controller: complaint_title,
+                                    decoration: InputDecoration(
+                                        labelText: "Complaint title",
+                                        filled: true,
+                                        fillColor: Colors.grey[800],
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide.none)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
+                        child: Text(
+                          "Write short discription",
+                          style: text_style,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.93,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                      child: Container(
+                        height: 74,
+                        decoration: outer_shadow,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 70,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Neumorphic(
+                                  style: inner_shadow,
+                                  child: TextField(
+                                    controller: complaint_description,
+                                    decoration: InputDecoration(
+                                        labelText: "Enter Your Concern Here!!!",
+                                        filled: true,
+                                        fillColor: Colors.grey[800],
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none,
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(10),
+                                              bottomRight: Radius.circular(10)),
+                                        )),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                width: 345,
+                height: 78,
+                decoration: BoxDecoration(
+                  borderRadius: new BorderRadius.all(Radius.circular(44)),
+                  boxShadow: [
+                    BoxShadow(
+                      // color: HexColor.complaint_black.withOpacity(0.40),
+                      color: HexColor.black_shadow.withOpacity(0.40),
+                      offset: Offset(8, 8),
+                      blurRadius: 16,
+                      spreadRadius: 1,
+                    ),
+                    BoxShadow(
+                      color: HexColor.blue_button_shadow_blue.withOpacity(0.25),
+                      offset: Offset(-8, -8),
+                      blurRadius: 16,
+                      spreadRadius: 0,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 341,
+                      height: 78,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: ClipRRect(
+                          borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
                           child: NeumorphicButton(
-                            onPressed: () => {Navigator.pop(context)},
-                            child: Icon(
-                              Icons.arrow_back_ios,
-                              color: _iconsColor(context),
+                            style: NeumorphicStyle(
+                              color: HexColor.blue_button,
+                              depth: -12,
+                              intensity: 12,
+                              shape: NeumorphicShape.flat,
+                              shadowLightColorEmboss: HexColor
+                                  .blue_button_shadow_blue
+                                  .withOpacity(0.25),
+                              shadowDarkColorEmboss: HexColor
+                                  .blue_button_shadow_black
+                                  .withOpacity(0.50),
+                            ),
+                            onPressed: () {
+                              add_data();
+                            },
+                            child: Text(
+                              "Raise Complain",
+                              style: TextStyle(fontSize: 26),
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
-                        child: Text(
-                          "Other Complaint",
-                          style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Divider(
-                    thickness: 5,
-                    indent: 12,
-                    endIndent: 12,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
-                      child: Text(
-                        "Title",
-                        textAlign: TextAlign.start,
-                        style: text_style,
-                      ),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.93,
-                    child: TextField(
-                      controller: complaint_title,
-                      decoration: InputDecoration(
-                          labelText: "Complaint title",
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border:
-                              OutlineInputBorder(borderSide: BorderSide.none)),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
-                      child: Text(
-                        "Write short discription",
-                        style: text_style,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.93,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                    child: TextField(
-                      controller: complaint_description,
-                      decoration: InputDecoration(
-                          labelText: "Enter Your Concern Here!!!",
-                          filled: true,
-                          fillColor: Colors.grey[200],
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                          )),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 341,
-              height: 78,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    add_data();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(44.0),
-                    ),
-                  ),
-                  child: Text(
-                    "Raise Complain",
-                    style: TextStyle(fontSize: 26),
-                  ),
                 ),
               ),
-            ),
-          ],
-        ));
+            ],
+          )),
+    );
   }
+
   Color? _iconsColor(BuildContext context) {
     final theme = NeumorphicTheme.of(context);
     if (theme!.isUsingDark) {
