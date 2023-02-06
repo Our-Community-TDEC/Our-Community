@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 
 import '../../logic/suggestion_logic.dart';
+import '../../nuemorphism/border_effect.dart';
 
 class NewSuggestion extends StatelessWidget with AddNewSuggestion {
   @override
@@ -111,14 +113,36 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.93,
                       // height: 300,
-                      child: TextField(
-                        controller: suggestion_title,
-                        decoration: InputDecoration(
-                            labelText: "Suggestion title",
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none)),
+                      child: Container(
+                        height: 74,
+                        decoration: outer_shadow,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 70,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Neumorphic(
+                                  style: inner_shadow,
+                                  child: TextField(
+                                    controller: suggestion_title,
+                                    decoration: InputDecoration(
+                                        hintText: "Enter Title Here",
+                                        hintStyle: TextStyle(
+                                          color: Colors.white60,
+                                        ),
+                                        contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 0),
+                                        filled: true,
+                                        fillColor: Colors.grey[800],
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide.none)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -144,18 +168,36 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                     // height: 200,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: TextField(
-                        controller: suggestion_description,
-                        decoration: InputDecoration(
-                            labelText: "Enter Your Concern Here!!!",
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10)),
-                            )),
+                      child: Container(
+                        height: 74,
+                        decoration: outer_shadow,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 70,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Neumorphic(
+                                  style: inner_shadow,
+                                  child: TextField(
+                                    controller: suggestion_description,
+                                    decoration: InputDecoration(
+                                      hintText: "Enter Your Concern Here!!!",
+                                        hintStyle: TextStyle(
+                                          color: Colors.white60,
+                                        ),
+                                        contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 0),
+                                        filled: true,
+                                        fillColor: Colors.grey[800],
+                                        border: OutlineInputBorder(
+                                          borderSide: BorderSide.none)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
