@@ -57,14 +57,14 @@ class _Plumber extends State<Plumber>{
                         style: ElevatedButton.styleFrom(
                             primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
-                          width: 62,
-                          height: 106,
+                          width: 60,
+                          height: 100,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Image.asset(
                                 'assets/Images/Services/Plumber/image 71.png',
-                                width: 60,
+                                width: 50,
                                 height: 40,
                               ),
                               Column(
@@ -85,7 +85,7 @@ class _Plumber extends State<Plumber>{
                             primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
                           width: 60,
-                          height: 106,
+                          height: 100,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
@@ -112,7 +112,7 @@ class _Plumber extends State<Plumber>{
                             primary: const Color((0xffb4D4E54))),
                         child: SizedBox(
                           width: 60,
-                          height: 106,
+                          height: 100,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [

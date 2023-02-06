@@ -18,7 +18,12 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Icon(Icons.arrow_back),
+        child: Icon(
+            Icons.arrow_back,
+            color:Colors.blue ,
+        ),
+        backgroundColor: Colors.grey[800],
+
       ),
       backgroundColor: Colors.grey[800],
       body: Container(
@@ -26,7 +31,7 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
         constraints: BoxConstraints.expand(),
         // padding: EdgeInsets.all(Help_Buttons_Padding),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           //This is to arrange every page element in a column fashion
           children: [
             // Padding(padding: EdgeInsets.all(0)),
@@ -52,10 +57,10 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
                 ),  
               ],
             ),
-            Divider(
-              thickness: Divider_Thickness,
-              color: Colors.white,
-            ),
+            // Divider(
+            //   thickness: Divider_Thickness,
+            //   color: Colors.white,
+            // ),
               Column(
                 //This colums will contain 2 rows for the 4 boxes
                 children: [

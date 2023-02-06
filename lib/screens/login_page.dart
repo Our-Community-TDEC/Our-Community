@@ -192,7 +192,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Joined us before?",
+                          "New to app?",
                           style: text_style,
                         ),
                         GestureDetector(
@@ -203,7 +203,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     builder: (context) => Register()));
                           },
                           child: Text(
-                            'Click me',
+                            ' Register',
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w300,

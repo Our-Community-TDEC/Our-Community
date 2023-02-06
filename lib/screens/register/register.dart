@@ -3,7 +3,9 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../../nuemorphism/border_effect.dart';
 import '../login_page.dart';
 
 TextEditingController emailController = TextEditingController();
@@ -84,6 +86,11 @@ class Register extends StatelessWidget {
         // }
       }
     }
+    var text_style = TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w300,
+        color: Colors.white,
+        fontFamily: 'poppins');
 
     const labelStyle = TextStyle(
       color: Colors.white,
@@ -106,9 +113,9 @@ class Register extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Padding(padding: EdgeInsets.symmetric(vertical: minHW * 0.25)),
+                Padding(padding: EdgeInsets.symmetric(vertical: minHW * 0.2)),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -129,96 +136,178 @@ class Register extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: alignStart,
                                 children: [
-                                  // Text(
-                                  //   "Name",
-                                  //   style: text_head,
-                                  // ),
-                                  TextField(
-                                    controller: userNameController,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                      labelText: 'Name',
-                                      // hintText: 'Enter Your Name',
-                                      labelStyle: labelStyle,
-                                      suffixIcon: const Icon(
-                                          Icons.account_circle_outlined),
+                                  Container(
+                                    height: 74,
+                                    decoration: outer_shadow,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 70,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(16),
+                                            child: Neumorphic(
+                                              style: inner_shadow,
+                                              child: TextField(
+                                                controller: userNameController,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Name',
+                                                  filled: true,
+                                                  fillColor: Colors.grey[800],
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide.none),
+                                                  hintStyle: TextStyle(
+                                                    color: Colors.white60,
+                                                  ),
+                                                  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 0),
+                                                  suffixIcon: const Icon(
+                                                      Icons.account_circle_outlined,
+                                                      color: Colors.white60,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // )
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: alignStart,
                                 children: [
-                                  // Text(
-                                  //   "Email",
-                                  //   style: text_head,
-                                  // ),
-                                  TextField(
-                                    controller: emailController,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                      labelText: 'Email ID',
-                                      // hintText: 'Enter Your Email',
-                                      labelStyle: labelStyle,
-                                      suffixIcon: const Icon(
-                                          Icons.alternate_email_sharp),
+                                  Container(
+                                    height: 74,
+                                    decoration: outer_shadow,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 70,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(16),
+                                            child: Neumorphic(
+                                              style: inner_shadow,
+                                              child: TextField(
+                                                controller: emailController,
+                                                decoration: InputDecoration(
+                                                  filled: true,
+                                                  fillColor: Colors.grey[800],
+                                                  hintText: 'Email ID',
+                                                  hintStyle: TextStyle(
+                                                    color: Colors.white60,
+                                                  ),
+                                                  contentPadding: EdgeInsets.fromLTRB(10, 50, 0, 0),
+                                                  border: OutlineInputBorder(
+                                                        borderSide: BorderSide.none),
+                                                  suffixIcon: const Icon(
+                                                      Icons.alternate_email_sharp,
+                                                    color: Colors.white60,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // )
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: alignStart,
                                 children: [
                                   // Text("Password", style: text_head),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: passwordController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
+                                  Container(
+                                    height: 74,
+                                    decoration: outer_shadow,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 70,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(16),
+                                            child: Neumorphic(
+                                              style: inner_shadow,
+                                              child: TextField(
+                                                obscureText: true,
+                                                controller: passwordController,
+                                                decoration: InputDecoration(
+                                                    filled: true,
+                                                    fillColor: Colors.grey[800],
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide.none),
+                                                    hintText: 'Password',
+                                                    hintStyle: TextStyle(
+                                                      color: Colors.white60,
+                                                    ),
+                                                    suffixIcon: const Icon(Icons.key,
+                                                      color:Colors.white60,
+                                                    ),
+                                                ),
+                                                enableSuggestions: false,
+                                                autocorrect: false,
+                                                obscuringCharacter: "●",
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                        labelText: 'Password',
-                                        // hintText: 'Password',
-                                        suffixIcon: const Icon(Icons.key),
-                                        labelStyle: labelStyle),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
+                                      ],
+                                    ),
                                   ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // )
                                 ],
                               ),
                               Column(
                                 crossAxisAlignment: alignStart,
                                 children: [
-                                  // Text("Confirm Password", style: text_head),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: cPasswordController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
+                                  Container(
+                                    height: 74,
+                                    decoration: outer_shadow,
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          height: 70,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(16),
+                                            child: Neumorphic(
+                                              style: inner_shadow,
+                                              child: TextField(
+                                                obscureText: true,
+                                                controller: cPasswordController,
+                                                decoration: InputDecoration(
+                                                    filled: true,
+                                                  fillColor: Colors.grey[800],
+                                                  hintText: 'Confirm Password',
+                                                    hintStyle: TextStyle(
+                                                      color: Colors.white60,
+                                                    ),
+                                                    border: OutlineInputBorder(
+                                                        borderSide: BorderSide.none),
+                                                    suffixIcon: const Icon(Icons.key,
+                                                      color:Colors.white60,
+                                                    ),
+                                                ),
+                                                enableSuggestions: false,
+                                                autocorrect: false,
+                                                obscuringCharacter: "●",
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                        labelText: 'Confirm Password',
-                                        // hintText: 'Confirm Password',
-                                        suffixIcon: const Icon(Icons.key),
-                                        labelStyle: labelStyle),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
@@ -227,7 +316,7 @@ class Register extends StatelessWidget {
                         ),
                       ),
                       const Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.all(15),
                         // child: RichText(
                         // text: TextSpan(
                         //   text:
@@ -265,18 +354,45 @@ class Register extends StatelessWidget {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LogIn()),
-                          );
-                        },
-                        child: const Text(
-                          "I'm already a member",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+                      // InkWell(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(builder: (context) => LogIn()),
+                      //     );
+                      //   },
+                      //   child: const Text(
+                      //     "I'm already a member",
+                      //     style: TextStyle(
+                      //       color: Colors.white,
+                      //     ),
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 9, 0, 0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Joined us before?",
+                              style: text_style,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LogIn()));
+                              },
+                              child: Text(
+                                ' Login',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                    color: Color(0xff11A5FA)),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
