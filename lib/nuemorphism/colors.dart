@@ -10,30 +10,16 @@ extension HexColor on Color {
     return Color(int.parse(buffer.toString(), radix: 16));
   }
 
-  // var pref = await SharedPreferences.getInstance();
-  // bool? theme = pref.getBool("Theme");
-  // static Color complaint_black = theme == "true" ? fromHex("#000000") : fromHex("#ffffffff");
+    static  Color black_shadow = fromHex("#000000");
+    static  Color blue_shadow = fromHex("#82B3D9");
+    static  Color blue_button = fromHex("#11A5FA");
+  static  Color blue_button_shadow_blue = fromHex("#9CB4C7");
+    static  Color blue_button_shadow_black = fromHex("#000000");
+    static  Color floating_icon_button = fromHex("#363333");
+    static  Color floating_icon_button_shadow_blue = fromHex("#28A3FF");
+    static  Color floating_icon_button_shadow_black = fromHex("#000000");
+    static  Color emergency_button = fromHex("#000000");
 
-  void check() async {
-    var pref = await SharedPreferences.getInstance();
-    bool? theme = pref.getBool("Theme");
-    if (theme == "true") {
-      print("DARkkkkkk");
-      Color complaint_black = fromHex("#000000");
-      Color complaint_blue = fromHex("#82B3D9");
-      Color blue_button = fromHex("#11A5FA");
-      Color blue_button_shadow_blue = fromHex("#9CB4C7");
-      Color blue_button_shadow_black = fromHex("#000000");
-      Color floating_icon_button = fromHex("#363333");
-      Color floating_icon_button_shadow_blue = fromHex("#28A3FF");
-      Color floating_icon_button_shadow_black = fromHex("#000000");
-    } else {
-      print("Lightttt");
-    }
-  }
-
-  // static Color complaint_black = fromHex("#000000");
-  // static Color complaint_black = fromHex("#000000");
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'

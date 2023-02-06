@@ -9,7 +9,6 @@ import 'package:our_community/nuemorphism/border_effect.dart';
 // import 'package:our_community/screens/Complain Pages/OtherComplains.dart';
 
 class ComplainPage extends StatelessWidget with Complain_Logic {
-  Col c = new Col();
   @override
   Widget build(BuildContext context) {
     double fullheight = MediaQuery.of(context).size.height;
@@ -100,7 +99,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 children: [
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -109,7 +108,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Parking", "I have a Parking Issue");
                               },
@@ -134,7 +133,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -143,7 +142,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: NeumorphicButton(
-                                style: c.inner_shadow,
+                                style: inner_shadow,
                                 onPressed: () {
                                   add_data("Street light",
                                       "I have a Street light Issue");
@@ -168,7 +167,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -177,7 +176,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Water", "I have a Water Issue");
                               },
@@ -202,7 +201,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -211,7 +210,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Gas pipeline",
                                     "I have a Gas pipeline Issue");
@@ -237,7 +236,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -246,7 +245,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Drainage", "I have a Drainage Issue");
                               },
@@ -271,7 +270,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -280,7 +279,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Electricity",
                                     "I have a Electricity Issue");
@@ -306,7 +305,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: c.outer_shadow,
+                    decoration: outer_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -315,7 +314,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: c.inner_shadow,
+                              style: inner_shadow,
                               onPressed: () {
                                 add_data("Road", "I have a Road Issue");
                               },
@@ -348,13 +347,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                       boxShadow: [
                         BoxShadow(
                           // color: HexColor.complaint_black.withOpacity(0.40),
-                          color: HexColor.complaint_black.withOpacity(0.40),
+                          color: HexColor.black_shadow.withOpacity(0.40),
                           offset: Offset(3, 3),
                           blurRadius: 2,
                           spreadRadius: 1,
                         ),
                         BoxShadow(
-                          color: HexColor.complaint_blue.withOpacity(0.25),
+                          color: HexColor.blue_shadow.withOpacity(0.25),
                           offset: Offset(-3, -2),
                           blurRadius: 4,
                           spreadRadius: 0,
