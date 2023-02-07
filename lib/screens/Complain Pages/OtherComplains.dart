@@ -233,7 +233,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                     ),
                   ],
                 ),
-                Container(
+                Padding(
+                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                child: Container(
                   width: 345,
                   height: 78,
                   decoration: BoxDecoration(
@@ -292,6 +294,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                     ],
                   ),
                 ),
+              ),
               ],
             ),
           )),
