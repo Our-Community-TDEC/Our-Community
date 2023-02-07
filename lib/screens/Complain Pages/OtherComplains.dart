@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
+
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
@@ -81,37 +83,21 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
         ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           backgroundColor: Colors.grey[800],
-          body: Column(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
-                    child: Row(
-                      children: [
-                        Container(
-                          decoration: back_button_container,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: NeumorphicButton(
-                                    style: back_button,
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      color: HexColor.blue_button,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                      child: Row(
+                        children: [
+                          NeumorphicRadio(
+                            // backgroundColor: Colors.black38,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.fromLTRB(75, 0, 0, 0),
@@ -143,7 +129,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
                           child: Text(
                             "Title",
                             textAlign: TextAlign.start,
@@ -245,10 +231,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Padding(
+                  ],
+                ),
+                Padding(
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Container(
                   width: 345,
@@ -285,6 +270,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                     ],
                   ),
                 ),
+              ),
               ],
             ),
           )),
