@@ -1,2 +1,10 @@
 - name: Flutter action
   uses: subosito/flutter-action@v2.8.0
+  steps:
+    - uses: actions/checkout@v3
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable' # or: 'beta', 'dev' or 'master'
+        distribution: 'zulu'
+        java-version: '11'
+    - run: flutter --version
