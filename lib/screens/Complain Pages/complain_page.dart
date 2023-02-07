@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:our_community/logic/complain_logic.dart';
 import '../../nuemorphism/colors.dart';
-import 'package:our_community/nuemorphism/border_effect.dart';
+import '../../nuemorphism/border_effect.dart';
 // import 'package:our_community/screens/Complain Pages/OtherComplains.dart';
 
 class ComplainPage extends StatelessWidget with Complain_Logic {
@@ -14,7 +14,6 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
     double fullheight = MediaQuery.of(context).size.height;
     double fullwidth = MediaQuery.of(context).size.width;
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
-
     var text_style = TextStyle(
         fontSize: 26, color: Colors.white, fontWeight: FontWeight.w500);
 
@@ -160,7 +159,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                 },
                                 child: Row(
                                   children: [
-                                    Icon(Icons.lightbulb,
+                                    const Icon(Icons.lightbulb,
                                         size: 40, color: Colors.white),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 12),
@@ -199,7 +198,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  Icon(Icons.water_drop,
+                                  const Icon(Icons.water_drop,
                                       size: 40, color: Colors.white),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
@@ -239,7 +238,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  Icon(Icons.gas_meter,
+                                  const Icon(Icons.gas_meter,
                                       size: 40, color: Colors.white),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
@@ -279,7 +278,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  Icon(Icons.drag_indicator,
+                                  const Icon(Icons.drag_indicator,
                                       size: 40, color: Colors.white),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
@@ -319,7 +318,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  Icon(Icons.electric_bolt,
+                                  const Icon(Icons.electric_bolt,
                                       size: 40, color: Colors.white),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),

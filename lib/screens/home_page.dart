@@ -2,6 +2,7 @@
 
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 // import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../nuemorphism/border_effect.dart';
 import '../screens/emergency_page.dart';
 import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
@@ -224,7 +226,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(minHW*0.05),
+        padding: EdgeInsets.all(minHW * 0.05),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -280,6 +282,39 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
+                        Container(
+                          height: boxL + 4,
+                          width: boxL + 4,
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL,
+                            width: boxL,
+                            child: ClipRRect(
+                              borderRadius:
+                                  new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Notice_Board_Page(),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Text("NoticeBoard"),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         SizedBox(
                           height: boxL,
                           width: boxL,
@@ -290,35 +325,15 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Notice_Board_Page()),
-                                  );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //       builder: (context) => ()),
+                                  // );
                                 },
-                                child: Text("NoticeBoard")),
+                                child: Text("Events")),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(square_pad)),
-                        SizedBox(
-                            height: boxL,
-                            width: boxL,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(),
-                              ),
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //       builder: (context) => ()),
-                                    // );
-                                  },
-                                  child: Text("Events")),
-                            )),
                       ],
                     ),
                     Padding(padding: EdgeInsets.all(square_pad)),
@@ -399,6 +414,6 @@ class _HomePageState extends State<HomePage> {
 
   void getTheme() async {
     var pref = await SharedPreferences.getInstance();
-     isSwitched  = pref.getBool("Theme")!;
+    isSwitched = pref.getBool("Theme")!;
   }
 }
