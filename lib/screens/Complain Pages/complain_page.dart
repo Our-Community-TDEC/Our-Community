@@ -109,7 +109,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Parking", "I have a Parking Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Parking Issue",
+                                      "I'm having a parking issue at <enter location>.\nPlease try and have it fixed."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -143,8 +149,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               child: NeumorphicButton(
                                 style: inner_shadow,
                                 onPressed: () {
-                                  add_data("Street light",
-                                      "I have a Street light Issue");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => OtherComplains(
+                                        "Street Light Issue",
+                                        "The street light on <enter location> is not working as intended.\nPlease try and have it fixed."
+                                    )),
+                                  );
                                 },
                                 child: Row(
                                   children: [
@@ -177,7 +188,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Water", "I have a Water Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Water Issue",
+                                      "I live in <enter house number> and am having an water related issue.\nPlease send a plumber."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -211,8 +228,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Gas pipeline",
-                                    "I have a Gas pipeline Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Gas pipline issue",
+                                      "I live at <enter house number> and am having an issue with the gas pipeline.\nPlease send someone to fix it."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -246,7 +268,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Drainage", "I have a Drainage Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Drainage Issue",
+                                      "I noticed a drainage issue at <enter location>.\n<Describe the issue>\nPlease try and have it fixed."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -280,8 +308,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Electricity",
-                                    "I have a Electricity Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Electricity Issue",
+                                      "I'm having an electricity relaed issue at my home,  <enter house number>.\nPlease try and have it fixed."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -315,7 +348,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: NeumorphicButton(
                               style: inner_shadow,
                               onPressed: () {
-                                add_data("Road", "I have a Road Issue");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => OtherComplains(
+                                      "Road Issue",
+                                      "I've noticed an road related issue at <enter location>.\nPlease try and have it fixed."
+                                  )),
+                                );
                               },
                               child: Row(
                                 children: [
@@ -385,7 +424,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => OtherComplains(),
+                                    builder: (context) => OtherComplains("", ""),
                                   ),
                                 );
                               },

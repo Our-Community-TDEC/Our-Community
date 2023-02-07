@@ -57,16 +57,16 @@ class Register extends StatelessWidget {
               "email": email,
               "password": password,
             }).then((value) => {
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return LogIn();
-                        },
-                      )),
-                      // emailController.text = "",
-                      // passwordController.text = "",
-                      // cPasswordController.text = "",
-                      // userNameController.text = ""
-                    });
+              Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) {
+                  return LogIn();
+                },
+              )),
+              // emailController.text = "",
+              // passwordController.text = "",
+              // cPasswordController.text = "",
+              // userNameController.text = ""
+            });
           });
         } on FirebaseAuthException catch (e) {
           if (e.code == 'invalid-email') {
@@ -96,10 +96,10 @@ class Register extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [gradientTop, gradientBot],
-        )),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [gradientTop, gradientBot],
+            )),
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
@@ -186,7 +186,7 @@ class Register extends StatelessWidget {
                                         fillColor: Colors.grey,
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                          BorderRadius.circular(32),
                                         ),
                                         labelText: 'Password',
                                         // hintText: 'Password',
@@ -210,7 +210,7 @@ class Register extends StatelessWidget {
                                         fillColor: Colors.grey,
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(32),
+                                          BorderRadius.circular(32),
                                         ),
                                         labelText: 'Confirm Password',
                                         // hintText: 'Confirm Password',

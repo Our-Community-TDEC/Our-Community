@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
-import 'package:our_community/razer_pay.dart';
+// import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
@@ -137,20 +137,20 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(Icons.paid),
-                  Text("Maintenance"),
-                ],
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => razer_pay()),
-                );
-              },
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(Icons.paid),
+            //       Text("Maintenance"),
+            //     ],
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => razer_pay()),
+            //     );
+            //   },
+            // ),
             ListTile(
               title: Row(
                 children: [

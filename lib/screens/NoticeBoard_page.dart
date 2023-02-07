@@ -216,8 +216,14 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                       CircleAvatar(
                         backgroundColor: Colors.black38,
                         child: IconButton(
-                          onPressed: () => print('Clicked on list'),
-                          icon: Icon(Icons.list),
+                          onPressed: () {
+                            print('Clicked on list');
+                            Navigator.pop(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Notice_Board_Page()));
+                          },
+                          icon: Icon(Icons.arrow_back_ios_new_sharp),
                           color: Colors.blue,
                         ),
                       ),
