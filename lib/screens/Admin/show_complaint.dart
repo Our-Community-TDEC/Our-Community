@@ -8,6 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
+import '../../nuemorphism/border_effect.dart';
+import '../../nuemorphism/colors.dart';
+
 class show_complaint extends StatelessWidget {
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -37,7 +40,7 @@ class show_complaint extends StatelessWidget {
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
-            backgroundColor: Colors.grey[800],
+            backgroundColor:  HexColor.back_color_comp_suggestion,
             floatingActionButton: FloatingActionButton(
               onPressed: () => {
                 Navigator.push(
@@ -73,7 +76,7 @@ class show_complaint extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(60, 0, 0, 0),
                             child: Text(
                               "Complaints",
                               style: TextStyle(
@@ -111,137 +114,138 @@ class show_complaint extends StatelessWidget {
                               Map<String, dynamic> show_suggestion =
                                   snapshot.data!.docs[index].data()
                                       as Map<String, dynamic>;
-                              return ListTile(
-                                title: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 6, 0, 0),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        'assets/Images/Services/Plumber/image 76.png',
-                                        width: 40,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            10, 0, 0, 0),
-                                        child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              // Text(
-                                              //   await getName(show_suggestion["UID"]),
-                                              //   style: title_text_style,
-                                              // ), //Darshan
-
-                                              Text(
-                                                show_suggestion["title"],
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: Colors.white,
-                                                    fontFamily: 'poppins'),
-                                              ),
-
-                                              FutureBuilder<String>(
-                                                future: getName(
-                                                    show_suggestion["UID"]),
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot<String>
-                                                        snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return Text(
-                                                        snapshot.data
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight.w300,
-                                                            color: Colors.white,
-                                                            ));
-                                                  } else if (snapshot
-                                                      .hasError) {
-                                                    return Text("Loading...",style: title_text_style,);
-                                                  } 
-                                                  else {
-                                                    return Text("Loading...",
-                                                        style:
-                                                            title_text_style);
-                                                  }
-                                                },
-                                              ),
-                                            ]),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          10, 0, 0, 0),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 6),
-                                        child: Text(
-                                          show_suggestion["descriptoin"],
-                                          style: desc_text_style,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 7.0),
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Neumorphic(
+                                  style: show_data_compl_sugge,
+                                    margin: const EdgeInsets.symmetric(horizontal: 20),
+                                  child: ListTile(
+                                    title: Padding(
+                                      padding:
+                                          const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
+                                          Image.asset(
+                                            'assets/Images/Services/Plumber/image 76.png',
+                                            width: 40,
+                                          ),
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                0, 0, 10, 0),
-                                            child: CircleAvatar(
-                                              backgroundColor: Colors.black38,
-                                              child: IconButton(
-                                                onPressed: () =>
-                                                    print('clicked on list'),
-                                                icon: const Icon(
-                                                    Icons.check_circle_outline),
-                                                color: Colors.blue,
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                              ),
-                                            ),
-                                          ),
-                                          CircleAvatar(
-                                            backgroundColor: Colors.black38,
-                                            child: IconButton(
-                                              onPressed: () =>
-                                                  print('clicked on list'),
-                                              icon: const Icon(
-                                                  Icons.cancel_outlined),
-                                              color: Colors.blue,
-                                            ),
+                                                10, 0, 0, 0),
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  // Text(
+                                                  //   await getName(show_suggestion["UID"]),
+                                                  //   style: title_text_style,
+                                                  // ), //Darshan
+                                
+                                                  Text(
+                                                    show_suggestion["title"],
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight: FontWeight.w700,
+                                                        color: Colors.white,
+                                                        fontFamily: 'poppins'),
+                                                  ),
+                                
+                                                  FutureBuilder<String>(
+                                                    future: getName(
+                                                        show_suggestion["UID"]),
+                                                    builder: (BuildContext context,
+                                                        AsyncSnapshot<String>
+                                                            snapshot) {
+                                                      if (snapshot.hasData) {
+                                                        return Text(
+                                                            snapshot.data
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                fontSize: 15,
+                                                                fontWeight:
+                                                                    FontWeight.w300,
+                                                                color: Colors.white,
+                                                                ));
+                                                      } else if (snapshot
+                                                          .hasError) {
+                                                        return Text("Loading...",style: title_text_style,);
+                                                      } 
+                                                      else {
+                                                        return Text("Loading...",
+                                                            style:
+                                                                title_text_style);
+                                                      }
+                                                    },
+                                                  ),
+                                                ]),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Divider(
-                                      thickness: 2,
-                                      indent: 1,
-                                      endIndent: 1,
-                                      color: Colors.black,
+                                    subtitle: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 0, 0, 0),
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 6),
+                                            child: Text(
+                                              show_suggestion["descriptoin"],
+                                              style: desc_text_style,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 7.0),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.fromLTRB(
+                                                    0, 0, 10, 0),
+                                                child: CircleAvatar(
+                                                  backgroundColor: Colors.black38,
+                                                  child: IconButton(
+                                                    onPressed: () =>
+                                                        print('clicked on list'),
+                                                    icon: const Icon(
+                                                        Icons.check_circle_outline),
+                                                    color: Colors.blue,
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                  ),
+                                                ),
+                                              ),
+                                              CircleAvatar(
+                                                backgroundColor: Colors.black38,
+                                                child: IconButton(
+                                                  onPressed: () =>
+                                                      print('clicked on list'),
+                                                  icon: const Icon(
+                                                      Icons.cancel_outlined),
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                    // trailing: IconButton(
+                                    //   onPressed: () {
+                                    //     firestore
+                                    //         .collection("complaint")
+                                    //         .doc(snapshot
+                                    //             .data!.docs[index].reference.id
+                                    //             .toString())
+                                    //         .delete();
+                                    //   },
+                                    //   icon: Icon(Icons.delete),
+                                    // ),
+                                  ),
                                 ),
-                                // trailing: IconButton(
-                                //   onPressed: () {
-                                //     firestore
-                                //         .collection("complaint")
-                                //         .doc(snapshot
-                                //             .data!.docs[index].reference.id
-                                //             .toString())
-                                //         .delete();
-                                //   },
-                                //   icon: Icon(Icons.delete),
-                                // ),
                               );
                             },
                           ),

@@ -120,3 +120,11 @@ var emergency_blue_button_in_shadow = NeumorphicStyle(
   shadowLightColorEmboss: HexColor.blue_button_shadow_blue.withOpacity(0.25),
   shadowDarkColorEmboss: HexColor.blue_button_shadow_black.withOpacity(0.25),
 );
+
+var show_data_compl_sugge = NeumorphicStyle(
+  color: HexColor.back_color_comp_suggestion,
+  depth: -2,
+  shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.blue_shadow,
+  shadowDarkColorEmboss: HexColor.black_shadow,
+);
