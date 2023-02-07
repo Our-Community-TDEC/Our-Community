@@ -144,8 +144,15 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               child: NeumorphicButton(
                                 style: inner_shadow,
                                 onPressed: () {
-                                  add_data("Street light",
-                                      "I have a Street light Issue");
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => OtherComplains(
+                                        "Street Light Issue",
+                                        "The street light on <enter location> is not working as intended.\nPlease try and have it fixed."
+                                    )),
+                                  );
+                                  // add_data("Street light",
+                                  //     "I have a Street light Issue");
                                 },
                                 child: Row(
                                   children: [
@@ -386,7 +393,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => OtherComplains(),
+                                    builder: (context) => OtherComplains("", ""),
                                   ),
                                 );
                               },
