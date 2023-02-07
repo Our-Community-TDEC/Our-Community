@@ -237,32 +237,56 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                 child: Container(
                   width: 345,
-                  height: 82,
-                  decoration: blue_button_out_shadow,
+                  height: 78,
+                  decoration: BoxDecoration(
+                    borderRadius: new BorderRadius.all(Radius.circular(44)),
+                    boxShadow: [
+                      BoxShadow(
+                        // color: HexColor.complaint_black.withOpacity(0.40),
+                        color: HexColor.black_shadow.withOpacity(0.40),
+                        offset: Offset(8, 8),
+                        blurRadius: 16,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        color: HexColor.blue_button_shadow_blue.withOpacity(0.25),
+                        offset: Offset(-8, -8),
+                        blurRadius: 16,
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(
                         width: 341,
                         height: 78,
-                        child: ClipRRect(
-                          borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
-                          child: NeumorphicButton(
-                            style: blue_button_in_shadow,
-                            
-                            onPressed: () {
-                              add_data();
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Raise Complain",
-                                  style: TextStyle(fontSize: 26),
-                                ),
-                              ],
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: ClipRRect(
+                            borderRadius:
+                                new BorderRadius.all(Radius.circular(44)),
+                            child: NeumorphicButton(
+                              style: NeumorphicStyle(
+                                color: HexColor.blue_button,
+                                depth: -12,
+                                intensity: 12,
+                                shape: NeumorphicShape.flat,
+                                shadowLightColorEmboss: HexColor
+                                    .blue_button_shadow_blue
+                                    .withOpacity(0.25),
+                                shadowDarkColorEmboss: HexColor
+                                    .blue_button_shadow_black
+                                    .withOpacity(0.50),
+                              ),
+                              onPressed: () {
+                                add_data();
+                              },
+                              child: Text(
+                                "Raise Complain",
+                                style: TextStyle(fontSize: 26),
+                              ),
                             ),
                           ),
                         ),
