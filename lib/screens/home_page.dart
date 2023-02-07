@@ -283,12 +283,12 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       children: [
                         Container(
-                          height: boxL + 4,
-                          width: boxL + 4,
+                          height: boxL,
+                          width: boxL,
                           decoration: emergency_blue_button_out_shadow,
                           child: SizedBox(
-                            height: boxL,
-                            width: boxL,
+                            height: boxL - 4,
+                            width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
                                   new BorderRadius.all(Radius.circular(44)),
@@ -315,23 +315,36 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(padding: EdgeInsets.all(square_pad)),
-                        SizedBox(
+                        Container(
                           height: boxL,
                           width: boxL,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
+                                  onPressed: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         Notice_Board_Page(),
+                                    //   ),
+                                    // )
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Event"),
+                                    ],
+                                  )),
                             ),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => ()),
-                                  // );
-                                },
-                                child: Text("Events")),
                           ),
                         ),
                       ],
@@ -339,43 +352,69 @@ class _HomePageState extends State<HomePage> {
                     Padding(padding: EdgeInsets.all(square_pad)),
                     Row(
                       children: [
-                        SizedBox(
-                            height: boxL,
-                            width: boxL,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(),
-                              ),
-                              child: ElevatedButton(
+                        Container(
+                          height: boxL,
+                          width: boxL,
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ComplainPage()),
+                                        builder: (context) =>
+                                            ComplainPage(),
+                                      ),
                                     );
                                   },
-                                  child: Text("Complains")),
-                            )),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Complains"),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ),
                         Padding(padding: EdgeInsets.all(square_pad)),
-                        SizedBox(
+                        Container(
                           height: boxL,
                           width: boxL,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                         builder: (context) =>
-                                            show_suggestion()),
-                                  );
-                                },
-                                child: Text("Suggestions")),
+                                            show_suggestion(),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Suggestions"),
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                       ],
