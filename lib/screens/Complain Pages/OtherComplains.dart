@@ -15,14 +15,6 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   TextEditingController complaint_title = TextEditingController();
   TextEditingController complaint_description = TextEditingController();
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   // Step 2 <- SEE HERE
-  //   complaint_title.text = ttle;
-  // }
-
   OtherComplains(String title, String description) {
     ttle = title;
     desc = description;
@@ -61,6 +53,13 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
             backgroundColor: Colors.blue,
           ));
         });
+      }
+      else {
+        print("Aksh Exception Caught");
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Please fill data in Title and Description."),
+        backgroundColor: Colors.blue,
+      ));
       }
     }
 
@@ -156,8 +155,12 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                   child: Neumorphic(
                                     style: inner_shadow,
                                     child: TextField(
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
                                       controller: complaint_title,
                                       decoration: InputDecoration(
+                                        // focusColor: Colors.white,
                                           labelText: "Complaint title",
                                           filled: true,
                                           fillColor: Colors.grey[800],
@@ -204,6 +207,9 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                   child: Neumorphic(
                                     style: inner_shadow,
                                     child: TextField(
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
                                       maxLines: null,
                                       controller: complaint_description,
                                       decoration: InputDecoration(
