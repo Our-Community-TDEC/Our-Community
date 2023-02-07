@@ -54,9 +54,17 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
         fontFamily: 'poppins',
       ),
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {Navigator.pop(context)},
+          child: Icon(
+            Icons.arrow_back,
+          ),
+        ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           backgroundColor: Colors.grey[800],
           body: Column(
             children: [
+              Padding(padding: EdgeInsets.symmetric(vertical: 10)),
               Column(
                 children: [
                   Padding(
@@ -67,17 +75,10 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                           // backgroundColor: Colors.black38,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            child: NeumorphicButton(
-                              onPressed: () => {Navigator.pop(context)},
-                              child: Icon(
-                                Icons.arrow_back_ios,
-                                color: _iconsColor(context),
-                              ),
-                            ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(75, 0, 0, 0),
                           child: Text(
                             "Other Complaint",
                             style: TextStyle(
