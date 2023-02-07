@@ -273,7 +273,7 @@ class Register extends StatelessWidget {
                           );
                         },
                         child: const Text(
-                          "I'm already a member",
+                          "Joined us before? Login",
                           style: TextStyle(
                             color: Colors.white,
                           ),

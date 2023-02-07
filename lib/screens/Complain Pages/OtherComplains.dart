@@ -44,7 +44,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
           "UID": FirebaseAuth.instance.currentUser?.uid
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text("Comlaint Posted"),
+            content: Text("Complain Posted"),
             backgroundColor: Colors.blue,
           ));
         }).catchError((onError) {

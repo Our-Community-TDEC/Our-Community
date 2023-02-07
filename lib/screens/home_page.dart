@@ -45,7 +45,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getTheme();
   }
-
+  var text_style = TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+      fontFamily: 'poppins');
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -308,7 +312,7 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text("NoticeBoard"),
+                                      Text("NoticeBoard",style:text_style),
                                     ],
                                   )),
                             ),
@@ -341,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.center,
                                     children: [
-                                      Text("Event"),
+                                      Text("Event",style:text_style),
                                     ],
                                   )),
                             ),
@@ -378,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.center,
                                     children: [
-                                      Text("Complains"),
+                                      Text("Complains",style:text_style),
                                     ],
                                   )),
                             ),
@@ -411,7 +415,7 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.center,
                                     children: [
-                                      Text("Suggestions"),
+                                      Text("Suggestions",style:text_style),
                                     ],
                                   )),
                             ),

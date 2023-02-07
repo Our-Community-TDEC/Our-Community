@@ -224,7 +224,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     builder: (context) => Register()));
                           },
                           child: Text(
-                            "Not a member yet? ",
+                            "New to app? Register",
                             style: text_style,
                           ),
                         ),
