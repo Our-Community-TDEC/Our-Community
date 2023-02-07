@@ -13,6 +13,7 @@ extension HexColor on Color {
     static  Color black_shadow = fromHex("#000000");
     static  Color blue_shadow = fromHex("#82B3D9");
     static  Color blue_button = fromHex("#11A5FA");
+    static  Color back_color_comp_suggestion = fromHex("#47484E");
     static  Color blue_button_shadow_blue = fromHex("#9CB4C7");
     static  Color blue_button_shadow_black = fromHex("#000000");
     static  Color floating_icon_button = fromHex("#363333");
