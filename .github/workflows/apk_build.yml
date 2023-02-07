@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - name: Flutter action
   uses: subosito/flutter-action@v2.8.0
   steps:
@@ -8,3 +9,31 @@
         distribution: 'zulu'
         java-version: '11'
     - run: flutter --version
+=======
+name: 'APK Builder'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+      - run: flutter pub get
+#       - run: flutter format --set-exit-if-changed .
+#       - run: flutter analyze .
+      - run: flutter build apk
+      - uses: actions/upload-artifact@v1
+        with:
+          name: release-apk
+          path: build/app/outputs/apk/release/Our Community.apk
+>>>>>>> 549c7f70c7667f269d7ae5f942a140b209acf003
