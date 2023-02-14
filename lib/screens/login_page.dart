@@ -167,7 +167,7 @@ class LogIn extends StatelessWidget with Login_Logic {
                                     borderRadius: BorderRadius.circular(32),
                                   ),
                                   labelText: 'Password',
-                                  hintText: 'Password',
+                                  // hintText: 'Password',
                                   labelStyle: labelStyle,
                                 ),
                                 enableSuggestions: false,

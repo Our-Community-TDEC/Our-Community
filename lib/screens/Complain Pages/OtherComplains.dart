@@ -75,10 +75,16 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
         fontFamily: 'poppins',
       ),
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => {Navigator.pop(context)},
-          child: Icon(
-            Icons.arrow_back,
+        floatingActionButton: SizedBox(
+          height: 45,
+            width: 45,
+          child: FittedBox(
+            child: FloatingActionButton(
+              onPressed: () => {Navigator.pop(context)},
+              child: Icon(
+                Icons.arrow_back,
+              ),
+            ),
           ),
         ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
@@ -90,7 +96,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
                       child: Row(
                         children: [
                           NeumorphicRadio(
@@ -100,7 +106,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(75, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
                             child: Text(
                               "Other Complaint",
                               style: TextStyle(
@@ -161,7 +167,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                       controller: complaint_title,
                                       decoration: InputDecoration(
                                         // focusColor: Colors.white,
-                                          labelText: "Complaint title",
+                                          hintText: "Complaint title",
                                           filled: true,
                                           fillColor: Colors.grey[800],
                                           border: OutlineInputBorder(
@@ -213,7 +219,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                       maxLines: null,
                                       controller: complaint_description,
                                       decoration: InputDecoration(
-                                          labelText: "Enter Your Concern Here!!!",
+                                          hintText: "Enter Your Concern Here!!!",
                                           filled: true,
                                           fillColor: Colors.grey[800],
                                           border: OutlineInputBorder(
@@ -260,7 +266,11 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                               children: [
                                 Text(
                                   "Raise Complain",
-                                  style: TextStyle(fontSize: 26),
+                                  style: TextStyle(
+                                      fontSize: 26,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ],
                             ),
