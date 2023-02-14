@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:our_community/screens/Complain%20Pages/complain_page.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class show_complaint extends StatelessWidget {
               onPressed: () => {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => show_complaint()),
+                  MaterialPageRoute(builder: (context) => ComplainPage()),
                 ),
               },
               backgroundColor: Colors.black38,

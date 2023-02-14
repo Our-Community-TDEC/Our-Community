@@ -91,7 +91,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
               ],
             ),
             SizedBox(
-              width: 370,
+              width: 330,
               height: fullheight - 112,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

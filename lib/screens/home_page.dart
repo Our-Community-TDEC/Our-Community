@@ -45,7 +45,11 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getTheme();
   }
-
+  var text_style = TextStyle(
+      fontSize: 17,
+      fontWeight: FontWeight.w500,
+      color: Colors.white,
+      fontFamily: 'poppins');
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -283,12 +287,12 @@ class _HomePageState extends State<HomePage> {
                     Row(
                       children: [
                         Container(
-                          height: boxL + 4,
-                          width: boxL + 4,
+                          height: boxL,
+                          width: boxL,
                           decoration: emergency_blue_button_out_shadow,
                           child: SizedBox(
-                            height: boxL,
-                            width: boxL,
+                            height: boxL - 4,
+                            width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
                                   new BorderRadius.all(Radius.circular(44)),
@@ -308,30 +312,43 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Text("NoticeBoard"),
+                                      Text("NoticeBoard",style:text_style),
                                     ],
                                   )),
                             ),
                           ),
                         ),
                         Padding(padding: EdgeInsets.all(square_pad)),
-                        SizedBox(
+                        Container(
                           height: boxL,
                           width: boxL,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
+                                  onPressed: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) =>
+                                    //         Notice_Board_Page(),
+                                    //   ),
+                                    // )
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Event",style:text_style),
+                                    ],
+                                  )),
                             ),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => ()),
-                                  // );
-                                },
-                                child: Text("Events")),
                           ),
                         ),
                       ],
@@ -339,43 +356,69 @@ class _HomePageState extends State<HomePage> {
                     Padding(padding: EdgeInsets.all(square_pad)),
                     Row(
                       children: [
-                        SizedBox(
-                            height: boxL,
-                            width: boxL,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(),
-                              ),
-                              child: ElevatedButton(
+                        Container(
+                          height: boxL,
+                          width: boxL,
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ComplainPage()),
+                                        builder: (context) =>
+                                            show_complaint(),
+                                      ),
                                     );
                                   },
-                                  child: Text("Complains")),
-                            )),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Complains",style:text_style),
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ),
                         Padding(padding: EdgeInsets.all(square_pad)),
-                        SizedBox(
+                        Container(
                           height: boxL,
                           width: boxL,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              border: Border.all(),
-                            ),
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
+                          decoration: emergency_blue_button_out_shadow,
+                          child: SizedBox(
+                            height: boxL - 4,
+                            width: boxL - 4,
+                            child: ClipRRect(
+                              borderRadius:
+                              new BorderRadius.all(Radius.circular(44)),
+                              child: NeumorphicButton(
+                                  style: emergency_blue_button_in_shadow,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
                                         builder: (context) =>
-                                            show_suggestion()),
-                                  );
-                                },
-                                child: Text("Suggestions")),
+                                            show_suggestion(),
+                                      ),
+                                    );
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.center,
+                                    children: [
+                                      Text("Suggestions",style:text_style),
+                                    ],
+                                  )),
+                            ),
                           ),
                         ),
                       ],
