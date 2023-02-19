@@ -18,11 +18,11 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
         onPressed: () {
           Navigator.pop(context);
         },
-        child: Icon(
-            Icons.arrow_back,
+        backgroundColor: Colors.grey[800],
+        child: const Icon(
+            Icons.arrow_back_ios,
             color:Colors.blue ,
         ),
-        backgroundColor: Colors.grey[800],
 
       ),
       backgroundColor: Colors.grey[800],

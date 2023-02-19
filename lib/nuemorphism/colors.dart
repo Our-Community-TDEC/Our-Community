@@ -20,6 +20,13 @@ extension HexColor on Color {
     static  Color floating_icon_button_shadow_blue = fromHex("#28A3FF");
     static  Color floating_icon_button_shadow_black = fromHex("#000000");
     static  Color back_button_background = fromHex("#363333");
+    static  Color background_top = fromHex("#2E2F36");
+    static  Color background_center = fromHex("#363333");
+    static  Color background_end = fromHex("#0D0E10");
+
+    // Profile
+    static  Color profile_container = fromHex("#35373B");
+    static  Color profile_list_text = fromHex("#9FCAE2");
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'

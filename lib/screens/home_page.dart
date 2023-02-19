@@ -4,9 +4,11 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
-// import 'package:our_community/razer_pay.dart';
+import 'package:our_community/razer_pay.dart';
+import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
+import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:our_community/screens/testCal.dart';
 import 'package:our_community/screens/theme/theme.dart';
@@ -31,7 +33,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<String> getName() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+    DocumentSnapshot snapshot = await FirebaseFirestore .instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
@@ -141,20 +143,20 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.paid),
-            //       Text("Maintenance"),
-            //     ],
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => razer_pay()),
-            //     );
-            //   },
-            // ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Maintenance"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => razer_pay()),
+                );
+              },
+            ),
             ListTile(
               title: Row(
                 children: [
@@ -180,6 +182,20 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => show_complaint()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.report_problem_outlined),
+                  Text("Profile"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
                 );
               },
             ),

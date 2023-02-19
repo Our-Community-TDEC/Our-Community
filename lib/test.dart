@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:ui';
+
 
 void main() {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -12,5 +12,4 @@ void main() {
     onError: (e) => print("Error getting document: $e"),
   );
 
-  print(data);
 }

@@ -91,7 +91,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
               ],
             ),
             SizedBox(
-              width: 330,
+              width: 370,
               height: fullheight - 112,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -231,7 +231,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(builder: (context) => OtherComplains(
-                                      "Gas pipline issue",
+                                      "Gaspipline issue",
                                       "I live at <enter house number> and am having an issue with the gas pipeline.\nPlease send someone to fix it."
                                   )),
                                 );
@@ -243,7 +243,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
-                                      "Gas pipeline Issue",
+                                      "Gaspipeline Issue",
                                       style: text_style,
                                     ),
                                   )
