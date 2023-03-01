@@ -24,6 +24,8 @@ import 'Complain Pages/complain_page.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
+import 'add_home.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -33,7 +35,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Future<String> getName() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore .instance
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
@@ -140,6 +142,20 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Theme1()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.bedtime_outlined),
+                  Text("Add Home"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddHome()),
                 );
               },
             ),

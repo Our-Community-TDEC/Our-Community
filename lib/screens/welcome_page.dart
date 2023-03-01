@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
 import 'dart:math';
 
+import '../nuemorphism/colors.dart';
 import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -16,18 +19,18 @@ class WelcomePage extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double hw_min = min(height, width) - pad * 2;
 
-    const text_style = TextStyle(
+    var text_style = TextStyle(
         fontSize: 35,
         fontWeight: FontWeight.w600,
-        color: Colors.white,
+        color: HexColor.WblackText,
         fontFamily: 'poppins');
 
     return Theme(
-        data:ThemeData(
+        data: ThemeData(
           fontFamily: 'poppins',
         ),
         child: Scaffold(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: HexColor.Wbackground_color,
           body: Container(
             padding: const EdgeInsets.all(pad),
             child: Column(
@@ -37,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                 Row(
                   children: [
                     Image.asset(
-                      'assets/Images/Welcome/WelcomeImage.png',
+                      'assets/Images/Welcome/Welcome_white.png',
                       width: hw_min,
                     ),
                   ],
@@ -55,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white,
+                            color: HexColor.WblackText,
                           ),
                         ),
                       ],
@@ -65,12 +68,16 @@ class WelcomePage extends StatelessWidget {
                 SizedBox(
                   width: 200,
                   height: 60,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shadowColor: Colors.grey[600],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
+                  child: NeumorphicButton(
+                    style: NeumorphicStyle(
+                      color: HexColor.Wbackground_color,
+                      depth: 2,
+                      surfaceIntensity: 1,
+                      boxShape: NeumorphicBoxShape.roundRect(
+                          BorderRadius.circular(44)),
+                      shape: NeumorphicShape.flat,
+                      shadowLightColorEmboss: HexColor.WLightButton,
+                      shadowDarkColorEmboss: HexColor.WBlackButton,
                     ),
                     onPressed: () {
                       Navigator.pushReplacement(

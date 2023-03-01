@@ -128,3 +128,15 @@ var show_data_compl_sugge = NeumorphicStyle(
   shadowLightColorEmboss: HexColor.blue_shadow,
   shadowDarkColorEmboss: HexColor.black_shadow,
 );
+
+
+// White Theme
+  // var button = NeumorphicStyle(
+  //   color: HexColor.Wbackground_color,
+  //   depth: 2,
+  //   intensity:0.86,
+  //   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)), 
+  //   shape: NeumorphicShape.flat,
+  //   shadowLightColorEmboss: HexColor.WLightButton,
+  //   shadowDarkColorEmboss: HexColor.WBlackButton,
+  // );

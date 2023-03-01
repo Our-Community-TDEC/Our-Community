@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../logic/suggestion_logic.dart';
 import '../../nuemorphism/border_effect.dart';
+import '../../nuemorphism/colors.dart';
 
 class NewSuggestion extends StatelessWidget with AddNewSuggestion {
   @override
@@ -47,7 +48,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
     return Theme(
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
-          backgroundColor: Colors.grey[800],
+          backgroundColor: HexColor.Wbackground_color,
           body: Column(
             children: [
               Column(

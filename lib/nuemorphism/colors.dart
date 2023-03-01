@@ -28,6 +28,26 @@ extension HexColor on Color {
     static  Color profile_container = fromHex("#35373B");
     static  Color profile_list_text = fromHex("#9FCAE2");
 
+
+    // ------------------------WHITE THEME----------------------
+
+    //Background Color
+    static  Color Wbackground_color = fromHex("#D8E7FF");
+
+    // Common Color
+    static  Color WtextfieldDarkShadow = fromHex("#C6D8F1");
+    static  Color WtextfieldLightShadow = fromHex("#FFFFFF");
+    static  Color WiconColor = fromHex("#FFFFFF");
+
+
+    // Text Color
+    static  Color WblackText = fromHex("#000000");
+
+    // Button
+    static  Color WBlackButton = fromHex("#9CB8E1");
+    static  Color WLightButton = fromHex("#FFFFFF");
+
+     
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
       '${alpha.toRadixString(16).padLeft(2, '0')}'

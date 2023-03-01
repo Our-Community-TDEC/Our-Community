@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/emergency_logic.dart';
 
+import '../nuemorphism/colors.dart';
+
 class EmergencyPage extends StatelessWidget with Emergency_Logic {
   late double Help_Button_Radius,
       Help_Buttons_Padding = 12.5,
@@ -18,14 +20,14 @@ class EmergencyPage extends StatelessWidget with Emergency_Logic {
         onPressed: () {
           Navigator.pop(context);
         },
-        backgroundColor: Colors.grey[800],
+        backgroundColor: HexColor.Wbackground_color,
         child: const Icon(
             Icons.arrow_back_ios,
             color:Colors.blue ,
         ),
 
       ),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: HexColor.Wbackground_color,
       body: Container(
         //This contains the whole page
         constraints: BoxConstraints.expand(),

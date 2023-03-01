@@ -11,7 +11,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   static String ttle = "", desc = "";
 
-
   TextEditingController complaint_title = TextEditingController();
   TextEditingController complaint_description = TextEditingController();
 
@@ -53,13 +52,12 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
             backgroundColor: Colors.blue,
           ));
         });
-      }
-      else {
+      } else {
         print("Aksh Exception Caught");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Please fill data in Title and Description."),
-        backgroundColor: Colors.blue,
-      ));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Please fill data in Title and Description."),
+          backgroundColor: Colors.blue,
+        ));
       }
     }
 
@@ -69,26 +67,25 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       fontWeight: FontWeight.w400,
     );
 
-
     return Theme(
       data: ThemeData(
         fontFamily: 'poppins',
       ),
       child: Scaffold(
-        floatingActionButton: SizedBox(
-          height: 45,
+          floatingActionButton: SizedBox(
+            height: 45,
             width: 45,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () => {Navigator.pop(context)},
-              child: Icon(
-                Icons.arrow_back,
+            child: FittedBox(
+              child: FloatingActionButton(
+                onPressed: () => {Navigator.pop(context)},
+                child: Icon(
+                  Icons.arrow_back,
+                ),
               ),
             ),
           ),
-        ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          backgroundColor: Colors.grey[800],
+          backgroundColor: HexColor.Wbackground_color,
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -166,7 +163,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                       ),
                                       controller: complaint_title,
                                       decoration: InputDecoration(
-                                        // focusColor: Colors.white,
+                                          // focusColor: Colors.white,
                                           hintText: "Complaint title",
                                           filled: true,
                                           fillColor: Colors.grey[800],
@@ -213,20 +210,20 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                   child: Neumorphic(
                                     style: inner_shadow,
                                     child: TextField(
-                                      style: TextStyle(
-                                        color: Colors.white
-                                      ),
+                                      style: TextStyle(color: Colors.white),
                                       maxLines: null,
                                       controller: complaint_description,
                                       decoration: InputDecoration(
-                                          hintText: "Enter Your Concern Here!!!",
+                                          hintText:
+                                              "Enter Your Concern Here!!!",
                                           filled: true,
                                           fillColor: Colors.grey[800],
                                           border: OutlineInputBorder(
                                             borderSide: BorderSide.none,
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(10),
-                                                bottomRight: Radius.circular(10)),
+                                                bottomRight:
+                                                    Radius.circular(10)),
                                           )),
                                     ),
                                   ),
@@ -240,47 +237,46 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                   ],
                 ),
                 Padding(
-                padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: Container(
-                  width: 345,
-                  height: 82,
-                  decoration: blue_button_out_shadow,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 341,
-                        height: 78,
-                        child: ClipRRect(
-                          borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
-                          child: NeumorphicButton(
-                            style: blue_button_in_shadow,
-                            
-                            onPressed: () {
-                              add_data();
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Raise Complain",
-                                  style: TextStyle(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: Container(
+                    width: 345,
+                    height: 82,
+                    decoration: blue_button_out_shadow,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 341,
+                          height: 78,
+                          child: ClipRRect(
+                            borderRadius:
+                                new BorderRadius.all(Radius.circular(44)),
+                            child: NeumorphicButton(
+                              style: blue_button_in_shadow,
+                              onPressed: () {
+                                add_data();
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Raise Complain",
+                                    style: TextStyle(
                                       fontSize: 26,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
               ],
             ),
           )),
