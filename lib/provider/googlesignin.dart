@@ -33,31 +33,5 @@ class GoogleSignInProviderss extends ChangeNotifier {
 
     final AuthResult = await _auth.signInWithCredential(credential);
 
-    // final User? user = AuthResult.user;
-    // if (user != null) {
-    //   // Check if user already exists in Firebase Authentication
-    //   final UserCredential existingUserCredential =
-    //       await _auth.signInWithCredential(
-    //     GoogleAuthProvider.credential(
-    //       accessToken: googleAuth.accessToken,
-    //       idToken: googleAuth.idToken,
-    //     ),
-    //   );
-      // final User? existingUser = existingUserCredential.user;
-      // if (existingUser == null) {
-      //   print("user exist");
-      // } else {
-      //   firestore.collection("user").doc("b").set(
-      //       {'userName': user.displayName, 'email': user.email}).then((value) {
-      //     // The data has been successfully added
-      //     print('Data added successfully');
-      //   }).catchError((error) {
-      //     // An error occurred
-      //     print('Error: $error');
-      //   });
-      //   notifyListeners();
-      //   print("user not exist");
-      // }
-    // }
   }
 }
