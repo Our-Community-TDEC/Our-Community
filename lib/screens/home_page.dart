@@ -8,6 +8,7 @@ import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
+import 'package:our_community/screens/chat/chatpage.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:our_community/screens/testCal.dart';
@@ -245,6 +246,20 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Profile()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.report_problem_outlined),
+                  Text("Chat"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => chatpage(email: email)),
                 );
               },
             ),
