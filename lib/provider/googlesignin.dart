@@ -12,6 +12,8 @@ class GoogleSignInProviderss extends ChangeNotifier {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   Future googleSignOut() async {
     _googleSignIn.signOut();
     notifyListeners();
@@ -28,29 +30,34 @@ class GoogleSignInProviderss extends ChangeNotifier {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    await FirebaseAuth.instance.signInWithCredential(credential);
 
-    final AuthResult =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    final user = AuthResult.user;
+    final AuthResult = await _auth.signInWithCredential(credential);
 
-    DocumentSnapshot snapshot =
-        await firestore.collection("user").doc(user?.uid).get();
-
-    if (!snapshot.exists) {
-      // Add the user to the database
-      firestore
-          .collection("user")
-          .doc(user?.uid)
-          .set({'userName': user?.displayName, 'email': user?.email}).then((value) {
-        // The data has been successfully added
-        print('Data added successfully');
-      }).catchError((error) {
-        // An error occurred
-        print('Error: $error');
-      });
-
-      notifyListeners();
-    }
+    // final User? user = AuthResult.user;
+    // if (user != null) {
+    //   // Check if user already exists in Firebase Authentication
+    //   final UserCredential existingUserCredential =
+    //       await _auth.signInWithCredential(
+    //     GoogleAuthProvider.credential(
+    //       accessToken: googleAuth.accessToken,
+    //       idToken: googleAuth.idToken,
+    //     ),
+    //   );
+      // final User? existingUser = existingUserCredential.user;
+      // if (existingUser == null) {
+      //   print("user exist");
+      // } else {
+      //   firestore.collection("user").doc("b").set(
+      //       {'userName': user.displayName, 'email': user.email}).then((value) {
+      //     // The data has been successfully added
+      //     print('Data added successfully');
+      //   }).catchError((error) {
+      //     // An error occurred
+      //     print('Error: $error');
+      //   });
+      //   notifyListeners();
+      //   print("user not exist");
+      // }
+    // }
   }
 }

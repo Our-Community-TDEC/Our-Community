@@ -4,6 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import '../nuemorphism/colors.dart';
+
 class Notice_Board_Page extends StatefulWidget {
   const Notice_Board_Page({super.key});
 
@@ -93,7 +96,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
       print("tttttt");
       return [];
     }
-  } 
+  }
 
   _showAddEventDialog() async {
     await showDialog(
@@ -154,7 +157,6 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
               // DateTime dt = DateFormat('dd-MM-yy').parse(_focusedDay);
               // print()
 
-              
               // } else {
               //   mySelectedEvents[
               //       DateFormat('dd-MM-yy').format(_selectedDate!)] = [
@@ -186,13 +188,13 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
           _controller.view == CalendarView.timelineMonth) {
         _text = DateFormat('dd, MMMM yyyy').format(details.date!).toString();
       } else {
-        _text =
-            DateFormat('dd, MMMM yyyy hh:mm a')
-                .format(details.date!)
-                .toString();
+        _text = DateFormat('dd, MMMM yyyy hh:mm a')
+            .format(details.date!)
+            .toString();
       }
       return _text;
     }
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddEventDialog(),
@@ -201,7 +203,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
           color: Colors.blue,
         ),
       ),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: HexColor.Wbackground_color,
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
         child: Container(
@@ -316,7 +318,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                             //     }
                             //   ];
                             // }
-                            
+
                             return ListTile(
                               title: Row(
                                 children: [
