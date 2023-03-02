@@ -55,6 +55,8 @@ extension HexColor on Color {
     static  Color backButtonDark = fromHex("#6789A4");
 
     // Chat
+    static  Color WchatLight = fromHex("#FFFFFF");
+    static  Color WchatDark = fromHex("#C6D9F5");
     
 
      

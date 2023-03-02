@@ -41,8 +41,7 @@ class _HomePageState extends State<HomePage> {
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    return snapshot.get("userName");
-  }
+    return snapshot.get("userName");}
 
   bool isSwitched = false;
   @override
