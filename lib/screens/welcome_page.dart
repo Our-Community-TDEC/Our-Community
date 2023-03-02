@@ -69,16 +69,7 @@ class WelcomePage extends StatelessWidget {
                   width: 200,
                   height: 60,
                   child: NeumorphicButton(
-                    style: NeumorphicStyle(
-                      color: HexColor.Wbackground_color,
-                      depth: 2,
-                      surfaceIntensity: 1,
-                      boxShape: NeumorphicBoxShape.roundRect(
-                          BorderRadius.circular(44)),
-                      shape: NeumorphicShape.flat,
-                      shadowLightColorEmboss: HexColor.WLightButton,
-                      shadowDarkColorEmboss: HexColor.WBlackButton,
-                    ),
+                    style: Wbutton,
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,

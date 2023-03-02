@@ -20,7 +20,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   }
 
   // OtherComplains() {}
-
+  WhiteTheme theme = WhiteTheme();
   @override
   Widget build(BuildContext context) {
     complaint_title.text = ttle;
@@ -61,10 +61,10 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       }
     }
 
-    const text_style = TextStyle(
-      color: Colors.white,
+    var text_style = TextStyle(
+      color: HexColor.WblackText,
       fontSize: 20,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
     );
 
     return Theme(
@@ -76,10 +76,14 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
             height: 45,
             width: 45,
             child: FittedBox(
-              child: FloatingActionButton(
+              child: NeumorphicFloatingActionButton(
                 onPressed: () => {Navigator.pop(context)},
                 child: Icon(
                   Icons.arrow_back,
+                ),
+                style: NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  color: HexColor.Wbackground_color
                 ),
               ),
             ),
@@ -93,23 +97,17 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
                       child: Row(
                         children: [
-                          NeumorphicRadio(
-                            // backgroundColor: Colors.black38,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                            ),
-                          ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(50, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
                             child: Text(
                               "Other Complaint",
                               style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.w500,
-                                  color: Colors.white),
+                                  color: HexColor.WblueText),
                             ),
                           )
                         ],
@@ -147,7 +145,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         width: MediaQuery.of(context).size.width * 0.93,
                         child: Container(
                           height: 74,
-                          decoration: outer_shadow,
+                          decoration: theme.outer_shadow,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -156,7 +154,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Neumorphic(
-                                    style: inner_shadow,
+                                    style: theme.complaint_neumorphism,
                                     child: TextField(
                                       style: TextStyle(
                                         color: Colors.white,
@@ -166,7 +164,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                           // focusColor: Colors.white,
                                           hintText: "Complaint title",
                                           filled: true,
-                                          fillColor: Colors.grey[800],
+                                          fillColor: HexColor.Wbackground_color,
                                           border: OutlineInputBorder(
                                               borderSide: BorderSide.none)),
                                     ),
@@ -200,7 +198,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: Container(
                           height: 204,
-                          decoration: outer_shadow,
+                          decoration: theme.outer_shadow,
                           child: Column(
                             children: [
                               SizedBox(
@@ -208,7 +206,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Neumorphic(
-                                    style: inner_shadow,
+                                    style: theme.complaint_neumorphism,
                                     child: TextField(
                                       style: TextStyle(color: Colors.white),
                                       maxLines: null,
@@ -217,7 +215,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                           hintText:
                                               "Enter Your Concern Here!!!",
                                           filled: true,
-                                          fillColor: Colors.grey[800],
+                                          fillColor: HexColor.Wbackground_color,
                                           border: OutlineInputBorder(
                                             borderSide: BorderSide.none,
                                             borderRadius: BorderRadius.only(
@@ -238,42 +236,28 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Container(
-                    width: 345,
-                    height: 82,
-                    decoration: blue_button_out_shadow,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 341,
-                          height: 78,
-                          child: ClipRRect(
-                            borderRadius:
-                                new BorderRadius.all(Radius.circular(44)),
-                            child: NeumorphicButton(
-                              style: blue_button_in_shadow,
-                              onPressed: () {
-                                add_data();
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "Raise Complain",
-                                    style: TextStyle(
-                                      fontSize: 26,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                  child: SizedBox(
+                    width: 341,
+                    height: 78,
+                    child: NeumorphicButton(
+                      style: theme.button,
+                      onPressed: () {
+                        add_data();
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Raise Complain",
+                            style: TextStyle(
+                              fontSize: 26,
+                              color: HexColor.WblackText,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

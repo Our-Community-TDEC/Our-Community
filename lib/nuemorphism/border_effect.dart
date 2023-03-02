@@ -92,7 +92,6 @@ var blue_button_out_shadow = BoxDecoration(
   ],
 );
 
-
 var emergency_blue_button_out_shadow = BoxDecoration(
   borderRadius: new BorderRadius.all(Radius.circular(44)),
   boxShadow: [
@@ -129,14 +128,141 @@ var show_data_compl_sugge = NeumorphicStyle(
   shadowDarkColorEmboss: HexColor.black_shadow,
 );
 
-
 // White Theme
-  // var button = NeumorphicStyle(
-  //   color: HexColor.Wbackground_color,
-  //   depth: 2,
-  //   intensity:0.86,
-  //   boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)), 
-  //   shape: NeumorphicShape.flat,
-  //   shadowLightColorEmboss: HexColor.WLightButton,
-  //   shadowDarkColorEmboss: HexColor.WBlackButton,
-  // );
+var Wbutton = NeumorphicStyle(
+  color: HexColor.Wbackground_color,
+  depth: 9,
+  // intensity: 0.5,
+  surfaceIntensity: 1,
+  boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+  shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.WLightButton,
+  shadowDarkColorEmboss: HexColor.WBlackButton,
+);
+
+var Wtext_field = NeumorphicStyle(
+  color: HexColor.Wbackground_color,
+  depth: -2,
+  boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+  shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
+  shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
+);
+
+// --------------------------White Theme------------------------
+class WhiteTheme {
+  var button = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: 9,
+    // intensity: 0.5,
+    surfaceIntensity: 1,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.WLightButton,
+    shadowDarkColorEmboss: HexColor.WBlackButton,
+  );
+  
+
+  var homepage_button = NeumorphicStyle(
+  color: HexColor.Wbackground_color,
+  depth: -10,
+  intensity: 1,
+  // shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.WLightButton.withOpacity(0.50),
+  shadowDarkColorEmboss: HexColor.WBlackButton,
+);
+
+  var homepage_button_out = BoxDecoration(
+  borderRadius: new BorderRadius.all(Radius.circular(44)),
+  boxShadow: [
+    BoxShadow(
+      // color: HexColor.complaint_black.withOpacity(0.40),
+      color: HexColor.WBlackButton,
+      offset: Offset(8, 8),
+      blurRadius: 16,
+      spreadRadius: 1,
+    ),
+    BoxShadow(
+      color: HexColor.WLightButton.withOpacity(0.40),
+      offset: Offset(-8, -8),
+      blurRadius: 16,
+      spreadRadius: 0,
+    ),
+  ],
+);
+
+// ---------------------------Complaints------------------------
+
+var complaint_neumorphism = NeumorphicStyle(
+  color: HexColor.Wbackground_color,
+  depth: -4,
+  shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
+  shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
+);
+
+var outer_shadow = BoxDecoration(
+  borderRadius: BorderRadius.circular(15),
+  boxShadow: [
+    BoxShadow(
+      color: HexColor.WBlackButton,
+      offset: Offset(3, 3),
+      blurRadius: 2,
+      spreadRadius: 1,
+    ),
+    BoxShadow(
+      color: HexColor.WLightButton.withOpacity(0.40),
+      offset: Offset(-3, -2),
+      blurRadius: 4,
+      spreadRadius: 0,
+    ),
+  ],
+);
+
+
+
+
+}
+
+
+// --------------------------Dark Theme------------------------
+class DarkTheme {
+  var button = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: 9,
+    // intensity: 0.5,
+    surfaceIntensity: 1,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.WLightButton,
+    shadowDarkColorEmboss: HexColor.WBlackButton,
+  );
+
+  var homepage_button = NeumorphicStyle(
+  color: HexColor.blue_button,
+  depth: -12,
+  intensity: 1,
+  // shape: NeumorphicShape.flat,
+  shadowLightColorEmboss: HexColor.blue_button_shadow_blue.withOpacity(0.25),
+  shadowDarkColorEmboss: HexColor.blue_button_shadow_black.withOpacity(0.25),
+);
+
+  var homepage_button_out = BoxDecoration(
+  borderRadius: new BorderRadius.all(Radius.circular(44)),
+  boxShadow: [
+    BoxShadow(
+      // color: HexColor.complaint_black.withOpacity(0.40),
+      color: HexColor.black_shadow.withOpacity(0.20),
+      offset: Offset(8, 8),
+      blurRadius: 16,
+      spreadRadius: 1,
+    ),
+    BoxShadow(
+      color: HexColor.blue_shadow.withOpacity(0.60),
+      offset: Offset(-8, -8),
+      blurRadius: 16,
+      spreadRadius: 0,
+    ),
+  ],
+);
+}

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 extension HexColor on Color {
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
@@ -28,25 +27,55 @@ extension HexColor on Color {
     static  Color profile_container = fromHex("#35373B");
     static  Color profile_list_text = fromHex("#9FCAE2");
 
-
+    
     // ------------------------WHITE THEME----------------------
 
     //Background Color
     static  Color Wbackground_color = fromHex("#D8E7FF");
 
-    // Common Color
-    static  Color WtextfieldDarkShadow = fromHex("#C6D8F1");
+    // TextField Color
+    static  Color WtextfieldDarkShadow = fromHex("#A3C0EC");
     static  Color WtextfieldLightShadow = fromHex("#FFFFFF");
+    static  Color Whint = fromHex("#6C6565");
+
+    // icon Color
     static  Color WiconColor = fromHex("#FFFFFF");
 
 
     // Text Color
     static  Color WblackText = fromHex("#000000");
+    static  Color WblueText = fromHex("#6428E2");
 
     // Button
-    static  Color WBlackButton = fromHex("#9CB8E1");
+    static  Color WBlackButton = fromHex("#C6D8F1");
     static  Color WLightButton = fromHex("#FFFFFF");
 
+    // BackButton
+    static  Color backButtonLight = fromHex("#FFFFFF");
+    static  Color backButtonDark = fromHex("#6789A4");
+
+    // Chat
+    
+
+     
+  /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
+  String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
+      '${alpha.toRadixString(16).padLeft(2, '0')}'
+      '${red.toRadixString(16).padLeft(2, '0')}'
+      '${green.toRadixString(16).padLeft(2, '0')}'
+      '${blue.toRadixString(16).padLeft(2, '0')}';
+}
+
+extension WhiteHexColor on Color {
+  /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
+  static Color fromHex(String hexString) {
+    final buffer = StringBuffer();
+    if (hexString.length == 6 || hexString.length == 7) buffer.write('ff');
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
+    
      
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'

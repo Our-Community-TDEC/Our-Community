@@ -87,6 +87,7 @@ flutter:
     - assets/gpay.json
     - assets/Images/Login/image 3.png
     - assets/Images/Login/Trees.png
+    - assets/Images/Login/background.png
     - assets/Images/Welcome/WelcomeImage.png
     - assets/Images/Welcome/Welcome_white.png
   uses-material-design: true

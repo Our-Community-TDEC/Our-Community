@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/main.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/provider/googlesignin.dart';
 import 'package:our_community/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../logic/login_logic.dart';
 
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+
+import '../nuemorphism/border_effect.dart';
 
 TextEditingController emailTController = TextEditingController();
 TextEditingController passwordTController = TextEditingController();
@@ -49,6 +52,8 @@ class _LogInState extends State<LogIn> {
         backgroundColor: Colors.blue,
       ));
     }
+
+    double width = MediaQuery.of(context).size.height;
 
     void log_in() async {
       String email = emailTController.text.trim();
@@ -112,89 +117,78 @@ class _LogInState extends State<LogIn> {
 
     var text_style = TextStyle(
         fontSize: 15,
-        fontWeight: FontWeight.w300,
-        color: Colors.white,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblackText,
         fontFamily: 'poppins');
 
-    const labelStyle = TextStyle(
-      color: Colors.white,
+    var labelStyle = TextStyle(
+      color: HexColor.Whint,
       fontSize: 18.0,
     );
 
+    WhiteTheme Wt = new WhiteTheme();
     return Theme(
         data: ThemeData(
           fontFamily: 'poppins',
         ),
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [gradient_top, gradient_bot],
-          )),
-          child: Scaffold(
-            resizeToAvoidBottomInset: true,
-            backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              child: Container(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+          backgroundColor: HexColor.Wbackground_color,
+          body: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  Column(
+                    children: const [
+                      Image(
+                        image: AssetImage('assets/Images/Login/background.png'),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "Welcome home 😃",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 35,
+                      color: HexColor.WblackText,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                    child: SizedBox(
+                      width: 352,
                       child: Column(
-                        children: const [
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 64),
-                            child: Image(
-                              image:
-                                  AssetImage('assets/Images/Login/Trees.png'),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Text(
-                      "Welcome home 😃",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 35,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-                      child: SizedBox(
-                        width: 352,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8),
+                            padding: const EdgeInsets.all(8),
+                            child: Neumorphic(
+                              style: Wtext_field,
                               child: TextField(
                                 controller: emailTController,
                                 decoration: InputDecoration(
+                                  enabledBorder: InputBorder.none,
                                   filled: true,
-                                  fillColor: Colors.grey,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
+                                  fillColor: HexColor.Wbackground_color,
                                   labelText: 'User ID',
                                   labelStyle: labelStyle,
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Neumorphic(
+                              style: Wtext_field,
                               child: TextField(
                                 obscureText: true,
                                 controller: passwordTController,
                                 decoration: InputDecoration(
+                                  enabledBorder: InputBorder.none,
                                   suffixIcon: Icon(Icons.key),
                                   filled: true,
-                                  fillColor: Colors.grey,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(32),
-                                  ),
+                                  fillColor: HexColor.Wbackground_color,
+
                                   labelText: 'Password',
                                   // hintText: 'Password',
                                   labelStyle: labelStyle,
@@ -204,93 +198,109 @@ class _LogInState extends State<LogIn> {
                                 obscuringCharacter: "●",
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      child: SizedBox(
-                        width: 200,
-                        height: 60,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shadowColor: Colors.grey[600],
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
-                            ),
+                  ),
+                  SizedBox(
+                    width: 200,
+                    height: 60,
+                    child: NeumorphicButton(
+                      style: Wt.button,
+                      onPressed: () async {
+                        log_in();
+                      },
+                      child: const Text(
+                        "Log in",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Register()));
+                        },
+                        child: Text(
+                          "New to app? Register",
+                          style: text_style,
+                        ),
+                      ),
+                    ],
+                  ),
+                  // Neumorphic(
+                  //   style: NeumorphicStyle(
+                  //     boxShape: NeumorphicBoxShape.path(MyShapePathProvider()),
+                  //   ),
+                  // ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                        child: Container(
+                          width: 200,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          onPressed: () async {
-                            log_in();
-                          },
-                          child: Text(
-                            "Log in",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w500),
+                          child: SignInButton(
+                            Buttons.Google,
+                            onPressed: () {
+                              final prov = Provider.of<GoogleSignInProviderss>(
+                                  context,
+                                  listen: false);
+                              prov.googleLogIn().then(
+                                    (value) => {
+                                      Navigator.popUntil(
+                                          context, (route) => route.isFirst),
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => BasePage(),
+                                        ),
+                                      ),
+                                    },
+                                  );
+                            },
                           ),
                         ),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Register()));
-                          },
-                          child: Text(
-                            "New to app? Register",
-                            style: text_style,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                            child: Container(
-                              width: 200,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: SignInButton(
-                                Buttons.Google,
-                                onPressed: () {
-                                  final prov =
-                                      Provider.of<GoogleSignInProviderss>(
-                                          context,
-                                          listen: false);
-                                  prov.googleLogIn().then(
-                                        (value) => {
-                                          Navigator.popUntil(context,
-                                              (route) => route.isFirst),
-                                          Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => BasePage(),
-                                            ),
-                                          ),
-                                        },
-                                      );
-                                },
-                              ),
-                            )),
-                      ],
-                    ),
-                    Container(
-                      height: 200,
-                      width: 200,
-                    )
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
         ));
   }
+}
+
+class MyShapePathProvider extends NeumorphicPathProvider {
+  @override
+  bool shouldReclip(NeumorphicPathProvider oldClipper) {
+    return true;
+  }
+
+  @override
+  Path getPath(Size size) {
+    return Path()
+      ..moveTo(0, 0)
+      ..lineTo(size.width / 2, 0)
+      ..lineTo(size.width, size.height / 2)
+      ..lineTo(size.width / 2, size.height / 2)
+      ..lineTo(size.width, size.height)
+      ..lineTo(0, size.height)
+      ..close();
+  }
+
+  @override
+  bool get oneGradientPerPath => throw UnimplementedError();
 }
