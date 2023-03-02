@@ -192,7 +192,6 @@ class WhiteTheme {
 );
 
 // ---------------------------Complaints------------------------
-
 var complaint_neumorphism = NeumorphicStyle(
   color: HexColor.Wbackground_color,
   depth: -4,
