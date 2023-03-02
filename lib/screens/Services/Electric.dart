@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../logic/services/plumber/PLumber_logic.dart';
+import '../../nuemorphism/colors.dart';
 
 class Electronic extends StatelessWidget with Plumber_logic {
   const Electronic({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class Electronic extends StatelessWidget with Plumber_logic {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[800],
+      backgroundColor: HexColor.Wbackground_color,
       body: Container(
         child: Column(children: [
           Row(children: [

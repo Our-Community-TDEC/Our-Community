@@ -4,12 +4,15 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
-// import 'package:our_community/razer_pay.dart';
+import 'package:our_community/razer_pay.dart';
+import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
+import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:our_community/screens/testCal.dart';
 import 'package:our_community/screens/theme/theme.dart';
+import 'package:our_community/screens/theme/MyApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
@@ -21,6 +24,8 @@ import 'Admin/show_complaint.dart';
 import 'Complain Pages/complain_page.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+
+import 'add_home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,10 +50,13 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getTheme();
   }
+
+  WhiteTheme theme = new WhiteTheme();
+
   var text_style = TextStyle(
-      fontSize: 17,
-      fontWeight: FontWeight.w500,
-      color: Colors.white,
+      fontSize: 19,
+      fontWeight: FontWeight.w600,
+      color: HexColor.WblueText,
       fontFamily: 'poppins');
   @override
   Widget build(BuildContext context) {
@@ -63,10 +71,10 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    const User_name_style = TextStyle(
+     var user_name_style = TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        color: Colors.white,
+        color: HexColor.WblackText,
         fontFamily: 'poppins');
 
     // DocumentSnapshot snapshot = firestore
@@ -79,8 +87,23 @@ class _HomePageState extends State<HomePage> {
     double offset_val = 2.5;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: NeumorphicAppBar(
         title: Text("Home Page"),
+        padding: 10,
+        centerTitle: true,
+        color: HexColor.Wbackground_color,
+        textStyle: TextStyle(
+          color: HexColor.WblueText,
+          fontWeight: FontWeight.w700
+        ),
+        buttonStyle: NeumorphicStyle(
+          color: HexColor.Wbackground_color,
+          boxShape: NeumorphicBoxShape.circle(),
+          shadowLightColor: HexColor.backButtonLight,
+          shadowDarkColor: HexColor.backButtonDark,
+          depth: 5,
+        ),
+        iconTheme: IconThemeData(color: HexColor.WblueText),
       ),
       drawer: Drawer(
         child: ListView(
@@ -141,20 +164,48 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            // ListTile(
-            //   title: Row(
-            //     children: [
-            //       Icon(Icons.paid),
-            //       Text("Maintenance"),
-            //     ],
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => razer_pay()),
-            //     );
-            //   },
-            // ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.bedtime_outlined),
+                  Text("MyApp"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.bedtime_outlined),
+                  Text("Add Home"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddHome()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.paid),
+                  Text("Maintenance"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => razer_pay()),
+                );
+              },
+            ),
             ListTile(
               title: Row(
                 children: [
@@ -180,6 +231,20 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => show_complaint()),
+                );
+              },
+            ),
+            ListTile(
+              title: Row(
+                children: [
+                  Icon(Icons.report_problem_outlined),
+                  Text("Profile"),
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Profile()),
                 );
               },
             ),
@@ -232,13 +297,8 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-              Color.fromARGB(217, 46, 47, 54),
-              Color.fromARGB(255, 13, 14, 16),
-            ])),
+          color: HexColor.Wbackground_color
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -254,11 +314,11 @@ class _HomePageState extends State<HomePage> {
                           AsyncSnapshot<String> snapshot) {
                         if (snapshot.hasData) {
                           return Text("Hello, " + snapshot.data.toString(),
-                              style: User_name_style);
+                              style: user_name_style);
                         } else if (snapshot.hasError) {
                           return Text(
                             name!,
-                            style: User_name_style,
+                            style: user_name_style,
                           );
                         } else {
                           return Text("Loading...");
@@ -272,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: HexColor.WblackText,
                   ),
                 ),
               ],
@@ -289,7 +349,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: boxL,
                           width: boxL,
-                          decoration: emergency_blue_button_out_shadow,
+                          decoration: theme.homepage_button_out,
                           child: SizedBox(
                             height: boxL - 4,
                             width: boxL - 4,
@@ -297,7 +357,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius:
                                   new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
-                                  style: emergency_blue_button_in_shadow,
+                                  style: theme.homepage_button,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -322,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: boxL,
                           width: boxL,
-                          decoration: emergency_blue_button_out_shadow,
+                          decoration: theme.homepage_button_out,
                           child: SizedBox(
                             height: boxL - 4,
                             width: boxL - 4,
@@ -330,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius:
                               new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
-                                  style: emergency_blue_button_in_shadow,
+                                  style: theme.homepage_button,
                                   onPressed: () {
                                     // Navigator.push(
                                     //   context,
@@ -359,7 +419,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: boxL,
                           width: boxL,
-                          decoration: emergency_blue_button_out_shadow,
+                          decoration: theme.homepage_button_out,
                           child: SizedBox(
                             height: boxL - 4,
                             width: boxL - 4,
@@ -367,7 +427,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius:
                               new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
-                                  style: emergency_blue_button_in_shadow,
+                                  style: theme.homepage_button,
                                   onPressed: () {
                                     Navigator.push(
                                       context,
@@ -392,7 +452,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: boxL,
                           width: boxL,
-                          decoration: emergency_blue_button_out_shadow,
+                          decoration: theme.homepage_button_out,
                           child: SizedBox(
                             height: boxL - 4,
                             width: boxL - 4,
@@ -400,7 +460,7 @@ class _HomePageState extends State<HomePage> {
                               borderRadius:
                               new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
-                                  style: emergency_blue_button_in_shadow,
+                                  style: theme.homepage_button,
                                   onPressed: () {
                                     Navigator.push(
                                       context,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../../logic/services/plumber/Plumber_logic.dart';
+import '../../nuemorphism/colors.dart';
 
 class Doctor extends StatelessWidget with Plumber_logic {
   @override
@@ -14,7 +15,7 @@ class Doctor extends StatelessWidget with Plumber_logic {
         },
         child: Icon(Icons.arrow_back),
       ),
-      backgroundColor: Colors.grey[800],
+      backgroundColor: HexColor.Wbackground_color,
       body: Container(
         child: Column(children: [
           Row(children: [
@@ -145,8 +146,9 @@ class Doctor extends StatelessWidget with Plumber_logic {
                     SfCalendar(
                       view: CalendarView.month,
                       dataSource: MeetingDataSource(_getDataSource()),
-                       monthViewSettings: MonthViewSettings(
-        appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
+                      monthViewSettings: MonthViewSettings(
+                          appointmentDisplayMode:
+                              MonthAppointmentDisplayMode.appointment),
                     ),
                   ],
                 )
@@ -170,7 +172,6 @@ List<Meeting> _getDataSource() {
       'Conference', startTime, endTime, const Color(0xFF0F8644), false));
   return meetings;
 }
-
 
 class MeetingDataSource extends CalendarDataSource {
   MeetingDataSource(List<Meeting> source) {

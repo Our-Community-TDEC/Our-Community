@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../login_page.dart';
 
@@ -44,44 +45,41 @@ class Register extends StatelessWidget {
         snackBar("Please enter a password more than 6 characters long");
       } else {
         try {
-          FirebaseAuth.instance
-              .createUserWithEmailAndPassword(email: email, password: password)
-              .then((user) {
-            snackBar("Registration successful");
-            // UserRecord userRecord = FirebaseAuth.getInstance().getUserByPhoneNumber(phoneNumber);
-            firestore
-                .collection("user")
-                .doc(FirebaseAuth.instance.currentUser?.uid)
-                .set({
-              "userName": userName,
-              "email": email,
-              "password": password,
-            }).then((value) => {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) {
-                  return LogIn();
-                },
-              )),
-              // emailController.text = "",
-              // passwordController.text = "",
-              // cPasswordController.text = "",
-              // userNameController.text = ""
-            });
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+
+          // User registration successful, save user details to Firestore
+          firestore
+              .collection("user")
+              .doc(FirebaseAuth.instance.currentUser?.uid)
+              .set({
+            "userName": userName,
+            "email": email,
+            "password": password,
           });
+
+          snackBar("Registration successful");
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LogIn()),
+          );
         } on FirebaseAuthException catch (e) {
-          if (e.code == 'invalid-email') {
+          if (e.code == 'weak-password') {
             snackBar('The password provided is too weak.');
-          } else if (e.code == 'weak-password') {
-            snackBar('Invalid Email');
           } else if (e.code == 'email-already-in-use') {
             snackBar('The account already exists for that email.');
-          } else if (e.code == 'operation-not-allowed') {
-            snackBar('Account is disabled');
+          } else if (e.code == 'invalid-email') {
+            snackBar('Invalid email.');
+          } else {
+            snackBar('Error: ${e.message}');
           }
+        } on PlatformException catch (e) {
+          snackBar('Error: ${e.message}');
+        } catch (e) {
+          snackBar('Error: ${e.toString()}');
         }
-        //  catch (e) {
-        //   snackBar(e.toString());
-        // }
       }
     }
 
@@ -96,10 +94,10 @@ class Register extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [gradientTop, gradientBot],
-            )),
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [gradientTop, gradientBot],
+        )),
         child: Scaffold(
           resizeToAvoidBottomInset: true,
           backgroundColor: Colors.transparent,
@@ -186,7 +184,7 @@ class Register extends StatelessWidget {
                                         fillColor: Colors.grey,
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(32),
+                                              BorderRadius.circular(32),
                                         ),
                                         labelText: 'Password',
                                         // hintText: 'Password',
@@ -210,7 +208,7 @@ class Register extends StatelessWidget {
                                         fillColor: Colors.grey,
                                         border: OutlineInputBorder(
                                           borderRadius:
-                                          BorderRadius.circular(32),
+                                              BorderRadius.circular(32),
                                         ),
                                         labelText: 'Confirm Password',
                                         // hintText: 'Confirm Password',
