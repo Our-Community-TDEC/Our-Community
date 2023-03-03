@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 import '../../nuemorphism/colors.dart';
@@ -9,7 +8,7 @@ import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 TextEditingController complaint_title = TextEditingController();
-  TextEditingController complaint_description = TextEditingController();
+TextEditingController complaint_description = TextEditingController();
 
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   static String ttle = "", desc = "";

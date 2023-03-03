@@ -45,7 +45,6 @@ class _messagesState extends State<messages> {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['time'];
             DateTime d = t.toDate();
-            print(d.toString());
             return Padding(
               padding: const EdgeInsets.only(top: 13, bottom: 13),
               child: Column(

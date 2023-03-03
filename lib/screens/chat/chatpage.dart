@@ -28,7 +28,6 @@ class _chatpageState extends State<chatpage> {
 
   Future<String> getUserInfo() async {
     userName = await getName();
-    print("User Name: $userName");
     return userName;
   }
 
@@ -127,7 +126,6 @@ class _chatpageState extends State<chatpage> {
                           message.clear();
                         } else {
                           getUserInfo();
-                          print("object");
                         }
                       },
                       icon: Icon(Icons.send_sharp),

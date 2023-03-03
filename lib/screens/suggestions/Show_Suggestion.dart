@@ -80,7 +80,7 @@ class show_suggestion extends StatelessWidget {
                             width: 40,
                             height: 40,
                             child: NeumorphicButton(
-                              onPressed: () => print('clicked on list'),
+                              onPressed: () => {Navigator.pop(context)},
                               child: Icon(
                                 Icons.arrow_back_ios,
                               ),

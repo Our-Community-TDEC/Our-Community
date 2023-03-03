@@ -325,7 +325,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: Container(
+      body:
+       Container(
         padding: EdgeInsets.all(minHW * 0.05),
         decoration: BoxDecoration(color: HexColor.Wbackground_color),
         child: Column(
@@ -546,4 +547,57 @@ class _HomePageState extends State<HomePage> {
   //   var pref = await SharedPreferences.getInstance();
   //   isSwitched = pref.getBool("Theme")!;
   // }
+}
+
+class Launch extends StatefulWidget {
+  const Launch({super.key});
+
+  @override
+  State<Launch> createState() => _LaunchState();
+}
+
+class _LaunchState extends State<Launch> {
+  int index = 0;
+  @override
+  Widget build(BuildContext context) {
+    return  Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
+        height: 60.0,
+        backgroundColor: HexColor.Wbackground_color,
+        animationDuration: Duration(milliseconds: 500),
+        color: HexColor.Wnavigation_bar_color,
+        items: <Widget>[
+          Icon(Icons.home_work_outlined, size: 30),
+          Icon(Icons.chat_bubble_outline, size: 30),
+          Icon(Icons.account_circle_outlined, size: 30),
+        ],
+        onTap: (selectedIndex) {
+          setState(() {
+            index = selectedIndex;
+          });
+        },
+      ),
+      body:getSelectedWidget(index: index) ,
+    );
+  }
+    Widget getSelectedWidget({required int index}) {
+    final user = FirebaseAuth.instance.currentUser!;
+    String email = user.email!;
+    Widget widget;
+    switch (index) {
+      case 0:
+        widget = HomePage();
+        break;
+      case 1:
+        widget = chatpage(email: email);
+        break;
+      case 2:
+        widget = Profile();
+        break;
+      default:
+        widget = HomePage();
+        break;
+    }
+    return widget;
+  }
 }

@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 
 import '../../logic/suggestion_logic.dart';
 import '../../nuemorphism/border_effect.dart';
 import '../../nuemorphism/colors.dart';
 
-    TextEditingController suggestion_title = TextEditingController();
-    TextEditingController suggestion_description = TextEditingController();
+TextEditingController suggestion_title = TextEditingController();
+TextEditingController suggestion_description = TextEditingController();
+
 class NewSuggestion extends StatelessWidget with AddNewSuggestion {
   WhiteTheme theme = WhiteTheme();
   @override
@@ -192,7 +191,8 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                                       maxLines: null,
                                       controller: suggestion_description,
                                       decoration: InputDecoration(
-                                          hintText: "Enter Your Concern Here!!!",
+                                          hintText:
+                                              "Enter Your Concern Here!!!",
                                           hintStyle: TextStyle(
                                             color: HexColor.WblackText,
                                           ),
@@ -202,7 +202,8 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                                             borderSide: BorderSide.none,
                                             borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(10),
-                                                bottomRight: Radius.circular(10)),
+                                                bottomRight:
+                                                    Radius.circular(10)),
                                           )),
                                     ),
                                   ),
