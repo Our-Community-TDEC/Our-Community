@@ -199,17 +199,17 @@ class WhiteTheme {
     shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
   );
 
-  var outer_shadow = BoxDecoration(
+  var com_sugge_out_shadow = BoxDecoration(
     borderRadius: BorderRadius.circular(15),
     boxShadow: [
       BoxShadow(
-        color: HexColor.WBlackButton,
+        color: HexColor.Wlight_container,
         offset: Offset(3, 3),
         blurRadius: 2,
         spreadRadius: 1,
       ),
       BoxShadow(
-        color: HexColor.WLightButton.withOpacity(0.40),
+        color: HexColor.Wdark_container,
         offset: Offset(-3, -2),
         blurRadius: 4,
         spreadRadius: 0,
@@ -217,8 +217,26 @@ class WhiteTheme {
     ],
   );
 
+  var com_sugge_in_shadow = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: -2,
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.Wdark_container,
+    shadowDarkColorEmboss: HexColor.Wlight_container,
+  );
+
+  var container = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: 3,
+    shape: NeumorphicShape.flat,
+    // shadowDarkColor:HexColor.Wdark_container ,
+    // shadowLightColor: HexColor.Wlight_container,
+    shadowLightColorEmboss: HexColor.Wlight_container,
+    shadowDarkColorEmboss: HexColor.Wdark_container,
+  );
+
 // -----------------------Chat-----------------------
-  var user_neuorphic = NeumorphicStyle(
+  var chat_user_neuorphic = NeumorphicStyle(
     depth: 5,
     shadowLightColor: HexColor.WchatLight,
     shadowDarkColor: HexColor.WchatDark,
@@ -230,14 +248,15 @@ class WhiteTheme {
     )),
   );
 
-  var opposite_user = NeumorphicStyle(
+  var chat_opposite_user = NeumorphicStyle(
     depth: -2,
-    shadowLightColor: HexColor.WchatLight,
-    shadowDarkColor: HexColor.WchatDark,
-    color: HexColor.Wbackground_color,boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+    shadowLightColorEmboss: HexColor.WchatLight,
+    shadowDarkColorEmboss: HexColor.WchatDark,
+    color: HexColor.Wbackground_color,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
       topRight: Radius.circular(400),
       topLeft: Radius.circular(400),
-      bottomLeft: Radius.circular(400),
+      bottomRight: Radius.circular(400),
     )),
   );
 }

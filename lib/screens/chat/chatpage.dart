@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/login_page.dart';
@@ -64,69 +65,78 @@ class _chatpageState extends State<chatpage> {
         //   ),
         // ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 9),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.79,
-                child: messages(
-                  email: email,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.82,
+                  child: messages(
+                    email: email,
+                  ),
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: message,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.purple[100],
-                        hintText: 'message',
-                        enabled: true,
-                        contentPadding: const EdgeInsets.only(
-                            left: 14.0, bottom: 8.0, top: 8.0),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.purple),
-                          borderRadius: new BorderRadius.circular(10),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
+              child: Container(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Neumorphic(
+                        style: NeumorphicStyle(
+                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
+                          shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
+                          shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
+                          depth: -2,
+                          color: HexColor.Wbackground_color
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: new BorderSide(color: Colors.purple),
-                          borderRadius: new BorderRadius.circular(10),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                          child: TextFormField(
+                            
+                            decoration: InputDecoration(
+                              hintText: "Messege",
+                              hintStyle: TextStyle(color: HexColor.WblackText,fontWeight: FontWeight.w500)
+                            ),
+                            controller: message,
+                            validator: (value) {},
+                            onSaved: (value) {
+                              message.text = value!;
+                            },
+                            
+                          ),
                         ),
                       ),
-                      validator: (value) {},
-                      onSaved: (value) {
-                        message.text = value!;
-                      },
                     ),
-                  ),
-                  IconButton(
-                    onPressed: () async {
-                      if (message.text.isNotEmpty) {
-                        await getUserInfo();
-                        fs.collection('Messages').doc().set({
-                          'message': message.text.trim(),
-                          'time': DateTime.now(),
-                          'email': email,
-                          'userName': userName,
-                          'uid': FirebaseAuth.instance.currentUser?.uid,
-                        });
-                        message.clear();
-                      } else {
-                        getUserInfo();
-                        print("object");
-                      }
-                    },
-                    icon: Icon(Icons.send_sharp),
-                  ),
-                ],
+                    IconButton(
+                      onPressed: () async {
+                        if (message.text.isNotEmpty) {
+                          await getUserInfo();
+                          fs.collection('Messages').doc().set({
+                            'message': message.text.trim(),
+                            'time': DateTime.now(),
+                            'email': email,
+                            'userName': userName,
+                            'uid': FirebaseAuth.instance.currentUser?.uid,
+                          });
+                          message.clear();
+                        } else {
+                          getUserInfo();
+                          print("object");
+                        }
+                      },
+                      icon: Icon(Icons.send_sharp),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
