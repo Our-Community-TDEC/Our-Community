@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
+TextEditingController complaint_title = TextEditingController();
+TextEditingController complaint_description = TextEditingController();
 
 class OtherComplains extends StatelessWidget with OtherComplains_Logic {
   static String ttle = "", desc = "";
@@ -38,7 +40,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       if (title != '' && description != '') {
         firestore.collection('complaint').doc().set({
           "title": title,
-          "descriptoin": description,
+          "description": description,
           "time": datetime,
           "UID": FirebaseAuth.instance.currentUser?.uid
         }).then((result) {
@@ -82,9 +84,8 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                   Icons.arrow_back,
                 ),
                 style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  color: HexColor.Wbackground_color
-                ),
+                    boxShape: NeumorphicBoxShape.circle(),
+                    color: HexColor.Wbackground_color),
               ),
             ),
           ),
@@ -145,7 +146,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         width: MediaQuery.of(context).size.width * 0.93,
                         child: Container(
                           height: 74,
-                          decoration: theme.outer_shadow,
+                          decoration: theme.com_sugge_out_shadow,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -198,7 +199,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: Container(
                           height: 204,
-                          decoration: theme.outer_shadow,
+                          decoration: theme.com_sugge_out_shadow,
                           child: Column(
                             children: [
                               SizedBox(

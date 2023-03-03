@@ -9,6 +9,7 @@ import '../../nuemorphism/border_effect.dart';
 // import 'package:our_community/screens/Complain Pages/OtherComplains.dart';
 
 class ComplainPage extends StatelessWidget with Complain_Logic {
+  WhiteTheme theme = WhiteTheme();
   @override
   Widget build(BuildContext context) {
     double fullheight = MediaQuery.of(context).size.height;
@@ -21,7 +22,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       firestore.collection('complaint').doc().set({
         "title": compaint_title,
-        "descriptoin": complaint_desc,
+        "description": complaint_desc,
         "time": datetime,
         "UID": FirebaseAuth.instance.currentUser?.uid
       }).then((result) {
@@ -43,6 +44,22 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
         fontFamily: 'poppins',
       ),
       child: Scaffold(
+        floatingActionButton: SizedBox(
+          height: 45,
+          width: 45,
+          child: FittedBox(
+            child: NeumorphicFloatingActionButton(
+              onPressed: () => {Navigator.pop(context)},
+              child: Icon(
+                Icons.arrow_back,
+              ),
+              style: NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  color: HexColor.Wbackground_color),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
         backgroundColor: HexColor.Wbackground_color,
         body: Column(
           children: [
@@ -53,21 +70,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black38,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                          child: IconButton(
-                            onPressed: () => {Navigator.pop(context)},
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              color: Color.fromARGB(255, 0, 141, 241),
-                            ),
-                          ),
-                        ),
-                      ),
                       Padding(
-                        padding: EdgeInsets.fromLTRB(fullwidth / 6, 0, 0, 0),
+                        padding: EdgeInsets.fromLTRB(fullwidth / 4, 0, 0, 0),
                         child: Text(
                           "Complaint",
                           style: TextStyle(
@@ -98,7 +102,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                 children: [
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -107,7 +111,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -138,7 +142,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -147,7 +151,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15),
                               child: NeumorphicButton(
-                                style: inner_shadow,
+                                style: theme.com_sugge_in_shadow,
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -177,7 +181,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -186,7 +190,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -217,7 +221,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -226,7 +230,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -257,7 +261,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -266,7 +270,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -297,7 +301,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -306,7 +310,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,
@@ -337,7 +341,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                   ),
                   Container(
                     height: 72,
-                    decoration: outer_shadow,
+                    decoration: theme.com_sugge_out_shadow,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -346,7 +350,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(15),
                             child: NeumorphicButton(
-                              style: inner_shadow,
+                              style: theme.com_sugge_in_shadow,
                               onPressed: () {
                                 Navigator.push(
                                   context,

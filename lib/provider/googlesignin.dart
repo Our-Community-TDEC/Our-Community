@@ -31,33 +31,20 @@ class GoogleSignInProviderss extends ChangeNotifier {
       idToken: googleAuth.idToken,
     );
 
-    final AuthResult = await _auth.signInWithCredential(credential);
+    final authResult = await _auth.signInWithCredential(credential);
 
-    // final User? user = AuthResult.user;
-    // if (user != null) {
-    //   // Check if user already exists in Firebase Authentication
-    //   final UserCredential existingUserCredential =
-    //       await _auth.signInWithCredential(
-    //     GoogleAuthProvider.credential(
-    //       accessToken: googleAuth.accessToken,
-    //       idToken: googleAuth.idToken,
-    //     ),
-    //   );
-      // final User? existingUser = existingUserCredential.user;
-      // if (existingUser == null) {
-      //   print("user exist");
-      // } else {
-      //   firestore.collection("user").doc("b").set(
-      //       {'userName': user.displayName, 'email': user.email}).then((value) {
-      //     // The data has been successfully added
-      //     print('Data added successfully');
-      //   }).catchError((error) {
-      //     // An error occurred
-      //     print('Error: $error');
-      //   });
-      //   notifyListeners();
-      //   print("user not exist");
-      // }
-    // }
+    // Get the user's name from their Google account
+    final userProfile = googleUser?.displayName;
+    // Save the user's name to Firestore
+    if (authResult.user != null) {
+      print(authResult.user!.uid);
+      firestore.collection('user').doc(authResult.user!.uid).set({
+        'userName': userProfile,
+        'email': authResult.user!.email,
+        'uid': authResult.user!.uid,
+      });
+    } else {
+      print("objecthgdbcnk");
+    }
   }
 }

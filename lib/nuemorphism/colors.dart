@@ -44,7 +44,7 @@ extension HexColor on Color {
 
     // Text Color
     static  Color WblackText = fromHex("#000000");
-    static  Color WblueText = fromHex("#6428E2");
+    static  Color WblueText = fromHex("#111111");
 
     // Button
     static  Color WBlackButton = fromHex("#C6D8F1");
@@ -55,9 +55,25 @@ extension HexColor on Color {
     static  Color backButtonDark = fromHex("#6789A4");
 
     // Chat
+    static  Color WchatLight = fromHex("#FFFFFF");
+    static  Color WchatDark = fromHex("#C6D9F5");
     
+    // Comlaint Suggestions
+    static  Color Wlight_container = fromHex("#B0C1DB");
+    static  Color Wdark_container = fromHex("#FFFFFF");
 
-     
+    static  Color Wlight_vote = fromHex("#FFFFFF");
+    static  Color Wdark_vote = fromHex("#72A4EE");
+
+
+    //Drawer Color
+    static  Color Wdrawer = fromHex("#82B3D9");
+
+    // Navigation bar
+    static  Color Wcurrent_icon_color = fromHex("#2735FF");
+    static  Color Wnavigation_bar_color = fromHex("#B2D1FF");
+
+
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
       '${alpha.toRadixString(16).padLeft(2, '0')}'
