@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:our_community/screens/home_page.dart';
+import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,6 +10,9 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:our_community/provider/googlesignin.dart';
+
+import 'nuemorphism/colors.dart';
+import 'screens/chat/chatpage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,7 +43,7 @@ Future<void> main() async {
           ChangeNotifierProvider<GoogleSignInProviderss>(
               create: (context) => GoogleSignInProviderss())
         ],
-        // MaterialApp is a widget that introduces a number of widgets Navigator, 
+        // MaterialApp is a widget that introduces a number of widgets Navigator,
         //Theme that are required to build a material design app.
         child: MaterialApp(
           home: BasePage1(),
@@ -51,10 +56,10 @@ class BasePage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     // Use for theme
     return NeumorphicApp(
-    debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       title: 'Neumorphic App',
       themeMode: ThemeMode.light,
-      theme: NeumorphicThemeData( 
+      theme: NeumorphicThemeData(
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
         depth: 10,
@@ -72,7 +77,13 @@ class BasePage1 extends StatelessWidget {
   }
 }
 
-class BasePage extends StatelessWidget {
+class BasePage extends StatefulWidget {
+  @override
+  State<BasePage> createState() => _BasePageState();
+}
+
+class _BasePageState extends State<BasePage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,9 +92,9 @@ class BasePage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          // 
+          //
           if (snapshot.hasData) {
-            return HomePage();
+            return Launch();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
@@ -95,4 +106,6 @@ class BasePage extends StatelessWidget {
       ),
     );
   }
+
+  
 }

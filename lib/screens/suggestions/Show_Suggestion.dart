@@ -15,6 +15,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import '../../nuemorphism/border_effect.dart';
 
 class show_suggestion extends StatelessWidget {
+  WhiteTheme theme = WhiteTheme();
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -30,33 +31,40 @@ class show_suggestion extends StatelessWidget {
 
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    const title_text_style = TextStyle(
+    var title_text_style = TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        color: Colors.white,
+        color: HexColor.WblackText,
         fontFamily: 'poppins');
 
-    const desc_text_style = TextStyle(
+    var desc_text_style = TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.w400,
-        color: Colors.white,
+        color: HexColor.WblackText,
         fontFamily: 'poppins');
 
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
-            backgroundColor: HexColor.back_color_comp_suggestion,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NewSuggestion()),
+            backgroundColor: HexColor.Wbackground_color,
+            floatingActionButton: SizedBox(
+              height: 45,
+              width: 45,
+              child: FittedBox(
+                child: NeumorphicFloatingActionButton(
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => NewSuggestion()),
+                    ),
+                  },
+                  child: Icon(
+                    Icons.add,
+                  ),
+                  style: NeumorphicStyle(
+                      boxShape: NeumorphicBoxShape.circle(),
+                      color: HexColor.Wbackground_color),
                 ),
-              },
-              backgroundColor: Colors.black38,
-              child: const Icon(
-                Icons.add,
-                color: Colors.blue,
               ),
             ),
             body: Column(
@@ -64,32 +72,33 @@ class show_suggestion extends StatelessWidget {
                 Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 25, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.black38,
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
-                              child: IconButton(
-                                onPressed: () => {Navigator.pop(context)},
-                                icon: Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Color.fromARGB(255, 0, 141, 241),
-                                ),
+                          SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: NeumorphicButton(
+                              onPressed: () => {Navigator.pop(context)},
+                              child: Icon(
+                                Icons.arrow_back_ios,
                               ),
+                              style: NeumorphicStyle(
+                                  color: HexColor.Wbackground_color,
+                                  boxShape: NeumorphicBoxShape.circle(),
+                                  shadowLightColor: HexColor.Wlight_vote,
+                                  shadowDarkColor: HexColor.Wdark_vote,
+                                  depth: 4),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(55, 0, 0, 0),
-                            child: Text(
-                              "Suggestions",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          )
+                          Text(
+                            "Suggestions",
+                            style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w400,
+                                color: HexColor.WblackText),
+                          ),
                         ],
                       ),
                     ),
@@ -119,8 +128,9 @@ class show_suggestion extends StatelessWidget {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Neumorphic(
-                                  style: show_data_compl_sugge,
-                                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                                  style: theme.container,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20),
                                   child: ListTile(
                                     title: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -144,40 +154,50 @@ class show_suggestion extends StatelessWidget {
                                                   //   await getName(show_suggestion["UID"]),
                                                   //   style: title_text_style,
                                                   // ), //Darshan
-                                                                    
+
                                                   Text(
                                                     show_suggestion["title"],
                                                     style: TextStyle(
                                                         fontSize: 20,
-                                                        fontWeight: FontWeight.w700,
-                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        color:
+                                                            HexColor.WblackText,
                                                         fontFamily: 'poppins'),
                                                   ),
-                                                                    
+
                                                   FutureBuilder<String>(
                                                     future: getName(
                                                         show_suggestion["UID"]),
-                                                    builder: (BuildContext context,
+                                                    builder: (BuildContext
+                                                            context,
                                                         AsyncSnapshot<String>
                                                             snapshot) {
                                                       if (snapshot.hasData) {
                                                         return Text(
-                                                            snapshot.data.toString(),
+                                                            snapshot.data
+                                                                .toString(),
                                                             style: TextStyle(
                                                                 fontSize: 15,
                                                                 fontWeight:
-                                                                    FontWeight.w300,
-                                                                color: Colors.white,
+                                                                    FontWeight
+                                                                        .w300,
+                                                                color: HexColor
+                                                                    .WblackText,
                                                                 fontFamily:
                                                                     'poppins'));
-                                                      } else if (snapshot.hasError) {
+                                                      } else if (snapshot
+                                                          .hasError) {
                                                         return Text(
                                                           "Loading...",
-                                                          style: title_text_style,
+                                                          style:
+                                                              title_text_style,
                                                         );
                                                       } else {
-                                                        return Text("Loading...",
-                                                            style: title_text_style);
+                                                        return Text(
+                                                            "Loading...",
+                                                            style:
+                                                                title_text_style);
                                                       }
                                                     },
                                                   ),
@@ -187,7 +207,8 @@ class show_suggestion extends StatelessWidget {
                                       ),
                                     ),
                                     subtitle: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
@@ -196,7 +217,7 @@ class show_suggestion extends StatelessWidget {
                                             padding: const EdgeInsets.symmetric(
                                                 vertical: 6),
                                             child: Text(
-                                              show_suggestion["descriptoin"],
+                                              show_suggestion["description"],
                                               style: desc_text_style,
                                             ),
                                           ),
@@ -207,29 +228,61 @@ class show_suggestion extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               Padding(
-                                                padding: const EdgeInsets.fromLTRB(
-                                                    0, 0, 10, 0),
-                                                child: CircleAvatar(
-                                                  backgroundColor: Colors.black38,
-                                                  child: IconButton(
-                                                    onPressed: () =>
-                                                        print('clicked on list'),
-                                                    icon: const Icon(
-                                                        Icons.check_circle_outline),
-                                                    color: Colors.blue,
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 10, 0),
+                                                child: SizedBox(
+                                                  width: 40,
+                                                  height: 40,
+                                                  child: NeumorphicButton(
+                                                    onPressed: () => print(
+                                                        'clicked on list'),
+                                                    child: Icon(Icons
+                                                        .check_circle_outline),
+                                                    style: NeumorphicStyle(
+                                                        color: HexColor
+                                                            .Wbackground_color,
+                                                        boxShape:
+                                                            NeumorphicBoxShape
+                                                                .circle(),
+                                                        shadowLightColor:
+                                                            HexColor
+                                                                .Wlight_vote,
+                                                        shadowDarkColor:
+                                                            HexColor.Wdark_vote,
+                                                        depth: 4),
                                                     padding:
                                                         const EdgeInsets.all(5),
                                                   ),
                                                 ),
                                               ),
-                                              CircleAvatar(
-                                                backgroundColor: Colors.black38,
-                                                child: IconButton(
-                                                  onPressed: () =>
-                                                      print('clicked on list'),
-                                                  icon: const Icon(
-                                                      Icons.cancel_outlined),
-                                                  color: Colors.blue,
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 10, 0),
+                                                child: SizedBox(
+                                                  width: 40,
+                                                  height: 40,
+                                                  child: NeumorphicButton(
+                                                    onPressed: () => print(
+                                                        'clicked on list'),
+                                                    child: Icon(
+                                                        Icons.cancel_outlined),
+                                                    style: NeumorphicStyle(
+                                                        color: HexColor
+                                                            .Wbackground_color,
+                                                        boxShape:
+                                                            NeumorphicBoxShape
+                                                                .circle(),
+                                                        shadowLightColor:
+                                                            HexColor
+                                                                .Wlight_vote,
+                                                        shadowDarkColor:
+                                                            HexColor.Wdark_vote,
+                                                        depth: 4),
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                  ),
                                                 ),
                                               ),
                                             ],

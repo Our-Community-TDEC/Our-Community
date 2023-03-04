@@ -31,7 +31,20 @@ class GoogleSignInProviderss extends ChangeNotifier {
       idToken: googleAuth.idToken,
     );
 
-    final AuthResult = await _auth.signInWithCredential(credential);
+    final authResult = await _auth.signInWithCredential(credential);
 
+    // Get the user's name from their Google account
+    final userProfile = googleUser?.displayName;
+    // Save the user's name to Firestore
+    if (authResult.user != null) {
+      print(authResult.user!.uid);
+      firestore.collection('user').doc(authResult.user!.uid).set({
+        'userName': userProfile,
+        'email': authResult.user!.email,
+        'uid': authResult.user!.uid,
+      });
+    } else {
+      print("objecthgdbcnk");
+    }
   }
 }

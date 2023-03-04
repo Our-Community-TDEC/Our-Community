@@ -56,7 +56,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
     if (title != '' && description != '') {
       firestore.collection('event').doc().set({
         "title": title,
-        "descriptoin": description,
+        "description": description,
         "time": updatedDate,
         // "UID": FirebaseAuth.instance.currentUser?.uid,
       }).then((result) {
@@ -399,7 +399,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 6),
                                       child: Text(
-                                        show_event["descriptoin"],
+                                        show_event["description"],
                                         style: desc_text_style,
                                       ),
                                     ),

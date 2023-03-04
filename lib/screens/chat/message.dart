@@ -45,7 +45,6 @@ class _messagesState extends State<messages> {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['time'];
             DateTime d = t.toDate();
-            print(d.toString());
             return Padding(
               padding: const EdgeInsets.only(top: 13, bottom: 13),
               child: Column(
@@ -57,19 +56,8 @@ class _messagesState extends State<messages> {
                     width: 300,
                     child: Neumorphic(
                       style: email == qs['email']
-                          ? theme.user_neuorphic
-                          : NeumorphicStyle(
-                              depth: -4,
-                              shadowLightColor: HexColor.WchatLight,
-                              shadowDarkColor: HexColor.WchatDark,
-                              color: HexColor.Wbackground_color,
-                              boxShape: NeumorphicBoxShape.roundRect(
-                                  BorderRadius.only(
-                                topRight: Radius.circular(400),
-                                topLeft: Radius.circular(400),
-                                bottomRight: Radius.circular(400),
-                              )),
-                            ),
+                          ? theme.chat_user_neuorphic
+                          : theme.chat_opposite_user,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 4.0, horizontal: 8.0),
