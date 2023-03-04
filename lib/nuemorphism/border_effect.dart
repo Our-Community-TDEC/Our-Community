@@ -259,6 +259,25 @@ class WhiteTheme {
       bottomRight: Radius.circular(400),
     )),
   );
+
+  // -----------------Role----------------
+  var unselect_role = NeumorphicStyle(
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    color: HexColor.Wbackground_color,
+    depth: -10,
+    intensity: 1,
+    // shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.WLightButton.withOpacity(0.50),
+    shadowDarkColorEmboss: HexColor.WBlackButton,
+  );
+  var selected_role = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: 10,
+    // intensity: 1,
+    // shape: NeumorphicShape.flat,
+    shadowLightColor: HexColor.WLightButton,
+    shadowDarkColor: HexColor.WBlackButton,
+  );
 }
 
 // --------------------------Dark Theme------------------------

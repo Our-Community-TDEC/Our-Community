@@ -379,6 +379,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  flutter_onboarding_slider:
+    dependency: "direct main"
+    description:
+      name: flutter_onboarding_slider
+      sha256: a466c5d3ea73b3776f9d07413d8a90bed8369ca7b202918aee82907f745f5df9
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   flutter_signin_button:
     dependency: "direct main"
     description:
