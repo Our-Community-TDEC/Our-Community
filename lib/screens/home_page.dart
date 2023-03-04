@@ -6,24 +6,19 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
-import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
-import 'package:our_community/screens/testCal.dart';
-import 'package:our_community/screens/theme/theme.dart';
-import 'package:our_community/screens/theme/MyApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
-import '../screens/emergency_page.dart';
 import 'Admin/show_complaint.dart';
-import 'Complain Pages/complain_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
@@ -57,7 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   var text_style = TextStyle(
       fontSize: 19,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       color: HexColor.WblueText,
       fontFamily: 'poppins');
   @override
@@ -89,7 +84,6 @@ class _HomePageState extends State<HomePage> {
     double offset_val = 2.5;
 
     return Scaffold(
-      
       appBar: NeumorphicAppBar(
         title: Text("Home Page"),
         padding: 10,
@@ -106,7 +100,7 @@ class _HomePageState extends State<HomePage> {
         ),
         iconTheme: IconThemeData(color: HexColor.WblueText),
       ),
-      drawer: Neumorphic( 
+      drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
         ),
@@ -266,6 +260,20 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Row(
                   children: [
+                    Icon(Icons.account_circle_outlined),
+                    Text("OnBorad"),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OnBoard()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: [
                     Icon(Icons.messenger_outline),
                     Text("Chat"),
                   ],
@@ -325,8 +333,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body:
-       Container(
+      body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
         decoration: BoxDecoration(color: HexColor.Wbackground_color),
         child: Column(
@@ -402,6 +409,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/noticeboard.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("NoticeBoard", style: text_style),
                                     ],
                                   )),
@@ -435,6 +446,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/event.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Event", style: text_style),
                                     ],
                                   )),
@@ -503,6 +518,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/suggestion.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Suggestions", style: text_style),
                                     ],
                                   )),
@@ -560,7 +579,7 @@ class _LaunchState extends State<Launch> {
   int index = 0;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60.0,
         backgroundColor: HexColor.Wbackground_color,
@@ -577,10 +596,11 @@ class _LaunchState extends State<Launch> {
           });
         },
       ),
-      body:getSelectedWidget(index: index) ,
+      body: getSelectedWidget(index: index),
     );
   }
-    Widget getSelectedWidget({required int index}) {
+
+  Widget getSelectedWidget({required int index}) {
     final user = FirebaseAuth.instance.currentUser!;
     String email = user.email!;
     Widget widget;
