@@ -40,15 +40,34 @@ class _HomePageState extends State<HomePage> {
     return snapshot.get("userName");
   }
 
-  bool isSwitched = false;
+  var theme;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+    } else {
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
   @override
-  void initState() {
+  initState() {
     // TODO: implement initState
     super.initState();
+    getPreference();
     // getTheme();
   }
 
-  WhiteTheme theme = new WhiteTheme();
+  // WhiteTheme theme = new WhiteTheme();
 
   var text_style = TextStyle(
       fontSize: 19,
@@ -307,7 +326,7 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 30,
                       child: LiteRollingSwitch(
-                        value: isSwitched,
+                        value: isDark,
                         // width: 90,
                         textOn: 'Dark',
                         textOff: 'Light',
@@ -316,10 +335,11 @@ class _HomePageState extends State<HomePage> {
                         iconOn: Icons.lightbulb_outline,
                         iconOff: Icons.nightlight_outlined,
                         animationDuration: const Duration(milliseconds: 300),
-                        onChanged: (isSwitched) async {
+                        onChanged: (isDark) async {
                           var pref = await SharedPreferences.getInstance();
-                          pref.setBool("Theme", isSwitched);
-                          print("$isSwitched");
+                          pref.setBool("Theme", isDark);
+                          print("$isDark");
+                          themeF(isDark);
                         },
                         onTap: () {},
                         onDoubleTap: () {},
@@ -335,7 +355,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
-        decoration: BoxDecoration(color: HexColor.Wbackground_color),
+        decoration: BoxDecoration(
+          color: HexColor.Wbackground_color,
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -564,7 +586,7 @@ class _HomePageState extends State<HomePage> {
 
   // void getTheme() async {
   //   var pref = await SharedPreferences.getInstance();
-  //   isSwitched = pref.getBool("Theme")!;
+  //   isDark = pref.getBool("Theme")!;
   // }
 }
 

@@ -73,7 +73,7 @@ class _chatpageState extends State<chatpage> {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.82,
+                  height: MediaQuery.of(context).size.height * 0.75,
                   child: messages(
                     email: email,
                   ),
@@ -88,26 +88,27 @@ class _chatpageState extends State<chatpage> {
                     Expanded(
                       child: Neumorphic(
                         style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
-                          shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
-                          shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
-                          depth: -2,
-                          color: HexColor.Wbackground_color
-                        ),
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.circular(40)),
+                            shadowDarkColorEmboss:
+                                HexColor.WtextfieldDarkShadow,
+                            shadowLightColorEmboss:
+                                HexColor.WtextfieldLightShadow,
+                            depth: -2,
+                            color: HexColor.Wbackground_color),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                           child: TextFormField(
-                            
                             decoration: InputDecoration(
-                              hintText: "Messege",
-                              hintStyle: TextStyle(color: HexColor.WblackText,fontWeight: FontWeight.w500)
-                            ),
+                                hintText: "Messege",
+                                hintStyle: TextStyle(
+                                    color: HexColor.WblackText,
+                                    fontWeight: FontWeight.w500)),
                             controller: message,
                             validator: (value) {},
                             onSaved: (value) {
                               message.text = value!;
                             },
-                            
                           ),
                         ),
                       ),

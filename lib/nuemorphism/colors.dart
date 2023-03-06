@@ -20,7 +20,7 @@ extension HexColor on Color {
     static  Color floating_icon_button_shadow_black = fromHex("#000000");
     static  Color back_button_background = fromHex("#363333");
     static  Color background_top = fromHex("#2E2F36");
-    static  Color background_center = fromHex("#363333");
+    static  Color Dbackground_center = fromHex("#363333");
     static  Color background_end = fromHex("#0D0E10");
 
     // Profile
