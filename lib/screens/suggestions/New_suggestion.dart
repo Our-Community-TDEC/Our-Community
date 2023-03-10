@@ -49,13 +49,14 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
           floatingActionButton: SizedBox(
-            height: 45,
-            width: 45,
+            height: 50,
+            width: 50,
             child: FittedBox(
               child: NeumorphicFloatingActionButton(
                 onPressed: () => {Navigator.pop(context)},
                 child: Icon(
                   Icons.arrow_back,
+                  color: Colors.blueAccent,
                 ),
                 style: NeumorphicStyle(
                     boxShape: NeumorphicBoxShape.circle(),
@@ -76,13 +77,13 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
                             child: Text(
                               "New Suggestions",
                               style: TextStyle(
-                                fontSize: 29,
+                                fontSize: 30,
                                 fontWeight: FontWeight.w500,
-                                color: HexColor.WblackText,
+                                  color: Colors.blueAccent,
                               ),
                             ),
                           )
@@ -136,9 +137,6 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                                       controller: suggestion_title,
                                       decoration: InputDecoration(
                                           hintText: "Enter Title Here",
-                                          hintStyle: TextStyle(
-                                            color: HexColor.WblackText,
-                                          ),
                                           contentPadding:
                                               EdgeInsets.fromLTRB(10, 50, 0, 0),
                                           filled: true,
@@ -164,7 +162,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
                           child: Text(
-                            "Write short discription",
+                            "Write short description",
                             textAlign: TextAlign.start,
                             style: text_style,
                           ),
@@ -187,15 +185,12 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                                   child: Neumorphic(
                                     style: theme.complaint_neumorphism,
                                     child: TextField(
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: Colors.black),
                                       maxLines: null,
                                       controller: suggestion_description,
                                       decoration: InputDecoration(
                                           hintText:
                                               "Enter Your Concern Here!!!",
-                                          hintStyle: TextStyle(
-                                            color: HexColor.WblackText,
-                                          ),
                                           filled: true,
                                           fillColor: HexColor.Wbackground_color,
                                           border: OutlineInputBorder(
@@ -234,7 +229,7 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                             "Suggest",
                             style: TextStyle(
                               fontSize: 26,
-                              color: HexColor.WblackText,
+                              color: Colors.blueAccent,
                               fontWeight: FontWeight.w500,
                             ),
                           ),

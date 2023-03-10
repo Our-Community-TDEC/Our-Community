@@ -91,7 +91,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       
       appBar: NeumorphicAppBar(
-        title: Text("Home Page"),
+        title: Text("Home Page",
+        style: TextStyle(color: Colors.blueAccent)
+        ),
         padding: 10,
         centerTitle: true,
         color: HexColor.Wbackground_color,
@@ -118,8 +120,13 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Row(
                   children: [
-                    Icon(Icons.home),
-                    Text("Home"),
+                    Icon(Icons.home,
+                    color: Colors.blueAccent,),
+                    Text(" Home",
+                      style: TextStyle(
+                        color: Colors.blueAccent,
+                      ),
+                    ),
                   ],
                 ),
                 onTap: () {
@@ -130,8 +137,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ExpansionTile(
-                title: Text("Services"),
-                leading: Icon(Icons.assignment_late_outlined), //add icon
+                title: Text("Services",style: TextStyle(color: Colors.blueAccent,),),
+                leading: Icon(Icons.assignment_late_outlined,color: Colors.blueAccent,), //add icon
                 childrenPadding: EdgeInsets.only(left: 30), //children padding
                 children: [
                   ListTile(
@@ -358,7 +365,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 Text(
-                  "Welcome to your community",
+                  "Welcome to our community",
                   style: TextStyle(
                     fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,

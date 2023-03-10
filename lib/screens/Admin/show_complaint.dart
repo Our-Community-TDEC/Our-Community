@@ -40,8 +40,8 @@ class show_complaint extends StatelessWidget {
         child: Scaffold(
             backgroundColor: HexColor.Wbackground_color,
             floatingActionButton: SizedBox(
-              height: 45,
-              width: 45,
+              height: 55,
+              width: 55,
               child: FittedBox(
                 child: NeumorphicFloatingActionButton(
                   onPressed: () => {
@@ -52,6 +52,7 @@ class show_complaint extends StatelessWidget {
                   },
                   child: Icon(
                     Icons.add,
+                    color: Colors.blueAccent,
                   ),
                   style: NeumorphicStyle(
                       boxShape: NeumorphicBoxShape.circle(),
@@ -69,12 +70,13 @@ class show_complaint extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
-                            width: 40,
-                            height: 40,
+                            width: 50,
+                            height: 50,
                             child: NeumorphicButton(
                               onPressed: () => {Navigator.pop(context)},
                               child: Icon(
                                 Icons.arrow_back_ios,
+                                color: Colors.blueAccent,
                               ),
                               style: NeumorphicStyle(
                                   color: HexColor.Wbackground_color,
@@ -85,11 +87,12 @@ class show_complaint extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Complaints",
+                            "Complains",
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.w400,
-                                color: HexColor.WblackText),
+                                color: Colors.blueAccent,
+                            ),
                           ),
                         ],
                       ),
@@ -230,7 +233,8 @@ class show_complaint extends StatelessWidget {
                                                     onPressed: () => print(
                                                         'clicked on list'),
                                                     child: Icon(Icons
-                                                        .check_circle_outline),
+                                                        .check_circle_outline,
+                                                    color: Colors.blueAccent,),
                                                     style: NeumorphicStyle(
                                                         color: HexColor
                                                             .Wbackground_color,
@@ -259,7 +263,8 @@ class show_complaint extends StatelessWidget {
                                                     onPressed: () => print(
                                                         'clicked on list'),
                                                     child: Icon(
-                                                        Icons.cancel_outlined),
+                                                        Icons.cancel_outlined,
+                                                      color: Colors.blueAccent,),
                                                     style: NeumorphicStyle(
                                                         color: HexColor
                                                             .Wbackground_color,

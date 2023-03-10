@@ -75,13 +75,14 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
       ),
       child: Scaffold(
           floatingActionButton: SizedBox(
-            height: 45,
-            width: 45,
+            height: 50,
+            width: 50,
             child: FittedBox(
               child: NeumorphicFloatingActionButton(
                 onPressed: () => {Navigator.pop(context)},
                 child: Icon(
                   Icons.arrow_back,
+                  color: Colors.blueAccent,
                 ),
                 style: NeumorphicStyle(
                     boxShape: NeumorphicBoxShape.circle(),
@@ -102,13 +103,14 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                       child: Row(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(65, 7, 0, 0),
                             child: Text(
-                              "Other Complaint",
+                              "Other Complain",
                               style: TextStyle(
                                   fontSize: 32,
                                   fontWeight: FontWeight.w500,
-                                  color: HexColor.WblueText),
+                                  color: Colors.blueAccent,
+                              ),
                             ),
                           )
                         ],
@@ -158,7 +160,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                     style: theme.complaint_neumorphism,
                                     child: TextField(
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                       ),
                                       controller: complaint_title,
                                       decoration: InputDecoration(
@@ -187,7 +189,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                         Padding(
                           padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
                           child: Text(
-                            "Write short discription",
+                            "Write short description",
                             style: text_style,
                           ),
                         ),
@@ -209,7 +211,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                                   child: Neumorphic(
                                     style: theme.complaint_neumorphism,
                                     child: TextField(
-                                      style: TextStyle(color: Colors.white),
+                                      style: TextStyle(color: Colors.black),
                                       maxLines: null,
                                       controller: complaint_description,
                                       decoration: InputDecoration(
@@ -253,7 +255,7 @@ class OtherComplains extends StatelessWidget with OtherComplains_Logic {
                             "Raise Complain",
                             style: TextStyle(
                               fontSize: 26,
-                              color: HexColor.WblackText,
+                              color: Colors.blueAccent,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
