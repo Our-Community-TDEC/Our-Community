@@ -18,7 +18,7 @@ class NewSuggestion extends StatefulWidget with AddNewSuggestion {
 
 class _NewSuggestionState extends State<NewSuggestion> {
   var theme;
-  var icon_color;
+  var icon_color=HexColor.WBlackButton;
   var page_title_style;
   var text_style;
   var button_text;

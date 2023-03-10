@@ -23,7 +23,7 @@ class show_suggestion extends StatefulWidget {
 
 class _show_suggestionState extends State<show_suggestion> {
   var theme;
-  var icon_color;
+  var icon_color=HexColor.WBlackButton;
   var page_title_style;
   var title_style;
   var name_style;
