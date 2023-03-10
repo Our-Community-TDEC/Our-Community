@@ -58,7 +58,6 @@ dependencies:
   firebase_database: ^10.0.7
   connectivity_plus: ^3.0.2
 #  firebase_messaging: ^14.2.1
-  upi_india: ^3.0.1
   flutter_signin_button: ^2.0.0
   lite_rolling_switch: ^1.0.0
   razorpay_flutter: ^1.3.4
@@ -102,6 +101,7 @@ flutter:
     - assets/Images/home/event.svg
     - assets/Images/home/noticeboard.svg
     - assets/Images/home/suggestion.svg
+    - assets/Images/home/complaints.svg
   uses-material-design: true
   fonts:
     - family: poppins

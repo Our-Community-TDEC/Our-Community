@@ -67,7 +67,7 @@ class _OnBoardState extends State<OnBoard> {
       PageModel(
         widget: DecoratedBox(
           decoration: BoxDecoration(
-            color: HexColor.Wbackground_color,
+            color:isDark ? Colors.black : HexColor.Wbackground_color,
             border: Border.all(
               width: 0.0,
               color: HexColor.Wbackground_color,
