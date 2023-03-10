@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:onboarding/onboarding.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
@@ -40,21 +41,65 @@ class _HomePageState extends State<HomePage> {
     return snapshot.get("userName");
   }
 
-  bool isSwitched = false;
+  // ignore: prefer_typing_uninitialized_variables
+  var theme;
+  bool isDark = false;
+  var text_style;
+  var user_name_style;
+  var welcome_color;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+      assert(theme != null);
+      welcome_color = HexColor.text_color;
+
+      text_style = TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+          fontFamily: 'poppins');
+
+      user_name_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+          fontFamily: 'poppins');
+    } else {
+      theme = WhiteTheme();
+      welcome_color = HexColor.WblueText;
+      text_style = TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w500,
+          color: HexColor.WblueText,
+          fontFamily: 'poppins');
+
+      user_name_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
   @override
-  void initState() {
+  initState() {
     // TODO: implement initState
     super.initState();
+    getPreference();
     // getTheme();
   }
 
-  WhiteTheme theme = new WhiteTheme();
+  // WhiteTheme theme = new WhiteTheme();
 
-  var text_style = TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.w500,
-      color: HexColor.WblueText,
-      fontFamily: 'poppins');
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -68,13 +113,8 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var user_name_style = TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        color: HexColor.WblackText,
-        fontFamily: 'poppins');
+    // DocumentSnapshot snapshot = firestoreBar
 
-    // DocumentSnapshot snapshot = firestore
     //     .collection("users")
     //     .doc(userauthdata.currentUser?.uid)
     //     .snapshots() as DocumentSnapshot;
@@ -82,24 +122,9 @@ class _HomePageState extends State<HomePage> {
     // var userdata = snapshot.data as DocumentSnapshot;
     // String username = userdata["userName"];
     double offset_val = 2.5;
-
+    print(isDark);
     return Scaffold(
-      appBar: NeumorphicAppBar(
-        title: Text("Home Page"),
-        padding: 10,
-        centerTitle: true,
-        color: HexColor.Wbackground_color,
-        textStyle:
-            TextStyle(color: HexColor.WblueText, fontWeight: FontWeight.w700),
-        buttonStyle: NeumorphicStyle(
-          color: HexColor.Wbackground_color,
-          boxShape: NeumorphicBoxShape.circle(),
-          shadowLightColor: HexColor.backButtonLight,
-          shadowDarkColor: HexColor.backButtonDark,
-          depth: 5,
-        ),
-        iconTheme: IconThemeData(color: HexColor.WblueText),
-      ),
+      appBar: theme.appbar,
       drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
@@ -307,19 +332,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 30,
                       child: LiteRollingSwitch(
-                        value: isSwitched,
+                        value: isDark,
                         // width: 90,
-                        textOn: 'Dark',
-                        textOff: 'Light',
+                        textOn: 'Light',
+                        textOff: 'Dark',
                         colorOn: Colors.grey,
                         colorOff: Colors.blue,
                         iconOn: Icons.lightbulb_outline,
                         iconOff: Icons.nightlight_outlined,
                         animationDuration: const Duration(milliseconds: 300),
-                        onChanged: (isSwitched) async {
+                        onChanged: (isDark) async {
                           var pref = await SharedPreferences.getInstance();
-                          pref.setBool("Theme", isSwitched);
-                          print("$isSwitched");
+                          pref.setBool("Theme", isDark);
+                          print("$isDark");
+                          themeF(isDark);
                         },
                         onTap: () {},
                         onDoubleTap: () {},
@@ -335,7 +361,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
-        decoration: BoxDecoration(color: HexColor.Wbackground_color),
+        decoration: theme.background_color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -369,7 +395,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
-                    color: HexColor.WblackText,
+                    color: welcome_color,
                   ),
                 ),
               ],
@@ -486,6 +512,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/complaints.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Complains", style: text_style),
                                     ],
                                   )),
@@ -564,7 +594,7 @@ class _HomePageState extends State<HomePage> {
 
   // void getTheme() async {
   //   var pref = await SharedPreferences.getInstance();
-  //   isSwitched = pref.getBool("Theme")!;
+  //   isDark = pref.getBool("Theme")!;
   // }
 }
 
@@ -577,18 +607,62 @@ class Launch extends StatefulWidget {
 
 class _LaunchState extends State<Launch> {
   int index = 0;
+  var theme;
+  var icon_color;
+  var navigation_back_color;
+  var navigation_color;
+  bool isDark = false;
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getPreference();
+  }
+
+  themeF(isDark) {
+    if (isDark) {
+      icon_color = HexColor.icon_color;
+      navigation_back_color = HexColor.background_end;
+      navigation_color = HexColor.background_top;
+      theme = DarkTheme();
+    } else {
+      icon_color = HexColor.WiconColor;
+      navigation_back_color = HexColor.Wbackground_color;
+      navigation_color = HexColor.Wnavigation_bar_color;
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60.0,
-        backgroundColor: HexColor.Wbackground_color,
+        backgroundColor: navigation_back_color,
         animationDuration: Duration(milliseconds: 500),
-        color: HexColor.Wnavigation_bar_color,
+        color: navigation_color,
         items: <Widget>[
-          Icon(Icons.home_work_outlined, size: 30),
-          Icon(Icons.chat_bubble_outline, size: 30),
-          Icon(Icons.account_circle_outlined, size: 30),
+          Icon(
+            Icons.home_work_outlined,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.chat_bubble_outline,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.account_circle_outlined,
+            size: 30,
+            color: icon_color,
+          ),
         ],
         onTap: (selectedIndex) {
           setState(() {

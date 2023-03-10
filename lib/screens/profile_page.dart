@@ -1,5 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:googleapis/dfareporting/v3_5.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../nuemorphism/profile_neumor.dart';
 
@@ -11,63 +14,89 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  var theme;
+  var back_color;
+  var icon_color;
+  var name_title_style;
+  var address_style;
+  var text_list_style;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      back_color = HexColor.background_top;
+      icon_color = HexColor.icon_color;
+      theme = DarkTheme();
+      name_title_style = TextStyle(fontSize: 25, color: HexColor.text_color);
+      address_style = TextStyle(fontSize: 20, color: HexColor.text_color);
+      text_list_style = TextStyle(color: HexColor.text_color, fontSize: 20);
+    } else {
+      theme = WhiteTheme();
+      back_color = HexColor.Wbackground_color;
+      icon_color = HexColor.WiconColor;
+      name_title_style = TextStyle(fontSize: 25, color: HexColor.WblueText);
+      address_style = TextStyle(fontSize: 20, color: HexColor.WblueText);
+      text_list_style = TextStyle(color: HexColor.WblueText, fontSize: 20);
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     var margin = width / 15.77;
     var padding = width / 15.77;
-    var text_list_style =
-        TextStyle(color: HexColor.profile_list_text, fontSize: 20);
     print(width / 1.40);
 
     return Theme(
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
-        floatingActionButton: Stack(
-          children: [
-            Positioned(
-              top: 30,
-              left: 30,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                backgroundColor: HexColor.background_top,
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.blue,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: 30,
-              right: 10,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                backgroundColor: HexColor.background_top,
-                child: const Icon(
-                  Icons.notifications_active_outlined,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-          ],
-        ),
+        // floatingActionButton: Stack(
+        //   children: [
+        //     Positioned(
+        //       top: 30,
+        //       left: 30,
+        //       child: NeumorphicButton(
+        //         onPressed: () => {Navigator.pop(context)},
+        //         child: Icon(
+        //           Icons.arrow_back_ios,
+        //           color: icon_color,
+        //         ),
+        //         style: theme.back_button
+        //       ),
+        //     ),
+        //     Positioned(
+        //       top: 30,
+        //       right: 10,
+        //       child: NeumorphicButton(
+        //         onPressed: () => {Navigator.pop(context)},
+        //         child: Icon(
+        //           Icons.notification_add_outlined,
+        //           color: icon_color,
+        //         ),
+        //         style: theme.back_button
+        //       ),
+        //     ),
+        //   ],
+        // ),
         body: Container(
-          decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   begin: Alignment.topCenter,
-            //   end: Alignment.bottomCenter,
-            //   colors: [HexColor.background_top, HexColor.background_end],
-            // ),
-            color: HexColor.profile_container,
-          ),
+          decoration: theme.background_color,
           child: Container(
             width: width,
             child: Padding(
@@ -90,7 +119,9 @@ class _ProfileState extends State<Profile> {
                           child: SizedBox(
                             width: width,
                             height: width / 2,
-                            child: Neumorphic(style: container_style),
+                            child: Neumorphic(
+                              style: theme.container_style,
+                            ),
                           ),
                         ),
                         // Circle
@@ -100,7 +131,7 @@ class _ProfileState extends State<Profile> {
                             width: width / 2.28,
                             height: width / 2.28,
                             child: Neumorphic(
-                              style: circle_container_style,
+                              style: theme.circle_container_style,
                             ),
                           ),
                         ),
@@ -135,20 +166,18 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Text(
                                       "Bhuva Darshan",
-                                      style: TextStyle(
-                                          fontSize: 25, color: Colors.white),
+                                      style: name_title_style,
                                     ),
                                     Row(
                                       children: [
                                         Icon(
                                           Icons.location_pin,
                                           size: 25,
-                                          color: HexColor.blue_button,
+                                          color: icon_color,
                                         ),
                                         Text(
                                           "243, Ayodhya",
-                                          style: TextStyle(
-                                              fontSize: 20, color: Colors.white),
+                                          style: address_style,
                                         )
                                       ],
                                     ),
@@ -162,7 +191,7 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Neumorphic(
-                    style: container_style,
+                    style: theme.container_style,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
@@ -175,7 +204,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color: icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -190,7 +219,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color: icon_color,
                                 size: 36,
                               ),
                             ],
@@ -206,7 +235,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color:icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -221,7 +250,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color:icon_color,
                                 size: 36,
                               ),
                             ],
@@ -237,7 +266,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color:icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -252,7 +281,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color:icon_color,
                                 size: 36,
                               ),
                             ],
@@ -268,7 +297,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color:icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -283,7 +312,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color:icon_color,
                                 size: 36,
                               ),
                             ],
@@ -299,7 +328,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color:icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -314,7 +343,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color:icon_color,
                                 size: 36,
                               ),
                             ],
@@ -330,7 +359,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color: HexColor.blue_button,
+                                    color:icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -345,7 +374,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color: HexColor.blue_button,
+                                color:icon_color,
                                 size: 36,
                               ),
                             ],
