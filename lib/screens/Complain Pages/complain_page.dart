@@ -16,7 +16,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
     double fullwidth = MediaQuery.of(context).size.width;
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
     var text_style = TextStyle(
-        fontSize: 26, color: Colors.blueAccent, fontWeight: FontWeight.w500);
+        fontSize: 26, color: HexColor.WblackText, fontWeight: FontWeight.w500);
 
     void add_data(compaint_title, complaint_desc) async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -45,14 +45,13 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
       ),
       child: Scaffold(
         floatingActionButton: SizedBox(
-          height: 50,
-          width: 50,
+          height: 45,
+          width: 45,
           child: FittedBox(
             child: NeumorphicFloatingActionButton(
               onPressed: () => {Navigator.pop(context)},
               child: Icon(
                 Icons.arrow_back,
-                color: Colors.blueAccent,
               ),
               style: NeumorphicStyle(
                   boxShape: NeumorphicBoxShape.circle(),
@@ -74,11 +73,11 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                       Padding(
                         padding: EdgeInsets.fromLTRB(fullwidth / 4, 0, 0, 0),
                         child: Text(
-                          "Complains",
+                          "Complaint",
                           style: TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.w500,
-                              color: Colors.blueAccent),
+                              color: HexColor.WblackText),
                         ),
                       )
                     ],
@@ -125,7 +124,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               child: Row(
                                 children: [
                                   Icon(Icons.local_parking,
-                                      size: 40, color: Colors.blueAccent),
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -164,8 +163,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                                 },
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.lightbulb,
-                                        size: 40, color: Colors.blueAccent),
+                                     Icon(Icons.lightbulb,
+                                        size: 40, color: HexColor.WblackText),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 12),
                                       child: Text(
@@ -203,8 +202,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  const Icon(Icons.water_drop,
-                                      size: 40, color: Colors.blueAccent),
+                                   Icon(Icons.water_drop,
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -243,8 +242,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  const Icon(Icons.gas_meter,
-                                      size: 40, color: Colors.blueAccent),
+                                   Icon(Icons.gas_meter,
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -283,8 +282,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  const Icon(Icons.drag_indicator,
-                                      size: 40, color: Colors.blueAccent),
+                                   Icon(Icons.drag_indicator,
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -323,8 +322,8 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               },
                               child: Row(
                                 children: [
-                                  const Icon(Icons.electric_bolt,
-                                      size: 40, color: Colors.blueAccent),
+                                   Icon(Icons.electric_bolt,
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -364,7 +363,7 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               child: Row(
                                 children: [
                                   Icon(Icons.add_road,
-                                      size: 40, color: Colors.blueAccent),
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
@@ -437,16 +436,12 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
                               child: Row(
                                 children: [
                                   Icon(Icons.emoji_emotions,
-                                      size: 40, color: Colors.white),
+                                      size: 40, color: HexColor.WblackText),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 12),
                                     child: Text(
-                                      "Other Complain",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 26,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      "Other Complaint",
+                                      style: text_style,
                                     ),
                                   )
                                 ],

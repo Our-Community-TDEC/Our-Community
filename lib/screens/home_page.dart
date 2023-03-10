@@ -4,26 +4,22 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:onboarding/onboarding.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
-import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
-import 'package:our_community/screens/testCal.dart';
-import 'package:our_community/screens/theme/theme.dart';
-import 'package:our_community/screens/theme/MyApp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:our_community/screens/login_page.dart';
 import 'package:our_community/screens/voting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
-import '../screens/emergency_page.dart';
 import 'Admin/show_complaint.dart';
-import 'Complain Pages/complain_page.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 
@@ -45,21 +41,65 @@ class _HomePageState extends State<HomePage> {
     return snapshot.get("userName");
   }
 
-  bool isSwitched = false;
+  // ignore: prefer_typing_uninitialized_variables
+  var theme;
+  bool isDark = false;
+  var text_style;
+  var user_name_style;
+  var welcome_color;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+      assert(theme != null);
+      welcome_color = HexColor.text_color;
+
+      text_style = TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+          fontFamily: 'poppins');
+
+      user_name_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+          fontFamily: 'poppins');
+    } else {
+      theme = WhiteTheme();
+      welcome_color = HexColor.WblueText;
+      text_style = TextStyle(
+          fontSize: 19,
+          fontWeight: FontWeight.w500,
+          color: HexColor.WblueText,
+          fontFamily: 'poppins');
+
+      user_name_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
   @override
-  void initState() {
+  initState() {
     // TODO: implement initState
     super.initState();
+    getPreference();
     // getTheme();
   }
 
-  WhiteTheme theme = new WhiteTheme();
+  // WhiteTheme theme = new WhiteTheme();
 
-  var text_style = TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.w600,
-      color: HexColor.WblueText,
-      fontFamily: 'poppins');
   @override
   Widget build(BuildContext context) {
     double minHW = min(
@@ -73,13 +113,8 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var user_name_style = TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        color: HexColor.WblackText,
-        fontFamily: 'poppins');
+    // DocumentSnapshot snapshot = firestoreBar
 
-    // DocumentSnapshot snapshot = firestore
     //     .collection("users")
     //     .doc(userauthdata.currentUser?.uid)
     //     .snapshots() as DocumentSnapshot;
@@ -87,28 +122,10 @@ class _HomePageState extends State<HomePage> {
     // var userdata = snapshot.data as DocumentSnapshot;
     // String username = userdata["userName"];
     double offset_val = 2.5;
-
+    print(isDark);
     return Scaffold(
-      
-      appBar: NeumorphicAppBar(
-        title: Text("Home Page",
-        style: TextStyle(color: Colors.blueAccent)
-        ),
-        padding: 10,
-        centerTitle: true,
-        color: HexColor.Wbackground_color,
-        textStyle:
-            TextStyle(color: HexColor.WblueText, fontWeight: FontWeight.w700),
-        buttonStyle: NeumorphicStyle(
-          color: HexColor.Wbackground_color,
-          boxShape: NeumorphicBoxShape.circle(),
-          shadowLightColor: HexColor.backButtonLight,
-          shadowDarkColor: HexColor.backButtonDark,
-          depth: 5,
-        ),
-        iconTheme: IconThemeData(color: HexColor.WblueText),
-      ),
-      drawer: Neumorphic( 
+      appBar: theme.appbar,
+      drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
         ),
@@ -120,13 +137,8 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Row(
                   children: [
-                    Icon(Icons.home,
-                    color: Colors.blueAccent,),
-                    Text(" Home",
-                      style: TextStyle(
-                        color: Colors.blueAccent,
-                      ),
-                    ),
+                    Icon(Icons.home),
+                    Text("Home"),
                   ],
                 ),
                 onTap: () {
@@ -137,8 +149,8 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               ExpansionTile(
-                title: Text("Services",style: TextStyle(color: Colors.blueAccent,),),
-                leading: Icon(Icons.assignment_late_outlined,color: Colors.blueAccent,), //add icon
+                title: Text("Services"),
+                leading: Icon(Icons.assignment_late_outlined), //add icon
                 childrenPadding: EdgeInsets.only(left: 30), //children padding
                 children: [
                   ListTile(
@@ -273,6 +285,20 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 title: Row(
                   children: [
+                    Icon(Icons.account_circle_outlined),
+                    Text("OnBorad"),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OnBoard()),
+                  );
+                },
+              ),
+              ListTile(
+                title: Row(
+                  children: [
                     Icon(Icons.messenger_outline),
                     Text("Chat"),
                   ],
@@ -306,19 +332,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 30,
                       child: LiteRollingSwitch(
-                        value: isSwitched,
+                        value: isDark,
                         // width: 90,
-                        textOn: 'Dark',
-                        textOff: 'Light',
+                        textOn: 'Light',
+                        textOff: 'Dark',
                         colorOn: Colors.grey,
                         colorOff: Colors.blue,
                         iconOn: Icons.lightbulb_outline,
                         iconOff: Icons.nightlight_outlined,
                         animationDuration: const Duration(milliseconds: 300),
-                        onChanged: (isSwitched) async {
+                        onChanged: (isDark) async {
                           var pref = await SharedPreferences.getInstance();
-                          pref.setBool("Theme", isSwitched);
-                          print("$isSwitched");
+                          pref.setBool("Theme", isDark);
+                          print("$isDark");
+                          themeF(isDark);
                         },
                         onTap: () {},
                         onDoubleTap: () {},
@@ -332,10 +359,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body:
-       Container(
+      body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
-        decoration: BoxDecoration(color: HexColor.Wbackground_color),
+        decoration: theme.background_color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -365,11 +391,11 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 Text(
-                  "Welcome to our community",
+                  "Welcome to your community",
                   style: TextStyle(
                     fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
-                    color: HexColor.WblackText,
+                    color: welcome_color,
                   ),
                 ),
               ],
@@ -409,6 +435,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/noticeboard.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("NoticeBoard", style: text_style),
                                     ],
                                   )),
@@ -442,6 +472,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/event.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Event", style: text_style),
                                     ],
                                   )),
@@ -478,6 +512,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/complaints.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Complains", style: text_style),
                                     ],
                                   )),
@@ -510,6 +548,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/suggestion.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Suggestions", style: text_style),
                                     ],
                                   )),
@@ -552,7 +594,7 @@ class _HomePageState extends State<HomePage> {
 
   // void getTheme() async {
   //   var pref = await SharedPreferences.getInstance();
-  //   isSwitched = pref.getBool("Theme")!;
+  //   isDark = pref.getBool("Theme")!;
   // }
 }
 
@@ -565,18 +607,62 @@ class Launch extends StatefulWidget {
 
 class _LaunchState extends State<Launch> {
   int index = 0;
+  var theme;
+  var icon_color;
+  var navigation_back_color;
+  var navigation_color;
+  bool isDark = false;
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getPreference();
+  }
+
+  themeF(isDark) {
+    if (isDark) {
+      icon_color = HexColor.icon_color;
+      navigation_back_color = HexColor.background_end;
+      navigation_color = HexColor.background_top;
+      theme = DarkTheme();
+    } else {
+      icon_color = HexColor.WiconColor;
+      navigation_back_color = HexColor.Wbackground_color;
+      navigation_color = HexColor.Wnavigation_bar_color;
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60.0,
-        backgroundColor: HexColor.Wbackground_color,
+        backgroundColor: navigation_back_color,
         animationDuration: Duration(milliseconds: 500),
-        color: HexColor.Wnavigation_bar_color,
+        color: navigation_color,
         items: <Widget>[
-          Icon(Icons.home_work_outlined, size: 30),
-          Icon(Icons.chat_bubble_outline, size: 30),
-          Icon(Icons.account_circle_outlined, size: 30),
+          Icon(
+            Icons.home_work_outlined,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.chat_bubble_outline,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.account_circle_outlined,
+            size: 30,
+            color: icon_color,
+          ),
         ],
         onTap: (selectedIndex) {
           setState(() {
@@ -584,10 +670,11 @@ class _LaunchState extends State<Launch> {
           });
         },
       ),
-      body:getSelectedWidget(index: index) ,
+      body: getSelectedWidget(index: index),
     );
   }
-    Widget getSelectedWidget({required int index}) {
+
+  Widget getSelectedWidget({required int index}) {
     final user = FirebaseAuth.instance.currentUser!;
     String email = user.email!;
     Widget widget;
