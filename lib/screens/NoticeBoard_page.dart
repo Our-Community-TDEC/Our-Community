@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import '../nuemorphism/border_effect.dart';
 import '../nuemorphism/colors.dart';
 
 class Notice_Board_Page extends StatefulWidget {
@@ -19,6 +21,7 @@ final descriptionController = TextEditingController();
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class _NoticeBoard_Page extends State<Notice_Board_Page> {
+  WhiteTheme theme = WhiteTheme();
   // Future<String> getName(String documentId) async {
   //   DocumentSnapshot snapshot = await FirebaseFirestore.instance
   //       .collection("event")
@@ -196,12 +199,17 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: NeumorphicFloatingActionButton(
         onPressed: () => _showAddEventDialog(),
-        label: const Icon(
+          // Icons.add,
+          // color: Colors.blue,
+        child: Icon(
           Icons.add,
           color: Colors.blue,
         ),
+        style: NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.circle(),
+            color: HexColor.Wbackground_color),
       ),
       backgroundColor: HexColor.Wbackground_color,
       body: Padding(
@@ -215,18 +223,21 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.black38,
-                        child: IconButton(
-                          onPressed: () {
-                            print('Clicked on list');
-                            Navigator.pop(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Notice_Board_Page()));
-                          },
-                          icon: Icon(Icons.arrow_back_ios_new_sharp),
-                          color: Colors.blue,
+                      SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.blue,
+                          ),
+                          style: NeumorphicStyle(
+                              color: HexColor.Wbackground_color,
+                              boxShape: NeumorphicBoxShape.circle(),
+                              shadowLightColor: HexColor.Wlight_vote,
+                              shadowDarkColor: HexColor.Wdark_vote,
+                              depth: 4),
                         ),
                       ),
                       SizedBox(
@@ -239,7 +250,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                             // textDirection: TextDirection.ltr,
                             style: TextStyle(
                               fontFamily: 'Poppins-SemiBold',
-                              color: Colors.white,
+                              color: Colors.blue,
                               fontWeight: FontWeight.w600,
                               fontSize: 35,
                             ),
@@ -267,7 +278,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                 ((myEvents) => ListTile(
                       leading: Icon(
                         Icons.done,
-                        color: Colors.teal,
+                        color: Colors.blue,
                       ),
                       title: Padding(
                         padding: EdgeInsets.only(bottom: 8.0),
@@ -346,7 +357,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
                                             style: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.w700,
-                                                color: Colors.white,
+                                                color: Colors.black,
                                                 fontFamily: 'poppins'),
                                           ),
                                           // Text(

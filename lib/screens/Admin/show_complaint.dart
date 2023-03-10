@@ -14,7 +14,7 @@ class show_complaint extends StatefulWidget {
 
 class _show_complaintState extends State<show_complaint> {
   var theme;
-  var icon_color;
+  var icon_color =  HexColor.WBlackButton;
   var page_title_style;
   var title_style;
   var name_style;

@@ -15,8 +15,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   var theme;
-  var back_color;
-  var icon_color;
+  var back_color = HexColor.WBlackButton;
+  var icon_color=HexColor.WBlackButton;
   var name_title_style;
   var address_style;
   var text_list_style;

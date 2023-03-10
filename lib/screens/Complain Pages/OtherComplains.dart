@@ -25,7 +25,7 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
 
 class _OtherComplainsState extends State<OtherComplains> {
   var theme;
-  var icon_color;
+  var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
   var button_text;

@@ -20,7 +20,7 @@ class chatpage extends StatefulWidget {
 class _chatpageState extends State<chatpage> {
   var theme;
   var msg_textbox;
-  var icon_color;
+  var icon_color = HexColor.Wbackground_color;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());

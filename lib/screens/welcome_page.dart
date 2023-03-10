@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'dart:math';
+import '../../nuemorphism/colors.dart';
 
 import '../nuemorphism/colors.dart';
 import 'login_page.dart';
@@ -66,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  width: 200,
+                   width: 200,
                   height: 60,
                   child: NeumorphicButton(
                     style: Wbutton,
@@ -77,10 +78,11 @@ class WelcomePage extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      "Get Started",
+                      " Get Started",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w500,
+                        color:Colors.blueAccent,
                       ),
                     ),
                   ),
