@@ -42,15 +42,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   // ignore: prefer_typing_uninitialized_variables
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   var text_style;
   var user_name_style;
   var welcome_color=HexColor.WBlackButton;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
-      theme = DarkTheme();
+    if (false) {
+      // theme = DarkTheme();
       assert(theme != null);
       welcome_color = HexColor.text_color;
 
@@ -430,23 +430,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           height: boxL,
                           width: boxL,
-                          decoration: BoxDecoration(
-                            borderRadius: new BorderRadius.all(Radius.circular(44)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: HexColor.black_shadow,
-                                offset: Offset(8, 8),
-                                blurRadius: 10,
-                                spreadRadius: 1,
-                              ),
-                              BoxShadow(
-                                color: HexColor.blue_shadow.withOpacity(0.25),
-                                offset: Offset(-8, -8),
-                                blurRadius: 10,
-                                spreadRadius: 0,
-                              ),
-                            ],
-                          ),
+                          decoration: theme.homepage_button_out,
                           child: SizedBox(
                             height: boxL - 4,
                             width: boxL - 4,

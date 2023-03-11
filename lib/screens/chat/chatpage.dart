@@ -18,17 +18,17 @@ class chatpage extends StatefulWidget {
 }
 
 class _chatpageState extends State<chatpage> {
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   var msg_textbox;
   var icon_color = HexColor.Wbackground_color;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
+    if (false) {
       icon_color = HexColor.icon_color;
       msg_textbox =
           TextStyle(color: HexColor.text_color, fontWeight: FontWeight.w400);
-      theme = DarkTheme();
+      // theme = DarkTheme();
     } else {
       theme = WhiteTheme();
       msg_textbox =
