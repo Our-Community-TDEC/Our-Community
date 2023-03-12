@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:onboarding/onboarding.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
@@ -42,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   // ignore: prefer_typing_uninitialized_variables
-  var theme;
+  late ThemeInterface theme;
   bool isDark = false;
   var text_style;
   var user_name_style;
@@ -51,7 +50,8 @@ class _HomePageState extends State<HomePage> {
     print("Theme" + isDark.toString());
     if (isDark) {
       // theme = null;
-      theme = new DarkTheme();
+      theme = DarkTheme();
+      print(theme.runtimeType);
       assert(theme != null);
       welcome_color = HexColor.text_color;
       text_style = TextStyle(
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           fontFamily: 'poppins');
     } else {
-      theme = WhiteTheme();
+        theme = WhiteTheme();
       welcome_color = HexColor.WblueText;
       text_style = TextStyle(
           fontSize: 19,
@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
@@ -124,7 +125,7 @@ class _HomePageState extends State<HomePage> {
     double offset_val = 2.5;
     print(isDark);
     return Scaffold(
-      // appBar: theme.appbar,
+      appBar: theme.appbar,
       drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
@@ -607,10 +608,10 @@ class Launch extends StatefulWidget {
 
 class _LaunchState extends State<Launch> {
   int index = 0;
-  var theme;
-  var icon_color;
-  var navigation_back_color;
-  var navigation_color;
+  late ThemeInterface theme;
+  var icon_color = HexColor.WBlackButton;
+  var navigation_back_color = HexColor.WBlackButton;
+  var navigation_color = HexColor.WBlackButton;
   bool isDark = false;
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
