@@ -57,7 +57,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
     descriptionController.clear();
 
     if (title != '' && description != '') {
-      firestore.collection('event').doc().set({
+      firestore.collection('noticeboard').doc().set({
         "title": title,
         "description": description,
         "time": updatedDate,
@@ -289,7 +289,7 @@ class _NoticeBoard_Page extends State<Notice_Board_Page> {
               ),
               StreamBuilder<QuerySnapshot>(
                 stream: firestore
-                    .collection('event')
+                    .collection('noticeboard')
                     .orderBy('time', descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {

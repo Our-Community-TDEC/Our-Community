@@ -82,6 +82,11 @@ extension HexColor on Color {
     static  Color Wcurrent_icon_color = fromHex("#2735FF");
     static  Color Wnavigation_bar_color = fromHex("#B2D1FF");
 
+    // Noticeboard color
+    // noticeboaard
+    // color
+    // aya 
+    // avshe
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'
