@@ -95,7 +95,7 @@ class _BasePageState extends State<BasePage> {
         builder: (context, snapshot) {
           //
           if (snapshot.hasData) {
-            return Launch();
+            return HomePage();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {

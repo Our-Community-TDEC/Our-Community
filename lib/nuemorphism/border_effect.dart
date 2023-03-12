@@ -150,7 +150,7 @@ var Wtext_field = NeumorphicStyle(
 );
 
 // --------------------------White Theme------------------------
-class WhiteTheme {
+class WhiteTheme implements ThemeInterface {
   var button = NeumorphicStyle(
     color: HexColor.Wbackground_color,
     depth: 9,
@@ -206,7 +206,7 @@ class WhiteTheme {
       fillColor: HexColor.Wbackground_color,
       border: OutlineInputBorder(borderSide: BorderSide.none));
 
-  var com_sugg_textfield_textstyle  = TextStyle(color: HexColor.WblueText);
+  var com_sugg_textfield_textstyle = TextStyle(color: HexColor.WblueText);
 
   var com_sugg_textfield_desc_decoration = InputDecoration(
     hintText: "Enter Your Concern Here!!!",
@@ -385,8 +385,32 @@ class WhiteTheme {
 
 }
 
+abstract class ThemeInterface {
+  var background_color;
+  var button;
+  var homepage_button;
+  var homepage_button_out;
+  var complaint_neumorphism;
+  var com_sugg_textfield_decoration;
+  var com_sugg_textfield_textstyle;
+  var com_sugge_out_shadow;
+  var com_sugge_in_shadow;
+  var com_sugge_container;
+  var chat_textbox;
+  var chat_user_neuorphic;
+  var chat_opposite_user;
+  var chatAppBar;
+  var unselect_role;
+  var selected_role;
+  var container_style;
+  var circle_container_style;
+  var back_button;
+  var appbar;
+  // add any other properties or methods you need
+}
+
 // --------------------------Dark Theme------------------------
-class DarkTheme {
+class DarkTheme implements ThemeInterface {
   var appbar = NeumorphicAppBar(
     title: Text(
       "Home Page",

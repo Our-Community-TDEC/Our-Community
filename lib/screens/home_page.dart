@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:onboarding/onboarding.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
@@ -42,18 +41,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   // ignore: prefer_typing_uninitialized_variables
-  WhiteTheme theme = WhiteTheme();
+  late ThemeInterface theme;
   bool isDark = false;
   var text_style;
   var user_name_style;
-  var welcome_color=HexColor.WBlackButton;
+  var welcome_color = HexColor.WBlackButton;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (false) {
-      // theme = DarkTheme();
+    if (isDark) {
+      // theme = null;
+      theme = DarkTheme();
+      print(theme.runtimeType);
       assert(theme != null);
       welcome_color = HexColor.text_color;
-
       text_style = TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w500,
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           fontFamily: 'poppins');
     } else {
-      theme = WhiteTheme();
+        theme = WhiteTheme();
       welcome_color = HexColor.WblueText;
       text_style = TextStyle(
           fontSize: 19,
@@ -102,13 +102,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
     final user = FirebaseAuth.instance.currentUser!;
     String? name = user.displayName;
     String email = user.email!;
-    double squarePad = 10;
+    double square_pad = 10;
 
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -121,28 +122,10 @@ class _HomePageState extends State<HomePage> {
 
     // var userdata = snapshot.data as DocumentSnapshot;
     // String username = userdata["userName"];
-    double offsetVal = 2.5;
+    double offset_val = 2.5;
     print(isDark);
     return Scaffold(
-       appBar: NeumorphicAppBar(
-         title: Text(
-           "Home Page",
-           style: TextStyle(color: HexColor.WblueText),
-         ),
-         padding: 10,
-         centerTitle: true,
-         color: HexColor.Wbackground_color,
-         textStyle:
-         TextStyle(color: HexColor.WblueText, fontWeight: FontWeight.w700),
-         buttonStyle: NeumorphicStyle(
-           color: HexColor.Wbackground_color,
-           boxShape: NeumorphicBoxShape.circle(),
-           shadowLightColor: HexColor.backButtonLight,
-           shadowDarkColor: HexColor.backButtonDark,
-           depth: 5,
-         ),
-         iconTheme: IconThemeData(color: HexColor.WblueText),
-       ),
+      appBar: theme.appbar,
       drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
@@ -379,7 +362,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
-        decoration: BoxDecoration(color: HexColor.Wbackground_color),
+        decoration: theme.background_color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -436,7 +419,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -451,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/noticeboard.svg',
@@ -463,7 +446,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(squarePad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         Container(
                           height: boxL,
                           width: boxL,
@@ -473,7 +456,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -488,7 +471,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/event.svg',
@@ -502,7 +485,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
-                    Padding(padding: EdgeInsets.all(squarePad)),
+                    Padding(padding: EdgeInsets.all(square_pad)),
                     Row(
                       children: [
                         Container(
@@ -514,7 +497,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -528,7 +511,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/complaints.svg',
@@ -540,7 +523,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(squarePad)),
+                        Padding(padding: EdgeInsets.all(square_pad)),
                         Container(
                           height: boxL,
                           width: boxL,
@@ -550,7 +533,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -564,7 +547,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/suggestion.svg',
@@ -610,10 +593,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-// void getTheme() async {
-//   var pref = await SharedPreferences.getInstance();
-//   isDark = pref.getBool("Theme")!;
-// }
+  // void getTheme() async {
+  //   var pref = await SharedPreferences.getInstance();
+  //   isDark = pref.getBool("Theme")!;
+  // }
 }
 
 class Launch extends StatefulWidget {
@@ -625,18 +608,15 @@ class Launch extends StatefulWidget {
 
 class _LaunchState extends State<Launch> {
   int index = 0;
-  var theme;
+  late ThemeInterface theme;
   var icon_color = HexColor.WBlackButton;
-  var navigation_back_color = HexColor.Wbackground_color;
+  var navigation_back_color = HexColor.WBlackButton;
   var navigation_color = HexColor.WBlackButton;
   bool isDark = false;
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
-    if(pref.getBool("Theme") != null){
-      isDark = pref.getBool("Theme")!;
-      themeF(isDark);
-    }
-
+    isDark = pref.getBool("Theme")!;
+    themeF(isDark);
   }
 
   @override
