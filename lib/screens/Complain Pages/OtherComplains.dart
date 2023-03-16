@@ -1,18 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_android/image_picker_android.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 TextEditingController complaint_title = TextEditingController();
 TextEditingController complaint_description = TextEditingController();
 
 class OtherComplains extends StatefulWidget with OtherComplains_Logic {
   static String ttle = "", desc = "";
+
 
   OtherComplains(String title, String description) {
     ttle = title;
@@ -24,16 +29,23 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
 }
 
 class _OtherComplainsState extends State<OtherComplains> {
-  var theme;
+  //comment this 👇
+  // var theme;
+  // create this 👇
+  WhiteTheme theme = new WhiteTheme();
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
   var button_text;
   bool isDark = false;
+
+  String imageUrl='';
+
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      theme = DarkTheme();
+      //comment this 👇
+      // theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w500,
@@ -153,7 +165,10 @@ class _OtherComplainsState extends State<OtherComplains> {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           body: Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             decoration: theme.background_color,
             child: SingleChildScrollView(
               child: Column(
@@ -204,7 +219,10 @@ class _OtherComplainsState extends State<OtherComplains> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.93,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.93,
                           child: Container(
                             height: 74,
                             decoration: theme.com_sugge_out_shadow,
@@ -218,10 +236,11 @@ class _OtherComplainsState extends State<OtherComplains> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style: theme
+                                            .com_sugg_textfield_textstyle,
                                         controller: complaint_title,
                                         decoration:
-                                            theme.com_sugg_textfield_decoration,
+                                        theme.com_sugg_textfield_decoration,
                                       ),
                                     ),
                                   ),
@@ -241,14 +260,17 @@ class _OtherComplainsState extends State<OtherComplains> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
                             child: Text(
-                              "Write short discription",
+                              "Write short description",
                               style: text_style,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.93,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.93,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                           child: Container(
@@ -263,7 +285,8 @@ class _OtherComplainsState extends State<OtherComplains> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style: theme
+                                            .com_sugg_textfield_textstyle,
                                         maxLines: null,
                                         controller: complaint_description,
                                         decoration: theme
@@ -279,6 +302,27 @@ class _OtherComplainsState extends State<OtherComplains> {
                       ),
                     ],
                   ),
+                  IconButton(onPressed: () async{
+                    ImagePicker imagePicker=ImagePicker();
+                    XFile? file=await imagePicker.pickImage(source: ImageSource.camera);
+                    print('${file?.path}');
+
+                    if(file==null) return;
+
+                    String uniqueFileName=DateTime.now().millisecondsSinceEpoch.toString();
+
+                    Reference referenceRoot=FirebaseStorage.instance.ref();
+                    Reference referenceDirImages=referenceRoot.child('images/');
+
+                    Reference referenceImageToUpload=referenceDirImages.child(uniqueFileName);
+                    try{
+                      await referenceImageToUpload.putFile(File(file!.path));
+                      imageUrl=await referenceImageToUpload.getDownloadURL();
+                    }catch(error){
+
+                    }
+
+                  },icon: Icon(Icons.camera_alt)),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                     child: SizedBox(

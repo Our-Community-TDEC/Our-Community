@@ -13,7 +13,7 @@ class show_complaint extends StatefulWidget {
 }
 
 class _show_complaintState extends State<show_complaint> {
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   var icon_color =  HexColor.WBlackButton;
   var page_title_style;
   var title_style;
@@ -22,7 +22,7 @@ class _show_complaintState extends State<show_complaint> {
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
+    if (false) {
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -47,7 +47,7 @@ class _show_complaintState extends State<show_complaint> {
           color: HexColor.text_color,
           fontFamily: 'poppins');
 
-      theme = DarkTheme();
+      // theme = DarkTheme();
       icon_color = HexColor.icon_color;
     } else {
       desc_text_style = TextStyle(
@@ -56,7 +56,7 @@ class _show_complaintState extends State<show_complaint> {
           color: HexColor.WblackText,
           fontFamily: 'poppins');
 
-      theme = WhiteTheme();
+      // theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 30,

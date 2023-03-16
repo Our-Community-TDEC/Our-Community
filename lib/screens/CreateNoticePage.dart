@@ -38,6 +38,7 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
     getPreference();
     // getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,9 +58,14 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
                         onPressed: () {
                           print('Clicked on list');
                           Navigator.pop(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notice_Board_Page()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AttendanceCalendarPage(
+                                studentId: 'w',
+                                sub: 'w',
+                              ),
+                            ),
+                          );
                         },
                         icon: Icon(Icons.arrow_back),
                         color: Colors.blue,
