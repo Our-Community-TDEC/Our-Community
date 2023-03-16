@@ -37,8 +37,16 @@ class _HomePageState extends State<HomePage> {
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    role = snapshot.get("role");
     return snapshot.get("userName");
+  }
+
+  Future<String> getRole() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    return snapshot.get("role");
   }
 
   // ignore: prefer_typing_uninitialized_variables
@@ -99,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getPreference();
     getName();
+    getRole();
   }
 
   bool isUser = true;
