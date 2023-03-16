@@ -59,7 +59,7 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
                           Navigator.pop(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Notice_Board_Page()));
+                                  builder: (context) => AttendanceCalendarPage(studentId: 'w', sub: 'w',)));
                         },
                         icon: Icon(Icons.arrow_back),
                         color: Colors.blue,

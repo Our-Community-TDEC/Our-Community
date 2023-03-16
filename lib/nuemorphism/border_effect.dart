@@ -151,6 +151,18 @@ var Wtext_field = NeumorphicStyle(
 
 // --------------------------White Theme------------------------
 class WhiteTheme implements ThemeInterface {
+  var text_field = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: -2,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
+    shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
+  );
+
+// --------------------Register page---------------------------
+// var inputDecoration_regi =
+
   var button = NeumorphicStyle(
     color: HexColor.Wbackground_color,
     depth: 9,
@@ -404,6 +416,16 @@ abstract class ThemeInterface {
 
 // --------------------------Dark Theme------------------------
 class DarkTheme implements ThemeInterface {
+
+  var text_field = NeumorphicStyle(
+    color: HexColor.background_top,
+    depth: -2,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.blue_button.withOpacity(0.50),
+    shadowDarkColorEmboss: HexColor.black_shadow,
+  );
+
   var appbar = NeumorphicAppBar(
     title: Text(
       "Home Page",
@@ -532,6 +554,13 @@ class DarkTheme implements ThemeInterface {
     shadowDarkColorEmboss: HexColor.black_shadow,
   );
 
+  var delete_com_sugg_button = NeumorphicStyle(
+    color: HexColor.back_button_background,
+    shadowLightColor: HexColor.blue_shadow,
+    shadowDarkColor: HexColor.black_shadow,
+    depth: 4,
+  );
+
 // -----------------------Chat-----------------------
 
   var chat_textbox = NeumorphicStyle(
@@ -586,21 +615,24 @@ class DarkTheme implements ThemeInterface {
   );
   // -----------------Role----------------
   var unselect_role = NeumorphicStyle(
+    color: HexColor.background_top,
+    depth: 5,
+    // intensity: 0.5,
+    surfaceIntensity: 1,
     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
-    color: HexColor.Wbackground_color,
-    depth: -10,
-    intensity: 1,
-    // shape: NeumorphicShape.flat,
-    shadowLightColorEmboss: HexColor.WLightButton.withOpacity(0.50),
-    shadowDarkColorEmboss: HexColor.WBlackButton,
+    shape: NeumorphicShape.flat,
+    shadowLightColor: HexColor.blue_shadow,
+    shadowDarkColor: HexColor.black_shadow,
   );
   var selected_role = NeumorphicStyle(
-    color: HexColor.Wbackground_color,
-    depth: 10,
+    color: HexColor.background_top,
+    depth: -5,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
     // intensity: 1,
     // shape: NeumorphicShape.flat,
-    shadowLightColor: HexColor.WLightButton,
-    shadowDarkColor: HexColor.WBlackButton,
+    shadowLightColorEmboss: HexColor.blue_shadow,
+    shadowDarkColorEmboss: HexColor.black_shadow,
   );
 
   // -----------------------Profile Page------------------------

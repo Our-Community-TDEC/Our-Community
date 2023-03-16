@@ -14,7 +14,7 @@ class show_complaint extends StatefulWidget {
 
 class _show_complaintState extends State<show_complaint> {
   var theme;
-  var icon_color =  HexColor.WBlackButton;
+  var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
   var name_style;
@@ -91,15 +91,37 @@ class _show_complaintState extends State<show_complaint> {
     // TODO: implement initState
     super.initState();
     getPreference();
+    getRole();
     // getTheme();
   }
-
+  static String role = "";
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(documentId)
         .get();
     return snapshot.get("userName");
+  }
+
+  Future<String> getRole() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    setrole();
+    return "0";
+  }
+
+  bool isUser = true;
+  setrole() {
+    print("obj" + role);
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      print("object");
+      isUser = false;
+    }
   }
 
   @override
@@ -275,57 +297,59 @@ class _show_complaintState extends State<show_complaint> {
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 7.0),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 10, 0),
-                                                  child: SizedBox(
-                                                    width: 40,
-                                                    height: 40,
-                                                    child: NeumorphicButton(
-                                                      onPressed: () => print(
-                                                          'clicked on list'),
-                                                      child: Icon(
-                                                        Icons
-                                                            .check_circle_outline,
-                                                        color: icon_color,
+                                          isUser
+                                              ? Row()
+                                              : Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 7.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 10, 0),
+                                                        child: NeumorphicButton(
+                                                          onPressed: () {
+                                                            firestore
+                                                                .collection(
+                                                                    "suggestion")
+                                                                .doc(snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .reference
+                                                                    .id
+                                                                    .toString())
+                                                                .delete();
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 4,
+                                                                    horizontal:
+                                                                        20),
+                                                            child: Text(
+                                                              "Delete",
+                                                              style: TextStyle(
+                                                                  color: HexColor
+                                                                      .text_color,
+                                                                  fontSize: 19,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                            ),
+                                                          ),
+                                                          style: theme
+                                                              .delete_com_sugg_button,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                        ),
                                                       ),
-                                                      style: theme.back_button,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                    ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 10, 0),
-                                                  child: SizedBox(
-                                                    width: 40,
-                                                    height: 40,
-                                                    child: NeumorphicButton(
-                                                      onPressed: () => print(
-                                                          'clicked on list'),
-                                                      child: Icon(
-                                                        Icons.cancel_outlined,
-                                                        color: icon_color,
-                                                      ),
-                                                      style: theme.back_button,
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
                                         ],
                                       ),
                                       // trailing: IconButton(

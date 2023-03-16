@@ -21,7 +21,6 @@ import 'Admin/show_complaint.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-
 import 'add_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,27 +31,30 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static String role = "";
   Future<String> getName() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
+    role = snapshot.get("role");
     return snapshot.get("userName");
   }
 
   // ignore: prefer_typing_uninitialized_variables
-  late ThemeInterface theme;
+  // late ThemeInterface theme;
   bool isDark = false;
+  // WhiteTheme theme = WhiteTheme();
+  var theme;
   var text_style;
   var user_name_style;
   var welcome_color = HexColor.WBlackButton;
   themeF(isDark) {
-    print("Theme" + isDark.toString());
+    print("Themef" + isDark.toString());
     if (isDark) {
+      // DarkTheme theme = DarkTheme();
       // theme = null;
       theme = DarkTheme();
-      print(theme.runtimeType);
-      assert(theme != null);
       welcome_color = HexColor.text_color;
       text_style = TextStyle(
           fontSize: 19,
@@ -66,7 +68,8 @@ class _HomePageState extends State<HomePage> {
           color: Colors.white,
           fontFamily: 'poppins');
     } else {
-        theme = WhiteTheme();
+      // theme = WhiteTheme();
+      theme = WhiteTheme();
       welcome_color = HexColor.WblueText;
       text_style = TextStyle(
           fontSize: 19,
@@ -86,7 +89,7 @@ class _HomePageState extends State<HomePage> {
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    print("getpref" + isDark.toString());
     themeF(isDark);
   }
 
@@ -95,14 +98,24 @@ class _HomePageState extends State<HomePage> {
     // TODO: implement initState
     super.initState();
     getPreference();
-    // getTheme();
+    getName();
+  }
+
+  bool isUser = true;
+  setrole() {
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      isUser = false;
+    }
+    print(role + "efcd");
   }
 
   // WhiteTheme theme = new WhiteTheme();
 
   @override
   Widget build(BuildContext context) {
-
+    setrole();
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
@@ -114,16 +127,7 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    // DocumentSnapshot snapshot = firestoreBar
-
-    //     .collection("users")
-    //     .doc(userauthdata.currentUser?.uid)
-    //     .snapshots() as DocumentSnapshot;
-
-    // var userdata = snapshot.data as DocumentSnapshot;
-    // String username = userdata["userName"];
     double offset_val = 2.5;
-    print(isDark);
     return Scaffold(
       appBar: theme.appbar,
       drawer: Neumorphic(
@@ -427,7 +431,10 @@ class _HomePageState extends State<HomePage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            Notice_Board_Page(),
+                                            AttendanceCalendarPage(
+                                          studentId: 'w',
+                                          sub: 'w',
+                                        ),
                                       ),
                                     );
                                   },

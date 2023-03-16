@@ -28,14 +28,170 @@ class OnBoard extends StatefulWidget {
 }
 
 class _OnBoardState extends State<OnBoard> {
-  var theme;
+  DarkTheme theme = DarkTheme();
+  var getstart_textstyle;
+  var labelStyle;
+  var textfield_style;
+  var textfield_decoration_name;
+  var textfield_decoration_conf_pass;
+  var textfield_decoration_pass;
+  var textfield_decoration_email;
+  var join_textstyle;
+  var btn_txt_style;
+  var back_color;
+  var icon_color = HexColor.WiconColor;
+  var hint = ["Name", "Email"];
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
-      theme = DarkTheme();
+    if (true) {
+      // theme = DarkTheme();
+      icon_color = HexColor.icon_color;
+      getstart_textstyle = TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 35,
+        color: HexColor.text_color,
+      );
+
+      btn_txt_style = TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: HexColor.text_color,
+      );
+
+      back_color = theme.background_color;
+
+      join_textstyle = TextStyle(
+        color: HexColor.text_color,
+      );
+
+      textfield_decoration_name = InputDecoration(
+        filled: true,
+        fillColor: HexColor.background_top,
+        labelText: 'Name',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.account_circle_outlined,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_email = InputDecoration(
+        filled: true,
+        fillColor: HexColor.background_top,
+        labelText: 'Email',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.email_outlined,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_pass = InputDecoration(
+        filled: true,
+        fillColor: HexColor.background_top,
+        labelText: 'Password',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.key,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_conf_pass = InputDecoration(
+        filled: true,
+        fillColor: HexColor.background_top,
+        labelText: 'Confirm Password',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.password,
+          color: icon_color,
+        ),
+      );
+
+      icon_color = HexColor.icon_color;
+
+      labelStyle = TextStyle(
+        color: HexColor.text_color,
+        fontSize: 18.0,
+      );
+
+      textfield_style = TextStyle(
+        color: HexColor.text_color,
+      );
     } else {
-      theme = WhiteTheme();
+      // theme = WhiteTheme();
+      back_color = theme.background_color;
+      icon_color = HexColor.WiconColor;
+      getstart_textstyle = TextStyle(
+        fontWeight: FontWeight.w700,
+        fontSize: 35,
+        color: HexColor.WblueText,
+      );
+      textfield_decoration_name = InputDecoration(
+        filled: true,
+        fillColor: HexColor.Wbackground_color,
+        labelText: 'Name',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.account_circle_outlined,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_email = InputDecoration(
+        filled: true,
+        fillColor: HexColor.Wbackground_color,
+        labelText: 'Email',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.email_outlined,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_pass = InputDecoration(
+        filled: true,
+        fillColor: HexColor.Wbackground_color,
+        labelText: 'Password',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.key,
+          color: icon_color,
+        ),
+      );
+      textfield_decoration_conf_pass = InputDecoration(
+        filled: true,
+        fillColor: HexColor.Wbackground_color,
+        labelText: 'Confirm Password',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.password,
+          color: icon_color,
+        ),
+      );
+
+      join_textstyle = TextStyle(
+        color: HexColor.WblueText,
+      );
+
+      labelStyle = TextStyle(
+        color: HexColor.WblueText,
+        fontSize: 18.0,
+      );
+
+      btn_txt_style = TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: HexColor.WblueText,
+      );
+
+      textfield_style = TextStyle(
+        color: HexColor.WblueText,
+      );
     }
     setState(() {});
   }
@@ -55,8 +211,10 @@ class _OnBoardState extends State<OnBoard> {
     getPreference();
     // getTheme();
   }
+
   late int index;
   String selecetedbutton = "";
+  String role = "";
   var text_style = TextStyle(
       fontSize: 19,
       fontWeight: FontWeight.w500,
@@ -66,13 +224,7 @@ class _OnBoardState extends State<OnBoard> {
     return [
       PageModel(
         widget: DecoratedBox(
-          decoration: BoxDecoration(
-            color:isDark ? Colors.black : HexColor.Wbackground_color,
-            border: Border.all(
-              width: 0.0,
-              color: HexColor.Wbackground_color,
-            ),
-          ),
+          decoration: theme.background_color,
           child: SizedBox(
             height: 745,
             child: Column(
@@ -93,11 +245,12 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button1"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             setState(() {
                               selecetedbutton = "button1";
+                              role = "admin";
                             });
                           },
                           child: Column(
@@ -117,12 +270,13 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button2"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             print(selecetedbutton);
                             setState(() {
                               selecetedbutton = "button2";
+                              role = "user";
                             });
                           },
                           child: Column(
@@ -147,11 +301,12 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button3"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             setState(() {
                               selecetedbutton = "button3";
+                              role = "doctor";
                             });
                           },
                           child: Column(
@@ -171,11 +326,12 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button4"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             setState(() {
                               selecetedbutton = "button4";
+                              role = "electrician";
                             });
                           },
                           child: Column(
@@ -200,11 +356,12 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button5"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             setState(() {
                               selecetedbutton = "button5";
+                              role = "plumber";
                             });
                           },
                           child: Column(
@@ -224,11 +381,12 @@ class _OnBoardState extends State<OnBoard> {
                       width: boxL - 4,
                       child: NeumorphicButton(
                           style: selecetedbutton == "button6"
-                              ? theme.unselect_role
-                              : theme.button,
+                              ? theme.selected_role
+                              : theme.unselect_role,
                           onPressed: () {
                             setState(() {
                               selecetedbutton = "button6";
+                              role = "cleaner";
                             });
                           },
                           child: Column(
@@ -252,13 +410,7 @@ class _OnBoardState extends State<OnBoard> {
       ),
       PageModel(
         widget: DecoratedBox(
-          decoration: BoxDecoration(
-            color: background,
-            border: Border.all(
-              width: 0.0,
-              color: background,
-            ),
-          ),
+          decoration: back_color,
           child: SizedBox(
             height: 745,
             child: Column(
@@ -275,13 +427,9 @@ class _OnBoardState extends State<OnBoard> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              const Text(
+                              Text(
                                 "Let's get you registered",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 35,
-                                  color: Colors.grey,
-                                ),
+                                style: getstart_textstyle,
                               ),
                               Column(
                                 crossAxisAlignment: alignStart,
@@ -290,19 +438,12 @@ class _OnBoardState extends State<OnBoard> {
                                   //   "Name",
                                   //   style: text_head,
                                   // ),
-                                  TextField(
-                                    controller: userNameController,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                      labelText: 'Name',
-                                      // hintText: 'Enter Your Name',
-                                      labelStyle: labelStyle,
-                                      suffixIcon: const Icon(
-                                          Icons.account_circle_outlined),
+                                  Neumorphic(
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      style: textfield_style,
+                                      decoration: textfield_decoration_name,
+                                      controller: userNameController,
                                     ),
                                   ),
                                 ],
@@ -314,19 +455,12 @@ class _OnBoardState extends State<OnBoard> {
                                   //   "Email",
                                   //   style: text_head,
                                   // ),
-                                  TextField(
-                                    controller: emailController,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: Colors.grey,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                      labelText: 'Email ID',
-                                      // hintText: 'Enter Your Email',
-                                      labelStyle: labelStyle,
-                                      suffixIcon: const Icon(
-                                          Icons.alternate_email_sharp),
+                                  Neumorphic(
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      style: textfield_style,
+                                      decoration: textfield_decoration_email,
+                                      controller: emailController,
                                     ),
                                   ),
                                 ],
@@ -335,23 +469,17 @@ class _OnBoardState extends State<OnBoard> {
                                 crossAxisAlignment: alignStart,
                                 children: [
                                   // Text("Password", style: text_head),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: passwordController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
-                                        ),
-                                        labelText: 'Password',
-                                        // hintText: 'Password',
-                                        suffixIcon: const Icon(Icons.key),
-                                        labelStyle: labelStyle),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
+                                  Neumorphic(
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      obscureText: true,
+                                      style: textfield_style,
+                                      decoration: textfield_decoration_pass,
+                                      enableSuggestions: false,
+                                      autocorrect: false,
+                                      obscuringCharacter: "●",
+                                      controller: passwordController,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -359,23 +487,17 @@ class _OnBoardState extends State<OnBoard> {
                                 crossAxisAlignment: alignStart,
                                 children: [
                                   // Text("Confirm Password", style: text_head),
-                                  TextField(
-                                    obscureText: true,
-                                    controller: cPasswordController,
-                                    decoration: InputDecoration(
-                                        filled: true,
-                                        fillColor: Colors.grey,
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(32),
-                                        ),
-                                        labelText: 'Confirm Password',
-                                        // hintText: 'Confirm Password',
-                                        suffixIcon: const Icon(Icons.key),
-                                        labelStyle: labelStyle),
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    obscuringCharacter: "●",
+                                  Neumorphic(
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      style: textfield_style,
+                                      decoration:
+                                          textfield_decoration_conf_pass,
+                                      controller: cPasswordController,
+                                      enableSuggestions: false,
+                                      autocorrect: false,
+                                      obscuringCharacter: "●",
+                                    ),
                                   ),
                                 ],
                               ),
@@ -405,19 +527,15 @@ class _OnBoardState extends State<OnBoard> {
                         child: SizedBox(
                           width: 200,
                           height: 60,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shadowColor: Colors.grey[600],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                            ),
+                          child: NeumorphicButton(
+                            style: theme.button,
                             onPressed: () {
                               createAccount();
                             },
-                            child: const Text(
+                            child: Text(
                               "Register",
-                              style: TextStyle(fontSize: 20),
+                              style: btn_txt_style,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
@@ -429,11 +547,9 @@ class _OnBoardState extends State<OnBoard> {
                             MaterialPageRoute(builder: (context) => LogIn()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           "Joined us before? Login",
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+                          style: join_textstyle,
                         ),
                       ),
                     ],
@@ -497,7 +613,6 @@ class _OnBoardState extends State<OnBoard> {
   }
 
   static const width = 100.0;
-  
 
   SizedBox _skipButton({void Function(int)? setIndex}) {
     return SizedBox(
@@ -556,10 +671,6 @@ class _OnBoardState extends State<OnBoard> {
     double minHW = min((MediaQuery.of(context).size.width),
         (MediaQuery.of(context).size.height));
 
-    const labelStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 18.0,
-    );
     const alignStart = CrossAxisAlignment.start;
     double boxL = minHW * 0.42;
     var height = MediaQuery.of(context).size.height;
@@ -578,49 +689,42 @@ class _OnBoardState extends State<OnBoard> {
               index = pageIndex;
             },
             footerBuilder: (context, dragDistance, pagesLength, setIndex) {
-              return DecoratedBox(
-                decoration: BoxDecoration(
-                    // color: background,
-                    // border: Border.all(
-                    //   width: 0.0,
-                    //   color: HexColor.Wbackground_color,
-                    // ),
-                    ),
-                child: Expanded(
-                  child: SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: ColoredBox(
-                        color: HexColor.Wbackground_color,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            index != pagesLength - 1
-                                ? _skipButton(setIndex: setIndex)
-                                : _signupButton,
-                            Padding(
-                              padding: const EdgeInsets.only(right: 45.0),
-                              child: CustomIndicator(
-                                netDragPercent: dragDistance,
-                                pagesLength: pagesLength,
-                                indicator: Indicator(
-                                  activeIndicator: ActiveIndicator(
-                                      color: HexColor.Whint, borderWidth: 2),
-                                  closedIndicator: ClosedIndicator(
-                                      color: HexColor.WblueText,
-                                      borderWidth: 2),
-                                  indicatorDesign: IndicatorDesign.line(
-                                    lineDesign: LineDesign(
-                                      lineSpacer: 30,
-                                      lineType: DesignType.line_nonuniform,
-                                    ),
-                                  ),
+              return Positioned(
+                bottom: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? HexColor.Wbackground_color
+                        : HexColor.background_top,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        index != pagesLength - 1
+                            ? _skipButton(setIndex: setIndex)
+                            : _signupButton,
+                        Padding(
+                          padding: const EdgeInsets.only(right: 45.0),
+                          child: CustomIndicator(
+                            netDragPercent: dragDistance,
+                            pagesLength: pagesLength,
+                            indicator: Indicator(
+                              activeIndicator: ActiveIndicator(
+                                  color: HexColor.Whint, borderWidth: 2),
+                              closedIndicator: ClosedIndicator(
+                                  color: HexColor.WblueText, borderWidth: 2),
+                              indicatorDesign: IndicatorDesign.line(
+                                lineDesign: LineDesign(
+                                  lineSpacer: 30,
+                                  lineType: DesignType.line_nonuniform,
                                 ),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
@@ -666,12 +770,13 @@ class _OnBoardState extends State<OnBoard> {
           "userName": userName,
           "email": email,
           "password": password,
+          "role": role,
         }).then((value) => {
                   snackBar("Registration successful"),
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => LogIn()),
-                  )
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => LogIn()),
+                  // )
                 });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

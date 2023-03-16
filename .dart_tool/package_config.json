@@ -189,7 +189,7 @@
     },
     {
       "name": "firebase_auth",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.2.5",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth-4.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -201,7 +201,7 @@
     },
     {
       "name": "firebase_auth_web",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.2.4",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/firebase_auth_web-5.2.2",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
@@ -393,7 +393,7 @@
     },
     {
       "name": "intl",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.18.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -423,7 +423,7 @@
     },
     {
       "name": "lite_rolling_switch",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/lite_rolling_switch-1.0.0",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/lite_rolling_switch-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
@@ -747,7 +747,7 @@
     },
     {
       "name": "table_calendar",
-      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.0.8",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/table_calendar-3.0.9",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -818,7 +818,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-03-11T01:37:33.189996Z",
+  "generated": "2023-03-14T18:27:17.668112Z",
   "generator": "pub",
   "generatorVersion": "2.19.1"
 }
