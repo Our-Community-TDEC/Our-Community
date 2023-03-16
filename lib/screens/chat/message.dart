@@ -13,13 +13,13 @@ class messages extends StatefulWidget {
 }
 
 class _messagesState extends State<messages> {
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   var msg_text_style;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
-      theme = DarkTheme();
+    if (false) {
+      // theme = DarkTheme();
       msg_text_style = TextStyle(
         fontSize: 15,
         color: HexColor.text_color

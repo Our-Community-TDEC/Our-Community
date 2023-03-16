@@ -14,7 +14,7 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   var back_color = HexColor.WBlackButton;
   var icon_color=HexColor.WBlackButton;
   var name_title_style;
@@ -23,10 +23,10 @@ class _ProfileState extends State<Profile> {
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
+    if (false) {
       back_color = HexColor.background_top;
       icon_color = HexColor.icon_color;
-      theme = DarkTheme();
+      // theme = DarkTheme();
       name_title_style = TextStyle(fontSize: 25, color: HexColor.text_color);
       address_style = TextStyle(fontSize: 20, color: HexColor.text_color);
       text_list_style = TextStyle(color: HexColor.text_color, fontSize: 20);

@@ -388,6 +388,13 @@ class WhiteTheme implements ThemeInterface {
       shadowLightColor: HexColor.Wlight_vote,
       shadowDarkColor: HexColor.Wdark_vote,
       depth: 4);
+
+  // // ----------------Noticeboard----------------------
+  // nuemprophic
+  // design
+  // idhar
+  // ayega
+
 }
 
 abstract class ThemeInterface {
