@@ -42,7 +42,7 @@ dependencies:
   provider: ^6.0.4
   font_awesome_flutter:
   cloud_firestore: ^4.0.5
-  pay: ^1.0.11
+  pay:
 #  razorpay_flutter: ^1.2.1
   http: ^0.13.5
   flutter_local_notifications: ^12.0.3+1
@@ -66,7 +66,7 @@ dependencies:
   googleapis: ^10.1.0
   curved_navigation_bar: ^1.0.3
   flutter_onboarding_slider: ^1.0.8
-  flutter_svg: ^0.22.0
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:
