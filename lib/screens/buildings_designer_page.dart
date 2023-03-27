@@ -1,8 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:our_community/logic/buildings_designer_logic.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class BuildingsDesignerPage extends StatelessWidget
+class BuildingsDesignerPage extends StatefulWidget
     with BuildingsDesignerPage_Logic {
+  @override
+  State<BuildingsDesignerPage> createState() => _BuildingsDesignerPageState();
+}
+
+class _BuildingsDesignerPageState extends State<BuildingsDesignerPage> {
+  var theme;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+    } else {
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

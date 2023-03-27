@@ -10,8 +10,10 @@ extension HexColor on Color {
   }
 
     static  Color black_shadow = fromHex("#000000");
+    static  Color text_color = fromHex("#FFFFFF");
     static  Color blue_shadow = fromHex("#82B3D9");
     static  Color blue_button = fromHex("#11A5FA");
+    static  Color blue_icon = fromHex("#11A5FA");
     static  Color back_color_comp_suggestion = fromHex("#47484E");
     static  Color blue_button_shadow_blue = fromHex("#9CB4C7");
     static  Color blue_button_shadow_black = fromHex("#000000");
@@ -19,13 +21,18 @@ extension HexColor on Color {
     static  Color floating_icon_button_shadow_blue = fromHex("#28A3FF");
     static  Color floating_icon_button_shadow_black = fromHex("#000000");
     static  Color back_button_background = fromHex("#363333");
+    static  Color back_button_lightshadow = fromHex("#4C8BBA");
     static  Color background_top = fromHex("#2E2F36");
-    static  Color background_center = fromHex("#363333");
+    static  Color Dbackground_center = fromHex("#363333");
     static  Color background_end = fromHex("#0D0E10");
+    static  Color icon_color = fromHex("#11A5FA");
+
 
     // Profile
     static  Color profile_container = fromHex("#35373B");
     static  Color profile_list_text = fromHex("#9FCAE2");
+
+    
 
     
     // ------------------------WHITE THEME----------------------
@@ -39,14 +46,16 @@ extension HexColor on Color {
     static  Color Whint = fromHex("#6C6565");
 
     // icon Color
-    static  Color WiconColor = fromHex("#FFFFFF");
+    static  Color WiconColor = fromHex("#5495F8");
 
 
     // Text Color
     static  Color WblackText = fromHex("#000000");
     static  Color WblueText = fromHex("#111111");
 
-    // Button
+
+
+  // Button
     static  Color WBlackButton = fromHex("#C6D8F1");
     static  Color WLightButton = fromHex("#FFFFFF");
 
@@ -73,6 +82,11 @@ extension HexColor on Color {
     static  Color Wcurrent_icon_color = fromHex("#2735FF");
     static  Color Wnavigation_bar_color = fromHex("#B2D1FF");
 
+    // Noticeboard color
+    // noticeboaard
+    // color
+    // aya 
+    // avshe
 
   /// Prefixes a hash sign if [leadingHashSign] is set to `true` (default is `true`).
   String toHex({bool leadingHashSign = true}) => '${leadingHashSign ? '#' : ''}'

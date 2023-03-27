@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class messages extends StatefulWidget {
   String email;
@@ -12,6 +13,36 @@ class messages extends StatefulWidget {
 }
 
 class _messagesState extends State<messages> {
+  WhiteTheme theme = WhiteTheme();
+  bool isDark = false;
+  var msg_text_style;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (false) {
+      // theme = DarkTheme();
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.text_color);
+    } else {
+      theme = WhiteTheme();
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.WblueText);
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
+
   String email;
   _messagesState({required this.email});
 
@@ -20,7 +51,14 @@ class _messagesState extends State<messages> {
       .orderBy('time')
       .snapshots();
 
-  WhiteTheme theme = new WhiteTheme();
+  late ScrollController _scrollController;
+  void scroll() {
+    print("scrolll");
+    _scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +73,13 @@ class _messagesState extends State<messages> {
             child: CircularProgressIndicator(),
           );
         }
-
+        scroll();
         return ListView.builder(
+          controller: _scrollController,
           itemCount: snapshot.data!.docs.length,
           physics: ScrollPhysics(),
           shrinkWrap: true,
-          primary: true,
+          // primary: true,
           itemBuilder: (_, index) {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['time'];
@@ -64,9 +103,7 @@ class _messagesState extends State<messages> {
                         child: ListTile(
                           title: Text(
                             qs['userName'],
-                            style: TextStyle(
-                              fontSize: 15,
-                            ),
+                            style: msg_text_style,
                           ),
                           subtitle: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,13 +113,12 @@ class _messagesState extends State<messages> {
                                 child: Text(
                                   qs['message'],
                                   softWrap: true,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                  ),
+                                  style: msg_text_style,
                                 ),
                               ),
                               Text(
                                 d.hour.toString() + ":" + d.minute.toString(),
+                                style: msg_text_style,
                               )
                             ],
                           ),

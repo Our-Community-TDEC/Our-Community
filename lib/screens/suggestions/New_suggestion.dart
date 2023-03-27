@@ -1,17 +1,90 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
-
-import '../../logic/suggestion_logic.dart';
-import '../../nuemorphism/border_effect.dart';
+import 'package:our_community/logic/suggestion_logic.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 TextEditingController suggestion_title = TextEditingController();
 TextEditingController suggestion_description = TextEditingController();
 
-class NewSuggestion extends StatelessWidget with AddNewSuggestion {
-  WhiteTheme theme = WhiteTheme();
+class NewSuggestion extends StatefulWidget with AddNewSuggestion {
+  @override
+  State<NewSuggestion> createState() => _NewSuggestionState();
+}
+
+class _NewSuggestionState extends State<NewSuggestion> {
+  var theme;
+  var icon_color=HexColor.WBlackButton;
+  var page_title_style;
+  var text_style;
+  var button_text;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+      page_title_style = TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
+        color: HexColor.text_color,
+      );
+
+      button_text = TextStyle(
+        fontSize: 26,
+        color: HexColor.text_color,
+        fontWeight: FontWeight.w500,
+      );
+
+      text_style = TextStyle(
+        color: HexColor.text_color,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      );
+
+      icon_color = HexColor.icon_color;
+    } else {
+      theme = WhiteTheme();
+      icon_color = HexColor.WiconColor;
+      page_title_style = TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblueText,
+      );
+
+      text_style = TextStyle(
+        color: HexColor.WblueText,
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+      );
+
+      button_text = TextStyle(
+        fontSize: 26,
+        color: HexColor.WblackText,
+        fontWeight: FontWeight.w500,
+      );
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
+
   @override
   Widget build(BuildContext context) {
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
@@ -39,14 +112,10 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
       }
     }
 
-    var text_style = TextStyle(
-      color: HexColor.WblackText,
-      fontSize: 20,
-      fontWeight: FontWeight.w600,
-    );
-
     return Theme(
-      data: ThemeData(fontFamily: 'poppins'),
+      data: ThemeData(
+        fontFamily: 'poppins',
+      ),
       child: Scaffold(
           floatingActionButton: SizedBox(
             height: 45,
@@ -56,194 +125,162 @@ class NewSuggestion extends StatelessWidget with AddNewSuggestion {
                 onPressed: () => {Navigator.pop(context)},
                 child: Icon(
                   Icons.arrow_back,
+                  color: icon_color,
                 ),
-                style: NeumorphicStyle(
-                    boxShape: NeumorphicBoxShape.circle(),
-                    color: HexColor.Wbackground_color),
+                style: theme.back_button,
               ),
             ),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-          backgroundColor: HexColor.Wbackground_color,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 32, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: theme.background_color,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(70, 0, 0, 0),
+                              child: Text(
+                                "New Suggestion",
+                                style: page_title_style,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Divider(
+                          thickness: 5,
+                          indent: 12,
+                          endIndent: 12,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(25, 0, 0, 0),
+                            padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
                             child: Text(
-                              "New Suggestions",
-                              style: TextStyle(
-                                fontSize: 29,
-                                fontWeight: FontWeight.w500,
-                                color: HexColor.WblackText,
-                              ),
+                              "Title",
+                              textAlign: TextAlign.start,
+                              style: text_style,
                             ),
-                          )
+                          ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Divider(
-                        thickness: 5,
-                        indent: 12,
-                        endIndent: 12,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(11, 0, 0, 0),
-                          child: Text(
-                            "Title",
-                            textAlign: TextAlign.start,
-                            style: text_style,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.93,
-                        // height: 300,
-                        child: Container(
-                          height: 74,
-                          decoration: theme.com_sugge_out_shadow,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: 70,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Neumorphic(
-                                    style: theme.complaint_neumorphism,
-                                    child: TextField(
-                                      controller: suggestion_title,
-                                      decoration: InputDecoration(
-                                          hintText: "Enter Title Here",
-                                          hintStyle: TextStyle(
-                                            color: HexColor.WblackText,
-                                          ),
-                                          contentPadding:
-                                              EdgeInsets.fromLTRB(10, 50, 0, 0),
-                                          filled: true,
-                                          fillColor: HexColor.Wbackground_color,
-                                          border: OutlineInputBorder(
-                                              borderSide: BorderSide.none)),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
-                          child: Text(
-                            "Write short discription",
-                            textAlign: TextAlign.start,
-                            style: text_style,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.93,
-                      child: Padding(
+                      Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                        child: Container(
-                          height: 204,
-                          decoration: theme.com_sugge_out_shadow,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 200,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Neumorphic(
-                                    style: theme.complaint_neumorphism,
-                                    child: TextField(
-                                      style: TextStyle(color: Colors.white),
-                                      maxLines: null,
-                                      controller: suggestion_description,
-                                      decoration: InputDecoration(
-                                          hintText:
-                                              "Enter Your Concern Here!!!",
-                                          hintStyle: TextStyle(
-                                            color: HexColor.WblackText,
-                                          ),
-                                          filled: true,
-                                          fillColor: HexColor.Wbackground_color,
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide.none,
-                                            borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(10),
-                                                bottomRight:
-                                                    Radius.circular(10)),
-                                          )),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.93,
+                          child: Container(
+                            height: 74,
+                            decoration: theme.com_sugge_out_shadow,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 70,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Neumorphic(
+                                      style: theme.complaint_neumorphism,
+                                      child: TextField(
+                                        style: theme.com_sugg_textfield_textstyle,
+                                        controller: suggestion_title,
+                                        decoration:
+                                            theme.com_sugg_textfield_decoration,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: SizedBox(
-                    width: 341,
-                    height: 78,
-                    child: NeumorphicButton(
-                      style: theme.button,
-                      onPressed: () {
-                        add_data();
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Suggest",
-                            style: TextStyle(
-                              fontSize: 26,
-                              color: HexColor.WblackText,
-                              fontWeight: FontWeight.w500,
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
+                            child: Text(
+                              "Write short discription",
+                              style: text_style,
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.93,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                          child: Container(
+                            height: 204,
+                            decoration: theme.com_sugge_out_shadow,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 200,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(16),
+                                    child: Neumorphic(
+                                      style: theme.complaint_neumorphism,
+                                      child: TextField(
+                                        style: theme.com_sugg_textfield_textstyle,
+                                        maxLines: null,
+                                        controller: suggestion_description,
+                                        decoration: theme
+                                            .com_sugg_textfield_desc_decoration,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: SizedBox(
+                      width: 341,
+                      height: 78,
+                      child: NeumorphicButton(
+                        style: theme.button,
+                        onPressed: () {
+                          add_data();
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text("Suggest", style: button_text),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           )),
     );
