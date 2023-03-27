@@ -9,6 +9,7 @@ import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/event.dart';
 import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
@@ -52,46 +53,49 @@ class _HomePageState extends State<HomePage> {
   // ignore: prefer_typing_uninitialized_variables
   // late ThemeInterface theme;
   bool isDark = false;
-  // WhiteTheme theme = WhiteTheme();
-  var theme;
+  WhiteTheme theme = WhiteTheme();
+  // var theme;
   var text_style;
   var user_name_style;
   var welcome_color = HexColor.WBlackButton;
   themeF(isDark) {
     print("Themef" + isDark.toString());
-    if (isDark) {
+    if (false) {
       // DarkTheme theme = DarkTheme();
       // theme = null;
-      theme = DarkTheme();
-      welcome_color = HexColor.text_color;
-      text_style = TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          fontFamily: 'poppins');
+      // theme = DarkTheme();
 
-      user_name_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          fontFamily: 'poppins');
-    } else {
-      // theme = WhiteTheme();
+      setState(() {
+        welcome_color = HexColor.text_color;
+        text_style = TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+
+        user_name_style = TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+      });
+    } else {}
+    setState(() {
       theme = WhiteTheme();
       welcome_color = HexColor.WblueText;
       text_style = TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w500,
-          color: HexColor.WblueText,
-          fontFamily: 'poppins');
-
+        fontSize: 19,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblueText,
+        fontFamily: 'poppins',
+      );
       user_name_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: HexColor.WblackText,
-          fontFamily: 'poppins');
-    }
-    setState(() {});
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblackText,
+        fontFamily: 'poppins',
+      );
+    });
   }
 
   getPreference() async {
@@ -117,7 +121,6 @@ class _HomePageState extends State<HomePage> {
     } else if (role == "admin") {
       isUser = false;
     }
-    print(role + "efcd");
   }
 
   // WhiteTheme theme = new WhiteTheme();
@@ -476,13 +479,12 @@ class _HomePageState extends State<HomePage> {
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         Notice_Board_Page(),
-                                    //   ),
-                                    // )
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Event(),
+                                      ),
+                                    );
                                   },
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

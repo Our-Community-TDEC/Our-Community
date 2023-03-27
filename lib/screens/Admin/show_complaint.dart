@@ -13,7 +13,8 @@ class show_complaint extends StatefulWidget {
 }
 
 class _show_complaintState extends State<show_complaint> {
-  var theme;
+  // var theme;
+  WhiteTheme theme = WhiteTheme();
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
@@ -22,7 +23,7 @@ class _show_complaintState extends State<show_complaint> {
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
+    if (false) {
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -47,7 +48,7 @@ class _show_complaintState extends State<show_complaint> {
           color: HexColor.text_color,
           fontFamily: 'poppins');
 
-      theme = DarkTheme();
+      // theme = DarkTheme();
       icon_color = HexColor.icon_color;
     } else {
       desc_text_style = TextStyle(
@@ -94,6 +95,7 @@ class _show_complaintState extends State<show_complaint> {
     getRole();
     // getTheme();
   }
+
   static String role = "";
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -297,6 +299,35 @@ class _show_complaintState extends State<show_complaint> {
                                               ),
                                             ),
                                           ),
+                                          Container(
+                                              child: show_complaint['img'] != ""
+                                                  ? Image.network(
+                                                      show_complaint["img"],
+                                                      loadingBuilder: (BuildContext
+                                                              context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                        if (loadingProgress ==
+                                                            null) {
+                                                          return child;
+                                                        }
+                                                        return Center(
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            value: loadingProgress
+                                                                        .expectedTotalBytes !=
+                                                                    null
+                                                                ? loadingProgress
+                                                                        .cumulativeBytesLoaded /
+                                                                    loadingProgress
+                                                                        .expectedTotalBytes!
+                                                                : null,
+                                                          ),
+                                                        );
+                                                      },
+                                                    )
+                                                  : Container()),
                                           isUser
                                               ? Row()
                                               : Padding(

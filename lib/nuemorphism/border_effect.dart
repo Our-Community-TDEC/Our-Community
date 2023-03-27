@@ -268,6 +268,13 @@ class WhiteTheme implements ThemeInterface {
     shadowDarkColorEmboss: HexColor.Wdark_container,
   );
 
+  var delete_com_sugg_button = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    shadowLightColor: HexColor.WLightButton,
+    shadowDarkColor: HexColor.WBlackButton,
+    depth: 4,
+  );
+
 // -----------------------Chat-----------------------
   var chat_textbox = NeumorphicStyle(
       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
@@ -343,21 +350,22 @@ class WhiteTheme implements ThemeInterface {
 
   var chatAppBar = NeumorphicAppBar(
     title: Text(
-      "Chat",
+      "chat",
       style: TextStyle(color: HexColor.WblueText),
     ),
-    centerTitle: true,
     padding: 10,
+    centerTitle: true,
     color: HexColor.Wbackground_color,
     textStyle:
         TextStyle(color: HexColor.WblueText, fontWeight: FontWeight.w700),
-    // buttonStyle: NeumorphicStyle(
-    //   color: HexColor.Wbackground_color,
-    //   boxShape: NeumorphicBoxShape.circle(),
-    //   shadowLightColor: HexColor.backButtonLight,
-    //   shadowDarkColor: HexColor.backButtonDark,
-    //   depth: 5,
-    // ),
+    buttonStyle: NeumorphicStyle(
+      color: HexColor.Wbackground_color,
+      boxShape: NeumorphicBoxShape.circle(),
+      shadowLightColor: HexColor.backButtonLight,
+      shadowDarkColor: HexColor.backButtonDark,
+      depth: 5,
+    ),
+    iconTheme: IconThemeData(color: HexColor.WblueText),
   );
 
   // -----------------------Profile Page------------------------

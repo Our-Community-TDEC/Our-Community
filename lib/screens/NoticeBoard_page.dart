@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:googleapis/admob/v1.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 import '../nuemorphism/border_effect.dart';
@@ -477,12 +478,112 @@ class AttendanceCalendarPage extends StatefulWidget {
 }
 
 class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
+  var title_style;
+  var desc_text_style;
+  var page_title_style;
+  var icon_color = HexColor.WBlackButton;
+  var btn_text;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   var documents;
   var listEventSize;
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
+  bool isUser = true;
+  static String role = "";
+  var theme;
+  bool isDark = false;
+  Future<String> getRole() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    setrole();
+    return "0";
+  }
+
+  setrole() {
+    print("obj" + role);
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      print("object");
+      isUser = false;
+    }
+  }
+
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.text_color,
+      );
+
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      icon_color = HexColor.icon_color;
+
+      TextStyle(
+          color: HexColor.text_color,
+          fontSize: 19,
+          fontWeight: FontWeight.w600);
+    } else {
+      theme = WhiteTheme();
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      icon_color = HexColor.WiconColor;
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblueText,
+      );
+
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      btn_text = TextStyle(
+          color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    getRole();
+    // getTheme();
+  }
 
   TextEditingController noticeTitle = TextEditingController();
   TextEditingController noticeDescription = TextEditingController();
@@ -523,7 +624,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 Navigator.pop(context);
               }),
           TextButton(
-              child: Text('Add Event'),
+              child: Text('Add Notice'),
               onPressed: () {
                 add();
                 Navigator.pop(context);
@@ -568,136 +669,225 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         onPressed: () => _showAddEventDialog(),
         child: Icon(Icons.add),
       ),
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: const Text('Attendance Calendar'),
-      ),
-      body: Column(
-        children: [
-          TableCalendar(
-            firstDay: DateTime.utc(2022, 1, 1),
-            lastDay: DateTime.utc(2023, 12, 31),
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                day = DateFormat('dd-MM-yyyy').format(selectedDay);
-                _focusedDay = focusedDay;
-              });
-            },
-            // eventLoader: (day) {
-            //   return _getEventsForDay(
-            //     day,
-            //   );
-            // },
-            calendarFormat: _calendarFormat,
-            // @ week , week , month format of calender
-            onFormatChanged: (format) {
-              setState(() {
-                _calendarFormat = format;
-              });
-            },
-            calendarBuilders: CalendarBuilders(
-              dowBuilder: (context, day) {
-                if (day.weekday == DateTime.sunday) {
-                  print("object");
-                  final text = DateFormat.E().format(day);
-                  return Center(
-                    child: Text(
-                      text,
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('noticeboard')
-                  .where('date', isEqualTo: day)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  documents = snapshot.data!.docs;
-                  return ListView.builder(
-                    itemCount: documents.length,
-                    itemBuilder: (context, index) {
-                      final data =
-                          documents[index].data() as Map<String, dynamic>;
-                      // final attendance =
-                      //     data['attendance'] as Map<String, dynamic>?;
-                      // final lecturePresent = attendance != null &&
-                      //     attendance.containsKey(widget.studentId);
-                      //  &&attendance[widget.studentId] is bool &&
-                      // attendance[widget.studentId] == true;
-                      //  &&attendance[widget.studentId] == false;
-                      // final lecturePresent =
-                      //     data['attendance'][widget.studentId];
-                      // print(lecturePresent);
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blue
+      body: Container(
+        decoration: theme.background_color,
+        child: Column(
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: icon_color,
                           ),
-                          child: ListTile(
-                            title: Text('${data['title']}'),
-                            subtitle: Text('${data['discription']}'),
-                            // trailing: Text(lecturePresent ? 'Present' : 'Absent'),
-                          ),
+                          style: theme.back_button,
                         ),
-                      );
-                    },
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
+                      ),
+                      Text(
+                        "Noticeboard",
+                        style: page_title_style,
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  thickness: 5,
+                  indent: 12,
+                  endIndent: 12,
+                  color: Colors.black,
+                ),
+              ],
             ),
-            //     StreamBuilder<QuerySnapshot>(
-            //   stream: FirebaseFirestore.instance
-            //       .collection('attendance')
-            //       .doc(widget.sub)
-            //       .collection('lectures')
-            //       .where('date', isEqualTo: day)
-            //       .snapshots(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData) {
-            //       final documents = snapshot.data!.docs;
-            //       return ListView.builder(
-            //         itemCount: documents.length,
-            //         itemBuilder: (context, index) {
-            //           final data =
-            //               documents[index].data() as Map<String, dynamic>;
-            //           final attendanceData =
-            //               data['attendance'] as Map<String, dynamic>?;
-            //           final lecturePresent =
-            //               attendanceData?[widget.studentId] ?? false;
-            //           final attendanceStatus =
-            //               lecturePresent ? 'Present' : 'Absent';
-            //           return ListTile(
-            //             title: Text('Lecture ${index + 1}'),
-            //             subtitle: Text('${data['start']} - ${data['end']}'),
-            //             trailing: Text(attendanceStatus),
-            //           );
-            //         },
-            //       );
-            //     } else {
-            //       return const Center(
-            //         child: CircularProgressIndicator(),
-            //       );
-            //     }
-            //   },
-            // ),
-          ),
-        ],
+            TableCalendar(
+              firstDay: DateTime.utc(2022, 1, 1),
+              lastDay: DateTime.utc(2023, 12, 31),
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  day = DateFormat('dd-MM-yyyy').format(selectedDay);
+                  _focusedDay = focusedDay;
+                });
+              },
+              // eventLoader: (day) {
+              //   return _getEventsForDay(
+              //     day,
+              //   );
+              // },
+              calendarFormat: _calendarFormat,
+              // @ week , week , month format of calender
+              onFormatChanged: (format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              },
+              calendarBuilders: CalendarBuilders(
+                dowBuilder: (context, day) {
+                  if (day.weekday == DateTime.sunday) {
+                    print("object");
+                    final text = DateFormat.E().format(day);
+                    return Center(
+                      child: Text(
+                        text,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('noticeboard')
+                    .where('date', isEqualTo: day)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    documents = snapshot.data!.docs;
+                    return ListView.builder(
+                      itemCount: documents.length,
+                      itemBuilder: (context, index) {
+                        final data =
+                            documents[index].data() as Map<String, dynamic>;
+                        // final attendance =
+                        //     data['attendance'] as Map<String, dynamic>?;
+                        // final lecturePresent = attendance != null &&
+                        //     attendance.containsKey(widget.studentId);
+                        //  &&attendance[widget.studentId] is bool &&
+                        // attendance[widget.studentId] == true;
+                        //  &&attendance[widget.studentId] == false;
+                        // final lecturePresent =
+                        //     data['attendance'][widget.studentId];
+                        // print(lecturePresent);
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 16),
+                          child: Neumorphic(
+                            style: theme.com_sugge_container,
+                            child: ListTile(
+                              title: Text(
+                                '${data['title']}',
+                                style: title_style,
+                              ),
+                              subtitle: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${data['discription']}',
+                                        style: desc_text_style,
+                                      ),
+                                    ],
+                                  ),
+                                  isUser
+                                      ? Row()
+                                      : Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 7.0),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 10, 0),
+                                                child: NeumorphicButton(
+                                                  onPressed: () {
+                                                    firestore
+                                                        .collection(
+                                                            "noticeboard")
+                                                        .doc(snapshot
+                                                            .data!
+                                                            .docs[index]
+                                                            .reference
+                                                            .id
+                                                            .toString())
+                                                        .delete();
+                                                  },
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 4,
+                                                        horizontal: 20),
+                                                    child: Text(
+                                                      "Remove",
+                                                      style:btn_text,
+                                                    ),
+                                                  ),
+                                                  style: theme
+                                                      .button,
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                ],
+                              ),
+                              // trailing: Text(lecturePresent ? 'Present' : 'Absent'),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+              //     StreamBuilder<QuerySnapshot>(
+              //   stream: FirebaseFirestore.instance
+              //       .collection('attendance')
+              //       .doc(widget.sub)
+              //       .collection('lectures')
+              //       .where('date', isEqualTo: day)
+              //       .snapshots(),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.hasData) {
+              //       final documents = snapshot.data!.docs;
+              //       return ListView.builder(
+              //         itemCount: documents.length,
+              //         itemBuilder: (context, index) {
+              //           final data =
+              //               documents[index].data() as Map<String, dynamic>;
+              //           final attendanceData =
+              //               data['attendance'] as Map<String, dynamic>?;
+              //           final lecturePresent =
+              //               attendanceData?[widget.studentId] ?? false;
+              //           final attendanceStatus =
+              //               lecturePresent ? 'Present' : 'Absent';
+              //           return ListTile(
+              //             title: Text('Lecture ${index + 1}'),
+              //             subtitle: Text('${data['start']} - ${data['end']}'),
+              //             trailing: Text(attendanceStatus),
+              //           );
+              //         },
+              //       );
+              //     } else {
+              //       return const Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     }
+              //   },
+              // ),
+            ),
+          ],
+        ),
       ),
     );
   }

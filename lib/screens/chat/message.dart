@@ -20,16 +20,10 @@ class _messagesState extends State<messages> {
     print("Theme" + isDark.toString());
     if (false) {
       // theme = DarkTheme();
-      msg_text_style = TextStyle(
-        fontSize: 15,
-        color: HexColor.text_color
-      );
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.text_color);
     } else {
       theme = WhiteTheme();
-      msg_text_style = TextStyle(
-        fontSize: 15,
-        color: HexColor.WblueText
-      );
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.WblueText);
     }
     setState(() {});
   }
@@ -57,6 +51,15 @@ class _messagesState extends State<messages> {
       .orderBy('time')
       .snapshots();
 
+  late ScrollController _scrollController;
+  void scroll() {
+    print("scrolll");
+    _scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -70,12 +73,13 @@ class _messagesState extends State<messages> {
             child: CircularProgressIndicator(),
           );
         }
-
+        scroll();
         return ListView.builder(
+          controller: _scrollController,
           itemCount: snapshot.data!.docs.length,
           physics: ScrollPhysics(),
           shrinkWrap: true,
-          primary: true,
+          // primary: true,
           itemBuilder: (_, index) {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['time'];
@@ -113,7 +117,8 @@ class _messagesState extends State<messages> {
                                 ),
                               ),
                               Text(
-                                d.hour.toString() + ":" + d.minute.toString(),style: msg_text_style,
+                                d.hour.toString() + ":" + d.minute.toString(),
+                                style: msg_text_style,
                               )
                             ],
                           ),

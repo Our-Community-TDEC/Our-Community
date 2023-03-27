@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,16 +28,21 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
 }
 
 class _OtherComplainsState extends State<OtherComplains> {
-  var theme;
+  bool uploadingImage = false;
+  bool _isButtonEnabled = true; 
+
+  // var theme;
+  WhiteTheme theme = WhiteTheme();
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
   var button_text;
   bool isDark = false;
+  String imageUrl = '';
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      theme = DarkTheme();
+      // theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w500,
@@ -111,7 +120,8 @@ class _OtherComplainsState extends State<OtherComplains> {
           "title": title,
           "description": description,
           "time": datetime,
-          "UID": FirebaseAuth.instance.currentUser?.uid
+          "UID": FirebaseAuth.instance.currentUser?.uid,
+          "img": imageUrl
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Complain Posted"),
@@ -218,7 +228,8 @@ class _OtherComplainsState extends State<OtherComplains> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style:
+                                            theme.com_sugg_textfield_textstyle,
                                         controller: complaint_title,
                                         decoration:
                                             theme.com_sugg_textfield_decoration,
@@ -263,7 +274,8 @@ class _OtherComplainsState extends State<OtherComplains> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style:
+                                            theme.com_sugg_textfield_textstyle,
                                         maxLines: null,
                                         controller: complaint_description,
                                         decoration: theme
@@ -277,27 +289,125 @@ class _OtherComplainsState extends State<OtherComplains> {
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    child: SizedBox(
-                      width: 341,
-                      height: 78,
-                      child: NeumorphicButton(
-                        style: theme.button,
-                        onPressed: () {
-                          add_data();
+                      IconButton(
+                        onPressed: () async {
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                              source: ImageSource.camera);
+
+                          if (file == null) return;
+                          print('pppppaaaaaaathhhhhhh${file.path}');
+
+                          String uniqueFileName =
+                              DateTime.now().millisecondsSinceEpoch.toString();
+
+                          Reference referenceRoot =
+                              FirebaseStorage.instance.ref();
+                          Reference referenceDirImages =
+                              referenceRoot.child('complaint/');
+
+                          Reference referenceImageToUpload =
+                              referenceDirImages.child(uniqueFileName);
+
+                          try {
+                            setState(() {
+                              uploadingImage = true;
+                              _isButtonEnabled = false;
+                            });
+
+                            await referenceImageToUpload
+                                .putFile(File(file.path));
+                            imageUrl =
+                                await referenceImageToUpload.getDownloadURL();
+
+                            setState(() {
+                              uploadingImage = false;
+                              _isButtonEnabled = true;
+                            });
+                          } catch (error) {
+                            setState(() {
+                              _isButtonEnabled = true;
+                              uploadingImage = false;
+                            });
+                          }
                         },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text("Raise Complain", style: button_text),
-                          ],
+                        icon: Icon(Icons.camera_alt),
+                      ),
+                      IconButton(
+                        onPressed: () async {
+                          ImagePicker imagePicker = ImagePicker();
+                          XFile? file = await imagePicker.pickImage(
+                              source: ImageSource.gallery);
+
+                          if (file == null) return;
+                          print('pppppaaaaaaathhhhhhh${file.path}');
+
+                          String uniqueFileName =
+                              DateTime.now().millisecondsSinceEpoch.toString();
+
+                          Reference referenceRoot =
+                              FirebaseStorage.instance.ref();
+                          Reference referenceDirImages =
+                              referenceRoot.child('complaint/');
+
+                          Reference referenceImageToUpload =
+                              referenceDirImages.child(uniqueFileName);
+
+                          try {
+                            setState(() {
+                              uploadingImage = true;
+                              _isButtonEnabled = false;
+                            });
+
+                            await referenceImageToUpload
+                                .putFile(File(file.path));
+                            imageUrl =
+                                await referenceImageToUpload.getDownloadURL();
+
+                            setState(() {
+                              uploadingImage = false;
+                              _isButtonEnabled = true;
+                            });
+                          } catch (error) {
+                            setState(() {
+                              _isButtonEnabled = true;
+                              uploadingImage = false;
+                            });
+                          }
+                        },
+                        icon: Icon(Icons.browse_gallery_outlined),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                        child: SizedBox(
+                          width: 341,
+                          height: 78,
+                          child: NeumorphicButton(
+                            style: theme.button,
+                            onPressed: () {
+                              _isButtonEnabled ? add_data() : null;
+                            },
+                            child: Stack(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text("Raise Complain", style: button_text),
+                                  ],
+                                ),
+                                Visibility(
+                                  visible: uploadingImage,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),

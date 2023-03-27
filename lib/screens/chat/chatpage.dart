@@ -86,11 +86,17 @@ class _chatpageState extends State<chatpage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Divider(
+                        thickness: 5,
+                        indent: 12,
+                        endIndent: 12,
+                        color: Colors.black,
+                      ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: SingleChildScrollView(
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.72,
+                    height: MediaQuery.of(context).size.height * 0.76,
                     child: messages(
                       email: email,
                     ),
