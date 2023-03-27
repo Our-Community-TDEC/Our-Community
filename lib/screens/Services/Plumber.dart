@@ -36,7 +36,7 @@ class _Plumber extends State<Plumber> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(27, 5, 0, 5),
+                  padding: const EdgeInsets.fromLTRB(40, 5, 0, 5),
                   child: Text(
                     "Select Services",
                     style: TextStyle(
@@ -46,7 +46,7 @@ class _Plumber extends State<Plumber> {
                   ),
                 ),
                 SizedBox(
-                  width: 411,
+                  width: 300,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
