@@ -60,7 +60,7 @@ class _LogInState extends State<LogIn> {
       String password = passwordTController.text.trim();
 
       if (email.isEmpty || password.isEmpty) {
-        snackBar("Please fill all fields");
+        snackBar("Please fill all details");
       } else {
         showLoadingIndicator();
 
@@ -145,16 +145,19 @@ class _LogInState extends State<LogIn> {
                       ),
                     ],
                   ),
-                  Text(
-                    "Welcome home 😃",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 35,
-                      color: HexColor.WblackText,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
+                    child: Text(
+                      "Welcome home",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 35,
+                        color: Colors.blueAccent,
+                      ),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 10, 0, 20),
                     child: SizedBox(
                       width: 352,
                       child: Column(
@@ -168,9 +171,11 @@ class _LogInState extends State<LogIn> {
                                 controller: emailTController,
                                 decoration: InputDecoration(
                                   enabledBorder: InputBorder.none,
+                                  suffixIcon: Icon(Icons.perm_contact_cal_outlined),
                                   filled: true,
                                   fillColor: HexColor.Wbackground_color,
                                   labelText: 'User ID',
+                                  // hintText: 'User ID',
                                   labelStyle: labelStyle,
                                 ),
                               ),
@@ -205,7 +210,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   SizedBox(
                     width: 200,
-                    height: 60,
+                    height: 50,
                     child: NeumorphicButton(
                       style: Wt.button,
                       onPressed: () async {
@@ -214,27 +219,37 @@ class _LogInState extends State<LogIn> {
                       child: const Text(
                         "Log in",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
+                            fontSize: 20, fontWeight: FontWeight.w500,
+                          color: Colors.blueAccent,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Register()));
-                        },
-                        child: Text(
-                          "New to app? Register",
-                          style: text_style,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Register()));
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text:"New to app? ",
+                              style: text_style,
+                              children: [
+                                TextSpan(text: " Register now", style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.w500)),
+                              ]
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   // Neumorphic(
                   //   style: NeumorphicStyle(
@@ -244,7 +259,7 @@ class _LogInState extends State<LogIn> {
                   Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                         child: Container(
                           width: 200,
                           height: 40,

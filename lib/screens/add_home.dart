@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddHome extends StatefulWidget {
   const AddHome({super.key});
@@ -10,6 +12,32 @@ class AddHome extends StatefulWidget {
 }
 
 class _AddHomeState extends State<AddHome> {
+  var theme;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+    } else {
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
   @override
   Widget build(BuildContext context) {
     return Theme(

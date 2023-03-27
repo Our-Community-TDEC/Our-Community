@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:our_community/screens/home_page.dart';
+import 'package:our_community/screens/launch.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -94,7 +95,7 @@ class _BasePageState extends State<BasePage> {
         builder: (context, snapshot) {
           //
           if (snapshot.hasData) {
-            return Launch();
+            return HomePage();
           } else if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {

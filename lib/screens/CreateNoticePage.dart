@@ -1,10 +1,43 @@
+import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'o';
 
-class CreateNoticePage extends StatelessWidget {
+class CreateNoticePage extends StatefulWidget {
   const CreateNoticePage({Key? key}) : super(key: key);
 
+  @override
+  State<CreateNoticePage> createState() => _CreateNoticePageState();
+}
+
+class _CreateNoticePageState extends State<CreateNoticePage> {
+  var theme;
+  bool isDark = false;
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      theme = DarkTheme();
+    } else {
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    // getTheme();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +59,7 @@ class CreateNoticePage extends StatelessWidget {
                           Navigator.pop(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Notice_Board_Page()));
+                                  builder: (context) => AttendanceCalendarPage(studentId: 'w', sub: 'w',)));
                         },
                         icon: Icon(Icons.arrow_back),
                         color: Colors.blue,
