@@ -117,7 +117,7 @@ class Voting_Page extends StatelessWidget {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Neumorphic(
-                              style: theme.container,
+                              style: theme.voting_neumorphism,
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 20),
                               child: ListTile(

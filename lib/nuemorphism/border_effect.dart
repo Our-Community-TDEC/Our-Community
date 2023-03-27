@@ -275,6 +275,15 @@ class WhiteTheme implements ThemeInterface {
     depth: 4,
   );
 
+
+// -----------------------vote-----------------------
+var voting_neumorphism = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: -4,
+    shape: NeumorphicShape.flat,
+    shadowLightColorEmboss: HexColor.WtextfieldLightShadow,
+    shadowDarkColorEmboss: HexColor.WtextfieldDarkShadow,
+  );
 // -----------------------Chat-----------------------
   var chat_textbox = NeumorphicStyle(
       boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(40)),
