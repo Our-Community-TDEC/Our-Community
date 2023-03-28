@@ -102,7 +102,6 @@ class Voting_Page extends StatelessWidget {
             StreamBuilder<QuerySnapshot>(
               stream: firestore
                   .collection('voting')
-                  .orderBy('time', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
@@ -142,78 +141,99 @@ class Voting_Page extends StatelessWidget {
                                                     HexColor.WblackText,
                                                     fontFamily: 'poppins'),
                                               ),
-
-                                              FutureBuilder<String>(
-                                                future: getName(
-                                                    voting_list["option_1"]),
-                                                builder: (BuildContext
-                                                context,
-                                                    AsyncSnapshot<String>
-                                                    snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return Text(
-                                                        snapshot.data
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w300,
-                                                            color: HexColor
-                                                                .WblackText,
-                                                            fontFamily:
-                                                            'poppins'));
-                                                  } else if (snapshot
-                                                      .hasError) {
-                                                    return Text(
-                                                      "Loading...",
-                                                      style:
-                                                      title_text_style,
-                                                    );
-                                                  } else {
-                                                    return Text(
-                                                        "Loading...",
-                                                        style:
-                                                        title_text_style);
-                                                  }
-                                                },
+                                              Text(
+                                                voting_list["option_1"],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                    FontWeight.w700,
+                                                    color:
+                                                    HexColor.WblackText,
+                                                    fontFamily: 'poppins'),
+                                              ),
+                                              Text(
+                                                voting_list["option_2"],
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                    FontWeight.w700,
+                                                    color:
+                                                    HexColor.WblackText,
+                                                    fontFamily: 'poppins'),
                                               ),
 
-                                              FutureBuilder<String>(
-                                                future: getName(
-                                                    voting_list["option_2"]),
-                                                builder: (BuildContext
-                                                context,
-                                                    AsyncSnapshot<String>
-                                                    snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    return Text(
-                                                        snapshot.data
-                                                            .toString(),
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .w300,
-                                                            color: HexColor
-                                                                .WblackText,
-                                                            fontFamily:
-                                                            'poppins'));
-                                                  } else if (snapshot
-                                                      .hasError) {
-                                                    return Text(
-                                                      "Loading...",
-                                                      style:
-                                                      title_text_style,
-                                                    );
-                                                  } else {
-                                                    return Text(
-                                                        "Loading...",
-                                                        style:
-                                                        title_text_style);
-                                                  }
-                                                },
-                                              ),
+
+                                              // FutureBuilder<String>(
+                                              //   future: getName(
+                                              //       voting_list["option_1"]),
+                                              //   builder: (BuildContext
+                                              //   context,
+                                              //       AsyncSnapshot<String>
+                                              //       snapshot) {
+                                              //     if (snapshot.hasData) {
+                                              //       return Text(
+                                              //           snapshot.data
+                                              //               .toString(),
+                                              //           style: TextStyle(
+                                              //               fontSize: 15,
+                                              //               fontWeight:
+                                              //               FontWeight
+                                              //                   .w300,
+                                              //               color: HexColor
+                                              //                   .WblackText,
+                                              //               fontFamily:
+                                              //               'poppins'));
+                                              //     } else if (snapshot
+                                              //         .hasError) {
+                                              //       return Text(
+                                              //         "Loading...",
+                                              //         style:
+                                              //         title_text_style,
+                                              //       );
+                                              //     } else {
+                                              //       return Text(
+                                              //           "Loading...",
+                                              //           style:
+                                              //           title_text_style);
+                                              //     }
+                                              //   },
+                                              // ),
+
+                                              // FutureBuilder<String>(
+                                              //   future: getName(
+                                              //       voting_list["option_2"]),
+                                              //   builder: (BuildContext
+                                              //   context,
+                                              //       AsyncSnapshot<String>
+                                              //       snapshot) {
+                                              //     if (snapshot.hasData) {
+                                              //       return Text(
+                                              //           snapshot.data
+                                              //               .toString(),
+                                              //           style: TextStyle(
+                                              //               fontSize: 15,
+                                              //               fontWeight:
+                                              //               FontWeight
+                                              //                   .w300,
+                                              //               color: HexColor
+                                              //                   .WblackText,
+                                              //               fontFamily:
+                                              //               'poppins'));
+                                              //     } else if (snapshot
+                                              //         .hasError) {
+                                              //       return Text(
+                                              //         "Loading...",
+                                              //         style:
+                                              //         title_text_style,
+                                              //       );
+                                              //     } else {
+                                              //       return Text(
+                                              //           "Loading...",
+                                              //           style:
+                                              //           title_text_style);
+                                              //     }
+                                              //   },
+                                              // ),
                                             ]),
                                       ),
                                     ],
