@@ -848,6 +848,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "time_duration_picker",
+      "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/time_duration_picker-0.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "timezone",
       "rootUri": "file:///C:/Users/Admin/AppData/Local/Pub/Cache/hosted/pub.dev/timezone-0.9.1",
       "packageUri": "lib/",
@@ -902,7 +908,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-03-16T19:14:48.140169Z",
+  "generated": "2023-03-27T10:17:20.003162Z",
   "generator": "pub",
   "generatorVersion": "2.19.1"
 }

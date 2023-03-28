@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import '../../logic/services/plumber/PLumber_logic.dart';
 import '../../nuemorphism/colors.dart';
 
-class Electronic extends StatelessWidget with Plumber_logic {
-  const Electronic({Key? key}) : super(key: key);
+class Electritian extends StatefulWidget with Plumber_logic {
+  const Electritian({Key? key}) : super(key: key);
 
+  @override
+  State<Electritian> createState() => _ElectritianState();
+}
+
+class _ElectritianState extends State<Electritian> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +37,7 @@ class Electronic extends StatelessWidget with Plumber_logic {
                     children: [
                       ElevatedButton(
                         onPressed: (() {
-                          Drainage();
+                          // Drainage();
                         }),
                         style: ElevatedButton.styleFrom(
                             primary: const Color((0xffb4D4E54))),
@@ -58,7 +63,7 @@ class Electronic extends StatelessWidget with Plumber_logic {
                       ),
                       ElevatedButton(
                         onPressed: (() {
-                          Repair();
+                          // Repair();
                         }),
                         style: ElevatedButton.styleFrom(
                             primary: const Color((0xffb4D4E54))),
@@ -84,8 +89,8 @@ class Electronic extends StatelessWidget with Plumber_logic {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: (() {
-                          Fitting();
+                        onPressed: (() {  
+                          // Fitting();
                         }),
                         style: ElevatedButton.styleFrom(
                             primary: const Color((0xffb4D4E54))),

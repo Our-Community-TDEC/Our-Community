@@ -28,7 +28,7 @@ class OnBoard extends StatefulWidget {
 }
 
 class _OnBoardState extends State<OnBoard> {
-  DarkTheme theme = DarkTheme();
+  WhiteTheme theme = WhiteTheme();
   var getstart_textstyle;
   var labelStyle;
   var textfield_style;
@@ -44,7 +44,7 @@ class _OnBoardState extends State<OnBoard> {
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (true) {
+    if (false) {
       // theme = DarkTheme();
       icon_color = HexColor.icon_color;
       getstart_textstyle = TextStyle(
