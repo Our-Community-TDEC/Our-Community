@@ -9,6 +9,7 @@ import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/event.dart';
 import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
@@ -19,9 +20,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
 import 'Admin/show_complaint.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'Services/Cleaning.dart';
+import 'Services/Electric.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
-
+import 'Services/admins/A_Cleaning.dart';
+import 'Services/admins/A_Doctor.dart';
+import 'Services/admins/A_Electric.dart';
+import 'Services/admins/A_Plumber.dart';
 import 'add_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +38,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static String role = "";
   Future<String> getName() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -40,23 +47,93 @@ class _HomePageState extends State<HomePage> {
     return snapshot.get("userName");
   }
 
-  bool isSwitched = false;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // getTheme();
+  Future<String> getRole() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    return snapshot.get("role");
   }
 
-  WhiteTheme theme = new WhiteTheme();
+  // ignore: prefer_typing_uninitialized_variables
+  // late ThemeInterface theme;
+  bool isDark = false;
+  WhiteTheme theme = WhiteTheme();
+  // var theme;
+  var text_style;
+  var user_name_style;
+  var welcome_color = HexColor.WBlackButton;
+  themeF(isDark) {
+    print("Themef" + isDark.toString());
+    if (false) {
+      // DarkTheme theme = DarkTheme();
+      // theme = null;
+      // theme = DarkTheme();
 
-  var text_style = TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.w500,
-      color: HexColor.WblueText,
-      fontFamily: 'poppins');
+      setState(() {
+        welcome_color = HexColor.text_color;
+        text_style = TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+
+        user_name_style = TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+      });
+    } else {}
+    setState(() {
+      theme = WhiteTheme();
+      welcome_color = HexColor.WblueText;
+      text_style = TextStyle(
+        fontSize: 19,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblueText,
+        fontFamily: 'poppins',
+      );
+      user_name_style = TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblackText,
+        fontFamily: 'poppins',
+      );
+    });
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("getpref" + isDark.toString());
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    getName();
+    getRole();
+  }
+
+  bool isUser = true;
+  setrole() {
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      isUser = false;
+    }
+  }
+
+  // WhiteTheme theme = new WhiteTheme();
+
   @override
   Widget build(BuildContext context) {
+    setrole();
     double minHW = min(
         MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     double boxL = minHW * 0.42;
@@ -68,38 +145,9 @@ class _HomePageState extends State<HomePage> {
     FirebaseAuth userauthdata = FirebaseAuth.instance;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    var user_name_style = TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        color: HexColor.WblackText,
-        fontFamily: 'poppins');
-
-    // DocumentSnapshot snapshot = firestore
-    //     .collection("users")
-    //     .doc(userauthdata.currentUser?.uid)
-    //     .snapshots() as DocumentSnapshot;
-
-    // var userdata = snapshot.data as DocumentSnapshot;
-    // String username = userdata["userName"];
     double offset_val = 2.5;
-
     return Scaffold(
-      appBar: NeumorphicAppBar(
-        title: Text("Home Page"),
-        padding: 10,
-        centerTitle: true,
-        color: HexColor.Wbackground_color,
-        textStyle:
-            TextStyle(color: HexColor.WblueText, fontWeight: FontWeight.w700),
-        buttonStyle: NeumorphicStyle(
-          color: HexColor.Wbackground_color,
-          boxShape: NeumorphicBoxShape.circle(),
-          shadowLightColor: HexColor.backButtonLight,
-          shadowDarkColor: HexColor.backButtonDark,
-          depth: 5,
-        ),
-        iconTheme: IconThemeData(color: HexColor.WblueText),
-      ),
+      appBar: theme.appbar,
       drawer: Neumorphic(
         style: NeumorphicStyle(
           shadowDarkColor: HexColor.Wdrawer,
@@ -136,10 +184,50 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
+                      role != "plumber" ?
                       Navigator.push(
                         context,
+                        MaterialPageRoute(builder: (context) => A_Plumber()),
+                      ) :Navigator.push(
+                        context,
                         MaterialPageRoute(builder: (context) => Plumber()),
-                      );
+                      ) ;
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Electrician"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "electrician" ?
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => A_Electric()),
+                      ) :Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Electritian()),
+                      ) ;
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Cleaner"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "cleaner" ?
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => A_Cleaning()),
+                      ) :Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Cleaning()),
+                      ) ;
                     },
                   ),
                   ListTile(
@@ -150,10 +238,14 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
+                      role == "doctor" ?
                       Navigator.push(
                         context,
+                        MaterialPageRoute(builder: (context) => A_Doctor()),
+                      ) :Navigator.push(
+                        context,
                         MaterialPageRoute(builder: (context) => Doctor()),
-                      );
+                      ) ;
                     },
                   ),
                 ],
@@ -307,19 +399,20 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 30,
                       child: LiteRollingSwitch(
-                        value: isSwitched,
+                        value: isDark,
                         // width: 90,
-                        textOn: 'Dark',
-                        textOff: 'Light',
+                        textOn: 'Light',
+                        textOff: 'Dark',
                         colorOn: Colors.grey,
                         colorOff: Colors.blue,
                         iconOn: Icons.lightbulb_outline,
                         iconOff: Icons.nightlight_outlined,
                         animationDuration: const Duration(milliseconds: 300),
-                        onChanged: (isSwitched) async {
+                        onChanged: (isDark) async {
                           var pref = await SharedPreferences.getInstance();
-                          pref.setBool("Theme", isSwitched);
-                          print("$isSwitched");
+                          pref.setBool("Theme", isDark);
+                          print("$isDark");
+                          themeF(isDark);
                         },
                         onTap: () {},
                         onDoubleTap: () {},
@@ -335,7 +428,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(minHW * 0.05),
-        decoration: BoxDecoration(color: HexColor.Wbackground_color),
+        decoration: theme.background_color,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -369,7 +462,7 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(
                     fontSize: minHW * 0.07,
                     fontWeight: FontWeight.bold,
-                    color: HexColor.WblackText,
+                    color: welcome_color,
                   ),
                 ),
               ],
@@ -400,7 +493,10 @@ class _HomePageState extends State<HomePage> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            Notice_Board_Page(),
+                                            AttendanceCalendarPage(
+                                          studentId: 'w',
+                                          sub: 'w',
+                                        ),
                                       ),
                                     );
                                   },
@@ -433,13 +529,12 @@ class _HomePageState extends State<HomePage> {
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         Notice_Board_Page(),
-                                    //   ),
-                                    // )
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Event(),
+                                      ),
+                                    );
                                   },
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -486,6 +581,10 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      SvgPicture.asset(
+                                        'assets/Images/home/complaints.svg',
+                                        semanticsLabel: 'My SVG Image',
+                                      ),
                                       Text("Complains", style: text_style),
                                     ],
                                   )),
@@ -564,7 +663,7 @@ class _HomePageState extends State<HomePage> {
 
   // void getTheme() async {
   //   var pref = await SharedPreferences.getInstance();
-  //   isSwitched = pref.getBool("Theme")!;
+  //   isDark = pref.getBool("Theme")!;
   // }
 }
 
@@ -577,18 +676,62 @@ class Launch extends StatefulWidget {
 
 class _LaunchState extends State<Launch> {
   int index = 0;
+  late ThemeInterface theme;
+  var icon_color = HexColor.WBlackButton;
+  var navigation_back_color = HexColor.WBlackButton;
+  var navigation_color = HexColor.WBlackButton;
+  bool isDark = false;
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    getPreference();
+  }
+
+  themeF(isDark) {
+    if (isDark) {
+      icon_color = HexColor.icon_color;
+      navigation_back_color = HexColor.background_end;
+      navigation_color = HexColor.background_top;
+      theme = DarkTheme();
+    } else {
+      icon_color = HexColor.WiconColor;
+      navigation_back_color = HexColor.Wbackground_color;
+      navigation_color = HexColor.Wnavigation_bar_color;
+      theme = WhiteTheme();
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         height: 60.0,
-        backgroundColor: HexColor.Wbackground_color,
+        backgroundColor: navigation_back_color,
         animationDuration: Duration(milliseconds: 500),
-        color: HexColor.Wnavigation_bar_color,
+        color: navigation_color,
         items: <Widget>[
-          Icon(Icons.home_work_outlined, size: 30),
-          Icon(Icons.chat_bubble_outline, size: 30),
-          Icon(Icons.account_circle_outlined, size: 30),
+          Icon(
+            Icons.home_work_outlined,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.chat_bubble_outline,
+            size: 30,
+            color: icon_color,
+          ),
+          Icon(
+            Icons.account_circle_outlined,
+            size: 30,
+            color: icon_color,
+          ),
         ],
         onTap: (selectedIndex) {
           setState(() {

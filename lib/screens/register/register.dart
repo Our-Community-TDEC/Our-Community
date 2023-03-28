@@ -37,7 +37,7 @@ class Register extends StatelessWidget {
       String confirmPassword = cPasswordController.text.toString().trim();
 
       if (email == "" || password == "" || confirmPassword == "") {
-        snackBar("Fill all the field");
+        snackBar("Please fill all details");
       } else if (password != confirmPassword) {
         snackBar("Password And Confirm Password not match!");
       } else if (password.length < 6) {
@@ -269,10 +269,17 @@ class Register extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => LogIn()),
                           );
                         },
-                        child: const Text(
-                          "Joined us before? Login",
-                          style: TextStyle(
-                            color: Colors.white,
+                        child: RichText(
+                          text: TextSpan(
+                              text:"Joined un before? ",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'poppins'
+                              ),
+                              children: [
+                                TextSpan(text: " Login now", style: TextStyle(color: Colors.blueAccent,fontWeight: FontWeight.w500)),
+                              ]
                           ),
                         ),
                       ),

@@ -1,27 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../nuemorphism/border_effect.dart';
-import '../nuemorphism/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class AttendanceCalendarPage extends StatefulWidget {
-  final String sub;
-  final String studentId;
-
-  const AttendanceCalendarPage({
-    Key? key,
-    required this.sub,
-    required this.studentId,
-  }) : super(key: key);
+class Event extends StatefulWidget {
+  const Event({super.key});
 
   @override
-  _AttendanceCalendarPageState createState() => _AttendanceCalendarPageState();
+  State<Event> createState() => _EventState();
 }
 
-class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
+class _EventState extends State<Event> {
   var title_style;
   var desc_text_style;
   var page_title_style;
@@ -35,7 +31,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   bool isUser = true;
   static String role = "";
-  WhiteTheme theme = WhiteTheme();
+  var theme;
   bool isDark = false;
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -45,20 +41,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     role = snapshot.get("role");
     setrole();
     return "0";
-  }
-
-  Future<void> deleteExpiredDocuments() async {
-    DateTime now = DateTime.now();
-    String day = DateFormat('dd-MM-yyyy').format(now);
-
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('noticeboard')
-        .where('date', isLessThan: day)
-        .get();
-
-    snapshot.docs.forEach((document) async {
-      await document.reference.delete();
-    });
   }
 
   setrole() {
@@ -74,7 +56,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      // theme = DarkTheme();
+      theme = DarkTheme();
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -124,6 +106,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       btn_text = TextStyle(
           color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
     }
+    setState(() {});
   }
 
   getPreference() async {
@@ -139,19 +122,18 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     super.initState();
     getPreference();
     getRole();
-    deleteExpiredDocuments();
     // getTheme();
   }
 
-  TextEditingController noticeTitle = TextEditingController();
-  TextEditingController noticeDescription = TextEditingController();
+  TextEditingController eventTitle = TextEditingController();
+  TextEditingController eventDescription = TextEditingController();
   @override
-  _showAddEventDialog() async {
+   _showAddEventDialog() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Add new Notice',
+          'Add new Event',
           textAlign: TextAlign.center,
         ),
         content: Column(
@@ -159,14 +141,14 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: noticeTitle,
+                controller: eventTitle,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Title',
                 ),
               ),
               TextField(
-                controller: noticeDescription,
+                controller: eventDescription,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Description',
@@ -177,12 +159,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
           TextButton(
               child: Text('Cancel'),
               onPressed: () {
-                noticeTitle.clear();
-                noticeDescription.clear();
+                eventTitle.clear();
+                eventDescription.clear();
                 Navigator.pop(context);
               }),
           TextButton(
-              child: Text('Add Notice'),
+              child: Text('Add Event'),
               onPressed: () {
                 add();
                 Navigator.pop(context);
@@ -194,17 +176,17 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   void add() async {
-    String title = noticeTitle.text.trim();
-    String discription = noticeDescription.text.trim();
+    String title = eventTitle.text.trim();
+    String discription = eventDescription.text.trim();
     print(title);
     if (title != "" || discription != "") {
       firestore
-          .collection("noticeboard")
+          .collection("event")
           .doc()
           .set({"title": title, "discription": discription, "date": day}).then(
         (value) => {
-          noticeTitle.clear(),
-          noticeDescription.clear(),
+          eventTitle.clear(),
+          eventDescription.clear(),
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Notice added"),
@@ -220,7 +202,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       ));
     }
   }
-
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -234,7 +215,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 110, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -251,7 +232,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                         ),
                       ),
                       Text(
-                        "Noticeboard",
+                        "Events",
                         style: page_title_style,
                       ),
                     ],
@@ -309,7 +290,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('noticeboard')
+                    .collection('event')
                     .where('date', isEqualTo: day)
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -365,7 +346,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                                                   onPressed: () {
                                                     firestore
                                                         .collection(
-                                                            "noticeboard")
+                                                            "event")
                                                         .doc(snapshot
                                                             .data!
                                                             .docs[index]
@@ -381,10 +362,11 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                                                         horizontal: 20),
                                                     child: Text(
                                                       "Remove",
-                                                      style: btn_text,
+                                                      style:btn_text,
                                                     ),
                                                   ),
-                                                  style: theme.button,
+                                                  style: theme
+                                                      .button,
                                                   padding:
                                                       const EdgeInsets.all(5),
                                                 ),
@@ -448,8 +430,4 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       ),
     );
   }
-
-  // List<Event> _getEventsForDay(DateTime day) {
-  //   return events[day] ?? [];
-  // }
 }
