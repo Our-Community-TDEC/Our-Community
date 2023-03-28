@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -82,6 +78,25 @@ class _Plumber extends State<Plumber> {
     }
   }
 
+  String bookTimeLimit = "2 hr 00 min";
+
+  Future<String> getTotalslot() async {
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection("plumber")
+        .doc("plumberdetail")
+        .get();
+
+    if (snapshot.exists && snapshot.data() != null) {
+      Map<String, dynamic> slotData = snapshot.data() as Map<String, dynamic>;
+      String slot = slotData["slot"];
+      bookTimeLimit = slotData['time'];
+      return slot;
+    } else {
+      return "0";
+    }
+  }
+
   Future<void> deleteExpiredDocuments() async {
     DateTime now = DateTime.now();
     String day = DateFormat('dd-MM-yyyy').format(now);
@@ -145,16 +160,23 @@ class _Plumber extends State<Plumber> {
     );
   }
 
-  Duration duration = Duration(hours: 2, minutes: 0);
+  Duration duration = const Duration(hours: 12, minutes: 00);
+  Duration timeLimit = const Duration(hours: 2, minutes: 00);
   int slot = 0;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   void add() async {
     String currentSlot = await getslot();
+    String totalSlot = await getTotalslot();
     slot = int.parse(currentSlot);
-    print("slot" + slot.toString());
 
-    if (slot < 5) {
-      if (duration <= Duration(hours: 2, minutes: 00)) {
+    String timeString = bookTimeLimit;
+    List<String> parts = timeString.split(' ');
+    int hours = int.parse(parts[0]);
+    int minutes = int.parse(parts[2]);
+    timeLimit = Duration(hours: hours, minutes: minutes);
+
+    if (slot < int.parse(totalSlot)) {
+      if (duration <= timeLimit) {
         String title = plumbingTitle.text.trim();
         String discription = plumbingDescription.text.trim();
         if (title != "" || discription != "") {
@@ -169,7 +191,7 @@ class _Plumber extends State<Plumber> {
               plumbingTitle.clear(),
               plumbingDescription.clear(),
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text("Notice added"),
                   backgroundColor: Colors.blue,
                 ),
@@ -177,19 +199,20 @@ class _Plumber extends State<Plumber> {
             },
           );
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("please enter all detail"),
             backgroundColor: Colors.blue,
           ));
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("you can appoint for only 2 hour"),
+          content: Text(
+              "you can appoint for only $hours hour $minutes minute"),
           backgroundColor: Colors.blue,
         ));
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("all slots are booked"),
         backgroundColor: Colors.blue,
       ));
