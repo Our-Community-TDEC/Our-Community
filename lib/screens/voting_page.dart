@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:our_community/screens/Vote.dart';
 
 import '../nuemorphism/border_effect.dart';
 import '../nuemorphism/colors.dart';
@@ -75,30 +76,6 @@ class Voting_Page extends StatelessWidget {
               color: Colors.black,
             ),
 
-            // Column(
-            //   children: [
-            //     Container(
-            //       child: Row(
-            //         children: [
-            //           Text("Topic"),
-            //           Column(
-            //             children: [
-            //               Text("Yes"),
-            //               Text("500"),
-            //             ],
-            //           ),
-            //           Column(
-            //             children: [
-            //               Text("No"),
-            //               Text("200"),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     )
-            //   ],
-            // ),
-
             StreamBuilder<QuerySnapshot>(
               stream: firestore
                   .collection('voting')
@@ -144,9 +121,9 @@ class Voting_Page extends StatelessWidget {
                                               Text(
                                                 voting_list["option_1"],
                                                 style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 15,
                                                     fontWeight:
-                                                    FontWeight.w700,
+                                                    FontWeight.w300,
                                                     color:
                                                     HexColor.WblackText,
                                                     fontFamily: 'poppins'),
@@ -154,86 +131,22 @@ class Voting_Page extends StatelessWidget {
                                               Text(
                                                 voting_list["option_2"],
                                                 style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 15,
                                                     fontWeight:
-                                                    FontWeight.w700,
+                                                    FontWeight.w300,
                                                     color:
                                                     HexColor.WblackText,
                                                     fontFamily: 'poppins'),
                                               ),
-
-
-                                              // FutureBuilder<String>(
-                                              //   future: getName(
-                                              //       voting_list["option_1"]),
-                                              //   builder: (BuildContext
-                                              //   context,
-                                              //       AsyncSnapshot<String>
-                                              //       snapshot) {
-                                              //     if (snapshot.hasData) {
-                                              //       return Text(
-                                              //           snapshot.data
-                                              //               .toString(),
-                                              //           style: TextStyle(
-                                              //               fontSize: 15,
-                                              //               fontWeight:
-                                              //               FontWeight
-                                              //                   .w300,
-                                              //               color: HexColor
-                                              //                   .WblackText,
-                                              //               fontFamily:
-                                              //               'poppins'));
-                                              //     } else if (snapshot
-                                              //         .hasError) {
-                                              //       return Text(
-                                              //         "Loading...",
-                                              //         style:
-                                              //         title_text_style,
-                                              //       );
-                                              //     } else {
-                                              //       return Text(
-                                              //           "Loading...",
-                                              //           style:
-                                              //           title_text_style);
-                                              //     }
-                                              //   },
-                                              // ),
-
-                                              // FutureBuilder<String>(
-                                              //   future: getName(
-                                              //       voting_list["option_2"]),
-                                              //   builder: (BuildContext
-                                              //   context,
-                                              //       AsyncSnapshot<String>
-                                              //       snapshot) {
-                                              //     if (snapshot.hasData) {
-                                              //       return Text(
-                                              //           snapshot.data
-                                              //               .toString(),
-                                              //           style: TextStyle(
-                                              //               fontSize: 15,
-                                              //               fontWeight:
-                                              //               FontWeight
-                                              //                   .w300,
-                                              //               color: HexColor
-                                              //                   .WblackText,
-                                              //               fontFamily:
-                                              //               'poppins'));
-                                              //     } else if (snapshot
-                                              //         .hasError) {
-                                              //       return Text(
-                                              //         "Loading...",
-                                              //         style:
-                                              //         title_text_style,
-                                              //       );
-                                              //     } else {
-                                              //       return Text(
-                                              //           "Loading...",
-                                              //           style:
-                                              //           title_text_style);
-                                              //     }
-                                              //   },
-                                              // ),
+                                              ElevatedButton(
+                                                child: Text("Vote"),
+                                                onPressed: () {                          
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => Vote(voting_list)),
+                                                  );
+                                                },
+                                              ),
                                             ]),
                                       ),
                                     ],
@@ -262,77 +175,3 @@ class Voting_Page extends StatelessWidget {
     );
   }
 }
-
-
-// import 'package:our_community/logic/voting_logic.dart';
-// import 'package:flutter/material.dart';
-// import 'package:pie_chart/pie_chart.dart';
-//
-// class Voting_Page extends StatefulWidget with voting_logic {
-//   @override
-//   State<Voting_Page> createState() => _Voting_PageState();
-// }
-//
-// class _Voting_PageState extends State<Voting_Page> with voting_logic {
-//   late int person_1_votes = 0, person_2_votes = 0;
-//
-//   late String person_1_name = "Aksh", person_2_name = "College";
-//
-//   Map<String, double> datamap = {
-//     "person_1_name": 1,
-//     "person_2_name": 1,
-//     "person_3_name": 1,
-//     "person_4_name": 1,
-//     "person_5_name": 1,
-//   };
-//
-//   List<Color> colorList = [
-//     Color(0xff531CB3),
-//     Color(0xff944BBB),
-//     Color(0xffAA7BC3),
-//     Color(0xffCC92C2),
-//     Color(0xffDBA8AC),
-//   ];
-//
-//   Widget build(BuildContext context) {
-//     datamap.clear();
-//     datamap["Aksh"] = 100;
-//     datamap["🐼"] = 135;
-//     return Scaffold(
-//       body: Container(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 PieChart(
-//                   dataMap: datamap,
-//                   colorList: colorList,
-//                   chartRadius: MediaQuery.of(context).size.width / 2,
-//                   centerText: "Budget",
-//                 )
-//               ],
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 ElevatedButton(
-//                     onPressed: () {
-//                       votted("1");
-//                       setState(() {});
-//                     },
-//                     child: Text("1")),
-//                 ElevatedButton(
-//                     onPressed: () {
-//                       votted("2");
-//                     },
-//                     child: Text("2")),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
