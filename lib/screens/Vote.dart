@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -7,6 +8,7 @@ import '../nuemorphism/colors.dart';
 
 class Vote extends StatelessWidget {
   Map<String, dynamic> doc = {};
+
   Vote(document) {
     doc = document;
   }
@@ -24,7 +26,6 @@ class Vote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     var title_text_style = TextStyle(
@@ -40,7 +41,6 @@ class Vote extends StatelessWidget {
         fontFamily: 'poppins');
 
 
-
     return Scaffold(
 
       floatingActionButton: SizedBox(
@@ -48,7 +48,8 @@ class Vote extends StatelessWidget {
         width: 45,
         child: FittedBox(
           child: NeumorphicFloatingActionButton(
-            onPressed: () => {
+            onPressed: () =>
+            {
               Navigator.pop(context),
             },
             child: Icon(
@@ -62,13 +63,16 @@ class Vote extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         padding: EdgeInsets.all(50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-                doc["title"],
+              doc["title"],
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 30,
@@ -100,90 +104,35 @@ class Vote extends StatelessWidget {
                               children: [
 
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width,
                                   child: Neumorphic(
-                                    style: theme.voting_neumorphism,
-                                    margin: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(doc["desc"]),
-                                    )
+                                      style: theme.voting_neumorphism,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(doc["desc"]),
+                                      )
                                   ),
                                 ),
-                                Padding(padding: EdgeInsets.symmetric(vertical: 25),),
+                                const Padding(padding: EdgeInsets.symmetric(vertical: 25),),
 
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    ElevatedButton(onPressed: () {}, child: Text(doc["option_1"])),
-                                    ElevatedButton(onPressed: () {}, child: Text(doc["option_2"])),
+                                    ElevatedButton(onPressed: () {
+                                      voteForOption("option_1", doc);
+                                    }, child: Text(doc["option_1"])),
+                                    ElevatedButton(onPressed: () {
+                                      voteForOption("option_2", doc);
+                                    }, child: Text(doc["option_2"])),
                                   ],
-                                )
+                                ),
                               ],
-                            )
-                            // child: Neumorphic(
-                            //   style: theme.voting_neumorphism,
-                            //   margin: const EdgeInsets.symmetric(
-                            //       horizontal: 20),
-                            //   child: ListTile(
-                            //     title: Padding(
-                            //       padding: const EdgeInsets.all(8.0),
-                            //       child: Row(
-                            //         children: [
-                            //           Padding(
-                            //             padding: const EdgeInsets.fromLTRB(
-                            //                 10, 0, 0, 0),
-                            //             child: Column(
-                            //                 crossAxisAlignment:
-                            //                 CrossAxisAlignment.start,
-                            //                 children: [
-                            //                   Text(
-                            //                     voting_list["title"],
-                            //                     style: TextStyle(
-                            //                         fontSize: 20,
-                            //                         fontWeight:
-                            //                         FontWeight.w700,
-                            //                         color:
-                            //                         HexColor.WblackText,
-                            //                         fontFamily: 'poppins'),
-                            //                   ),
-                            //                   Text(
-                            //                     voting_list["option_1"],
-                            //                     style: TextStyle(
-                            //                         fontSize: 15,
-                            //                         fontWeight:
-                            //                         FontWeight.w300,
-                            //                         color:
-                            //                         HexColor.WblackText,
-                            //                         fontFamily: 'poppins'),
-                            //                   ),
-                            //                   Text(
-                            //                     voting_list["option_2"],
-                            //                     style: TextStyle(
-                            //                         fontSize: 15,
-                            //                         fontWeight:
-                            //                         FontWeight.w300,
-                            //                         color:
-                            //                         HexColor.WblackText,
-                            //                         fontFamily: 'poppins'),
-                            //                   ),
-                            //                   ElevatedButton(
-                            //                     child: Text("Vote"),
-                            //                     onPressed: () {
-                            //                       // Navigator.push(
-                            //                       //   context,
-                            //                       //   MaterialPageRoute(builder: (context) => Vote()),
-                            //                       // );
-                            //                     },
-                            //                   ),
-                            //                 ]),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
+                            ),
                           );
                         },
                       ),
@@ -204,4 +153,66 @@ class Vote extends StatelessWidget {
       ),
     );
   }
+
+  voteForOption(String option, Map<String, dynamic> doc) async {
+    String voters_arr = doc[option],
+        uid = FirebaseAuth.instance.currentUser!.uid;
+
+    //TODO: Append UID to array in firebase
+    print("Voting for " + option);
+    print("Printing");
+    print("Option 111111111: ");
+    for (int i = 0; i < doc["option_1_votes"].length; i++) {
+      print(doc["option_1_votes"][i]);
+    }
+    print("printing");
+    if (option == "option_1") {
+      print("called 1");
+      doc["option_1_votes"].add(uid);
+      var collection = FirebaseFirestore.instance.collection('voting');
+      collection
+          .doc('doc_id')
+          .update({'option_1_votes' : doc["option_1_votes"]}) // <-- Updated data
+          .then((_) => print('Success'))
+          .catchError((error) => print('Failed: $error'));
+      //TODO: Upload array back to firebase
+    }
+    if (option == "option_2") {
+      doc["option_2"].add(uid);
+      print("called 2");
+      var collection = FirebaseFirestore.instance.collection('voting');
+      collection
+          .doc('doc_id')
+          .update({'option_2_votes' : doc["option_2_votes"]}) // <-- Updated data
+          .then((_) => print('Success'))
+          .catchError((error) => print('Failed: $error'));
+      //TODO: Upload array back to firebase
+    }
+
+    print("option == " + option);
+
+    for (int i = 0; i < doc["option_1_votes"].length; i++) {
+      print("Out: " + doc["option_1_votes"][i]);
+    }
+
+    List<String> docId = await getDocumentIds();
+  }
+}
+
+Future<List<String>> getDocumentIds() async {
+  List<String> documentIds = [];
+
+  QuerySnapshot querySnapshot =
+  await FirebaseFirestore.instance.collection('voting').get();
+
+  querySnapshot.docs.forEach((document) {
+    documentIds.add(document.id);
+  });
+
+  print("Printlng all docIDs");
+  for(int i = 0;i < documentIds.length;i++) {
+    print(documentIds[i]);
+  }
+
+  return documentIds;
 }
