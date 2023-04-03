@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,12 +25,11 @@ class _Plumber extends State<Plumber> {
 
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
-  var theme;
+  WhiteTheme theme = new WhiteTheme();
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
@@ -46,12 +46,6 @@ class _Plumber extends State<Plumber> {
     setState(() {});
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
-    themeF(isDark);
-  }
 
   @override
   initState() {
@@ -60,6 +54,23 @@ class _Plumber extends State<Plumber> {
     getPreference();
     deleteExpiredDocuments();
     // getTheme();
+  }
+
+  getPreference() async {
+    var pref = await SharedPreferences.getInstance();
+    isDark = pref.getBool("Theme")!;
+    print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
+    themeF(isDark);
+  }
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
   }
 
   Future<String> getslot() async {
@@ -186,6 +197,7 @@ class _Plumber extends State<Plumber> {
             "discription": discription,
             "date": day,
             "duration": workDuration,
+            "refferalcode":refferalcode
           }).then(
             (value) => {
               plumbingTitle.clear(),
@@ -206,8 +218,7 @@ class _Plumber extends State<Plumber> {
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "you can appoint for only $hours hour $minutes minute"),
+          content: Text("you can appoint for only $hours hour $minutes minute"),
           backgroundColor: Colors.blue,
         ));
       }
@@ -277,123 +288,11 @@ class _Plumber extends State<Plumber> {
           //     ),
           //   ],
           // ),
-          Row(children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          SizedBox(
+            height: MediaQuery.of(context).size.height - 106,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(27, 5, 0, 5),
-                  child: Text(
-                    "Select Services",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                SizedBox(
-                  width: 411,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Drainage();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 71.png',
-                                width: 50,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Drainage"),
-                                  Text("system"),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Repair();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 73.png',
-                                width: 60,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Repair"),
-                                  Text("Pipe"),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Fitting();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 76.png',
-                                width: 60,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Fitting"),
-                                  Text("Pipe"),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: Text(
-                        "Data",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    )
-                  ],
-                ),
                 SizedBox(
                   // height: MediaQuery.of(context).size.height/2.,
                   width: MediaQuery.of(context).size.width,
@@ -437,123 +336,175 @@ class _Plumber extends State<Plumber> {
                       },
                     ),
                   ),
-                )
+                ),
+                TimeDurationPicker(
+                  diameter: size.width / 2.3,
+                  icon1Data: Icons.more_time_sharp,
+                  icon2Data: Icons.av_timer_sharp,
+                  knobDecoration: BoxDecoration(
+                    color: HexColor.WblackText,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        offset: Offset(-2, -2),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.7),
+                        offset: Offset(2, 2),
+                        blurRadius: 5,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                  clockDecoration: BoxDecoration(
+                    color: HexColor.Wbackground_color,
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor.Wdark_container,
+                        offset: Offset(-2, -2),
+                        blurRadius: 2,
+                        spreadRadius: 4,
+                      ),
+                      BoxShadow(
+                        color: HexColor.Wlight_container,
+                        offset: Offset(2, 2),
+                        blurRadius: 2,
+                        spreadRadius: 4,
+                      ),
+                    ],
+                  ),
+                  knobBackgroundDecoration: BoxDecoration(
+                    color: HexColor.Wbackground_color,
+                    boxShadow: [
+                      BoxShadow(
+                        color: HexColor.Wdark_container,
+                        offset: Offset(0, 0),
+                        blurRadius: 5,
+                        spreadRadius: 7,
+                      ),
+                      BoxShadow(
+                        color: HexColor.Wlight_container,
+                        offset: Offset(0, 0),
+                        blurRadius: 5,
+                        spreadRadius: 7,
+                      ),
+                    ],
+                  ),
+                  onIcon1RotatedCallback: (value) {
+                    setState(() {
+                      String timeString = value;
+                      DateTime parsedTime =
+                          DateFormat('h:mm a').parse(timeString);
+                      TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
+                      alarmTime = value;
+                    });
+                  },
+                  onIcon2RotatedCallback: (value) {
+                    setState(() {
+                      bedTime = value;
+                    });
+                  },
+                  setDurationCallback: (value) {
+                    setState(() {
+                      String timeString = value;
+                      List<String> parts = timeString.split(' ');
+                      int hours = int.parse(parts[0]);
+                      int minutes = int.parse(parts[2]);
+                      duration = Duration(hours: hours, minutes: minutes);
+                      workDuration = value;
+                    });
+                  },
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: 120,
+                        height: 120,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            color: HexColor.Wbackground_color,
+                            depth: 3,
+                            shadowLightColorEmboss: HexColor.Wlight_container,
+                            shadowDarkColorEmboss: HexColor.Wdark_container,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Total duration"),
+                              Text(
+                                workDuration,
+                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 120,
+                        height: 120,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            color: HexColor.Wbackground_color,
+                            depth: 3,
+                            shadowLightColorEmboss: HexColor.Wlight_container,
+                            shadowDarkColorEmboss: HexColor.Wdark_container,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Start time"),
+                              Text(
+                                bedTime,
+                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 120,
+                        height: 120,
+                        child: Neumorphic(
+                          style: NeumorphicStyle(
+                            color: HexColor.Wbackground_color,
+                            depth: 3,
+                            shadowLightColorEmboss: HexColor.Wlight_container,
+                            shadowDarkColorEmboss: HexColor.Wdark_container,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("End Time"),
+                              Text(
+                                alarmTime,
+                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      // Text(
+                      //   bedTime,
+                      //   style: TextStyle(fontSize: 20),
+                      // ),
+                      // Text(
+                      //   alarmTime,
+                      //   style: TextStyle(fontSize: 20),
+                      // )
+                    ],
+                  ),
+                ),
               ],
             ),
-            // Next part
-          ]),
-          TimeDurationPicker(
-            diameter: size.width / 2.3,
-            icon1Data: Icons.notifications_none,
-            icon2Data: Icons.bed,
-            knobDecoration: BoxDecoration(
-              color: HexColor.WblackText,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  offset: Offset(-2, -2),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.7),
-                  offset: Offset(2, 2),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-              ],
-            ),
-            clockDecoration: BoxDecoration(
-              color: HexColor.Wbackground_color,
-              boxShadow: [
-                BoxShadow(
-                  color: HexColor.Wdark_container,
-                  offset: Offset(-2, -2),
-                  blurRadius: 2,
-                  spreadRadius: 4,
-                ),
-                BoxShadow(
-                  color: HexColor.Wlight_container,
-                  offset: Offset(2, 2),
-                  blurRadius: 2,
-                  spreadRadius: 4,
-                ),
-              ],
-            ),
-            knobBackgroundDecoration: BoxDecoration(
-              color: HexColor.Wbackground_color,
-              boxShadow: [
-                BoxShadow(
-                  color: HexColor.Wdark_container,
-                  offset: Offset(0, 0),
-                  blurRadius: 5,
-                  spreadRadius: 7,
-                ),
-                BoxShadow(
-                  color: HexColor.Wlight_container,
-                  offset: Offset(0, 0),
-                  blurRadius: 5,
-                  spreadRadius: 7,
-                ),
-              ],
-            ),
-            onIcon1RotatedCallback: (value) {
-              setState(() {
-                String timeString = value;
-                DateTime parsedTime = DateFormat('h:mm a').parse(timeString);
-                TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
-                alarmTime = value;
-              });
-            },
-            onIcon2RotatedCallback: (value) {
-              setState(() {
-                bedTime = value;
-              });
-            },
-            setDurationCallback: (value) {
-              setState(() {
-                String timeString = value;
-                List<String> parts = timeString.split(' ');
-                int hours = int.parse(parts[0]);
-                int minutes = int.parse(parts[2]);
-                duration = Duration(hours: hours, minutes: minutes);
-                workDuration = value;
-              });
-            },
           ),
-          //  SizedBox(height: size.height * 2 * smallerMarginRatio),
-          //       SizedBox(
-          //         width: size.width * 0.45,
-          //         child: FittedBox(
-          //           fit: BoxFit.fitWidth,
-          //           child: Text(
-          //             workDuration,
-          //             style: const TextStyle(
-          //               color: Color.fromRGBO(
-          //                 54,
-          //                 61,
-          //                 86,
-          //                 1,
-          //               ),
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              workDuration,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              bedTime,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              alarmTime,
-              style: TextStyle(fontSize: 20),
-            )
-          ]),
         ]),
       ),
     );

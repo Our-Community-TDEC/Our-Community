@@ -84,6 +84,7 @@ class _show_complaintState extends State<show_complaint> {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
     print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -97,6 +98,16 @@ class _show_complaintState extends State<show_complaint> {
   }
 
   static String role = "";
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -203,6 +214,7 @@ class _show_complaintState extends State<show_complaint> {
                     stream: firestore
                         .collection('complaint')
                         .orderBy('time', descending: true)
+                        .where("refferalcode", isEqualTo: refferalcode)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {

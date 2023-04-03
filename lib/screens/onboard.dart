@@ -15,6 +15,7 @@ TextEditingController emailController = TextEditingController();
 TextEditingController userNameController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 TextEditingController cPasswordController = TextEditingController();
+TextEditingController referralController = TextEditingController();
 
 void main() {
   runApp(const OnBoard());
@@ -36,6 +37,7 @@ class _OnBoardState extends State<OnBoard> {
   var textfield_decoration_conf_pass;
   var textfield_decoration_pass;
   var textfield_decoration_email;
+  var textfield_decoration_referral_code;
   var join_textstyle;
   var btn_txt_style;
   var back_color;
@@ -109,6 +111,17 @@ class _OnBoardState extends State<OnBoard> {
           color: icon_color,
         ),
       );
+      textfield_decoration_referral_code = InputDecoration(
+        filled: true,
+        fillColor: HexColor.background_top,
+        labelText: 'referral code',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.qr_code_rounded,
+          color: icon_color,
+        ),
+      );
 
       icon_color = HexColor.icon_color;
 
@@ -122,6 +135,7 @@ class _OnBoardState extends State<OnBoard> {
       );
     } else {
       // theme = WhiteTheme();
+      print("object");
       back_color = theme.background_color;
       icon_color = HexColor.WiconColor;
       getstart_textstyle = TextStyle(
@@ -170,6 +184,18 @@ class _OnBoardState extends State<OnBoard> {
         labelStyle: labelStyle,
         suffixIcon: Icon(
           Icons.password,
+          color: icon_color,
+        ),
+      );
+
+      textfield_decoration_referral_code = InputDecoration(
+        filled: true,
+        fillColor: HexColor.Wbackground_color,
+        labelText: 'Referral code',
+        // hintText: 'Enter Your Name',
+        labelStyle: labelStyle,
+        suffixIcon: Icon(
+          Icons.qr_code_sharp,
           color: icon_color,
         ),
       );
@@ -225,338 +251,347 @@ class _OnBoardState extends State<OnBoard> {
       PageModel(
         widget: DecoratedBox(
           decoration: theme.background_color,
-          child: SizedBox(
-            height: 745,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Select your role",
-                  style: TextStyle(
-                      color: HexColor.WblueText,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w600),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button1"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            setState(() {
-                              selecetedbutton = "button1";
-                              role = "admin";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/admin.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("Admin", style: text_style),
-                            ],
-                          )),
-                    ),
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button2"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            print(selecetedbutton);
-                            setState(() {
-                              selecetedbutton = "button2";
-                              role = "user";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/user.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("User", style: text_style),
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button3"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            setState(() {
-                              selecetedbutton = "button3";
-                              role = "doctor";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/doctor.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("Doctor", style: text_style),
-                            ],
-                          )),
-                    ),
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button4"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            setState(() {
-                              selecetedbutton = "button4";
-                              role = "electrician";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/electrician.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("Electrician", style: text_style),
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button5"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            setState(() {
-                              selecetedbutton = "button5";
-                              role = "plumber";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/plumber.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("Plumber", style: text_style),
-                            ],
-                          )),
-                    ),
-                    SizedBox(
-                      height: boxL - 4,
-                      width: boxL - 4,
-                      child: NeumorphicButton(
-                          style: selecetedbutton == "button6"
-                              ? theme.selected_role
-                              : theme.unselect_role,
-                          onPressed: () {
-                            setState(() {
-                              selecetedbutton = "button6";
-                              role = "cleaner";
-                            });
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SvgPicture.asset(
-                                'assets/Images/role/cleaner.svg',
-                                semanticsLabel: 'My SVG Image',
-                              ),
-                              Text("Cleaner", style: text_style),
-                            ],
-                          )),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Select your role",
+                style: TextStyle(
+                    color: HexColor.WblueText,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w600),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button1"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          setState(() {
+                            selecetedbutton = "button1";
+                            role = "admin";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/admin.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("Admin", style: text_style),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button2"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          print(selecetedbutton);
+                          setState(() {
+                            selecetedbutton = "button2";
+                            role = "user";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/user.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("User", style: text_style),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button3"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          setState(() {
+                            selecetedbutton = "button3";
+                            role = "doctor";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/doctor.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("Doctor", style: text_style),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button4"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          setState(() {
+                            selecetedbutton = "button4";
+                            role = "electrician";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/electrician.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("Electrician", style: text_style),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button5"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          setState(() {
+                            selecetedbutton = "button5";
+                            role = "plumber";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/plumber.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("Plumber", style: text_style),
+                          ],
+                        )),
+                  ),
+                  SizedBox(
+                    height: boxL - 4,
+                    width: boxL - 4,
+                    child: NeumorphicButton(
+                        style: selecetedbutton == "button6"
+                            ? theme.unselect_role
+                            : theme.selected_role,
+                        onPressed: () {
+                          setState(() {
+                            selecetedbutton = "button6";
+                            role = "cleaner";
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/Images/role/cleaner.svg',
+                              semanticsLabel: 'My SVG Image',
+                            ),
+                            Text("Cleaner", style: text_style),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
       PageModel(
         widget: DecoratedBox(
-          decoration: back_color,
-          child: SizedBox(
-            height: 745,
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.symmetric(vertical: minHW * 0.15)),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 11.0),
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.51,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Text(
-                                "Let's get you registered",
-                                style: getstart_textstyle,
-                              ),
-                              Column(
-                                crossAxisAlignment: alignStart,
-                                children: [
-                                  // Text(
-                                  //   "Name",
-                                  //   style: text_head,
-                                  // ),
-                                  Neumorphic(
-                                    style: theme.text_field,
-                                    child: TextField(
-                                      style: textfield_style,
-                                      decoration: textfield_decoration_name,
-                                      controller: userNameController,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: alignStart,
-                                children: [
-                                  // Text(
-                                  //   "Email",
-                                  //   style: text_head,
-                                  // ),
-                                  Neumorphic(
-                                    style: theme.text_field,
-                                    child: TextField(
-                                      style: textfield_style,
-                                      decoration: textfield_decoration_email,
-                                      controller: emailController,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: alignStart,
-                                children: [
-                                  // Text("Password", style: text_head),
-                                  Neumorphic(
-                                    style: theme.text_field,
-                                    child: TextField(
-                                      obscureText: true,
-                                      style: textfield_style,
-                                      decoration: textfield_decoration_pass,
-                                      enableSuggestions: false,
-                                      autocorrect: false,
-                                      obscuringCharacter: "●",
-                                      controller: passwordController,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: alignStart,
-                                children: [
-                                  // Text("Confirm Password", style: text_head),
-                                  Neumorphic(
-                                    style: theme.text_field,
-                                    child: TextField(
-                                      style: textfield_style,
-                                      decoration:
-                                          textfield_decoration_conf_pass,
-                                      controller: cPasswordController,
-                                      enableSuggestions: false,
-                                      autocorrect: false,
-                                      obscuringCharacter: "●",
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(20.0),
-                        // child: RichText(
-                        // text: TextSpan(
-                        //   text:
-                        //       'By signing up, you are agree to our Terms & condition and privacy policy',
-                        //   style: TextStyle(
-                        //       color: Colors.white, fontSize: 18.0),
-                        //   children: <TextSpan>[
-                        //     TextSpan(
-                        //         style: TextStyle(
-                        //       fontWeight: FontWeight.bold,
-                        //     )),
-                        //   ],
-                        // ),
-                        // ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: SizedBox(
-                          width: 200,
-                          height: 60,
-                          child: NeumorphicButton(
-                            style: theme.button,
-                            onPressed: () {
-                              createAccount();
-                            },
-                            child: Text(
-                              "Register",
-                              style: btn_txt_style,
-                              textAlign: TextAlign.center,
+          decoration: theme.background_color,
+          child: Column(
+            children: [
+              Padding(padding: EdgeInsets.symmetric(vertical: minHW * 0.15)),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 11.0),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.51,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              "Let's get you registered",
+                              style: getstart_textstyle,
                             ),
+                            Column(
+                              crossAxisAlignment: alignStart,
+                              children: [
+                                // Text(
+                                //   "Name",
+                                //   style: text_head,
+                                // ),
+                                Neumorphic(
+                                  style: theme.text_field,
+                                  child: TextField(
+                                    style: textfield_style,
+                                    decoration: textfield_decoration_name,
+                                    controller: userNameController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: alignStart,
+                              children: [
+                                // Text(
+                                //   "Email",
+                                //   style: text_head,
+                                // ),
+                                Neumorphic(
+                                  style: theme.text_field,
+                                  child: TextField(
+                                    style: textfield_style,
+                                    decoration: textfield_decoration_email,
+                                    controller: emailController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: alignStart,
+                              children: [
+                                // Text("Password", style: text_head),
+                                Neumorphic(
+                                  style: theme.text_field,
+                                  child: TextField(
+                                    obscureText: true,
+                                    style: textfield_style,
+                                    decoration: textfield_decoration_pass,
+                                    enableSuggestions: false,
+                                    autocorrect: false,
+                                    obscuringCharacter: "●",
+                                    controller: passwordController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: alignStart,
+                              children: [
+                                // Text("Confirm Password", style: text_head),
+                                Neumorphic(
+                                  style: theme.text_field,
+                                  child: TextField(
+                                    style: textfield_style,
+                                    decoration: textfield_decoration_conf_pass,
+                                    controller: cPasswordController,
+                                    enableSuggestions: false,
+                                    autocorrect: false,
+                                    obscuringCharacter: "●",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            role != "admin"
+                                ? Column(
+                                    crossAxisAlignment: alignStart,
+                                    children: [
+                                      Neumorphic(
+                                        style: theme.text_field,
+                                        child: TextField(
+                                          style: textfield_style,
+                                          decoration:
+                                              textfield_decoration_referral_code,
+                                          controller: referralController,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Column()
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      // child: RichText(
+                      // text: TextSpan(
+                      //   text:
+                      //       'By signing up, you are agree to our Terms & condition and privacy policy',
+                      //   style: TextStyle(
+                      //       color: Colors.white, fontSize: 18.0),
+                      //   children: <TextSpan>[
+                      //     TextSpan(
+                      //         style: TextStyle(
+                      //       fontWeight: FontWeight.bold,
+                      //     )),
+                      //   ],
+                      // ),
+                      // ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: SizedBox(
+                        width: 200,
+                        height: 60,
+                        child: NeumorphicButton(
+                          style: theme.button,
+                          onPressed: () {
+                            createAccount();
+                          },
+                          child: Text(
+                            "Register",
+                            style: btn_txt_style,
+                            textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LogIn()),
-                          );
-                        },
-                        child: Text(
-                          "Joined us before? Login",
-                          style: join_textstyle,
-                        ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LogIn()),
+                        );
+                      },
+                      child: Text(
+                        "Joined us before? Login",
+                        style: join_textstyle,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -683,72 +718,111 @@ class _OnBoardState extends State<OnBoard> {
       ),
       home: Scaffold(
         backgroundColor: HexColor.Wbackground_color,
-        body: Onboarding(
-            pages: onboardingPagesList(boxL, minHW, labelStyle, alignStart),
-            onPageChange: (int pageIndex) {
-              index = pageIndex;
-            },
-            footerBuilder: (context, dragDistance, pagesLength, setIndex) {
-              return Positioned(
-                bottom: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? HexColor.Wbackground_color
-                        : HexColor.background_top,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        index != pagesLength - 1
-                            ? _skipButton(setIndex: setIndex)
-                            : _signupButton,
-                        Padding(
-                          padding: const EdgeInsets.only(right: 45.0),
-                          child: CustomIndicator(
-                            netDragPercent: dragDistance,
-                            pagesLength: pagesLength,
-                            indicator: Indicator(
-                              activeIndicator: ActiveIndicator(
-                                  color: HexColor.Whint, borderWidth: 2),
-                              closedIndicator: ClosedIndicator(
-                                  color: HexColor.WblueText, borderWidth: 2),
-                              indicatorDesign: IndicatorDesign.line(
-                                lineDesign: LineDesign(
-                                  lineSpacer: 30,
-                                  lineType: DesignType.line_nonuniform,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Onboarding(
+                  pages:
+                      onboardingPagesList(boxL, minHW, labelStyle, alignStart),
+                  onPageChange: (int pageIndex) {
+                    index = pageIndex;
+                  },
+                  footerBuilder:
+                      (context, dragDistance, pagesLength, setIndex) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: isDark
+                            ? HexColor.background_top
+                            : HexColor.Wbackground_color,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            index != pagesLength - 1
+                                ? _skipButton(setIndex: setIndex)
+                                : _signupButton,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 45.0),
+                              child: CustomIndicator(
+                                netDragPercent: dragDistance,
+                                pagesLength: pagesLength,
+                                indicator: Indicator(
+                                  activeIndicator: ActiveIndicator(
+                                      color: HexColor.Whint, borderWidth: 2),
+                                  closedIndicator: ClosedIndicator(
+                                      color: HexColor.WblueText,
+                                      borderWidth: 2),
+                                  indicatorDesign: IndicatorDesign.line(
+                                    lineDesign: LineDesign(
+                                      lineSpacer: 30,
+                                      lineType: DesignType.line_nonuniform,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              );
-            }),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  Future<bool> checkIfReferralExists(String referralCode) async {
+    try {
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("refferalcode")
+          .where("code", isEqualTo: referralCode)
+          .get();
+
+      return querySnapshot.size > 0;
+    } catch (e) {
+      // Handle any errors that occur while querying Firestore
+      return false;
+    }
+  }
+
+  bool isCodeTrue = true;
 
   void createAccount() async {
     String email = emailController.text.toString().trim();
     String userName = userNameController.text.toString().trim();
     String password = passwordController.text.toString().trim();
     String confirmPassword = cPasswordController.text.toString().trim();
+    String refferalcode = referralController.text.toString().trim();
+
+    if (role == "admin") {
+      String randomString = Random().nextInt(999999).toString().padLeft(6, '0');
+      refferalcode =
+          email.substring(0, 2) + userName.substring(0, 2) + randomString;
+      isCodeTrue = true;
+      print(refferalcode + "szdfcdgvf");
+    } else {
+      print(isCodeTrue);
+      isCodeTrue = await checkIfReferralExists(refferalcode);
+    }
 
     if (email == "" ||
         password == "" ||
         confirmPassword == "" ||
         userName == "" ||
-        selecetedbutton == "") {
+        selecetedbutton == "" ||
+        refferalcode == "" ||
+        !isCodeTrue) {
       snackBar("Fill all the field");
-      print("Fill all the field Or Select role");
+      print("Fill all the field Or Select role Or refferal code not match");
     } else if (password != confirmPassword) {
       snackBar("Password And Confirm Password not match!");
       print("Password And Confirm Password not match!");
@@ -771,6 +845,7 @@ class _OnBoardState extends State<OnBoard> {
           "email": email,
           "password": password,
           "role": role,
+          "refferalcode": refferalcode,
         }).then((value) => {
                   snackBar("Registration successful"),
                   // Navigator.pushReplacement(
@@ -778,6 +853,13 @@ class _OnBoardState extends State<OnBoard> {
                   //   MaterialPageRoute(builder: (context) => LogIn()),
                   // )
                 });
+
+        if (role == "admin") {
+          firestore
+              .collection("refferalcode")
+              .doc()
+              .set({"code": refferalcode});
+        }
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           snackBar('The password provided is too weak.');
@@ -803,11 +885,6 @@ class _OnBoardState extends State<OnBoard> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(showMsg),
       backgroundColor: Colors.blue,
-      behavior: SnackBarBehavior.floating,
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height - 100,
-          right: 20,
-          left: 20),
     ));
   }
 }

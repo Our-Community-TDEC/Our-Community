@@ -27,6 +27,8 @@ class _show_suggestionState extends State<show_suggestion> {
   var title_style;
   var name_style;
   var desc_text_style;
+  var com_sugge_container;
+  var delete_com_sugg_button;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
@@ -55,9 +57,39 @@ class _show_suggestionState extends State<show_suggestion> {
           color: HexColor.text_color,
           fontFamily: 'poppins');
 
-      theme = DarkTheme();
       icon_color = HexColor.icon_color;
+      com_sugge_container = NeumorphicStyle(
+        color: HexColor.background_top,
+        depth: -2,
+        shape: NeumorphicShape.flat,
+        shadowLightColorEmboss: HexColor.blue_shadow,
+        shadowDarkColorEmboss: HexColor.black_shadow,
+      );
+
+      delete_com_sugg_button = NeumorphicStyle(
+        color: HexColor.back_button_background,
+        shadowLightColor: HexColor.blue_shadow,
+        shadowDarkColor: HexColor.black_shadow,
+        depth: 4,
+      );
     } else {
+      delete_com_sugg_button = NeumorphicStyle(
+        color: HexColor.Wbackground_color,
+        shadowLightColor: HexColor.WLightButton,
+        shadowDarkColor: HexColor.WBlackButton,
+        depth: 4,
+      );
+
+      com_sugge_container = NeumorphicStyle(
+        color: HexColor.Wbackground_color,
+        depth: 3,
+        shape: NeumorphicShape.flat,
+        // shadowDarkColor:HexColor.Wdark_container ,
+        // shadowLightColor: HexColor.Wlight_container,
+        shadowLightColorEmboss: HexColor.Wlight_container,
+        shadowDarkColorEmboss: HexColor.Wdark_container,
+      );
+
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -90,6 +122,7 @@ class _show_suggestionState extends State<show_suggestion> {
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -102,6 +135,15 @@ class _show_suggestionState extends State<show_suggestion> {
   }
 
   static String role = "";
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -110,18 +152,21 @@ class _show_suggestionState extends State<show_suggestion> {
     return snapshot.get("userName");
   }
 
+
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     role = snapshot.get("role");
+    print(refferalcode+"getrole");
     setrole();
     return "0";
   }
 
   bool isUser = true;
   setrole() {
+    print(refferalcode+"setrol");
     print("obj" + role);
     if (role == "user") {
       isUser = true;
@@ -135,7 +180,6 @@ class _show_suggestionState extends State<show_suggestion> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     return Theme(
@@ -200,6 +244,7 @@ class _show_suggestionState extends State<show_suggestion> {
                     stream: firestore
                         .collection('suggestion')
                         .orderBy('time', descending: true)
+                        .where("refferalcode", isEqualTo: refferalcode)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {
@@ -214,7 +259,7 @@ class _show_suggestionState extends State<show_suggestion> {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Neumorphic(
-                                    style: theme.com_sugge_container,
+                                    style: com_sugge_container,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20),
                                     child: ListTile(
@@ -241,12 +286,12 @@ class _show_suggestionState extends State<show_suggestion> {
                                                     //   await getName(show_suggestion["UID"]),
                                                     //   style: title_text_style,
                                                     // ), //Darshan
-
+                  
                                                     Text(
                                                         show_suggestion[
                                                             "title"],
                                                         style: title_style),
-
+                  
                                                     FutureBuilder<String>(
                                                       future: getName(
                                                           show_suggestion[
@@ -370,7 +415,7 @@ class _show_suggestionState extends State<show_suggestion> {
                             ),
                           );
                         } else {
-                          return Text("Error");
+                          return Text("There is no any suggestion");
                         }
                       } else {
                         return Center(

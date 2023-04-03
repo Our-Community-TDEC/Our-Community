@@ -184,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role != "plumber" ?
+                      role == "plumber" ?
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => A_Plumber()),
@@ -202,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role != "electrician" ?
+                      role == "electrician" ?
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => A_Electric()),

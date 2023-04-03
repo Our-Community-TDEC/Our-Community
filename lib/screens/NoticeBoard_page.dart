@@ -126,10 +126,21 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     }
   }
 
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
     print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -201,7 +212,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       firestore
           .collection("noticeboard")
           .doc()
-          .set({"title": title, "discription": discription, "date": day}).then(
+          .set({"title": title, "discription": discription, "date": day, "refferalcode" : refferalcode}).then(
         (value) => {
           noticeTitle.clear(),
           noticeDescription.clear(),
@@ -223,10 +234,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: role == "admin" ? FloatingActionButton(
         onPressed: () => _showAddEventDialog(),
         child: Icon(Icons.add),
-      ),
+      ) : null,
       body: Container(
         decoration: theme.background_color,
         child: Column(
@@ -311,6 +322,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                 stream: FirebaseFirestore.instance
                     .collection('noticeboard')
                     .where('date', isEqualTo: day)
+                    .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
