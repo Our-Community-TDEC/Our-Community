@@ -66,65 +66,65 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     if (role == "user") {
       isUser = true;
     } else if (role == "admin") {
-      print("object");
       isUser = false;
     }
   }
 
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
-      // theme = DarkTheme();
-      title_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: HexColor.text_color,
-          fontFamily: 'poppins');
+    // if (false) {
+    //   // theme = DarkTheme();
+    //   title_style = TextStyle(
+    //       fontSize: 20,
+    //       fontWeight: FontWeight.w700,
+    //       color: HexColor.text_color,
+    //       fontFamily: 'poppins');
 
-      page_title_style = TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: HexColor.text_color,
-      );
+    //   page_title_style = TextStyle(
+    //     fontSize: 30,
+    //     fontWeight: FontWeight.w400,
+    //     color: HexColor.text_color,
+    //   );
 
-      desc_text_style = TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: HexColor.text_color,
-          fontFamily: 'poppins');
+    //   desc_text_style = TextStyle(
+    //       fontSize: 15,
+    //       fontWeight: FontWeight.w400,
+    //       color: HexColor.text_color,
+    //       fontFamily: 'poppins');
 
-      icon_color = HexColor.icon_color;
+    //   icon_color = HexColor.icon_color;
 
-      TextStyle(
-          color: HexColor.text_color,
-          fontSize: 19,
-          fontWeight: FontWeight.w600);
-    } else {
-      theme = WhiteTheme();
-      desc_text_style = TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: HexColor.WblackText,
-          fontFamily: 'poppins');
+    //   TextStyle(
+    //       color: HexColor.text_color,
+    //       fontSize: 19,
+    //       fontWeight: FontWeight.w600);
+    // } else {
+    //   // theme = WhiteTheme();
+    //   desc_text_style = TextStyle(
+    //       fontSize: 15,
+    //       fontWeight: FontWeight.w400,
+    //       color: HexColor.WblackText,
+    //       fontFamily: 'poppins');
 
-      icon_color = HexColor.WiconColor;
+    //   icon_color = HexColor.WiconColor;
 
-      page_title_style = TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: HexColor.WblueText,
-      );
+    //   page_title_style = TextStyle(
+    //     fontSize: 30,
+    //     fontWeight: FontWeight.w400,
+    //     color: HexColor.WblackText,
+    //   );
+    //   print("title");
+    //   title_style = TextStyle(
+    //       fontSize: 20,
+    //       fontWeight: FontWeight.w700,
+    //       color: HexColor.WblackText,
+    //       fontFamily: 'poppins');
 
-      title_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: HexColor.WblackText,
-          fontFamily: 'poppins');
-
-      btn_text = TextStyle(
-          color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
-    }
+    //   btn_text = TextStyle(
+    //       color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
+    // }
   }
+  
 
   String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
@@ -139,9 +139,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
     refferalcode = await getCurrentUserRefferalCode();
-    themeF(isDark);
+    await themeF(isDark);
   }
 
   @override
@@ -157,6 +156,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   TextEditingController noticeTitle = TextEditingController();
   TextEditingController noticeDescription = TextEditingController();
   @override
+  
   _showAddEventDialog() async {
     await showDialog(
       context: context,
@@ -209,10 +209,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     String discription = noticeDescription.text.trim();
     print(title);
     if (title != "" || discription != "") {
-      firestore
-          .collection("noticeboard")
-          .doc()
-          .set({"title": title, "discription": discription, "date": day, "refferalcode" : refferalcode}).then(
+      firestore.collection("noticeboard").doc().set({
+        "title": title,
+        "discription": discription,
+        "date": day,
+        "refferalcode": refferalcode
+      }).then(
         (value) => {
           noticeTitle.clear(),
           noticeDescription.clear(),
@@ -233,11 +235,64 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   }
 
   Widget build(BuildContext context) {
+    if (isDark) {
+      // theme = DarkTheme();
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.text_color,
+      );
+
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      icon_color = HexColor.icon_color;
+
+      TextStyle(
+          color: HexColor.text_color,
+          fontSize: 19,
+          fontWeight: FontWeight.w600);
+    } else {
+      theme = WhiteTheme();
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      icon_color = HexColor.WiconColor;
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblackText,
+      );
+      print("title");
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      btn_text = TextStyle(
+          color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
+    }
     return Scaffold(
-      floatingActionButton: role == "admin" ? FloatingActionButton(
-        onPressed: () => _showAddEventDialog(),
-        child: Icon(Icons.add),
-      ) : null,
+      floatingActionButton: role != "admin"
+          ? FloatingActionButton(
+              onPressed: () => _showAddEventDialog(),
+              child: Icon(Icons.add),
+            )
+          : null,
       body: Container(
         decoration: theme.background_color,
         child: Column(
@@ -305,7 +360,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
               calendarBuilders: CalendarBuilders(
                 dowBuilder: (context, day) {
                   if (day.weekday == DateTime.sunday) {
-                    print("object");
                     final text = DateFormat.E().format(day);
                     return Center(
                       child: Text(
@@ -325,23 +379,15 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                     .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData &&
+                      snapshot.data != null &&
+                      snapshot.data!.docs.length != 0) {
                     documents = snapshot.data!.docs;
                     return ListView.builder(
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
                         final data =
                             documents[index].data() as Map<String, dynamic>;
-                        // final attendance =
-                        //     data['attendance'] as Map<String, dynamic>?;
-                        // final lecturePresent = attendance != null &&
-                        //     attendance.containsKey(widget.studentId);
-                        //  &&attendance[widget.studentId] is bool &&
-                        // attendance[widget.studentId] == true;
-                        //  &&attendance[widget.studentId] == false;
-                        // final lecturePresent =
-                        //     data['attendance'][widget.studentId];
-                        // print(lecturePresent);
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
@@ -413,9 +459,14 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                       },
                     );
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    if (snapshot.data != null &&
+                        snapshot.data!.docs.length == 0) {
+                      return Center(child: Text("There is no any notice"));
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   }
                 },
               ),
