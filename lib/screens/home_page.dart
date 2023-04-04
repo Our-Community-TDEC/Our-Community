@@ -20,8 +20,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
 import 'Admin/show_complaint.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'Services/Cleaning.dart';
+import 'Services/Electric.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+import 'Services/admins/A_Cleaning.dart';
+import 'Services/admins/A_Doctor.dart';
+import 'Services/admins/A_Electric.dart';
+import 'Services/admins/A_Plumber.dart';
 import 'add_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -178,10 +184,50 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
+                      role == "plumber" ?
                       Navigator.push(
                         context,
+                        MaterialPageRoute(builder: (context) => A_Plumber()),
+                      ) :Navigator.push(
+                        context,
                         MaterialPageRoute(builder: (context) => Plumber()),
-                      );
+                      ) ;
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Electrician"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "electrician" ?
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => A_Electric()),
+                      ) :Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Electritian()),
+                      ) ;
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Cleaner"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "cleaner" ?
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => A_Cleaning()),
+                      ) :Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Cleaning()),
+                      ) ;
                     },
                   ),
                   ListTile(
@@ -192,10 +238,14 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
+                      role == "doctor" ?
                       Navigator.push(
                         context,
+                        MaterialPageRoute(builder: (context) => A_Doctor()),
+                      ) :Navigator.push(
+                        context,
                         MaterialPageRoute(builder: (context) => Doctor()),
-                      );
+                      ) ;
                     },
                   ),
                 ],

@@ -33,7 +33,7 @@ class _chatpageState extends State<chatpage> {
       theme = WhiteTheme();
       msg_textbox =
           TextStyle(color: HexColor.WblackText, fontWeight: FontWeight.w500);
-          icon_color = HexColor.WiconColor;
+      icon_color = HexColor.WiconColor;
     }
     setState(() {});
   }
@@ -53,11 +53,14 @@ class _chatpageState extends State<chatpage> {
     // getTheme();
   }
 
+  String refferalcode = "";
   Future<String> getName() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
+
+    refferalcode = snapshot.get("refferalcode");
     return snapshot.get("userName");
   }
 
@@ -87,11 +90,11 @@ class _chatpageState extends State<chatpage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Divider(
-                        thickness: 5,
-                        indent: 12,
-                        endIndent: 12,
-                        color: Colors.black,
-                      ),
+                thickness: 5,
+                indent: 12,
+                endIndent: 12,
+                color: Colors.black,
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: SingleChildScrollView(
@@ -135,13 +138,15 @@ class _chatpageState extends State<chatpage> {
                               'email': email,
                               'userName': userName,
                               'uid': FirebaseAuth.instance.currentUser?.uid,
+                              "refferalcode":refferalcode
                             });
                             message.clear();
                           } else {
                             getUserInfo();
                           }
                         },
-                        icon: Icon(Icons.send_sharp,
+                        icon: Icon(
+                          Icons.send_sharp,
                           color: icon_color,
                         ),
                       ),

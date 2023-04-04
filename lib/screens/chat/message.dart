@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
@@ -32,6 +33,7 @@ class _messagesState extends State<messages> {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
     print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -46,14 +48,20 @@ class _messagesState extends State<messages> {
   String email;
   _messagesState({required this.email});
 
-  Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-      .collection('Messages')
-      .orderBy('time')
-      .snapshots();
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
+  
 
   late ScrollController _scrollController;
   void scroll() {
-    print("scrolll");
     _scrollController = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -62,6 +70,11 @@ class _messagesState extends State<messages> {
 
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
+      .collection('Messages')
+      .orderBy('time')
+      .where("refferalcode", isEqualTo: refferalcode)
+      .snapshots();
     return StreamBuilder(
       stream: _messageStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

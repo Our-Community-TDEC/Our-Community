@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:our_community/screens/onboard.dart';
 import 'dart:math';
 import '../../nuemorphism/colors.dart';
 
@@ -74,7 +75,7 @@ class WelcomePage extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LogIn()),
+                        MaterialPageRoute(builder: (context) => OnBoard()),
                       );
                     },
                     child: const Text(

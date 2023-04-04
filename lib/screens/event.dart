@@ -31,7 +31,7 @@ class _EventState extends State<Event> {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   bool isUser = true;
   static String role = "";
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -55,8 +55,8 @@ class _EventState extends State<Event> {
 
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (isDark) {
-      theme = DarkTheme();
+    if (false) {
+      // theme = DarkTheme();
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -109,10 +109,20 @@ class _EventState extends State<Event> {
     setState(() {});
   }
 
+ String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -224,11 +234,11 @@ class _EventState extends State<Event> {
                         height: 40,
                         child: NeumorphicButton(
                           onPressed: () => {Navigator.pop(context)},
+                          style: theme.back_button,
                           child: Icon(
                             Icons.arrow_back_ios,
                             color: icon_color,
                           ),
-                          style: theme.back_button,
                         ),
                       ),
                       Text(
@@ -275,7 +285,6 @@ class _EventState extends State<Event> {
               calendarBuilders: CalendarBuilders(
                 dowBuilder: (context, day) {
                   if (day.weekday == DateTime.sunday) {
-                    print("object");
                     final text = DateFormat.E().format(day);
                     return Center(
                       child: Text(
@@ -287,30 +296,21 @@ class _EventState extends State<Event> {
                 },
               ),
             ),
-            Expanded(
+             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('event')
                     .where('date', isEqualTo: day)
+                    .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
                     documents = snapshot.data!.docs;
                     return ListView.builder(
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
                         final data =
                             documents[index].data() as Map<String, dynamic>;
-                        // final attendance =
-                        //     data['attendance'] as Map<String, dynamic>?;
-                        // final lecturePresent = attendance != null &&
-                        //     attendance.containsKey(widget.studentId);
-                        //  &&attendance[widget.studentId] is bool &&
-                        // attendance[widget.studentId] == true;
-                        //  &&attendance[widget.studentId] == false;
-                        // final lecturePresent =
-                        //     data['attendance'][widget.studentId];
-                        // print(lecturePresent);
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
@@ -355,6 +355,9 @@ class _EventState extends State<Event> {
                                                             .toString())
                                                         .delete();
                                                   },
+                                                  style: theme.button,
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
@@ -362,13 +365,9 @@ class _EventState extends State<Event> {
                                                         horizontal: 20),
                                                     child: Text(
                                                       "Remove",
-                                                      style:btn_text,
+                                                      style: btn_text,
                                                     ),
                                                   ),
-                                                  style: theme
-                                                      .button,
-                                                  padding:
-                                                      const EdgeInsets.all(5),
                                                 ),
                                               ),
                                             ],
@@ -383,47 +382,16 @@ class _EventState extends State<Event> {
                       },
                     );
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
+                      return const Center(child:Text("There is no any event"));
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   }
                 },
               ),
-              //     StreamBuilder<QuerySnapshot>(
-              //   stream: FirebaseFirestore.instance
-              //       .collection('attendance')
-              //       .doc(widget.sub)
-              //       .collection('lectures')
-              //       .where('date', isEqualTo: day)
-              //       .snapshots(),
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       final documents = snapshot.data!.docs;
-              //       return ListView.builder(
-              //         itemCount: documents.length,
-              //         itemBuilder: (context, index) {
-              //           final data =
-              //               documents[index].data() as Map<String, dynamic>;
-              //           final attendanceData =
-              //               data['attendance'] as Map<String, dynamic>?;
-              //           final lecturePresent =
-              //               attendanceData?[widget.studentId] ?? false;
-              //           final attendanceStatus =
-              //               lecturePresent ? 'Present' : 'Absent';
-              //           return ListTile(
-              //             title: Text('Lecture ${index + 1}'),
-              //             subtitle: Text('${data['start']} - ${data['end']}'),
-              //             trailing: Text(attendanceStatus),
-              //           );
-              //         },
-              //       );
-              //     } else {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     }
-              //   },
-              // ),
             ),
           ],
         ),
