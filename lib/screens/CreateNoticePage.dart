@@ -38,6 +38,7 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
     getPreference();
     // getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

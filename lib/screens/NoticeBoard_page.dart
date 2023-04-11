@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -514,5 +515,4 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
   // List<Event> _getEventsForDay(DateTime day) {
   //   return events[day] ?? [];
-  // }
-}
+  // }}
