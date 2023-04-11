@@ -193,7 +193,7 @@ class _EventState extends State<Event> {
       firestore
           .collection("event")
           .doc()
-          .set({"title": title, "discription": discription, "date": day}).then(
+          .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
         (value) => {
           eventTitle.clear(),
           eventDescription.clear(),

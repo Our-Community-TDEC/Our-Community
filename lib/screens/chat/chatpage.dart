@@ -35,7 +35,6 @@ class _chatpageState extends State<chatpage> {
           TextStyle(color: HexColor.WblackText, fontWeight: FontWeight.w500);
       icon_color = HexColor.WiconColor;
     }
-    setState(() {});
   }
 
   getPreference() async {

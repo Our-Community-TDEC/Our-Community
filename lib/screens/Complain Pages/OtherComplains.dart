@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -29,7 +28,7 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
 
 class _OtherComplainsState extends State<OtherComplains> {
   bool uploadingImage = false;
-  bool _isButtonEnabled = true; 
+  bool _isButtonEnabled = true;
 
   // var theme;
   WhiteTheme theme = WhiteTheme();
@@ -90,7 +89,18 @@ class _OtherComplainsState extends State<OtherComplains> {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
     print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
+  }
+
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
   }
 
   @override
@@ -121,7 +131,8 @@ class _OtherComplainsState extends State<OtherComplains> {
           "description": description,
           "time": datetime,
           "UID": FirebaseAuth.instance.currentUser?.uid,
-          "img": imageUrl
+          "img": imageUrl,
+          "refferalcode": refferalcode
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Complain Posted"),

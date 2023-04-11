@@ -21,7 +21,7 @@ class show_suggestion extends StatefulWidget {
 }
 
 class _show_suggestionState extends State<show_suggestion> {
-  var theme;
+  WhiteTheme theme = WhiteTheme();
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
@@ -181,6 +181,8 @@ class _show_suggestionState extends State<show_suggestion> {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    
 
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),

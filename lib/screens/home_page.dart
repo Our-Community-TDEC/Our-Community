@@ -184,14 +184,17 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role == "plumber" ?
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => A_Plumber()),
-                      ) :Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Plumber()),
-                      ) ;
+                      role == "plumber"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Plumber()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Plumber()),
+                            );
                     },
                   ),
                   ListTile(
@@ -202,14 +205,17 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role == "electrician" ?
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => A_Electric()),
-                      ) :Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Electritian()),
-                      ) ;
+                      role == "electrician"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Electric()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Electritian()),
+                            );
                     },
                   ),
                   ListTile(
@@ -220,14 +226,17 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role == "cleaner" ?
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => A_Cleaning()),
-                      ) :Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Cleaning()),
-                      ) ;
+                      role == "cleaner"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Cleaning()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Cleaning()),
+                            );
                     },
                   ),
                   ListTile(
@@ -238,14 +247,16 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      role == "doctor" ?
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => A_Doctor()),
-                      ) :Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Doctor()),
-                      ) ;
+                      role == "doctor"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Doctor()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Doctor()),
+                            );
                     },
                   ),
                 ],
