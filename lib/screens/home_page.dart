@@ -9,6 +9,7 @@ import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/event.dart';
 import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
@@ -19,8 +20,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
 import 'Admin/show_complaint.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'Services/Cleaning.dart';
+import 'Services/Electric.dart';
 import 'Services/Plumber.dart';
 import 'package:lite_rolling_switch/lite_rolling_switch.dart';
+import 'Services/admins/A_Cleaning.dart';
+import 'Services/admins/A_Doctor.dart';
+import 'Services/admins/A_Electric.dart';
+import 'Services/admins/A_Plumber.dart';
 import 'add_home.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,39 +66,42 @@ class _HomePageState extends State<HomePage> {
   var welcome_color = HexColor.WBlackButton;
   themeF(isDark) {
     print("Themef" + isDark.toString());
-    if (isDark) {
+    if (false) {
       // DarkTheme theme = DarkTheme();
       // theme = null;
       // theme = DarkTheme();
-      welcome_color = HexColor.text_color;
-      text_style = TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          fontFamily: 'poppins');
 
-      user_name_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-          fontFamily: 'poppins');
-    } else {
-      // theme = WhiteTheme();
+      setState(() {
+        welcome_color = HexColor.text_color;
+        text_style = TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+
+        user_name_style = TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            fontFamily: 'poppins');
+      });
+    } else {}
+    setState(() {
       theme = WhiteTheme();
       welcome_color = HexColor.WblueText;
       text_style = TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w500,
-          color: HexColor.WblueText,
-          fontFamily: 'poppins');
-
+        fontSize: 19,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblueText,
+        fontFamily: 'poppins',
+      );
       user_name_style = TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: HexColor.WblackText,
-          fontFamily: 'poppins');
-    }
-    setState(() {});
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: HexColor.WblackText,
+        fontFamily: 'poppins',
+      );
+    });
   }
 
   getPreference() async {
@@ -117,7 +127,6 @@ class _HomePageState extends State<HomePage> {
     } else if (role == "admin") {
       isUser = false;
     }
-    print(role + "efcd");
   }
 
   // WhiteTheme theme = new WhiteTheme();
@@ -175,10 +184,59 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Plumber()),
-                      );
+                      role == "plumber"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Plumber()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Plumber()),
+                            );
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Electrician"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "electrician"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Electric()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Electritian()),
+                            );
+                    },
+                  ),
+                  ListTile(
+                    title: Row(
+                      children: [
+                        Icon(Icons.water_damage),
+                        Text("Cleaner"),
+                      ],
+                    ),
+                    onTap: () {
+                      role == "cleaner"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Cleaning()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Cleaning()),
+                            );
                     },
                   ),
                   ListTile(
@@ -189,10 +247,16 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Doctor()),
-                      );
+                      role == "doctor"
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => A_Doctor()),
+                            )
+                          : Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Doctor()),
+                            );
                     },
                   ),
                 ],
@@ -441,9 +505,9 @@ class _HomePageState extends State<HomePage> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             AttendanceCalendarPage(
-                                              studentId: 'w',
-                                              sub: 'w',
-                                            ),
+                                          studentId: 'w',
+                                          sub: 'w',
+                                        ),
                                       ),
                                     );
                                   },
@@ -476,13 +540,12 @@ class _HomePageState extends State<HomePage> {
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         Notice_Board_Page(),
-                                    //   ),
-                                    // )
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Event(),
+                                      ),
+                                    );
                                   },
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

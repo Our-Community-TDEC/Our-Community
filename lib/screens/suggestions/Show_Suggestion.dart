@@ -16,18 +16,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/border_effect.dart';
 
 class show_suggestion extends StatefulWidget {
-  
   @override
   State<show_suggestion> createState() => _show_suggestionState();
 }
 
 class _show_suggestionState extends State<show_suggestion> {
-  var theme;
-  var icon_color=HexColor.WBlackButton;
+  WhiteTheme theme = WhiteTheme();
+  var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
   var name_style;
   var desc_text_style;
+  var com_sugge_container;
+  var delete_com_sugg_button;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
@@ -56,9 +57,39 @@ class _show_suggestionState extends State<show_suggestion> {
           color: HexColor.text_color,
           fontFamily: 'poppins');
 
-      theme = DarkTheme();
       icon_color = HexColor.icon_color;
+      com_sugge_container = NeumorphicStyle(
+        color: HexColor.background_top,
+        depth: -2,
+        shape: NeumorphicShape.flat,
+        shadowLightColorEmboss: HexColor.blue_shadow,
+        shadowDarkColorEmboss: HexColor.black_shadow,
+      );
+
+      delete_com_sugg_button = NeumorphicStyle(
+        color: HexColor.back_button_background,
+        shadowLightColor: HexColor.blue_shadow,
+        shadowDarkColor: HexColor.black_shadow,
+        depth: 4,
+      );
     } else {
+      delete_com_sugg_button = NeumorphicStyle(
+        color: HexColor.Wbackground_color,
+        shadowLightColor: HexColor.WLightButton,
+        shadowDarkColor: HexColor.WBlackButton,
+        depth: 4,
+      );
+
+      com_sugge_container = NeumorphicStyle(
+        color: HexColor.Wbackground_color,
+        depth: 3,
+        shape: NeumorphicShape.flat,
+        // shadowDarkColor:HexColor.Wdark_container ,
+        // shadowLightColor: HexColor.Wlight_container,
+        shadowLightColorEmboss: HexColor.Wlight_container,
+        shadowDarkColorEmboss: HexColor.Wdark_container,
+      );
+
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -91,7 +122,7 @@ class _show_suggestionState extends State<show_suggestion> {
   getPreference() async {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -100,7 +131,18 @@ class _show_suggestionState extends State<show_suggestion> {
     // TODO: implement initState
     super.initState();
     getPreference();
-    // getTheme();
+    getRole();
+  }
+
+  static String role = "";
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
   }
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -110,12 +152,37 @@ class _show_suggestionState extends State<show_suggestion> {
     return snapshot.get("userName");
   }
 
+
+  Future<String> getRole() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    print(refferalcode+"getrole");
+    setrole();
+    return "0";
+  }
+
+  bool isUser = true;
+  setrole() {
+    print(refferalcode+"setrol");
+    print("obj" + role);
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      print("object");
+      isUser = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    
 
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
@@ -132,9 +199,7 @@ class _show_suggestionState extends State<show_suggestion> {
                       MaterialPageRoute(builder: (context) => NewSuggestion()),
                     ),
                   },
-                  child: Icon(
-                    Icons.add,color: icon_color
-                  ),
+                  child: Icon(Icons.add, color: icon_color),
                   style: theme.back_button,
                 ),
               ),
@@ -156,7 +221,8 @@ class _show_suggestionState extends State<show_suggestion> {
                               child: NeumorphicButton(
                                 onPressed: () => {Navigator.pop(context)},
                                 child: Icon(
-                                  Icons.arrow_back_ios,color: icon_color,
+                                  Icons.arrow_back_ios,
+                                  color: icon_color,
                                 ),
                                 style: theme.back_button,
                               ),
@@ -180,6 +246,7 @@ class _show_suggestionState extends State<show_suggestion> {
                     stream: firestore
                         .collection('suggestion')
                         .orderBy('time', descending: true)
+                        .where("refferalcode", isEqualTo: refferalcode)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {
@@ -194,7 +261,7 @@ class _show_suggestionState extends State<show_suggestion> {
                                 return Padding(
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: Neumorphic(
-                                    style: theme.com_sugge_container,
+                                    style: com_sugge_container,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20),
                                     child: ListTile(
@@ -210,8 +277,9 @@ class _show_suggestionState extends State<show_suggestion> {
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(
-                                                  10, 0, 0, 0),
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      10, 0, 0, 0),
                                               child: Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
@@ -220,15 +288,16 @@ class _show_suggestionState extends State<show_suggestion> {
                                                     //   await getName(show_suggestion["UID"]),
                                                     //   style: title_text_style,
                                                     // ), //Darshan
-            
+                  
                                                     Text(
-                                                      show_suggestion["title"],
-                                                      style: title_style
-                                                    ),
-            
+                                                        show_suggestion[
+                                                            "title"],
+                                                        style: title_style),
+                  
                                                     FutureBuilder<String>(
                                                       future: getName(
-                                                          show_suggestion["UID"]),
+                                                          show_suggestion[
+                                                              "UID"]),
                                                       builder: (BuildContext
                                                               context,
                                                           AsyncSnapshot<String>
@@ -237,13 +306,13 @@ class _show_suggestionState extends State<show_suggestion> {
                                                           return Text(
                                                               snapshot.data
                                                                   .toString(),
-                                                              style: name_style);
+                                                              style:
+                                                                  name_style);
                                                         } else if (snapshot
                                                             .hasError) {
                                                           return Text(
                                                             "Loading...",
-                                                            style:
-                                                                name_style,
+                                                            style: name_style,
                                                           );
                                                         } else {
                                                           return Text(
@@ -266,60 +335,68 @@ class _show_suggestionState extends State<show_suggestion> {
                                             padding: const EdgeInsets.fromLTRB(
                                                 10, 0, 0, 0),
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 6),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 6),
                                               child: Text(
                                                 show_suggestion["description"],
                                                 style: desc_text_style,
                                               ),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 7.0),
-                                            child: Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 10, 0),
-                                                  child: SizedBox(
-                                                    width: 40,
-                                                    height: 40,
-                                                    child: NeumorphicButton(
-                                                      onPressed: () => print(
-                                                          'clicked on list'),
-                                                      child: Icon(Icons
-                                                          .check_circle_outline,color: icon_color),
-                                                      style: theme.back_button,
-                                                      padding:
-                                                          const EdgeInsets.all(5),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 0, 10, 0),
-                                                  child: SizedBox(
-                                                    width: 40,
-                                                    height: 40,
-                                                    child: NeumorphicButton(
-                                                      onPressed: () => print(
-                                                          'clicked on list'),
-                                                      child: Icon(
-                                                          Icons.cancel_outlined,
-                                                          color: icon_color,
+                                          isUser
+                                              ? Row()
+                                              : Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 7.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 0, 10, 0),
+                                                        child: NeumorphicButton(
+                                                          onPressed: () {
+                                                            firestore
+                                                                .collection(
+                                                                    "suggestion")
+                                                                .doc(snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .reference
+                                                                    .id
+                                                                    .toString())
+                                                                .delete();
+                                                          },
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical: 4,
+                                                                    horizontal:
+                                                                        20),
+                                                            child: Text(
+                                                              "Delete",
+                                                              style: TextStyle(
+                                                                  color: HexColor
+                                                                      .text_color,
+                                                                  fontSize: 19,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                            ),
                                                           ),
-                                                      style: theme.back_button,
-                                                      padding:
-                                                          const EdgeInsets.all(5),
-                                                    ),
+                                                          style: theme
+                                                              .delete_com_sugg_button,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
                                         ],
                                       ),
                                       // trailing: IconButton(
@@ -340,7 +417,7 @@ class _show_suggestionState extends State<show_suggestion> {
                             ),
                           );
                         } else {
-                          return Text("Error");
+                          return Text("There is no any suggestion");
                         }
                       } else {
                         return Center(

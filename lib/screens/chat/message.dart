@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
@@ -20,16 +21,10 @@ class _messagesState extends State<messages> {
     print("Theme" + isDark.toString());
     if (false) {
       // theme = DarkTheme();
-      msg_text_style = TextStyle(
-        fontSize: 15,
-        color: HexColor.text_color
-      );
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.text_color);
     } else {
       theme = WhiteTheme();
-      msg_text_style = TextStyle(
-        fontSize: 15,
-        color: HexColor.WblueText
-      );
+      msg_text_style = TextStyle(fontSize: 15, color: HexColor.WblueText);
     }
     setState(() {});
   }
@@ -38,6 +33,7 @@ class _messagesState extends State<messages> {
     var pref = await SharedPreferences.getInstance();
     isDark = pref.getBool("Theme")!;
     print("object" + isDark.toString());
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -52,13 +48,33 @@ class _messagesState extends State<messages> {
   String email;
   _messagesState({required this.email});
 
-  Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-      .collection('Messages')
-      .orderBy('time')
-      .snapshots();
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
+  
+
+  late ScrollController _scrollController;
+  void scroll() {
+    _scrollController = ScrollController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
+      .collection('Messages')
+      .orderBy('time')
+      .where("refferalcode", isEqualTo: refferalcode)
+      .snapshots();
     return StreamBuilder(
       stream: _messageStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -70,12 +86,13 @@ class _messagesState extends State<messages> {
             child: CircularProgressIndicator(),
           );
         }
-
+        scroll();
         return ListView.builder(
+          controller: _scrollController,
           itemCount: snapshot.data!.docs.length,
           physics: ScrollPhysics(),
           shrinkWrap: true,
-          primary: true,
+          // primary: true,
           itemBuilder: (_, index) {
             QueryDocumentSnapshot qs = snapshot.data!.docs[index];
             Timestamp t = qs['time'];
@@ -113,7 +130,8 @@ class _messagesState extends State<messages> {
                                 ),
                               ),
                               Text(
-                                d.hour.toString() + ":" + d.minute.toString(),style: msg_text_style,
+                                d.hour.toString() + ":" + d.minute.toString(),
+                                style: msg_text_style,
                               )
                             ],
                           ),

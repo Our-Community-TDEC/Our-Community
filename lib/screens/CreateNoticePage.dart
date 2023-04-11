@@ -58,14 +58,9 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
                         onPressed: () {
                           print('Clicked on list');
                           Navigator.pop(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AttendanceCalendarPage(
-                                studentId: 'w',
-                                sub: 'w',
-                              ),
-                            ),
-                          );
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AttendanceCalendarPage(studentId: 'w', sub: 'w',)));
                         },
                         icon: Icon(Icons.arrow_back),
                         color: Colors.blue,
