@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/main.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/provider/googlesignin.dart';
+import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
@@ -236,7 +237,7 @@ class _LogInState extends State<LogIn> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Register()));
+                                    builder: (context) => OnBoard()));
                           },
                           child: RichText(
                             text: TextSpan(

@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -125,7 +124,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     //       color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
     // }
   }
-  
 
   String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
@@ -138,10 +136,12 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
-    await themeF(isDark);
+    themeF(isDark);
   }
 
   @override
@@ -157,7 +157,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   TextEditingController noticeTitle = TextEditingController();
   TextEditingController noticeDescription = TextEditingController();
   @override
-  
   _showAddEventDialog() async {
     await showDialog(
       context: context,
@@ -516,3 +515,4 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   // List<Event> _getEventsForDay(DateTime day) {
   //   return events[day] ?? [];
   // }}
+}

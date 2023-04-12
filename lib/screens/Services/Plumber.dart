@@ -46,7 +46,6 @@ class _Plumber extends State<Plumber> {
     setState(() {});
   }
 
-
   @override
   initState() {
     // TODO: implement initState
@@ -57,12 +56,14 @@ class _Plumber extends State<Plumber> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
+
   String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -197,7 +198,7 @@ class _Plumber extends State<Plumber> {
             "discription": discription,
             "date": day,
             "duration": workDuration,
-            "refferalcode":refferalcode
+            "refferalcode": refferalcode
           }).then(
             (value) => {
               plumbingTitle.clear(),
@@ -438,7 +439,8 @@ class _Plumber extends State<Plumber> {
                               Text("Total duration"),
                               Text(
                                 workDuration,
-                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                style: TextStyle(
+                                    fontSize: 20, color: HexColor.WiconColor),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -461,7 +463,8 @@ class _Plumber extends State<Plumber> {
                               Text("Start time"),
                               Text(
                                 bedTime,
-                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                style: TextStyle(
+                                    fontSize: 20, color: HexColor.WiconColor),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -484,7 +487,8 @@ class _Plumber extends State<Plumber> {
                               Text("End Time"),
                               Text(
                                 alarmTime,
-                                style: TextStyle(fontSize: 20,color:HexColor.WiconColor ),
+                                style: TextStyle(
+                                    fontSize: 20, color: HexColor.WiconColor),
                                 textAlign: TextAlign.center,
                               ),
                             ],

@@ -52,9 +52,10 @@ class _ProfileState extends State<Profile> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+   SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     await getUserDetail();
     themeF(isDark);
   }
@@ -210,7 +211,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.pop(context);
               }),
           TextButton(
-              child: Text('Add Event'),
+              child: Text('Update detail'),
               onPressed: () {
                 add();
                 Navigator.pop(context);

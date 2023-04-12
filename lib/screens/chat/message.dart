@@ -30,9 +30,10 @@ class _messagesState extends State<messages> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
@@ -58,8 +59,6 @@ class _messagesState extends State<messages> {
     return snapshot.get("refferalcode");
   }
 
-  
-
   late ScrollController _scrollController;
   void scroll() {
     _scrollController = ScrollController();
@@ -71,10 +70,10 @@ class _messagesState extends State<messages> {
   @override
   Widget build(BuildContext context) {
     Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
-      .collection('Messages')
-      .orderBy('time')
-      .where("refferalcode", isEqualTo: refferalcode)
-      .snapshots();
+        .collection('Messages')
+        .orderBy('time')
+        .where("refferalcode", isEqualTo: refferalcode)
+        .snapshots();
     return StreamBuilder(
       stream: _messageStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

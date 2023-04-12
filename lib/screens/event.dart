@@ -119,9 +119,11 @@ class _EventState extends State<Event> {
     return snapshot.get("refferalcode");
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
+   getPreference() async {
+   SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }

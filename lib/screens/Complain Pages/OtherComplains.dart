@@ -89,9 +89,10 @@ class _OtherComplainsState extends State<OtherComplains> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
