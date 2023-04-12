@@ -18,7 +18,6 @@ class A_Doctor extends StatefulWidget {
 }
 
 class _A_DoctorState extends State<A_Doctor> {
-
   TextEditingController nameController = new TextEditingController();
   TextEditingController mobileController = new TextEditingController();
   TextEditingController sloteController = new TextEditingController();
@@ -41,34 +40,34 @@ class _A_DoctorState extends State<A_Doctor> {
         color: HexColor.text_color,
       );
     } else {
-       title_style = TextStyle(
+      title_style = TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w700,
         color: HexColor.WblackText,
         fontFamily: 'poppins',
       );
 
-       desc_text_style = TextStyle(
+      desc_text_style = TextStyle(
         fontSize: 17,
         fontWeight: FontWeight.w400,
         color: HexColor.WblackText,
         fontFamily: 'poppins',
       );
 
-       duration__text_style = TextStyle(
+      duration__text_style = TextStyle(
         fontSize: 10,
         fontWeight: FontWeight.w400,
         color: HexColor.WblackText,
         fontFamily: 'poppins',
       );
 
-       btn_text = TextStyle(
+      btn_text = TextStyle(
         color: HexColor.WblueText,
         fontSize: 19,
         fontWeight: FontWeight.w600,
       );
 
-       page_title_style = TextStyle(
+      page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
         color: HexColor.WblueText,
@@ -78,9 +77,10 @@ class _A_DoctorState extends State<A_Doctor> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
@@ -117,7 +117,6 @@ class _A_DoctorState extends State<A_Doctor> {
 
     return snapshot.get("refferalcode");
   }
-
 
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -254,7 +253,7 @@ class _A_DoctorState extends State<A_Doctor> {
 
   var documents;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  
+
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(

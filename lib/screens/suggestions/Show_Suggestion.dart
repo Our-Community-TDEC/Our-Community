@@ -120,8 +120,10 @@ class _show_suggestionState extends State<show_suggestion> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
@@ -144,6 +146,7 @@ class _show_suggestionState extends State<show_suggestion> {
 
     return snapshot.get("refferalcode");
   }
+
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -152,21 +155,20 @@ class _show_suggestionState extends State<show_suggestion> {
     return snapshot.get("userName");
   }
 
-
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     role = snapshot.get("role");
-    print(refferalcode+"getrole");
+    print(refferalcode + "getrole");
     setrole();
     return "0";
   }
 
   bool isUser = true;
   setrole() {
-    print(refferalcode+"setrol");
+    print(refferalcode + "setrol");
     print("obj" + role);
     if (role == "user") {
       isUser = true;
@@ -181,8 +183,6 @@ class _show_suggestionState extends State<show_suggestion> {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-    
 
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
@@ -288,12 +288,12 @@ class _show_suggestionState extends State<show_suggestion> {
                                                     //   await getName(show_suggestion["UID"]),
                                                     //   style: title_text_style,
                                                     // ), //Darshan
-                  
+
                                                     Text(
                                                         show_suggestion[
                                                             "title"],
                                                         style: title_style),
-                  
+
                                                     FutureBuilder<String>(
                                                       future: getName(
                                                           show_suggestion[

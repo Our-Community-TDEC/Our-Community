@@ -11,7 +11,6 @@ import '../../nuemorphism/border_effect.dart';
 import '../../nuemorphism/colors.dart';
 
 class Doctor extends StatefulWidget with Plumber_logic {
-  
   @override
   State<Doctor> createState() => _DoctorState();
 }
@@ -46,12 +45,14 @@ class _DoctorState extends State<Doctor> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
+
   String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance

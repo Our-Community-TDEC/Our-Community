@@ -104,10 +104,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("getpref" + isDark.toString());
+   getPreference() async {
+   SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     themeF(isDark);
   }
 

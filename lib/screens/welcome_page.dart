@@ -79,7 +79,7 @@ class WelcomePage extends StatelessWidget {
                       );
                     },
                     child: const Text(
-                      " Get Started",
+                      "Get Started",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w500,

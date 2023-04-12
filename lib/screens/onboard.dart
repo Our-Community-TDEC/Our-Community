@@ -67,185 +67,189 @@ class _OnBoardState extends State<OnBoard> {
     icon_color = isDark ? HexColor.text_color : HexColor.WblackText;
     print("Theme" + isDark.toString());
     if (false) {
-      // theme = DarkTheme();
-      icon_color = HexColor.icon_color;
-      getstart_textstyle = TextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 35,
-        color: HexColor.text_color,
-      );
+      setState(() {
+        // theme = DarkTheme();
+        icon_color = HexColor.icon_color;
+        getstart_textstyle = TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 35,
+          color: HexColor.text_color,
+        );
 
-      btn_txt_style = TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: HexColor.text_color,
-      );
+        btn_txt_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: HexColor.text_color,
+        );
 
-      back_color = theme.background_color;
+        back_color = theme.background_color;
 
-      join_textstyle = TextStyle(
-        color: HexColor.text_color,
-      );
+        join_textstyle = TextStyle(
+          color: HexColor.text_color,
+        );
 
-      textfield_decoration_name = InputDecoration(
-        filled: true,
-        fillColor: HexColor.background_top,
-        labelText: 'Name',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.account_circle_outlined,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_email = InputDecoration(
-        filled: true,
-        fillColor: HexColor.background_top,
-        labelText: 'Email',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.email_outlined,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_pass = InputDecoration(
-        filled: true,
-        fillColor: HexColor.background_top,
-        labelText: 'Password',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.key,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_conf_pass = InputDecoration(
-        filled: true,
-        fillColor: HexColor.background_top,
-        labelText: 'Confirm Password',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.password,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_referral_code = InputDecoration(
-        filled: true,
-        fillColor: HexColor.background_top,
-        labelText: 'referral code',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.qr_code_rounded,
-          color: icon_color,
-        ),
-      );
+        textfield_decoration_name = InputDecoration(
+          filled: true,
+          fillColor: HexColor.background_top,
+          labelText: 'Name',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.account_circle_outlined,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_email = InputDecoration(
+          filled: true,
+          fillColor: HexColor.background_top,
+          labelText: 'Email',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.email_outlined,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_pass = InputDecoration(
+          filled: true,
+          fillColor: HexColor.background_top,
+          labelText: 'Password',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.key,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_conf_pass = InputDecoration(
+          filled: true,
+          fillColor: HexColor.background_top,
+          labelText: 'Confirm Password',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.password,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_referral_code = InputDecoration(
+          filled: true,
+          fillColor: HexColor.background_top,
+          labelText: 'referral code',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.qr_code_rounded,
+            color: icon_color,
+          ),
+        );
 
-      icon_color = HexColor.icon_color;
+        icon_color = HexColor.icon_color;
 
-      labelStyle = TextStyle(
-        color: HexColor.text_color,
-        fontSize: 18.0,
-      );
+        labelStyle = TextStyle(
+          color: HexColor.text_color,
+          fontSize: 18.0,
+        );
 
-      textfield_style = TextStyle(
-        color: HexColor.text_color,
-      );
+        textfield_style = TextStyle(
+          color: HexColor.text_color,
+        );
+      });
     } else {
-      // theme = WhiteTheme();
-      print("object");
-      back_color = theme.background_color;
-      icon_color = HexColor.WiconColor;
-      getstart_textstyle = TextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 35,
-        color: HexColor.WblueText,
-      );
-      textfield_decoration_name = InputDecoration(
-        filled: true,
-        fillColor: HexColor.Wbackground_color,
-        labelText: 'Name',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.account_circle_outlined,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_email = InputDecoration(
-        filled: true,
-        fillColor: HexColor.Wbackground_color,
-        labelText: 'Email',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.email_outlined,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_pass = InputDecoration(
-        filled: true,
-        fillColor: HexColor.Wbackground_color,
-        labelText: 'Password',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.key,
-          color: icon_color,
-        ),
-      );
-      textfield_decoration_conf_pass = InputDecoration(
-        filled: true,
-        fillColor: HexColor.Wbackground_color,
-        labelText: 'Confirm Password',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.password,
-          color: icon_color,
-        ),
-      );
+      setState(() {
+        // theme = WhiteTheme();
+        print("object");
+        back_color = theme.background_color;
+        icon_color = HexColor.WiconColor;
+        getstart_textstyle = TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 35,
+          color: HexColor.WblueText,
+        );
+        textfield_decoration_name = InputDecoration(
+          filled: true,
+          fillColor: HexColor.Wbackground_color,
+          labelText: 'Name',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.account_circle_outlined,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_email = InputDecoration(
+          filled: true,
+          fillColor: HexColor.Wbackground_color,
+          labelText: 'Email',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.email_outlined,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_pass = InputDecoration(
+          filled: true,
+          fillColor: HexColor.Wbackground_color,
+          labelText: 'Password',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.key,
+            color: icon_color,
+          ),
+        );
+        textfield_decoration_conf_pass = InputDecoration(
+          filled: true,
+          fillColor: HexColor.Wbackground_color,
+          labelText: 'Confirm Password',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.password,
+            color: icon_color,
+          ),
+        );
 
-      textfield_decoration_referral_code = InputDecoration(
-        filled: true,
-        fillColor: HexColor.Wbackground_color,
-        labelText: 'Referral code',
-        // hintText: 'Enter Your Name',
-        labelStyle: labelStyle,
-        suffixIcon: Icon(
-          Icons.qr_code_sharp,
-          color: icon_color,
-        ),
-      );
+        textfield_decoration_referral_code = InputDecoration(
+          filled: true,
+          fillColor: HexColor.Wbackground_color,
+          labelText: 'Referral code',
+          // hintText: 'Enter Your Name',
+          labelStyle: labelStyle,
+          suffixIcon: Icon(
+            Icons.qr_code_sharp,
+            color: icon_color,
+          ),
+        );
 
-      join_textstyle = TextStyle(
-        color: HexColor.WblueText,
-      );
+        join_textstyle = TextStyle(
+          color: HexColor.WblueText,
+        );
 
-      labelStyle = TextStyle(
-        color: HexColor.WblueText,
-        fontSize: 18.0,
-      );
+        labelStyle = TextStyle(
+          color: HexColor.WblueText,
+          fontSize: 18.0,
+        );
 
-      btn_txt_style = TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: HexColor.WblueText,
-      );
+        btn_txt_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: HexColor.WblueText,
+        );
 
-      textfield_style = TextStyle(
-        color: HexColor.WblueText,
-      );
+        textfield_style = TextStyle(
+          color: HexColor.WblueText,
+        );
+      });
     }
-    setState(() {});
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     themeF(isDark);
   }
 
@@ -529,7 +533,7 @@ class _OnBoardState extends State<OnBoard> {
                                 controller: cemailController,
                               ),
                             ),
-                           Neumorphic(
+                            Neumorphic(
                               style: theme.text_field,
                               child: TextField(
                                 style: textfield_style,
@@ -558,7 +562,7 @@ class _OnBoardState extends State<OnBoard> {
                                 controller: cpasswordController,
                               ),
                             ),
-                           Neumorphic(
+                            Neumorphic(
                               style: theme.text_field,
                               child: TextField(
                                 style: textfield_style,
@@ -588,30 +592,30 @@ class _OnBoardState extends State<OnBoard> {
                             ),
                             role != "admin"
                                 ? Neumorphic(
-                              style: theme.text_field,
-                              child: TextField(
-                                style: textfield_style,
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: isDark
-                                      ? HexColor.background_top
-                                      : HexColor.Wbackground_color,
-                                  labelText: 'Refeeral code',
-                                  // hintText: 'Enter Your Name',
-                                  labelStyle: TextStyle(
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText,
-                                    fontSize: 18.0,
-                                  ),
-                                  suffixIcon: Icon(
-                                    Icons.account_circle_outlined,
-                                    color: icon_color,
-                                  ),
-                                ),
-                                controller: creferralController,
-                              ),
-                            )
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      style: textfield_style,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: isDark
+                                            ? HexColor.background_top
+                                            : HexColor.Wbackground_color,
+                                        labelText: 'Refeeral code',
+                                        // hintText: 'Enter Your Name',
+                                        labelStyle: TextStyle(
+                                          color: isDark
+                                              ? HexColor.text_color
+                                              : HexColor.WblackText,
+                                          fontSize: 18.0,
+                                        ),
+                                        suffixIcon: Icon(
+                                          Icons.account_circle_outlined,
+                                          color: icon_color,
+                                        ),
+                                      ),
+                                      controller: creferralController,
+                                    ),
+                                  )
                                 : Column()
                           ],
                         ),
@@ -1195,8 +1199,6 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
-
-    
     double minHW = min((MediaQuery.of(context).size.width),
         (MediaQuery.of(context).size.height));
 
@@ -1366,23 +1368,26 @@ class _OnBoardState extends State<OnBoard> {
           "dateOfBirth": DOB,
           "familyMember": familyMember,
           "profileImg": imageUrl,
-          "mobile":mobile,
-          "vehical":cvehicalNumber
+          "mobile": mobile,
+          "vehical": cvehicalNumber
         }).then((value) => {
                   if (role == "admin")
                     {
-                      firestore
-                          .collection("refferalcode")
-                          .doc()
-                          .set({"code": refferalcode},SetOptions(merge: true)).then(
-                              (value) => snackBar("Registration successful"))
+                      firestore.collection("refferalcode").doc().set({
+                        "code": refferalcode
+                      }, SetOptions(merge: true)).then(
+                          (value) => snackBar("Registration successful"))
                     },
                   if (role == "doctor")
                     {
-                      firestore.collection("user").doc(FirebaseAuth.instance.currentUser?.uid).set({
+                      firestore
+                          .collection("user")
+                          .doc(FirebaseAuth.instance.currentUser?.uid)
+                          .set({
                         "slot": slote,
                         "time": "$hour hr $minute min",
-                      },SetOptions(merge: true)).then((value) => snackBar("Registration successful"))
+                      }, SetOptions(merge: true)).then(
+                              (value) => snackBar("Registration successful"))
                     },
                   if (role == "electrician")
                     {
@@ -1392,7 +1397,8 @@ class _OnBoardState extends State<OnBoard> {
                           .set({
                         "slot": slote,
                         "time": "$hour hr $minute min",
-                      },SetOptions(merge: true)).then((value) => snackBar("Registration successful"))
+                      }, SetOptions(merge: true)).then(
+                              (value) => snackBar("Registration successful"))
                     },
                   if (role == "plumber")
                     {
@@ -1402,7 +1408,8 @@ class _OnBoardState extends State<OnBoard> {
                           .set({
                         "slot": slote,
                         "time": "$hour hr $minute min",
-                      },SetOptions(merge: true)).then((value) => snackBar("Registration successful"))
+                      }, SetOptions(merge: true)).then(
+                              (value) => snackBar("Registration successful"))
                     },
                   if (role == "cleaner")
                     {
@@ -1412,7 +1419,8 @@ class _OnBoardState extends State<OnBoard> {
                           .set({
                         "slot": slote,
                         "time": "$hour hr $minute min",
-                      },SetOptions(merge: true)).then((value) => snackBar("Registration successful"))
+                      }, SetOptions(merge: true)).then(
+                              (value) => snackBar("Registration successful"))
                     },
                   snackBar("Registration successful"),
                 });

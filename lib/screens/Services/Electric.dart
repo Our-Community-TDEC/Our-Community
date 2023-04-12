@@ -48,12 +48,14 @@ class _ElectritianState extends State<Electritian> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
+
   String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
