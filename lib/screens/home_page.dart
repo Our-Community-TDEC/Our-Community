@@ -497,7 +497,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                                  new BorderRadius.all(Radius.circular(44)),
+                              new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -515,7 +515,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/noticeboard.svg',
@@ -537,7 +537,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                                  new BorderRadius.all(Radius.circular(44)),
+                              new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -551,7 +551,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/event.svg',
@@ -577,7 +577,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                                  new BorderRadius.all(Radius.circular(44)),
+                              new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -591,7 +591,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/complaints.svg',
@@ -613,7 +613,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                                  new BorderRadius.all(Radius.circular(44)),
+                              new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -627,7 +627,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/suggestion.svg',
@@ -673,10 +673,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // void getTheme() async {
-  //   var pref = await SharedPreferences.getInstance();
-  //   isDark = pref.getBool("Theme")!;
-  // }
+// void getTheme() async {
+//   var pref = await SharedPreferences.getInstance();
+//   isDark = pref.getBool("Theme")!;
+// }
 }
 
 class Launch extends StatefulWidget {

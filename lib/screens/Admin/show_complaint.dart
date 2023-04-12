@@ -57,7 +57,7 @@ class _show_complaintState extends State<show_complaint> {
           color: HexColor.WblackText,
           fontFamily: 'poppins');
 
-      theme = WhiteTheme();
+      // theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 30,
