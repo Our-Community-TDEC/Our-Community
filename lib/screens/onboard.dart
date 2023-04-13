@@ -1299,6 +1299,7 @@ class _OnBoardState extends State<OnBoard> {
     String confirmPassword = coPasswordController.text.toString().trim();
     String refferalcode = creferralController.text.toString().trim();
     String flatNumber = cflatNumber.text.toString().trim();
+    String vehicalNumber = cvehicalNumber.text.toString().trim();
     String date = cdate.text.toString().trim();
     String year = cyear.text.toString().trim();
     String month = cmonth.text.toString().trim();
@@ -1332,7 +1333,8 @@ class _OnBoardState extends State<OnBoard> {
         year == "" ||
         month == "" ||
         familyMember == "" ||
-        mobile == "") {
+        mobile == "" ||
+        vehicalNumber == "") {
       snackBar("Fill all the field");
       print("Fill all the field Or Select role Or refferal code not match");
     } else if (serviceProvider != "" &&
@@ -1369,7 +1371,7 @@ class _OnBoardState extends State<OnBoard> {
           "familyMember": familyMember,
           "profileImg": imageUrl,
           "mobile": mobile,
-          "vehical": cvehicalNumber
+          "vehical": vehicalNumber
         }).then((value) => {
                   if (role == "admin")
                     {
@@ -1387,7 +1389,7 @@ class _OnBoardState extends State<OnBoard> {
                         "slot": slote,
                         "time": "$hour hr $minute min",
                       }, SetOptions(merge: true)).then(
-                              (value) => snackBar("Registration successful"))
+                              (value) => snackBar("Registration successful")),
                     },
                   if (role == "electrician")
                     {

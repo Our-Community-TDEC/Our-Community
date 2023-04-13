@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
@@ -53,6 +54,7 @@ class _HomePageState extends State<HomePage> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     role = snapshot.get("role");
+    print(role);
     return snapshot.get("role");
   }
 
@@ -104,8 +106,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-   getPreference() async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
     }
@@ -497,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -515,7 +517,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/noticeboard.svg',
@@ -537,7 +539,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -551,7 +553,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/event.svg',
@@ -577,7 +579,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -591,7 +593,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/complaints.svg',
@@ -613,7 +615,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -627,7 +629,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/suggestion.svg',
@@ -655,10 +657,7 @@ class _HomePageState extends State<HomePage> {
             //     ),
             //     child: ElevatedButton(
             //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(builder: (context) => EmergencyPage()),
-            //         );
+            //         sendNotificationsToAllUsers();
             //       },
             //       child: Text("EMERGENCY"),
             //       style: ButtonStyle(
@@ -672,6 +671,35 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  
+//  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+
+// void sendNotificationToAllUsers() async {
+//   QuerySnapshot usersSnapshot = await FirebaseFirestore.instance.collection('users').get();
+//   for (DocumentSnapshot userDoc in usersSnapshot.docs) {
+//     String? fcmToken = await _firebaseMessaging.getToken();
+//     if (fcmToken != null) {
+//       // Save the FCM token to the user's document in Firestore
+//       await userDoc.reference.update({'fcmToken': fcmToken});
+//     }
+//   }
+
+//   // Send a notification to all users
+//   QuerySnapshot tokensSnapshot = await FirebaseFirestore.instance.collection('users').get();
+//  List<String> fcmTokens = tokensSnapshot.docs.map((doc) => doc.data()?['fcmToken'] as String?).toList();
+
+//   if (fcmTokens.isNotEmpty) {
+//    messaging.Message message = messaging.Message(
+//   notification: messaging.Notification(
+//     title: 'New Notification',
+//     body: 'This is a new notification!',
+//   ),
+//   // FCM tokens of the recipients
+//   tokens: fcmTokens,
+// );
+// await _firebaseMessaging.send(message);
+//   }
+// }
 
 // void getTheme() async {
 //   var pref = await SharedPreferences.getInstance();
