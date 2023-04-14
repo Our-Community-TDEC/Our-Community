@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/screens/Maintanance/Pay_maintanance.dart';
@@ -17,10 +18,10 @@ class chatpage extends StatefulWidget {
   _chatpageState createState() => _chatpageState(email: email);
 }
 
-class _chatpageState extends State<chatpage> {
+class _chatpageState extends State<chatpage> with sendnotification {
   WhiteTheme theme = WhiteTheme();
   var msg_textbox;
-  var icon_color = HexColor.Wbackground_color;
+  var icon_color = HexColor.WiconColor;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
@@ -131,14 +132,18 @@ class _chatpageState extends State<chatpage> {
                         onPressed: () async {
                           if (message.text.isNotEmpty) {
                             await getUserInfo();
+                             String title = message.text.trim();
                             fs.collection('Messages').doc().set({
                               'message': message.text.trim(),
                               'time': DateTime.now(),
                               'email': email,
                               'userName': userName,
                               'uid': FirebaseAuth.instance.currentUser?.uid,
-                              "refferalcode":refferalcode
-                            });
+                              "refferalcode": refferalcode
+                            }).then((value) => {
+                                  sendChatNotificationToAllUsers(
+                                      "New Message in Chat")
+                                });
                             message.clear();
                           } else {
                             getUserInfo();

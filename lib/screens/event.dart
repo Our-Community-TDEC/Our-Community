@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,7 +15,7 @@ class Event extends StatefulWidget {
   State<Event> createState() => _EventState();
 }
 
-class _EventState extends State<Event> {
+class _EventState extends State<Event> with sendnotification {
   var title_style;
   var desc_text_style;
   var page_title_style;
@@ -197,6 +195,7 @@ class _EventState extends State<Event> {
           .doc()
           .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
         (value) => {
+          sendNotificationToAllUsers("New event Arived"),
           eventTitle.clear(),
           eventDescription.clear(),
           ScaffoldMessenger.of(context).showSnackBar(
@@ -216,10 +215,12 @@ class _EventState extends State<Event> {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddEventDialog(),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: role == "admin"
+          ? FloatingActionButton(
+              onPressed: () => _showAddEventDialog(),
+              child: Icon(Icons.add),
+            )
+          : null,
       body: Container(
         decoration: theme.background_color,
         child: Column(

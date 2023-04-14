@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_duration_picker/time_duration_picker.dart';
@@ -18,7 +19,7 @@ class Electritian extends StatefulWidget with Plumber_logic {
   State<Electritian> createState() => _ElectritianState();
 }
 
-class _ElectritianState extends State<Electritian> {
+class _ElectritianState extends State<Electritian> with sendnotification{
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
@@ -202,6 +203,7 @@ class _ElectritianState extends State<Electritian> {
             "refferalcode": refferalcode
           }).then(
             (value) => {
+              sendServiceNotificationToAllUsers("New Slot Booked" , "electrician"),
               plumbingTitle.clear(),
               plumbingDescription.clear(),
               ScaffoldMessenger.of(context).showSnackBar(

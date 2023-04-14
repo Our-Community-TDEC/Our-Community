@@ -71,6 +71,8 @@ dependencies:
   time_duration_picker: ^0.0.1
   firebase_messaging: ^14.4.0
   onesignal_flutter: ^3.5.1
+  url_launcher: ^6.1.10
+  flutter_phone_direct_caller: ^2.1.1
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -17,7 +18,7 @@ class Cleaning extends StatefulWidget with Plumber_logic {
   State<Cleaning> createState() => _CleaningState();
 }
 
-class _CleaningState extends State<Cleaning> {
+class _CleaningState extends State<Cleaning> with sendnotification {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
@@ -204,6 +205,7 @@ class _CleaningState extends State<Cleaning> {
             "refferalcode": refferalcode
           }).then(
             (value) => {
+              sendServiceNotificationToAllUsers("New Slot Booked" , "cleaner"),
               plumbingTitle.clear(),
               plumbingDescription.clear(),
               ScaffoldMessenger.of(context).showSnackBar(

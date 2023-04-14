@@ -1,38 +1,25 @@
-import 'dart:developer';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:our_community/screens/home_page.dart';
-import 'package:our_community/screens/launch.dart';
-import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:our_community/provider/googlesignin.dart';
-
-import 'nuemorphism/colors.dart';
-import 'screens/chat/chatpage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  AndroidInitializationSettings andr_noti_setting =
-      AndroidInitializationSettings("@mipmap/ic_launcher");
+  OneSignal.shared.setAppId("4d1447fb-0709-4976-a922-419498f066e5");
 
-  DarwinInitializationSettings ios_noti_setting = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestSoundPermission: true,
-      requestBadgePermission: true,
-      requestCriticalPermission: true);
+  // Optional: Set other OneSignal parameters
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
 
-  InitializationSettings both_ios_andr_noti_intia_setting =
-      InitializationSettings(android: andr_noti_setting, iOS: ios_noti_setting);
-  // bool? intialized =
-  // await notification.initialize(both_ios_andr_noti_intia_setting);
-
-  // log("Notification $intialized");
+  // Optional: Prompt the user for push notification permission
+  await OneSignal.shared
+      .promptUserForPushNotificationPermission(fallbackToSettings: true);
 
   await Firebase.initializeApp();
   runApp(
@@ -84,9 +71,76 @@ class BasePage extends StatefulWidget {
 }
 
 class _BasePageState extends State<BasePage> {
+  bool _userProvidedPrivacyConsent = false;
+
+  @override
+  void initState() {
+    super.initState();
+    OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+    OneSignal.shared
+        .setNotificationOpenedHandler((OSNotificationOpenedResult result) {
+      print('Notification opened');
+    });
+
+    OneSignal.shared
+        .setInAppMessageClickedHandler((OSInAppMessageAction action) {
+      print('In app message clicked');
+    });
+
+    checkPrivacyConsent();
+  }
+
+  Future<void> checkPrivacyConsent() async {
+    bool userProvidedPrivacyConsent =
+        await OneSignal.shared.userProvidedPrivacyConsent();
+    setState(() {
+      _userProvidedPrivacyConsent = userProvidedPrivacyConsent;
+    });
+  }
+
+  Future<void> requestPrivacyConsent() async {
+    await OneSignal.shared.consentGranted(true);
+    checkPrivacyConsent();
+  }
+
+  Future<void> takeNotificationPermission(String message) async {
+    // Check if the user has provided privacy consent
+    bool userProvidedPrivacyConsent =
+        await OneSignal.shared.userProvidedPrivacyConsent();
+    if (!userProvidedPrivacyConsent) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Privacy Consent Required'),
+            content: Text(
+                'Please provide privacy consent to receive notifications.'),
+            actions: <Widget>[
+              TextButton(
+                child: Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('Grant Consent'),
+                onPressed: () {
+                  requestPrivacyConsent();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    takeNotificationPermission("final");
     return Scaffold(
       // StreamBuilder is a widget that builds itself based on the latest snapshot of interaction with a stream.
       // Ex. chat application clock applications where the widget needs to rebuild itself to show the current snapshot of data.
@@ -107,6 +161,4 @@ class _BasePageState extends State<BasePage> {
       ),
     );
   }
-
-  
 }

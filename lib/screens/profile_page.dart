@@ -357,6 +357,8 @@ class _ProfileState extends State<Profile> {
     int dateResult = dateObject.day;
     int yearResult = dateObject.year;
 
+    if (role == "plumber" || role == "doctor" || role == "electrician" || role == "cleaner") {
+      
     String durationString = snapshot.get("time");
 
 // Split the duration string into its components
@@ -365,6 +367,11 @@ class _ProfileState extends State<Profile> {
 // Parse the hours and minutes as integers
     int hours = int.parse(durationComponents[0]);
     int minutes = int.parse(durationComponents[2]);
+    ctimeHourController.text = hours.toString();
+      ctimeMinuteController.text = minutes.toString();
+      csloteController.text = snapshot.get("slot");
+
+    }
 
     setState(() {
       cuserNameController.text = snapshot.get("userName");
@@ -375,9 +382,7 @@ class _ProfileState extends State<Profile> {
       cyear.text = yearResult.toString();
       cmonth.text = monthResult.toString();
       cfamilyMember.text = snapshot.get("familyMember");
-      csloteController.text = snapshot.get("slot");
-      ctimeHourController.text = hours.toString();
-      ctimeMinuteController.text = minutes.toString();
+      
     });
     print(role);
     setrole();
@@ -406,7 +411,6 @@ class _ProfileState extends State<Profile> {
     return Theme(
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
-        
         body: Container(
           decoration: theme.background_color,
           child: Container(
