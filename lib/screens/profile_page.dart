@@ -1,10 +1,16 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:googleapis/dfareporting/v3_5.dart';
-import 'package:our_community/nuemorphism/border_effect.dart';
-import 'package:our_community/nuemorphism/colors.dart';
+import 'dart:io';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:our_community/logic/OtherComplaints_logic.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../nuemorphism/colors.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
 
-import '../nuemorphism/profile_neumor.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -14,9 +20,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  bool uploadingImage = false;
+  bool _isButtonEnabled = true;
+  String imageUrl = '';
+
   WhiteTheme theme = WhiteTheme();
   var back_color = HexColor.WBlackButton;
-  var icon_color=HexColor.WBlackButton;
+  var icon_color = HexColor.WBlackButton;
   var name_title_style;
   var address_style;
   var text_list_style;
@@ -42,9 +52,11 @@ class _ProfileState extends State<Profile> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    await getUserDetail();
     themeF(isDark);
   }
 
@@ -53,7 +65,339 @@ class _ProfileState extends State<Profile> {
     // TODO: implement initState
     super.initState();
     getPreference();
+
     // getTheme();
+  }
+
+  TextEditingController cemailController = TextEditingController();
+  TextEditingController cuserNameController = TextEditingController();
+  TextEditingController cpasswordController = TextEditingController();
+  TextEditingController coPasswordController = TextEditingController();
+  TextEditingController creferralController = TextEditingController();
+  TextEditingController cflatNumber = TextEditingController();
+  TextEditingController cvehicalNumber = TextEditingController();
+  TextEditingController cMobileNumber = TextEditingController();
+  TextEditingController cdate = TextEditingController();
+  TextEditingController cyear = TextEditingController();
+  TextEditingController cmonth = TextEditingController();
+  TextEditingController cfamilyMember = TextEditingController();
+  TextEditingController csloteController = TextEditingController();
+  TextEditingController ctimeHourController = TextEditingController();
+  TextEditingController ctimeMinuteController = TextEditingController();
+
+  _showAddEventDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: AlertDialog(
+          title: Text(
+            'Edit your detail',
+            textAlign: TextAlign.center,
+          ),
+          content: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: cuserNameController,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
+                  ),
+                ),
+                TextField(
+                  controller: cflatNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Flat/house number',
+                  ),
+                ),
+                TextField(
+                  controller: cvehicalNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Vehical number',
+                  ),
+                ),
+                TextField(
+                  controller: cMobileNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Mobile number',
+                  ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'DD',
+                        ),
+                        controller: cdate,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'MM',
+                        ),
+                        controller: cmonth,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'YYYY',
+                        ),
+                        controller: cyear,
+                      ),
+                    ),
+                  ],
+                ),
+                TextField(
+                  controller: cflatNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Family Member',
+                  ),
+                ),
+                role != "admin" && role != "user"
+                    ? Column(
+                        children: [
+                          TextField(
+                            controller: csloteController,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              labelText: 'Slote',
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 3.5,
+                                child: TextField(
+                                  controller: ctimeHourController,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Hour',
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 3.5,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    ctimeHourController.text = value;
+                                  },
+                                  controller: ctimeMinuteController,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Minute',
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    : Row(),
+              ]),
+          actions: [
+            TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            TextButton(
+                child: Text('Update detail'),
+                onPressed: () {
+                  add();
+                  Navigator.pop(context);
+                })
+          ],
+        ),
+      ),
+    );
+  }
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  void add() async {
+    String userName = cuserNameController.text.toString().trim();
+    String flatNumber = cflatNumber.text.toString().trim();
+    String date = cdate.text.toString().trim();
+    String year = cyear.text.toString().trim();
+    String month = cmonth.text.toString().trim();
+    String familyMember = cfamilyMember.text.toString().trim();
+    String slote = csloteController.text.toString().trim();
+    String hour = ctimeHourController.text.toString().trim();
+    String minute = ctimeMinuteController.text.toString().trim();
+    String mobile = cMobileNumber.text.toString().trim();
+    String vehicalNumber = cvehicalNumber.text.toString().trim();
+    String DOB = "$date-$month-$year";
+
+    if (userName == "" ||
+        flatNumber == "" ||
+        date == "" ||
+        year == "" ||
+        month == "" ||
+        familyMember == "" ||
+        mobile == "" ||
+        slote == "" ||
+        hour == "" ||
+        minute == "" ||
+        vehicalNumber == "") {
+      snackBar("Fill all the field");
+    } else {
+      firestore
+          .collection("user")
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .set({
+        "userName": userName,
+        "flatNumber": flatNumber,
+        "dateOfBirth": DOB,
+        "familyMember": familyMember,
+        "profileImg": imageUrl,
+        "mobile": mobile,
+        "vehical": vehicalNumber
+      }, SetOptions(merge: true)).then((value) => {
+                if (role == "doctor")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "electrician")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "plumber")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "cleaner")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                snackBar("Datial Updated"),
+              });
+    }
+  }
+
+  static String role = "";
+  String refferalcode = "";
+  String userName = "";
+  String imgUrl = "";
+  String address = "";
+  String bod = "";
+
+  Future<String> getUserDetail() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    role = snapshot.get("role");
+    refferalcode = snapshot.get("refferalcode");
+    userName = snapshot.get("userName");
+    address = snapshot.get("flatNumber");
+    bod = snapshot.get("dateOfBirth");
+
+    String dateString = bod;
+
+// Split the date string into its components
+    List<String> dateComponents = dateString.split('-');
+
+// Parse the date components into integers
+    int month = int.parse(dateComponents[0]);
+    int date = int.parse(dateComponents[1]);
+    int year = int.parse(dateComponents[2]);
+
+// Create a DateTime object with the parsed components
+    DateTime dateObject = DateTime(year, month, date);
+
+// Get the month, date, and year from the DateTime object
+    int monthResult = dateObject.month;
+    int dateResult = dateObject.day;
+    int yearResult = dateObject.year;
+
+    if (role == "plumber" || role == "doctor" || role == "electrician" || role == "cleaner") {
+      
+    String durationString = snapshot.get("time");
+
+// Split the duration string into its components
+    List<String> durationComponents = durationString.split(' ');
+
+// Parse the hours and minutes as integers
+    int hours = int.parse(durationComponents[0]);
+    int minutes = int.parse(durationComponents[2]);
+    ctimeHourController.text = hours.toString();
+      ctimeMinuteController.text = minutes.toString();
+      csloteController.text = snapshot.get("slot");
+
+    }
+
+    setState(() {
+      cuserNameController.text = snapshot.get("userName");
+      cflatNumber.text = snapshot.get("flatNumber");
+      cvehicalNumber.text = snapshot.get("vehical");
+      cMobileNumber.text = snapshot.get("mobile");
+      cdate.text = dateResult.toString();
+      cyear.text = yearResult.toString();
+      cmonth.text = monthResult.toString();
+      cfamilyMember.text = snapshot.get("familyMember");
+      
+    });
+    print(role);
+    setrole();
+    return "0";
+  }
+
+  bool isUser = true;
+  setrole() {
+    print("obj" + role);
+    if (role == "user") {
+      isUser = true;
+    } else if (role == "admin") {
+      print("object");
+      isUser = false;
+    }
   }
 
   @override
@@ -67,34 +411,6 @@ class _ProfileState extends State<Profile> {
     return Theme(
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
-        // floatingActionButton: Stack(
-        //   children: [
-        //     Positioned(
-        //       top: 30,
-        //       left: 30,
-        //       child: NeumorphicButton(
-        //         onPressed: () => {Navigator.pop(context)},
-        //         child: Icon(
-        //           Icons.arrow_back_ios,
-        //           color: icon_color,
-        //         ),
-        //         style: theme.back_button
-        //       ),
-        //     ),
-        //     Positioned(
-        //       top: 30,
-        //       right: 10,
-        //       child: NeumorphicButton(
-        //         onPressed: () => {Navigator.pop(context)},
-        //         child: Icon(
-        //           Icons.notification_add_outlined,
-        //           color: icon_color,
-        //         ),
-        //         style: theme.back_button
-        //       ),
-        //     ),
-        //   ],
-        // ),
         body: Container(
           decoration: theme.background_color,
           child: Container(
@@ -139,17 +455,47 @@ class _ProfileState extends State<Profile> {
                         Positioned(
                           top: 5,
                           left: width / 2.5 - 70,
-                          child: SizedBox(
+                          child: Container(
                             width: (width / 2.28) - 10,
                             height: (width / 2.28) - 10,
-                            child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(width)),
-                              child: Image(
-                                image: NetworkImage(
-                                    'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-                              ),
-                            ),
+                            child: imgUrl != ""
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(width)),
+                                    child: Image.network(
+                                      imgUrl,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : Container(
+                                    width: (width / 2.28) - 10,
+                                    height: (width / 2.28) - 10,
+                                    child: CircleAvatar(
+                                      radius: 30,
+                                      child: Image.asset(
+                                        'assets/Images/user.png',
+                                        width: 40,
+                                      ),
+                                    ),
+                                  ),
                           ),
                         ),
                         // Showing ussr name
@@ -165,7 +511,7 @@ class _ProfileState extends State<Profile> {
                                 Column(
                                   children: [
                                     Text(
-                                      "Bhuva Darshan",
+                                      userName,
                                       style: name_title_style,
                                     ),
                                     Row(
@@ -176,7 +522,7 @@ class _ProfileState extends State<Profile> {
                                           color: icon_color,
                                         ),
                                         Text(
-                                          "243, Ayodhya",
+                                          address,
                                           style: address_style,
                                         )
                                       ],
@@ -217,6 +563,42 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ],
                               ),
+                              GestureDetector(
+                                onTap: () {
+                                  _showAddEventDialog();
+                                },
+                                child: Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  color: icon_color,
+                                  size: 36,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            thickness: 2,
+                            color: Colors.black,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.person_2_outlined,
+                                    color: icon_color,
+                                    size: 36,
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(4, 0, 0, 0),
+                                    child: Text(
+                                      "Emergency Contacts",
+                                      style: text_list_style,
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
                                 color: icon_color,
@@ -235,38 +617,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color:icon_color,
-                                    size: 36,
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(4, 0, 0, 0),
-                                    child: Text(
-                                      "Emergency Contacts",
-                                      style: text_list_style,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color:icon_color,
-                                size: 36,
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            thickness: 2,
-                            color: Colors.black,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.person_2_outlined,
-                                    color:icon_color,
+                                    color: icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -281,7 +632,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color:icon_color,
+                                color: icon_color,
                                 size: 36,
                               ),
                             ],
@@ -297,7 +648,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color:icon_color,
+                                    color: icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -312,7 +663,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color:icon_color,
+                                color: icon_color,
                                 size: 36,
                               ),
                             ],
@@ -328,7 +679,7 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color:icon_color,
+                                    color: icon_color,
                                     size: 36,
                                   ),
                                   Padding(
@@ -343,7 +694,7 @@ class _ProfileState extends State<Profile> {
                               ),
                               Icon(
                                 Icons.arrow_forward_ios_outlined,
-                                color:icon_color,
+                                color: icon_color,
                                 size: 36,
                               ),
                             ],
@@ -359,24 +710,24 @@ class _ProfileState extends State<Profile> {
                                 children: [
                                   Icon(
                                     Icons.person_2_outlined,
-                                    color:icon_color,
+                                    color: icon_color,
                                     size: 36,
                                   ),
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(4, 0, 0, 0),
                                     child: Text(
-                                      "Tell Your Friend",
+                                      "Refferal code : $refferalcode",
                                       style: text_list_style,
                                     ),
                                   ),
                                 ],
                               ),
-                              Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color:icon_color,
-                                size: 36,
-                              ),
+                              // Icon(
+                              //   Icons.arrow_forward_ios_outlined,
+                              //   color: icon_color,
+                              //   size: 36,
+                              // ),
                             ],
                           ),
                         ],
@@ -390,5 +741,12 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  }
+
+  snackBar(showMsg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(showMsg),
+      backgroundColor: Colors.blue,
+    ));
   }
 }

@@ -18,26 +18,26 @@ class ComplainPage extends StatelessWidget with Complain_Logic {
     var text_style = TextStyle(
         fontSize: 26, color: HexColor.WblackText, fontWeight: FontWeight.w500);
 
-    void add_data(compaint_title, complaint_desc) async {
-      FirebaseFirestore firestore = FirebaseFirestore.instance;
-      firestore.collection('complaint').doc().set({
-        "title": compaint_title,
-        "description": complaint_desc,
-        "time": datetime,
-        "UID": FirebaseAuth.instance.currentUser?.uid
-      }).then((result) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Complaint Added Successfully"),
-          backgroundColor: Colors.blue,
-        ));
-      }).catchError((onError) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(onError),
-          backgroundColor: Colors.blue,
-        ));
-      });
-      // }
-    }
+    // void add_data(compaint_title, complaint_desc) async {
+    //   FirebaseFirestore firestore = FirebaseFirestore.instance;
+    //   firestore.collection('complaint').doc().set({
+    //     "title": compaint_title,
+    //     "description": complaint_desc,
+    //     "time": datetime,
+    //     "UID": FirebaseAuth.instance.currentUser?.uid,
+    //   }).then((result) {
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: Text("Complaint Added Successfully"),
+    //       backgroundColor: Colors.blue,
+    //     ));
+    //   }).catchError((onError) {
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       content: Text(onError),
+    //       backgroundColor: Colors.blue,
+    //     ));
+    //   });
+    //   // }
+    // }
 
     return Theme(
       data: ThemeData(

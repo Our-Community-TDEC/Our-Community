@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/logic/suggestion_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
@@ -16,9 +17,9 @@ class NewSuggestion extends StatefulWidget with AddNewSuggestion {
   State<NewSuggestion> createState() => _NewSuggestionState();
 }
 
-class _NewSuggestionState extends State<NewSuggestion> {
+class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
   var theme;
-  var icon_color=HexColor.WBlackButton;
+  var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
   var button_text;
@@ -70,10 +71,11 @@ class _NewSuggestionState extends State<NewSuggestion> {
     setState(() {});
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+   getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
     themeF(isDark);
   }
 
@@ -85,12 +87,19 @@ class _NewSuggestionState extends State<NewSuggestion> {
     // getTheme();
   }
 
+  Future<String> getCurrentUserReferralCode() async {
+    final user = FirebaseAuth.instance.currentUser?.uid;
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('user').doc(user).get();
+    return snapshot.get('refferalcode');
+  }
+
   @override
   Widget build(BuildContext context) {
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
     void add_data() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+      String refferalcode = await getCurrentUserReferralCode();
       String title = suggestion_title.text.trim();
       String description = suggestion_description.text.trim();
 
@@ -103,11 +112,13 @@ class _NewSuggestionState extends State<NewSuggestion> {
           "description": description,
           "time": datetime,
           "UID": FirebaseAuth.instance.currentUser?.uid,
+          "refferalcode" : refferalcode
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Suggstion Posted"),
             backgroundColor: Colors.blue,
           ));
+          sendNotificationToAllUsers("New Complaint Arived");
         });
       }
     }
@@ -198,7 +209,8 @@ class _NewSuggestionState extends State<NewSuggestion> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style:
+                                            theme.com_sugg_textfield_textstyle,
                                         controller: suggestion_title,
                                         decoration:
                                             theme.com_sugg_textfield_decoration,
@@ -243,7 +255,8 @@ class _NewSuggestionState extends State<NewSuggestion> {
                                     child: Neumorphic(
                                       style: theme.complaint_neumorphism,
                                       child: TextField(
-                                        style: theme.com_sugg_textfield_textstyle,
+                                        style:
+                                            theme.com_sugg_textfield_textstyle,
                                         maxLines: null,
                                         controller: suggestion_description,
                                         decoration: theme
