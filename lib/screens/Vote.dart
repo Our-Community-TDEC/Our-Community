@@ -23,7 +23,6 @@ class Vote extends StatelessWidget {
     return snapshot.get("userName");
   }
 
-
   @override
   Widget build(BuildContext context) {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -40,16 +39,13 @@ class Vote extends StatelessWidget {
         color: HexColor.WblackText,
         fontFamily: 'poppins');
 
-
     return Scaffold(
-
       floatingActionButton: SizedBox(
         height: 45,
         width: 45,
         child: FittedBox(
           child: NeumorphicFloatingActionButton(
-            onPressed: () =>
-            {
+            onPressed: () => {
               Navigator.pop(context),
             },
             child: Icon(
@@ -63,10 +59,7 @@ class Vote extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,11 +75,8 @@ class Vote extends StatelessWidget {
               thickness: 2,
               color: Colors.black,
             ),
-
             StreamBuilder<QuerySnapshot>(
-              stream: firestore
-                  .collection('voting')
-                  .snapshots(),
+              stream: firestore.collection('voting').snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.active) {
                   if (snapshot.hasData && snapshot.data != null) {
@@ -95,19 +85,17 @@ class Vote extends StatelessWidget {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           Map<String, dynamic> voting_list =
-                          snapshot.data!.docs[index].data()
-                          as Map<String, dynamic>;
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>;
+                          var voting_list_current_doc =
+                              snapshot.data!.docs[index];
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-
                                 SizedBox(
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width,
+                                  width: MediaQuery.of(context).size.width,
                                   child: Neumorphic(
                                       style: theme.voting_neumorphism,
                                       margin: const EdgeInsets.symmetric(
@@ -115,20 +103,35 @@ class Vote extends StatelessWidget {
                                       child: Padding(
                                         padding: const EdgeInsets.all(10),
                                         child: Text(doc["desc"]),
-                                      )
-                                  ),
+                                      )),
                                 ),
-                                const Padding(padding: EdgeInsets.symmetric(vertical: 25),),
-
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 25),
+                                ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
-                                    ElevatedButton(onPressed: () {
-                                      voteForOption("option_1", doc);
-                                    }, child: Text(doc["option_1"])),
-                                    ElevatedButton(onPressed: () {
-                                      voteForOption("option_2", doc);
-                                    }, child: Text(doc["option_2"])),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          voteForOption(
+                                            "option_1",
+                                            doc,
+                                            voting_list_current_doc
+                                                .reference.id,
+                                          );
+                                        },
+                                        child: Text(doc["option_1"])),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          voteForOption(
+                                            "option_2",
+                                            doc,
+                                            voting_list_current_doc
+                                                .reference.id,
+                                          );
+                                        },
+                                        child: Text(doc["option_2"])),
                                   ],
                                 ),
                               ],
@@ -147,16 +150,20 @@ class Vote extends StatelessWidget {
                 }
               },
             ),
-
           ],
         ),
       ),
     );
   }
 
-  voteForOption(String option, Map<String, dynamic> doc) async {
+  voteForOption(String option, Map<String, dynamic> doc,
+      String current_documentId) async {
     String voters_arr = doc[option],
         uid = FirebaseAuth.instance.currentUser!.uid;
+
+    // -------------------------Print current document id---------------------------
+    print("current_documentId :- " + current_documentId);
+
 
     //TODO: Append UID to array in firebase
     print("Voting for " + option);
@@ -172,7 +179,7 @@ class Vote extends StatelessWidget {
       var collection = FirebaseFirestore.instance.collection('voting');
       collection
           .doc('doc_id')
-          .update({'option_1_votes' : doc["option_1_votes"]}) // <-- Updated data
+          .update({'option_1_votes': doc["option_1_votes"]}) // <-- Updated data
           .then((_) => print('Success'))
           .catchError((error) => print('Failed: $error'));
       //TODO: Upload array back to firebase
@@ -183,7 +190,7 @@ class Vote extends StatelessWidget {
       var collection = FirebaseFirestore.instance.collection('voting');
       collection
           .doc('doc_id')
-          .update({'option_2_votes' : doc["option_2_votes"]}) // <-- Updated data
+          .update({'option_2_votes': doc["option_2_votes"]}) // <-- Updated data
           .then((_) => print('Success'))
           .catchError((error) => print('Failed: $error'));
       //TODO: Upload array back to firebase
@@ -203,14 +210,14 @@ Future<List<String>> getDocumentIds() async {
   List<String> documentIds = [];
 
   QuerySnapshot querySnapshot =
-  await FirebaseFirestore.instance.collection('voting').get();
+      await FirebaseFirestore.instance.collection('voting').get();
 
   querySnapshot.docs.forEach((document) {
     documentIds.add(document.id);
   });
 
   print("Printlng all docIDs");
-  for(int i = 0;i < documentIds.length;i++) {
+  for (int i = 0; i < documentIds.length; i++) {
     print(documentIds[i]);
   }
 

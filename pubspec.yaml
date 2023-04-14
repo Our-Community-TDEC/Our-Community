@@ -89,7 +89,7 @@ flutter:
     - assets/Images/Services/Doctor/Doc_ser.png
     - assets/Images/Services/Doctor/injection.png
     - assets/Images/Services/Doctor/ste.png
-    - assets/Images/Services/Plumber/background.png
+    - assets/Images/Services/Plumber/background.svg
     - assets/gpay.json
     - assets/Images/Login/image 3.png
     - assets/Images/Login/Trees.png
