@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
   }
 
   getPreference() async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
     }
@@ -88,145 +88,153 @@ class _ProfileState extends State<Profile> {
   _showAddEventDialog() async {
     await showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'Edit your detail',
-          textAlign: TextAlign.center,
-        ),
-        content: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: cuserNameController,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Name',
-                ),
-              ),
-              TextField(
-                controller: cflatNumber,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Flat/house number',
-                ),
-              ),
-              TextField(
-                controller: cvehicalNumber,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Vehical number',
-                ),
-              ),
-              TextField(
-                controller: cMobileNumber,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Mobile number',
-                ),
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 7,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'DD',
-                      ),
-                      controller: cdate,
-                    ),
+      builder: (context) => SingleChildScrollView(
+        child: AlertDialog(
+          title: Text(
+            'Edit your detail',
+            textAlign: TextAlign.center,
+          ),
+          content: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: cuserNameController,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Name',
                   ),
-                  SizedBox(width: 10,),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 7,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'MM',
-                      ),
-                      controller: cmonth,
-                    ),
-                  ),
-                  SizedBox(width: 10,),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 7,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        labelText: 'YYYY',
-                      ),
-                      controller: cyear,
-                    ),
-                  ),
-                ],
-              ),
-              TextField(
-                controller: cflatNumber,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Family Member',
                 ),
-              ),
-              role != "admin" && role != "user"
-                  ? Column(
-                      children: [
-                        TextField(
-                          controller: csloteController,
-                          textCapitalization: TextCapitalization.words,
-                          decoration: const InputDecoration(
-                            labelText: 'Slote',
-                          ),
+                TextField(
+                  controller: cflatNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Flat/house number',
+                  ),
+                ),
+                TextField(
+                  controller: cvehicalNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Vehical number',
+                  ),
+                ),
+                TextField(
+                  controller: cMobileNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Mobile number',
+                  ),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'DD',
                         ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 3.5,
-                              child: TextField(
-                                controller: ctimeHourController,
-                                textCapitalization: TextCapitalization.words,
-                                decoration: const InputDecoration(
-                                  labelText: 'Hour',
-                                ),
-                              ),
+                        controller: cdate,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'MM',
+                        ),
+                        controller: cmonth,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 7,
+                      child: TextField(
+                        decoration: InputDecoration(
+                          labelText: 'YYYY',
+                        ),
+                        controller: cyear,
+                      ),
+                    ),
+                  ],
+                ),
+                TextField(
+                  controller: cflatNumber,
+                  textCapitalization: TextCapitalization.words,
+                  decoration: const InputDecoration(
+                    labelText: 'Family Member',
+                  ),
+                ),
+                role != "admin" && role != "user"
+                    ? Column(
+                        children: [
+                          TextField(
+                            controller: csloteController,
+                            textCapitalization: TextCapitalization.words,
+                            decoration: const InputDecoration(
+                              labelText: 'Slote',
                             ),
-                            SizedBox(width: 10,),
-                            SizedBox(
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width / 3.5,
-                              child: TextField(
-                                controller: ctimeMinuteController,
-                                textCapitalization: TextCapitalization.words,
-                                decoration: const InputDecoration(
-                                  labelText: 'Minute',
+                                child: TextField(
+                                  controller: ctimeHourController,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Hour',
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
-                        )
-                      ],
-                    )
-                  : Row(),
-            ]),
-        actions: [
-          TextButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-          TextButton(
-              child: Text('Update detail'),
-              onPressed: () {
-                add();
-                Navigator.pop(context);
-              })
-        ],
+                              SizedBox(
+                                width: 10,
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 3.5,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    ctimeHourController.text = value;
+                                  },
+                                  controller: ctimeMinuteController,
+                                  textCapitalization: TextCapitalization.words,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Minute',
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    : Row(),
+              ]),
+          actions: [
+            TextButton(
+                child: Text('Cancel'),
+                onPressed: () {
+                  Navigator.pop(context);
+                }),
+            TextButton(
+                child: Text('Update detail'),
+                onPressed: () {
+                  add();
+                  Navigator.pop(context);
+                })
+          ],
+        ),
       ),
     );
   }
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   void add() async {
-    String email = cemailController.text.toString().trim();
     String userName = cuserNameController.text.toString().trim();
-    String password = cpasswordController.text.toString().trim();
-    String confirmPassword = coPasswordController.text.toString().trim();
     String flatNumber = cflatNumber.text.toString().trim();
     String date = cdate.text.toString().trim();
     String year = cyear.text.toString().trim();
@@ -236,31 +244,81 @@ class _ProfileState extends State<Profile> {
     String hour = ctimeHourController.text.toString().trim();
     String minute = ctimeMinuteController.text.toString().trim();
     String mobile = cMobileNumber.text.toString().trim();
+    String vehicalNumber = cvehicalNumber.text.toString().trim();
     String DOB = "$date-$month-$year";
-    // if (title != "" || discription != "") {
-    //   firestore.collection("event").doc().set({
-    //     "title": title,
-    //     "discription": discription,
-    //     "date": day,
-    //     "refferalcode": refferalcode
-    //   }).then(
-    //     (value) => {
-    //       eventTitle.clear(),
-    //       eventDescription.clear(),
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //         SnackBar(
-    //           content: Text("Notice added"),
-    //           backgroundColor: Colors.blue,
-    //         ),
-    //       ),
-    //     },
-    //   );
-    // } else {
-    //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //     content: Text("please enter all detail"),
-    //     backgroundColor: Colors.blue,
-    //   ));
-    // }
+
+    if (userName == "" ||
+        flatNumber == "" ||
+        date == "" ||
+        year == "" ||
+        month == "" ||
+        familyMember == "" ||
+        mobile == "" ||
+        slote == "" ||
+        hour == "" ||
+        minute == "" ||
+        vehicalNumber == "") {
+      snackBar("Fill all the field");
+    } else {
+      firestore
+          .collection("user")
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .set({
+        "userName": userName,
+        "flatNumber": flatNumber,
+        "dateOfBirth": DOB,
+        "familyMember": familyMember,
+        "profileImg": imageUrl,
+        "mobile": mobile,
+        "vehical": vehicalNumber
+      }, SetOptions(merge: true)).then((value) => {
+                if (role == "doctor")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "electrician")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "plumber")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                if (role == "cleaner")
+                  {
+                    firestore
+                        .collection("user")
+                        .doc(FirebaseAuth.instance.currentUser?.uid)
+                        .set({
+                      "slot": slote,
+                      "time": "$hour hr $minute min",
+                    }, SetOptions(merge: true)).then(
+                            (value) => snackBar("Datial Updated"))
+                  },
+                snackBar("Datial Updated"),
+              });
+    }
   }
 
   static String role = "";
@@ -299,6 +357,8 @@ class _ProfileState extends State<Profile> {
     int dateResult = dateObject.day;
     int yearResult = dateObject.year;
 
+    if (role == "plumber" || role == "doctor" || role == "electrician" || role == "cleaner") {
+      
     String durationString = snapshot.get("time");
 
 // Split the duration string into its components
@@ -307,6 +367,11 @@ class _ProfileState extends State<Profile> {
 // Parse the hours and minutes as integers
     int hours = int.parse(durationComponents[0]);
     int minutes = int.parse(durationComponents[2]);
+    ctimeHourController.text = hours.toString();
+      ctimeMinuteController.text = minutes.toString();
+      csloteController.text = snapshot.get("slot");
+
+    }
 
     setState(() {
       cuserNameController.text = snapshot.get("userName");
@@ -317,9 +382,7 @@ class _ProfileState extends State<Profile> {
       cyear.text = yearResult.toString();
       cmonth.text = monthResult.toString();
       cfamilyMember.text = snapshot.get("familyMember");
-      csloteController.text = snapshot.get("slot");
-      ctimeHourController.text = hours.toString();
-      ctimeMinuteController.text = minutes.toString();
+      
     });
     print(role);
     setrole();
@@ -348,34 +411,6 @@ class _ProfileState extends State<Profile> {
     return Theme(
       data: ThemeData(fontFamily: 'poppins'),
       child: Scaffold(
-        // floatingActionButton: Stack(
-        //   children: [
-        //     Positioned(
-        //       top: 30,
-        //       left: 30,
-        //       child: NeumorphicButton(
-        //         onPressed: () => {Navigator.pop(context)},
-        //         child: Icon(
-        //           Icons.arrow_back_ios,
-        //           color: icon_color,
-        //         ),
-        //         style: theme.back_button
-        //       ),
-        //     ),
-        //     Positioned(
-        //       top: 30,
-        //       right: 10,
-        //       child: NeumorphicButton(
-        //         onPressed: () => {Navigator.pop(context)},
-        //         child: Icon(
-        //           Icons.notification_add_outlined,
-        //           color: icon_color,
-        //         ),
-        //         style: theme.back_button
-        //       ),
-        //     ),
-        //   ],
-        // ),
         body: Container(
           decoration: theme.background_color,
           child: Container(
@@ -706,5 +741,12 @@ class _ProfileState extends State<Profile> {
         ),
       ),
     );
+  }
+
+  snackBar(showMsg) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(showMsg),
+      backgroundColor: Colors.blue,
+    ));
   }
 }

@@ -4,14 +4,18 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/razer_pay.dart';
 import 'package:our_community/screens/NoticeBoard_page.dart';
 import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
+import 'package:our_community/screens/emergency_page.dart';
 import 'package:our_community/screens/event.dart';
 import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
+import 'package:our_community/screens/search_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:our_community/screens/login_page.dart';
@@ -37,7 +41,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with sendnotification {
   static String role = "";
   Future<String> getName() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -53,6 +57,7 @@ class _HomePageState extends State<HomePage> {
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
     role = snapshot.get("role");
+    print(role);
     return snapshot.get("role");
   }
 
@@ -104,11 +109,32 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-   getPreference() async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
+  // promptForPrivacyConsent() async {
+  //   await OneSignal.shared
+  //       .promptUserForPushNotificationPermission(fallbackToSettings: true);
+
+  //   bool userConsent = await OneSignal.shared.userProvidedPrivacyConsent();
+  //   if (userConsent) {
+  //     print("User granted privacy consent");
+  //   } else {
+  //     print("User did not grant privacy consent");
+  //   }
+  //   // Check if the user has already provided privacy consent
+  //   bool userProvidedPrivacyConsent =
+  //       await OneSignal.shared.userProvidedPrivacyConsent();
+  //   if (userProvidedPrivacyConsent) {
+  //     print("User has already provided privacy consent");
+  //   }
+
+  //   // Prompt the user for privacy consent
+  // }
+
+  Future<void> getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
     }
+    // await promptForPrivacyConsent();
     themeF(isDark);
   }
 
@@ -119,6 +145,32 @@ class _HomePageState extends State<HomePage> {
     getPreference();
     getName();
     getRole();
+    subscribeUserForNotifications();
+  }
+
+  Future<void> subscribeUserForNotifications() async {
+    // Check if the user has provided privacy consent
+    bool userProvidedPrivacyConsent =
+        await OneSignal.shared.userProvidedPrivacyConsent();
+    if (!userProvidedPrivacyConsent) {
+      print(
+          "User has not provided privacy consent yet. Cannot subscribe for notifications.");
+      return;
+    }
+
+    // Prompt the user to enable notifications
+    await OneSignal.shared.promptUserForPushNotificationPermission();
+
+    // Retrieve the user's device token
+    String deviceToken = await OneSignal.shared
+        .getDeviceState()
+        .then((deviceState) => deviceState!.userId!);
+
+    // Subscribe the user to notifications
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .set({'notification_tokens': deviceToken}, SetOptions(merge: true));
   }
 
   bool isUser = true;
@@ -148,6 +200,22 @@ class _HomePageState extends State<HomePage> {
 
     double offset_val = 2.5;
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(0,0,0,95),
+        child:  NeumorphicFloatingActionButton(
+              onPressed: () => {Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SearchPage()),
+                  )},
+              child: Icon(
+                Icons.search,
+              ),
+              style: NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  color: HexColor.Wbackground_color),
+            ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
       appBar: theme.appbar,
       drawer: Neumorphic(
         style: NeumorphicStyle(
@@ -497,7 +565,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -515,7 +583,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/noticeboard.svg',
@@ -537,7 +605,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -551,7 +619,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/event.svg',
@@ -577,7 +645,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -591,7 +659,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/complaints.svg',
@@ -613,7 +681,7 @@ class _HomePageState extends State<HomePage> {
                             width: boxL - 4,
                             child: ClipRRect(
                               borderRadius:
-                              new BorderRadius.all(Radius.circular(44)),
+                                  new BorderRadius.all(Radius.circular(44)),
                               child: NeumorphicButton(
                                   style: theme.homepage_button,
                                   onPressed: () {
@@ -627,7 +695,7 @@ class _HomePageState extends State<HomePage> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       SvgPicture.asset(
                                         'assets/Images/home/suggestion.svg',
@@ -645,38 +713,73 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            // SizedBox(
-            //   width: MediaQuery.of(context).size.width * 0.8,
-            //   height: minHW * 0.15,
-            //   child: Container(
-            //     decoration: BoxDecoration(
-            //       borderRadius: BorderRadius.circular(25),
-            //       border: Border.all(),
-            //     ),
-            //     child: ElevatedButton(
-            //       onPressed: () {
-            //         Navigator.push(
-            //           context,
-            //           MaterialPageRoute(builder: (context) => EmergencyPage()),
-            //         );
-            //       },
-            //       child: Text("EMERGENCY"),
-            //       style: ButtonStyle(
-            //         backgroundColor: MaterialStateProperty.all(Colors.red),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: minHW * 0.15,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  border: Border.all(),
+                ),
+                child: ElevatedButton(
+                  onPressed: () {
+                    //   Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => EmergencyPage()),
+                    // );
+                    sendNotificationToAllUsers("It is an emeregency");
+                  },
+                  child: Text("EMERGENCY"),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.red),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-// void getTheme() async {
-//   var pref = await SharedPreferences.getInstance();
-//   isDark = pref.getBool("Theme")!;
-// }
+  // Future<void> sendNotificationToAllUsers(String message) async {
+  //   // Check if the user has provided privacy consent
+  //   bool userProvidedPrivacyConsent =
+  //       await OneSignal.shared.userProvidedPrivacyConsent();
+  //   if (!userProvidedPrivacyConsent) {
+  //     print(
+  //         "User has not provided privacy consent yet. Cannot send notification.");
+  //     return;
+  //   }
+
+  //   // Retrieve all users from the 'users' collection in Firestore
+  //   QuerySnapshot userSnapshot =
+  //       await FirebaseFirestore.instance.collection('user').get();
+
+  //   // Extract the user IDs from the snapshot
+  //   // List<String> userIds = [];
+  //   // userSnapshot.docs.forEach((doc) {
+  //   //   userIds.add(doc.data()["notification_tokens"].toString());
+  //   //   print(doc.id);
+  //   // });
+
+  //   List<String> playerIds = [];
+  //   userSnapshot.docs.forEach((doc) {
+  //     Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+  //     String? playerId = userData['notification_tokens'] as String?;
+  //     if (playerId != null) {
+  //       playerIds.add(playerId);
+  //     }
+  //   });
+
+  //   // Send the notification to all users using OneSignal
+  //   var response = await OneSignal.shared.postNotification(
+  //     OSCreateNotification(
+  //       playerIds: playerIds,
+  //       content: message,
+  //     ),
+  //   );
+  // }
 }
 
 class Launch extends StatefulWidget {

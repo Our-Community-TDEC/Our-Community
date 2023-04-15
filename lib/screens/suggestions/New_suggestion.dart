@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:our_community/logic/suggestion_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
@@ -16,7 +17,7 @@ class NewSuggestion extends StatefulWidget with AddNewSuggestion {
   State<NewSuggestion> createState() => _NewSuggestionState();
 }
 
-class _NewSuggestionState extends State<NewSuggestion> {
+class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
   var theme;
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
@@ -117,6 +118,7 @@ class _NewSuggestionState extends State<NewSuggestion> {
             content: Text("Suggstion Posted"),
             backgroundColor: Colors.blue,
           ));
+          sendNotificationToAllUsers("New Complaint Arived");
         });
       }
     }

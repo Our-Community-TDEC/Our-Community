@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
 import '../nuemorphism/colors.dart';
@@ -21,7 +22,7 @@ class AttendanceCalendarPage extends StatefulWidget {
   _AttendanceCalendarPageState createState() => _AttendanceCalendarPageState();
 }
 
-class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
+class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with sendnotification {
   var title_style;
   var desc_text_style;
   var page_title_style;
@@ -216,6 +217,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
         "refferalcode": refferalcode
       }).then(
         (value) => {
+          sendNotificationToAllUsers("New Complaint Arived"),
           noticeTitle.clear(),
           noticeDescription.clear(),
           ScaffoldMessenger.of(context).showSnackBar(
@@ -287,7 +289,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
           color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
     }
     return Scaffold(
-      floatingActionButton: role != "admin"
+      floatingActionButton: role == "admin"
           ? FloatingActionButton(
               onPressed: () => _showAddEventDialog(),
               child: Icon(Icons.add),

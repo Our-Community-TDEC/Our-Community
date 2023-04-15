@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
@@ -19,7 +20,6 @@ TextEditingController complaint_description = TextEditingController();
 class OtherComplains extends StatefulWidget with OtherComplains_Logic {
   static String ttle = "", desc = "";
 
-
   OtherComplains(String title, String description) {
     ttle = title;
     desc = description;
@@ -29,7 +29,7 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
   State<OtherComplains> createState() => _OtherComplainsState();
 }
 
-class _OtherComplainsState extends State<OtherComplains> {
+class _OtherComplainsState extends State<OtherComplains> with sendnotification {
   bool uploadingImage = false;
   bool _isButtonEnabled = true;
 
@@ -142,6 +142,7 @@ class _OtherComplainsState extends State<OtherComplains> {
             content: Text("Complain Posted"),
             backgroundColor: Colors.blue,
           ));
+          sendNotificationToAllUsers(title);
         }).catchError((onError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(onError),
@@ -178,10 +179,7 @@ class _OtherComplainsState extends State<OtherComplains> {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
           body: Container(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            height: MediaQuery.of(context).size.height,
             decoration: theme.background_color,
             child: SingleChildScrollView(
               child: Column(
@@ -232,10 +230,7 @@ class _OtherComplainsState extends State<OtherComplains> {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                         child: SizedBox(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.93,
+                          width: MediaQuery.of(context).size.width * 0.93,
                           child: Container(
                             height: 74,
                             decoration: theme.com_sugge_out_shadow,
@@ -253,7 +248,7 @@ class _OtherComplainsState extends State<OtherComplains> {
                                             theme.com_sugg_textfield_textstyle,
                                         controller: complaint_title,
                                         decoration:
-                                        theme.com_sugg_textfield_decoration,
+                                            theme.com_sugg_textfield_decoration,
                                       ),
                                     ),
                                   ),
@@ -280,10 +275,7 @@ class _OtherComplainsState extends State<OtherComplains> {
                         ],
                       ),
                       SizedBox(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.93,
+                        width: MediaQuery.of(context).size.width * 0.93,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                           child: Container(
