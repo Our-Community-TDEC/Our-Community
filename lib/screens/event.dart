@@ -21,6 +21,7 @@ class _EventState extends State<Event> with sendnotification {
   var page_title_style;
   var icon_color = HexColor.WBlackButton;
   var btn_text;
+  var text_color;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
@@ -29,7 +30,6 @@ class _EventState extends State<Event> with sendnotification {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   bool isUser = true;
   static String role = "";
-  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -42,19 +42,17 @@ class _EventState extends State<Event> with sendnotification {
   }
 
   setrole() {
-    print("obj" + role);
     if (role == "user") {
       isUser = true;
     } else if (role == "admin") {
-      print("object");
       isUser = false;
     }
   }
 
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (false) {
-      // theme = DarkTheme();
+    if (isDark) {
+      text_color = HexColor.text_color;
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -80,7 +78,7 @@ class _EventState extends State<Event> with sendnotification {
           fontSize: 19,
           fontWeight: FontWeight.w600);
     } else {
-      theme = WhiteTheme();
+      text_color = HexColor.WblueText;
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -89,11 +87,11 @@ class _EventState extends State<Event> with sendnotification {
 
       icon_color = HexColor.WiconColor;
 
-      page_title_style = TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: HexColor.WblueText,
-      );
+        page_title_style = TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.w400,
+          color: HexColor.WblueText,
+        );
 
       title_style = TextStyle(
           fontSize: 20,
@@ -107,7 +105,7 @@ class _EventState extends State<Event> with sendnotification {
     setState(() {});
   }
 
- String refferalcode = "";
+  String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -117,8 +115,8 @@ class _EventState extends State<Event> with sendnotification {
     return snapshot.get("refferalcode");
   }
 
-   getPreference() async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
     }
@@ -138,7 +136,7 @@ class _EventState extends State<Event> with sendnotification {
   TextEditingController eventTitle = TextEditingController();
   TextEditingController eventDescription = TextEditingController();
   @override
-   _showAddEventDialog() async {
+  _showAddEventDialog() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -190,10 +188,12 @@ class _EventState extends State<Event> with sendnotification {
     String discription = eventDescription.text.trim();
     print(title);
     if (title != "" || discription != "") {
-      firestore
-          .collection("event")
-          .doc()
-          .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
+      firestore.collection("event").doc().set({
+        "title": title,
+        "discription": discription,
+        "date": day,
+        "refferalcode": refferalcode
+      }).then(
         (value) => {
           sendNotificationToAllUsers("New event Arived"),
           eventTitle.clear(),
@@ -213,192 +213,234 @@ class _EventState extends State<Event> with sendnotification {
       ));
     }
   }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: role == "admin"
-          ? FloatingActionButton(
-              onPressed: () => _showAddEventDialog(),
-              child: Icon(Icons.add),
-            )
-          : null,
-      body: Container(
-        decoration: theme.background_color,
-        child: Column(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 110, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 40,
-                        height: 40,
-                        child: NeumorphicButton(
-                          onPressed: () => {Navigator.pop(context)},
-                          style: theme.back_button,
-                          child: Icon(
-                            Icons.arrow_back_ios,
-                            color: icon_color,
+    final theme = isDark ? DarkTheme() : WhiteTheme();
+    return Theme(
+       data: ThemeData(fontFamily: 'poppins',pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            TargetPlatform.android: FadeInPageTransitionsBuilder(),
+            TargetPlatform.iOS: FadeInPageTransitionsBuilder(),
+          },
+        ),),
+      child: Scaffold(
+        floatingActionButton: role == "admin"
+            ? FloatingActionButton(
+                onPressed: () => _showAddEventDialog(),
+                child: Icon(Icons.add),
+              )
+            : null,
+        body: Container(
+          decoration: theme.background_color,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 110, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: NeumorphicButton(
+                            onPressed: () => {Navigator.pop(context)},
+                            style: theme.back_button,
+                            child: Icon(
+                              Icons.arrow_back_ios,
+                              color: icon_color,
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        "Events",
-                        style: page_title_style,
-                      ),
-                    ],
+                        Text(
+                          "Events",
+                          style: page_title_style,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    thickness: 5,
+                    indent: 12,
+                    endIndent: 12,
+                    color: Colors.black,
+                  ),
+                ],
+              ),
+              TableCalendar(
+                firstDay: DateTime.utc(2022, 1, 1),
+                lastDay: DateTime.utc(2023, 12, 31),
+                focusedDay: _focusedDay,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    day = DateFormat('dd-MM-yyyy').format(selectedDay);
+                    _focusedDay = focusedDay;
+                  });
+                },
+                // eventLoader: (day) {
+                //   return _getEventsForDay(
+                //     day,
+                //   );
+                // },
+    
+                calendarFormat: _calendarFormat,
+                // @ week , week , month format of calender
+                onFormatChanged: (format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                },
+                headerStyle: HeaderStyle(
+                  titleTextStyle: TextStyle(
+                    color: text_color, 
+                    fontSize: 16, 
+                  ),
+                  formatButtonTextStyle: TextStyle(
+                    color: text_color, 
+                    fontSize: 16, 
                   ),
                 ),
-                Divider(
-                  thickness: 5,
-                  indent: 12,
-                  endIndent: 12,
-                  color: Colors.black,
+                calendarStyle: CalendarStyle(
+                  defaultTextStyle: TextStyle(
+                    color: text_color, 
+                    fontSize: 16, 
+                  ),
+                  weekendTextStyle: TextStyle(
+                    color: text_color, 
+                    fontSize: 16, 
+                  ),
+                  outsideTextStyle: TextStyle(
+                    color: isDark
+                        ? HexColor.text_color.withOpacity(0.4)
+                        : HexColor.WblueText.withOpacity(
+                            0.8), 
+                    fontSize: 16, 
+                  ),
                 ),
-              ],
-            ),
-            TableCalendar(
-              firstDay: DateTime.utc(2022, 1, 1),
-              lastDay: DateTime.utc(2023, 12, 31),
-              focusedDay: _focusedDay,
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  day = DateFormat('dd-MM-yyyy').format(selectedDay);
-                  _focusedDay = focusedDay;
-                });
-              },
-              // eventLoader: (day) {
-              //   return _getEventsForDay(
-              //     day,
-              //   );
-              // },
-              calendarFormat: _calendarFormat,
-              // @ week , week , month format of calender
-              onFormatChanged: (format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              },
-              calendarBuilders: CalendarBuilders(
-                dowBuilder: (context, day) {
-                  if (day.weekday == DateTime.sunday) {
-                    final text = DateFormat.E().format(day);
-                    return Center(
-                      child: Text(
-                        text,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                },
               ),
-            ),
-             Expanded(
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('event')
-                    .where('date', isEqualTo: day)
-                    .where("refferalcode", isEqualTo: refferalcode)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
-                    documents = snapshot.data!.docs;
-                    return ListView.builder(
-                      itemCount: documents.length,
-                      itemBuilder: (context, index) {
-                        final data =
-                            documents[index].data() as Map<String, dynamic>;
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          child: Neumorphic(
-                            style: theme.com_sugge_container,
-                            child: ListTile(
-                              title: Text(
-                                '${data['title']}',
-                                style: title_style,
-                              ),
-                              subtitle: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        '${data['discription']}',
-                                        style: desc_text_style,
-                                      ),
-                                    ],
-                                  ),
-                                  isUser
-                                      ? Row()
-                                      : Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 7.0),
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.fromLTRB(
-                                                        0, 0, 10, 0),
-                                                child: NeumorphicButton(
-                                                  onPressed: () {
-                                                    firestore
-                                                        .collection(
-                                                            "event")
-                                                        .doc(snapshot
-                                                            .data!
-                                                            .docs[index]
-                                                            .reference
-                                                            .id
-                                                            .toString())
-                                                        .delete();
-                                                  },
-                                                  style: theme.button,
+              Expanded(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('event')
+                      .where('date', isEqualTo: day)
+                      .where("refferalcode", isEqualTo: refferalcode)
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData &&
+                        snapshot.data != null &&
+                        snapshot.data!.docs.isNotEmpty) {
+                      documents = snapshot.data!.docs;
+                      return ListView.builder(
+                        itemCount: documents.length,
+                        itemBuilder: (context, index) {
+                          final data =
+                              documents[index].data() as Map<String, dynamic>;
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 16),
+                            child: Neumorphic(
+                              style: theme.com_sugge_container,
+                              child: ListTile(
+                                title: Text(
+                                  '${data['title']}',
+                                  style: title_style,
+                                ),
+                                subtitle: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '${data['discription']}',
+                                          style: desc_text_style,
+                                        ),
+                                      ],
+                                    ),
+                                    isUser
+                                        ? Row()
+                                        : Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 7.0),
+                                            child: Row(
+                                              children: [
+                                                Padding(
                                                   padding:
-                                                      const EdgeInsets.all(5),
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 4,
-                                                        horizontal: 20),
-                                                    child: Text(
-                                                      "Remove",
-                                                      style: btn_text,
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 10, 0),
+                                                  child: NeumorphicButton(
+                                                    onPressed: () {
+                                                      firestore
+                                                          .collection("event")
+                                                          .doc(snapshot
+                                                              .data!
+                                                              .docs[index]
+                                                              .reference
+                                                              .id
+                                                              .toString())
+                                                          .delete();
+                                                    },
+                                                    style: theme.button,
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          vertical: 4,
+                                                          horizontal: 20),
+                                                      child: Text(
+                                                        "Remove",
+                                                        style: btn_text,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                ],
+                                  ],
+                                ),
+                                // trailing: Text(lecturePresent ? 'Present' : 'Absent'),
                               ),
-                              // trailing: Text(lecturePresent ? 'Present' : 'Absent'),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
-                      return const Center(child:Text("There is no any event"));
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                          );
+                        },
                       );
+                    } else {
+                      if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
+                        return  Center(child: Text("There are no events! 😟" , style: title_style,));
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class FadeInPageTransitionsBuilder extends PageTransitionsBuilder {
+  @override
+  Widget buildTransitions<T>(
+    Route<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
     );
   }
 }

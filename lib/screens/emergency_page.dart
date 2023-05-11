@@ -1,35 +1,64 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:our_community/logic/emergency_logic.dart';
 import 'package:our_community/logic/notification.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../nuemorphism/colors.dart';
 
-class EmergencyPage extends StatelessWidget with sendnotification {
+class EmergencyPage extends StatefulWidget {
+  @override
+  State<EmergencyPage> createState() => _EmergencyPageState();
+}
+
+class _EmergencyPageState extends State<EmergencyPage> with sendnotification {
+  @override
+  initState() {
+    super.initState();
+    getPreference();
+  }
+
+  bool isDark = false;
+
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      setState(() {
+        isDark = pref.getBool("Theme")!;
+      });
+    }
+    print(isDark);
+    // themeF(isDark);
+  }
+
   late double Help_Button_Radius,
       Help_Buttons_Padding = 13.5,
       Divider_Thickness = 2;
 
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     Help_Button_Radius = min((MediaQuery.of(context).size.width),
             (MediaQuery.of(context).size.height)) /
         2.8;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        backgroundColor: HexColor.Wbackground_color,
-        child: const Icon(
-          Icons.arrow_back_ios,
-          color: Colors.blue,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 95),
+        child: NeumorphicFloatingActionButton(
+          onPressed: () => {Navigator.pop(context)},
+          child: Icon(
+            Icons.arrow_back,
+            color: isDark ? HexColor.icon_color : HexColor.WiconColor,
+          ),
+          style: theme.back_button,
         ),
       ),
-      backgroundColor: HexColor.Wbackground_color,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
+        decoration: theme.background_color,
         //This contains the whole page
         constraints: BoxConstraints.expand(),
         // padding: EdgeInsets.all(Help_Buttons_Padding),
@@ -45,7 +74,7 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                   "Emergency",
                   style: TextStyle(
                     fontFamily: 'Poppins-SemiBold',
-                    color: Colors.white,
+                    color: isDark ? HexColor.text_color : HexColor.WblueText,
                     fontWeight: FontWeight.w600,
                     fontSize: 35,
                   ),
@@ -54,7 +83,7 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                   "Contact Emergency Services\nAnd Run Automated Actions",
                   style: TextStyle(
                     fontFamily: 'Poppins-medium',
-                    color: Colors.white,
+                    color: isDark ? HexColor.text_color : HexColor.WblueText,
                     fontSize: 20,
                   ),
                 ),
@@ -82,17 +111,18 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                             ),
                           ),
                           onPressed: () async {
-                             sendNotificationToAllUsers("Medical Saftey Emeregency");
-                            await FlutterPhoneDirectCaller.callNumber('102');
-                            // final Uri url = Uri(
-                            //   scheme: 'tel',
-                            //   path: '9316343387',
-                            // );
-                            // if (await canLaunchUrl(url)) {
-                            //   await launchUrl(url);
-                            // } else {
-                            //   print("can't launch");
-                            // }
+                            sendNotificationToAllUsers(
+                                "Medical Saftey Emeregency");
+                            // await FlutterPhoneDirectCaller.callNumber('102');
+                            final Uri url = Uri(
+                              scheme: 'tel',
+                              path: '102',
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              print("can't launch");
+                            }
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -125,8 +155,18 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                             ),
                           ),
                           onPressed: () async {
-                             sendNotificationToAllUsers("Fire Saftey Emeregency");
-                            await FlutterPhoneDirectCaller.callNumber('101');
+                            sendNotificationToAllUsers(
+                                "Fire Saftey Emeregency");
+                            // await FlutterPhoneDirectCaller.callNumber('101');
+                            final Uri url = Uri(
+                              scheme: 'tel',
+                              path: '101',
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              print("can't launch");
+                            }
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -164,8 +204,18 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                             ),
                           ),
                           onPressed: () async {
-                             sendNotificationToAllUsers("Police Saftey Emeregency");
-                            await FlutterPhoneDirectCaller.callNumber('100');
+                            sendNotificationToAllUsers(
+                                "Police Saftey Emeregency");
+                            // await FlutterPhoneDirectCaller.callNumber('100');
+                            final Uri url = Uri(
+                              scheme: 'tel',
+                              path: '100',
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              print("can't launch");
+                            }
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(
@@ -198,8 +248,18 @@ class EmergencyPage extends StatelessWidget with sendnotification {
                             ),
                           ),
                           onPressed: () async {
-                            sendNotificationToAllUsers("Woman Saftey Emeregency");
-                            await FlutterPhoneDirectCaller.callNumber('181');
+                            sendNotificationToAllUsers(
+                                "Woman Saftey Emeregency");
+                            // await FlutterPhoneDirectCaller.callNumber('181');
+                            final Uri url = Uri(
+                              scheme: 'tel',
+                              path: '181',
+                            );
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url);
+                            } else {
+                              print("can't launch");
+                            }
                           },
                           // child: Icon(Icons.medical_services),
                           child: Stack(

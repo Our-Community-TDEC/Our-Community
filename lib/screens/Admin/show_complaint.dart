@@ -14,16 +14,17 @@ class show_complaint extends StatefulWidget {
 
 class _show_complaintState extends State<show_complaint> {
   // var theme;
-  WhiteTheme theme = WhiteTheme();
+
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
   var name_style;
   var desc_text_style;
+
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (false) {
+    if (isDark) {
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -57,7 +58,7 @@ class _show_complaintState extends State<show_complaint> {
           color: HexColor.WblackText,
           fontFamily: 'poppins');
 
-      // theme = WhiteTheme();
+      //
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 30,
@@ -150,7 +151,7 @@ class _show_complaintState extends State<show_complaint> {
         fontWeight: FontWeight.w500,
         color: HexColor.WblackText,
         fontFamily: 'poppins');
-
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
@@ -357,7 +358,7 @@ class _show_complaintState extends State<show_complaint> {
                                                           onPressed: () {
                                                             firestore
                                                                 .collection(
-                                                                    "suggestion")
+                                                                    "complaint")
                                                                 .doc(snapshot
                                                                     .data!
                                                                     .docs[index]
@@ -376,8 +377,7 @@ class _show_complaintState extends State<show_complaint> {
                                                             child: Text(
                                                               "Delete",
                                                               style: TextStyle(
-                                                                  color: HexColor
-                                                                      .text_color,
+                                                                  color: isDark ? HexColor.text_color : HexColor.WblueText,
                                                                   fontSize: 19,
                                                                   fontWeight:
                                                                       FontWeight

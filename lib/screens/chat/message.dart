@@ -19,7 +19,7 @@ class _messagesState extends State<messages> {
   var msg_text_style;
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    if (false) {
+    if (isDark) {
       // theme = DarkTheme();
       msg_text_style = TextStyle(fontSize: 15, color: HexColor.text_color);
     } else {
@@ -69,6 +69,7 @@ class _messagesState extends State<messages> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     Stream<QuerySnapshot> _messageStream = FirebaseFirestore.instance
         .collection('Messages')
         .orderBy('time')

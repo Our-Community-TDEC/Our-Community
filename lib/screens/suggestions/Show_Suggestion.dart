@@ -21,7 +21,6 @@ class show_suggestion extends StatefulWidget {
 }
 
 class _show_suggestionState extends State<show_suggestion> {
-  WhiteTheme theme = WhiteTheme();
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var title_style;
@@ -96,7 +95,6 @@ class _show_suggestionState extends State<show_suggestion> {
           color: HexColor.WblackText,
           fontFamily: 'poppins');
 
-      theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 30,
@@ -183,7 +181,7 @@ class _show_suggestionState extends State<show_suggestion> {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+final theme = isDark ? DarkTheme() : WhiteTheme(); 
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(
@@ -417,7 +415,7 @@ class _show_suggestionState extends State<show_suggestion> {
                             ),
                           );
                         } else {
-                          return Text("There is no any suggestion");
+                          return Text("There are no suggestion");
                         }
                       } else {
                         return Center(

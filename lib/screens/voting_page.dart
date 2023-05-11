@@ -6,9 +6,6 @@ import '../nuemorphism/border_effect.dart';
 import '../nuemorphism/colors.dart';
 
 class Voting_Page extends StatelessWidget {
-
-  WhiteTheme theme = WhiteTheme();
-
   Future<String> getName(String documentId) async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -17,10 +14,8 @@ class Voting_Page extends StatelessWidget {
     return snapshot.get("userName");
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     var title_text_style = TextStyle(
@@ -34,11 +29,8 @@ class Voting_Page extends StatelessWidget {
         fontWeight: FontWeight.w400,
         color: HexColor.WblackText,
         fontFamily: 'poppins');
-
-
-
+// final theme = isDark ? DarkTheme() : WhiteTheme(); 
     return Scaffold(
-
       floatingActionButton: SizedBox(
         height: 45,
         width: 45,
@@ -64,7 +56,7 @@ class Voting_Page extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-                "Let's Vote!",
+              "Let's Vote!",
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 50,
@@ -112,14 +104,14 @@ class Voting_Page extends StatelessWidget {
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
                           Map<String, dynamic> voting_list =
-                          snapshot.data!.docs[index].data()
-                          as Map<String, dynamic>;
+                              snapshot.data!.docs[index].data()
+                                  as Map<String, dynamic>;
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Neumorphic(
-                              style: theme.voting_neumorphism,
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 20),
+                              // style: theme.voting_neumorphism,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: ListTile(
                                 title: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -130,26 +122,22 @@ class Voting_Page extends StatelessWidget {
                                             10, 0, 0, 0),
                                         child: Column(
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 voting_list["title"],
                                                 style: TextStyle(
                                                     fontSize: 20,
-                                                    fontWeight:
-                                                    FontWeight.w700,
-                                                    color:
-                                                    HexColor.WblackText,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: HexColor.WblackText,
                                                     fontFamily: 'poppins'),
                                               ),
-
                                               FutureBuilder<String>(
                                                 future: getName(
                                                     voting_list["option_1"]),
-                                                builder: (BuildContext
-                                                context,
+                                                builder: (BuildContext context,
                                                     AsyncSnapshot<String>
-                                                    snapshot) {
+                                                        snapshot) {
                                                   if (snapshot.hasData) {
                                                     return Text(
                                                         snapshot.data
@@ -157,35 +145,30 @@ class Voting_Page extends StatelessWidget {
                                                         style: TextStyle(
                                                             fontSize: 15,
                                                             fontWeight:
-                                                            FontWeight
-                                                                .w300,
+                                                                FontWeight.w300,
                                                             color: HexColor
                                                                 .WblackText,
                                                             fontFamily:
-                                                            'poppins'));
+                                                                'poppins'));
                                                   } else if (snapshot
                                                       .hasError) {
                                                     return Text(
                                                       "Loading...",
-                                                      style:
-                                                      title_text_style,
+                                                      style: title_text_style,
                                                     );
                                                   } else {
-                                                    return Text(
-                                                        "Loading...",
+                                                    return Text("Loading...",
                                                         style:
-                                                        title_text_style);
+                                                            title_text_style);
                                                   }
                                                 },
                                               ),
-
                                               FutureBuilder<String>(
                                                 future: getName(
                                                     voting_list["option_2"]),
-                                                builder: (BuildContext
-                                                context,
+                                                builder: (BuildContext context,
                                                     AsyncSnapshot<String>
-                                                    snapshot) {
+                                                        snapshot) {
                                                   if (snapshot.hasData) {
                                                     return Text(
                                                         snapshot.data
@@ -193,24 +176,21 @@ class Voting_Page extends StatelessWidget {
                                                         style: TextStyle(
                                                             fontSize: 15,
                                                             fontWeight:
-                                                            FontWeight
-                                                                .w300,
+                                                                FontWeight.w300,
                                                             color: HexColor
                                                                 .WblackText,
                                                             fontFamily:
-                                                            'poppins'));
+                                                                'poppins'));
                                                   } else if (snapshot
                                                       .hasError) {
                                                     return Text(
                                                       "Loading...",
-                                                      style:
-                                                      title_text_style,
+                                                      style: title_text_style,
                                                     );
                                                   } else {
-                                                    return Text(
-                                                        "Loading...",
+                                                    return Text("Loading...",
                                                         style:
-                                                        title_text_style);
+                                                            title_text_style);
                                                   }
                                                 },
                                               ),
@@ -235,7 +215,6 @@ class Voting_Page extends StatelessWidget {
                 }
               },
             ),
-
           ],
         ),
       ),

@@ -34,7 +34,7 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
   bool _isButtonEnabled = true;
 
   // var theme;
-  WhiteTheme theme = WhiteTheme();
+
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
@@ -42,9 +42,7 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
   bool isDark = false;
   String imageUrl = '';
   themeF(isDark) {
-    print("Theme" + isDark.toString());
     if (isDark) {
-      // theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w500,
@@ -65,7 +63,6 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
 
       icon_color = HexColor.icon_color;
     } else {
-      theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 32,
@@ -117,6 +114,8 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
 
   @override
   Widget build(BuildContext context) {
+    
+    final theme = isDark ? DarkTheme() : WhiteTheme(); 
     complaint_title.text = OtherComplains.ttle;
     complaint_description.text = OtherComplains.desc;
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
@@ -403,23 +402,8 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
                             onPressed: () {
                               _isButtonEnabled ? add_data() : null;
                             },
-                            child: Stack(
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text("Raise Complain", style: button_text),
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: uploadingImage,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                              ],
-                            ),
+                               child:  Center(child: _isButtonEnabled ? Text("Raise Complain", style: button_text) : CircularProgressIndicator()),
+                                
                           ),
                         ),
                       ),

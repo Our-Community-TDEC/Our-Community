@@ -26,18 +26,19 @@ class _CleaningState extends State<Cleaning> with sendnotification {
 
   var icon_color = HexColor.WiconColor;
   var page_title_style;
-  WhiteTheme theme = new WhiteTheme();
   bool isDark = false;
+  var text_color;
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
+      text_color = HexColor.text_color;
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
         color: HexColor.text_color,
       );
     } else {
-      theme = WhiteTheme();
+      text_color = HexColor.WblueText;
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
@@ -47,7 +48,7 @@ class _CleaningState extends State<Cleaning> with sendnotification {
     setState(() {});
   }
 
-   getPreference() async {
+  getPreference() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
@@ -94,23 +95,22 @@ class _CleaningState extends State<Cleaning> with sendnotification {
   String bookTimeLimit = "2 hr 00 min";
 
   Future<String> getTotalslot() async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-        .instance
-        .collection("cleaner")
-        .doc("cleanerdetail")
-        .get();
+  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+      .instance
+      .collection("user")
+      .where("role", isEqualTo: "cleaner")
+      .where("refferalcode" , isEqualTo: refferalcode)
+      .get();
 
-    if (snapshot.exists && snapshot.data() != null) {
-      Map<String, dynamic> slotData = snapshot.data() as Map<String, dynamic>;
-      String slot = slotData["slot"];
-      bookTimeLimit = slotData['time'];
-      print("true");
-      return slot;
-    } else {
-      print("false");
-      return "0";
-    }
+  if (snapshot.docs.isNotEmpty) {
+    Map<String, dynamic> slotData = snapshot.docs.first.data() as Map<String, dynamic>;
+    String slot = slotData["slot"];
+    bookTimeLimit = slotData['time'];
+    return slot;
+  } else {
+    return "0";
   }
+}
 
   Future<void> deleteExpiredDocuments() async {
     DateTime now = DateTime.now();
@@ -205,7 +205,7 @@ class _CleaningState extends State<Cleaning> with sendnotification {
             "refferalcode": refferalcode
           }).then(
             (value) => {
-              sendServiceNotificationToAllUsers("New Slot Booked" , "cleaner"),
+              sendServiceNotificationToAllUsers("New Slot Booked", "cleaner"),
               plumbingTitle.clear(),
               plumbingDescription.clear(),
               ScaffoldMessenger.of(context).showSnackBar(
@@ -241,6 +241,7 @@ class _CleaningState extends State<Cleaning> with sendnotification {
   String workDuration = "12 hr 00 min";
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     double smallerMarginRatio = 0.025;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -248,8 +249,8 @@ class _CleaningState extends State<Cleaning> with sendnotification {
         onPressed: () => _showAddEventDialog(),
         child: Icon(Icons.add),
       ),
-      backgroundColor: HexColor.Wbackground_color,
       body: Container(
+        decoration: theme.background_color,
         child: Column(children: [
           Column(
             children: [
@@ -307,24 +308,44 @@ class _CleaningState extends State<Cleaning> with sendnotification {
                         _focusedDay = focusedDay;
                       });
                     },
+                    // eventLoader: (day) {
+                    //   return _getEventsForDay(
+                    //     day,
+                    //   );
+                    // },
+
                     calendarFormat: _calendarFormat,
+                    // @ week , week , month format of calender
                     onFormatChanged: (format) {
                       setState(() {
                         _calendarFormat = format;
                       });
                     },
-                    calendarBuilders: CalendarBuilders(
-                      dowBuilder: (context, day) {
-                        if (day.weekday == DateTime.sunday) {
-                          final text = DateFormat.E().format(day);
-                          return Center(
-                            child: Text(
-                              text,
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          );
-                        }
-                      },
+                    headerStyle: HeaderStyle(
+                      titleTextStyle: TextStyle(
+                        color: text_color,
+                        fontSize: 16,
+                      ),
+                      formatButtonTextStyle: TextStyle(
+                        color: text_color,
+                        fontSize: 16,
+                      ),
+                    ),
+                    calendarStyle: CalendarStyle(
+                      defaultTextStyle: TextStyle(
+                        color: text_color,
+                        fontSize: 16,
+                      ),
+                      weekendTextStyle: TextStyle(
+                        color: text_color,
+                        fontSize: 16,
+                      ),
+                      outsideTextStyle: TextStyle(
+                        color: isDark
+                            ? HexColor.text_color.withOpacity(0.4)
+                            : HexColor.WblueText.withOpacity(0.8),
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -332,57 +353,11 @@ class _CleaningState extends State<Cleaning> with sendnotification {
                   diameter: size.width / 2.3,
                   icon1Data: Icons.more_time_sharp,
                   icon2Data: Icons.av_timer_sharp,
-                  knobDecoration: BoxDecoration(
-                    color: HexColor.WblackText,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        offset: Offset(-2, -2),
-                        blurRadius: 5,
-                        spreadRadius: 1,
-                      ),
-                      BoxShadow(
-                        color: Colors.white.withOpacity(0.7),
-                        offset: Offset(2, 2),
-                        blurRadius: 5,
-                        spreadRadius: 1,
-                      ),
-                    ],
-                  ),
-                  clockDecoration: BoxDecoration(
-                    color: HexColor.Wbackground_color,
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor.Wdark_container,
-                        offset: Offset(-2, -2),
-                        blurRadius: 2,
-                        spreadRadius: 4,
-                      ),
-                      BoxShadow(
-                        color: HexColor.Wlight_container,
-                        offset: Offset(2, 2),
-                        blurRadius: 2,
-                        spreadRadius: 4,
-                      ),
-                    ],
-                  ),
-                  knobBackgroundDecoration: BoxDecoration(
-                    color: HexColor.Wbackground_color,
-                    boxShadow: [
-                      BoxShadow(
-                        color: HexColor.Wdark_container,
-                        offset: Offset(0, 0),
-                        blurRadius: 5,
-                        spreadRadius: 7,
-                      ),
-                      BoxShadow(
-                        color: HexColor.Wlight_container,
-                        offset: Offset(0, 0),
-                        blurRadius: 5,
-                        spreadRadius: 7,
-                      ),
-                    ],
-                  ),
+                  knobDecoration: theme.knobdecoration,
+                  clockDecoration: theme.clockdecoration,
+                  clockTextStyle: TextStyle(
+                      color: isDark ? HexColor.text_color : HexColor.WblueText),
+                  knobBackgroundDecoration: theme.knobBackgrounddecoration,
                   onIcon1RotatedCallback: (value) {
                     setState(() {
                       String timeString = value;
@@ -417,20 +392,26 @@ class _CleaningState extends State<Cleaning> with sendnotification {
                         width: 120,
                         height: 120,
                         child: Neumorphic(
-                          style: NeumorphicStyle(
-                            color: HexColor.Wbackground_color,
-                            depth: 3,
-                            shadowLightColorEmboss: HexColor.Wlight_container,
-                            shadowDarkColorEmboss: HexColor.Wdark_container,
-                          ),
+                          style: theme.servive_container,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Total duration"),
+                              Text(
+                                "Total duration",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText,
+                                    fontSize: 20),
+                              ),
                               Text(
                                 workDuration,
                                 style: TextStyle(
-                                    fontSize: 20, color: HexColor.WiconColor),
+                                    fontSize: 14,
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -441,20 +422,25 @@ class _CleaningState extends State<Cleaning> with sendnotification {
                         width: 120,
                         height: 120,
                         child: Neumorphic(
-                          style: NeumorphicStyle(
-                            color: HexColor.Wbackground_color,
-                            depth: 3,
-                            shadowLightColorEmboss: HexColor.Wlight_container,
-                            shadowDarkColorEmboss: HexColor.Wdark_container,
-                          ),
+                          style: theme.servive_container,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Start time"),
+                              Text(
+                                "Start time",
+                                style: TextStyle(
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText,
+                                    fontSize: 20),
+                              ),
                               Text(
                                 bedTime,
                                 style: TextStyle(
-                                    fontSize: 20, color: HexColor.WiconColor),
+                                    fontSize: 14,
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -465,20 +451,25 @@ class _CleaningState extends State<Cleaning> with sendnotification {
                         width: 120,
                         height: 120,
                         child: Neumorphic(
-                          style: NeumorphicStyle(
-                            color: HexColor.Wbackground_color,
-                            depth: 3,
-                            shadowLightColorEmboss: HexColor.Wlight_container,
-                            shadowDarkColorEmboss: HexColor.Wdark_container,
-                          ),
+                          style: theme.servive_container,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("End Time"),
+                              Text(
+                                "End Time",
+                                style: TextStyle(
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText,
+                                    fontSize: 20),
+                              ),
                               Text(
                                 alarmTime,
                                 style: TextStyle(
-                                    fontSize: 20, color: HexColor.WiconColor),
+                                    fontSize: 14,
+                                    color: isDark
+                                        ? HexColor.text_color
+                                        : HexColor.WblackText),
                                 textAlign: TextAlign.center,
                               ),
                             ],

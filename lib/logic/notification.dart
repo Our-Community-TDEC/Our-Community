@@ -17,7 +17,6 @@ class sendnotification {
   }
 
   Future<void> sendNotificationToAllUsers(String message) async {
-    await getrefferalcode();
     // bool hasCustomSounds = await FlutterRingtonePlayer.canCustomize;
 
     // Check if the user has provided privacy consent
@@ -40,6 +39,7 @@ class sendnotification {
       Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
       String? playerId = userData['notification_tokens'] as String?;
       if (playerId != null) {
+        print("object");
         playerIds.add(playerId);
       }
     });

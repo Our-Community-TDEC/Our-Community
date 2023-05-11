@@ -151,6 +151,17 @@ var Wtext_field = NeumorphicStyle(
 
 // --------------------------White Theme------------------------
 class WhiteTheme implements ThemeInterface {
+  var emergency_button = NeumorphicStyle(
+    color: HexColor.WiconColor,
+    depth: 5,
+    // intensity: 0.5,
+    surfaceIntensity: 1,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColor: HexColor.WLightButton,
+    shadowDarkColor: HexColor.WBlackButton,
+  );
+
   var text_field = NeumorphicStyle(
     color: HexColor.Wbackground_color,
     depth: -2,
@@ -173,7 +184,6 @@ class WhiteTheme implements ThemeInterface {
     shadowLightColorEmboss: HexColor.WLightButton,
     shadowDarkColorEmboss: HexColor.WBlackButton,
   );
-
 
   var homepage_button = NeumorphicStyle(
     color: HexColor.Wbackground_color,
@@ -276,9 +286,8 @@ class WhiteTheme implements ThemeInterface {
     depth: 4,
   );
 
-
 // -----------------------vote-----------------------
-var voting_neumorphism = NeumorphicStyle(
+  var voting_neumorphism = NeumorphicStyle(
     color: HexColor.Wbackground_color,
     depth: -4,
     shape: NeumorphicShape.flat,
@@ -407,17 +416,79 @@ var voting_neumorphism = NeumorphicStyle(
       shadowDarkColor: HexColor.Wdark_vote,
       depth: 4);
 
+  var servive_container = NeumorphicStyle(
+    color: HexColor.Wbackground_color,
+    depth: 3,
+    shadowLightColorEmboss: HexColor.Wlight_container,
+    shadowDarkColorEmboss: HexColor.Wdark_container,
+  );
+
+  var clockdecoration = BoxDecoration(
+    color: HexColor.Wbackground_color,
+    boxShadow: [
+      BoxShadow(
+        color: HexColor.Wdark_container,
+        offset: Offset(-2, -2),
+        blurRadius: 2,
+        spreadRadius: 4,
+      ),
+      BoxShadow(
+        color: HexColor.Wlight_container,
+        offset: Offset(2, 2),
+        blurRadius: 2,
+        spreadRadius: 4,
+      ),
+    ],
+  );
+
+  var knobdecoration = BoxDecoration(
+    color: HexColor.WblackText,
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.2),
+        offset: Offset(-2, -2),
+        blurRadius: 5,
+        spreadRadius: 1,
+      ),
+      BoxShadow(
+        color: Colors.white.withOpacity(0.7),
+        offset: Offset(2, 2),
+        blurRadius: 5,
+        spreadRadius: 1,
+      ),
+    ],
+  );
+
+  var knobBackgrounddecoration = BoxDecoration(
+    color: HexColor.Wbackground_color,
+    boxShadow: [
+      BoxShadow(
+        color: HexColor.Wdark_container,
+        offset: Offset(0, 0),
+        blurRadius: 5,
+        spreadRadius: 7,
+      ),
+      BoxShadow(
+        color: HexColor.Wlight_container,
+        offset: Offset(0, 0),
+        blurRadius: 5,
+        spreadRadius: 7,
+      ),
+    ],
+  );
+
   // // ----------------Noticeboard----------------------
   // nuemprophic
   // design
   // idhar
   // ayega
-
 }
 
 abstract class ThemeInterface {
+  var servive_container;
   var background_color;
   var button;
+  var emergency_button;
   var homepage_button;
   var homepage_button_out;
   var complaint_neumorphism;
@@ -436,12 +507,86 @@ abstract class ThemeInterface {
   var circle_container_style;
   var back_button;
   var appbar;
+  var text_field;
+  var delete_com_sugg_button;
+  var com_sugg_textfield_desc_decoration;
+  var knobdecoration;
+  var clockdecoration;
+  var knobBackgrounddecoration;
   // add any other properties or methods you need
 }
 
 // --------------------------Dark Theme------------------------
 class DarkTheme implements ThemeInterface {
+  var clockdecoration = BoxDecoration(
+    color: HexColor.background_top,
+    boxShadow: [
+      BoxShadow(
+        color: HexColor.black_shadow..withOpacity(0.4),
+        offset: Offset(-2, -2),
+        blurRadius: 5,
+        spreadRadius: 4,
+      ),
+      BoxShadow(
+        color: HexColor.blue_shadow.withOpacity(0.4),
+        offset: Offset(2, 2),
+        blurRadius: 5,
+        spreadRadius: 4,
+      ),
+    ],
+  );
 
+  var knobdecoration = BoxDecoration(
+    color: HexColor.WblackText,
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.2),
+        offset: Offset(-2, -2),
+        blurRadius: 5,
+        spreadRadius: 1,
+      ),
+      BoxShadow(
+        color: Colors.white.withOpacity(0.7),
+        offset: Offset(2, 2),
+        blurRadius: 5,
+        spreadRadius: 1,
+      ),
+    ],
+  );
+
+  var knobBackgrounddecoration = BoxDecoration(
+    color: HexColor.background_top,
+    boxShadow: [
+      BoxShadow(
+        color: HexColor.black_shadow,
+        offset: Offset(3, 3),
+        blurRadius: 8,
+        spreadRadius: 5,
+      ),
+      BoxShadow(
+        color: HexColor.blue_shadow.withOpacity(0.3),
+        offset: Offset(-3, -3),
+        blurRadius: 8,
+        spreadRadius: 5,
+      ),
+    ],
+  );
+  var servive_container = NeumorphicStyle(
+    color: HexColor.background_top,
+    depth: 3,
+    shadowLightColor: HexColor.blue_shadow,
+    shadowDarkColor: HexColor.black_shadow,
+  );
+  var emergency_button = NeumorphicStyle(
+    color: Colors.red,
+    depth: 5,
+    // intensity: 0.5,
+    surfaceIntensity: 1,
+    boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
+    shape: NeumorphicShape.flat,
+    shadowLightColor: HexColor.blue_shadow,
+    shadowDarkColor: HexColor.black_shadow,
+  );
   var text_field = NeumorphicStyle(
     color: HexColor.background_top,
     depth: -2,
@@ -564,11 +709,11 @@ class DarkTheme implements ThemeInterface {
   );
 
   var com_sugge_in_shadow = NeumorphicStyle(
-    color: HexColor.Wbackground_color,
+    color: HexColor.background_top,
     depth: -2,
     shape: NeumorphicShape.flat,
-    shadowLightColorEmboss: HexColor.Wdark_container,
-    shadowDarkColorEmboss: HexColor.Wlight_container,
+    shadowLightColorEmboss: HexColor.blue_shadow,
+    shadowDarkColorEmboss: HexColor.black_shadow,
   );
 
   var com_sugge_container = NeumorphicStyle(
@@ -621,6 +766,7 @@ class DarkTheme implements ThemeInterface {
   );
 
   var chatAppBar = NeumorphicAppBar(
+    iconTheme: IconThemeData(color: HexColor.icon_color),
     title: Text(
       "Chat",
       style: TextStyle(color: HexColor.text_color),
@@ -630,34 +776,34 @@ class DarkTheme implements ThemeInterface {
     color: HexColor.background_top,
     textStyle:
         TextStyle(color: HexColor.text_color, fontWeight: FontWeight.w700),
-    // buttonStyle: NeumorphicStyle(
-    //   color: HexColor.Wbackground_color,
-    //   boxShape: NeumorphicBoxShape.circle(),
-    //   shadowLightColor: HexColor.backButtonLight,
-    //   shadowDarkColor: HexColor.backButtonDark,
-    //   depth: 5,
-    // ),
+    buttonStyle: NeumorphicStyle(
+      color: HexColor.background_top,
+      boxShape: NeumorphicBoxShape.circle(),
+      shadowLightColor: HexColor.blue_shadow,
+      shadowDarkColor: HexColor.black_shadow,
+      depth: 4,
+    ),
   );
   // -----------------Role----------------
   var unselect_role = NeumorphicStyle(
     color: HexColor.background_top,
-    depth: 5,
+    depth: -5,
     // intensity: 0.5,
     surfaceIntensity: 1,
     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
     shape: NeumorphicShape.flat,
-    shadowLightColor: HexColor.blue_shadow,
-    shadowDarkColor: HexColor.black_shadow,
+    shadowLightColorEmboss: HexColor.blue_shadow,
+    shadowDarkColorEmboss: HexColor.black_shadow,
   );
   var selected_role = NeumorphicStyle(
     color: HexColor.background_top,
-    depth: -5,
+    depth: 5,
     boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(44)),
     shape: NeumorphicShape.flat,
     // intensity: 1,
     // shape: NeumorphicShape.flat,
-    shadowLightColorEmboss: HexColor.blue_shadow,
-    shadowDarkColorEmboss: HexColor.black_shadow,
+    shadowLightColor: HexColor.blue_shadow,
+    shadowDarkColor: HexColor.black_shadow,
   );
 
   // -----------------------Profile Page------------------------

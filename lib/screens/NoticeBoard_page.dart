@@ -3,31 +3,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/logic/notification.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../nuemorphism/border_effect.dart';
-import '../nuemorphism/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class AttendanceCalendarPage extends StatefulWidget {
-  final String sub;
-  final String studentId;
-
-  const AttendanceCalendarPage({
-    Key? key,
-    required this.sub,
-    required this.studentId,
-  }) : super(key: key);
+class Notice extends StatefulWidget {
+  const Notice({super.key});
 
   @override
-  _AttendanceCalendarPageState createState() => _AttendanceCalendarPageState();
+  State<Notice> createState() => _NoticeState();
 }
 
-class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with sendnotification {
+class _NoticeState extends State<Notice> with sendnotification {
   var title_style;
   var desc_text_style;
   var page_title_style;
   var icon_color = HexColor.WBlackButton;
   var btn_text;
+  var text_color;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
@@ -36,7 +30,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   bool isUser = true;
   static String role = "";
-  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -48,22 +41,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
     return "0";
   }
 
-  Future<void> deleteExpiredDocuments() async {
-    DateTime now = DateTime.now();
-    String day = DateFormat('dd-MM-yyyy').format(now);
-
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('noticeboard')
-        .where('date', isLessThan: day)
-        .get();
-
-    snapshot.docs.forEach((document) async {
-      await document.reference.delete();
-    });
-  }
-
   setrole() {
-    print("obj" + role);
     if (role == "user") {
       isUser = true;
     } else if (role == "admin") {
@@ -73,172 +51,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
 
   themeF(isDark) {
     print("Theme" + isDark.toString());
-    // if (false) {
-    //   // theme = DarkTheme();
-    //   title_style = TextStyle(
-    //       fontSize: 20,
-    //       fontWeight: FontWeight.w700,
-    //       color: HexColor.text_color,
-    //       fontFamily: 'poppins');
-
-    //   page_title_style = TextStyle(
-    //     fontSize: 30,
-    //     fontWeight: FontWeight.w400,
-    //     color: HexColor.text_color,
-    //   );
-
-    //   desc_text_style = TextStyle(
-    //       fontSize: 15,
-    //       fontWeight: FontWeight.w400,
-    //       color: HexColor.text_color,
-    //       fontFamily: 'poppins');
-
-    //   icon_color = HexColor.icon_color;
-
-    //   TextStyle(
-    //       color: HexColor.text_color,
-    //       fontSize: 19,
-    //       fontWeight: FontWeight.w600);
-    // } else {
-    //   // theme = WhiteTheme();
-    //   desc_text_style = TextStyle(
-    //       fontSize: 15,
-    //       fontWeight: FontWeight.w400,
-    //       color: HexColor.WblackText,
-    //       fontFamily: 'poppins');
-
-    //   icon_color = HexColor.WiconColor;
-
-    //   page_title_style = TextStyle(
-    //     fontSize: 30,
-    //     fontWeight: FontWeight.w400,
-    //     color: HexColor.WblackText,
-    //   );
-    //   print("title");
-    //   title_style = TextStyle(
-    //       fontSize: 20,
-    //       fontWeight: FontWeight.w700,
-    //       color: HexColor.WblackText,
-    //       fontFamily: 'poppins');
-
-    //   btn_text = TextStyle(
-    //       color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
-    // }
-  }
-
-  String refferalcode = "";
-  Future<String> getCurrentUserRefferalCode() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
-        .collection("user")
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    return snapshot.get("refferalcode");
-  }
-
-  getPreference() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    if (pref.containsKey("Theme")) {
-      isDark = pref.getBool("Theme")!;
-    }
-    refferalcode = await getCurrentUserRefferalCode();
-    themeF(isDark);
-  }
-
-  @override
-  initState() {
-    // TODO: implement initState
-    super.initState();
-    getPreference();
-    getRole();
-    deleteExpiredDocuments();
-    // getTheme();
-  }
-
-  TextEditingController noticeTitle = TextEditingController();
-  TextEditingController noticeDescription = TextEditingController();
-  @override
-  _showAddEventDialog() async {
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(
-          'Add new Notice',
-          textAlign: TextAlign.center,
-        ),
-        content: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                controller: noticeTitle,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                ),
-              ),
-              TextField(
-                controller: noticeDescription,
-                textCapitalization: TextCapitalization.words,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                ),
-              )
-            ]),
-        actions: [
-          TextButton(
-              child: Text('Cancel'),
-              onPressed: () {
-                noticeTitle.clear();
-                noticeDescription.clear();
-                Navigator.pop(context);
-              }),
-          TextButton(
-              child: Text('Add Notice'),
-              onPressed: () {
-                add();
-                Navigator.pop(context);
-              })
-        ],
-      ),
-    );
-  }
-
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  void add() async {
-    String title = noticeTitle.text.trim();
-    String discription = noticeDescription.text.trim();
-    print(title);
-    if (title != "" || discription != "") {
-      firestore.collection("noticeboard").doc().set({
-        "title": title,
-        "discription": discription,
-        "date": day,
-        "refferalcode": refferalcode
-      }).then(
-        (value) => {
-          sendNotificationToAllUsers("New Complaint Arived"),
-          noticeTitle.clear(),
-          noticeDescription.clear(),
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Notice added"),
-              backgroundColor: Colors.blue,
-            ),
-          ),
-        },
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("please enter all detail"),
-        backgroundColor: Colors.blue,
-      ));
-    }
-  }
-
-  Widget build(BuildContext context) {
     if (isDark) {
-      // theme = DarkTheme();
+      text_color = HexColor.text_color;
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -264,7 +78,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
           fontSize: 19,
           fontWeight: FontWeight.w600);
     } else {
-      theme = WhiteTheme();
+      text_color = HexColor.WblueText;
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -276,9 +90,9 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
-        color: HexColor.WblackText,
+        color: HexColor.WblueText,
       );
-      print("title");
+
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -288,6 +102,117 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
       btn_text = TextStyle(
           color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
     }
+    setState(() {});
+  }
+
+ String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
+   getPreference() async {
+   SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    refferalcode = await getCurrentUserRefferalCode();
+    themeF(isDark);
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    getPreference();
+    getRole();
+    // getTheme();
+  }
+
+  TextEditingController eventTitle = TextEditingController();
+  TextEditingController eventDescription = TextEditingController();
+  @override
+   _showAddEventDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(
+          'Add new Notice',
+          textAlign: TextAlign.center,
+        ),
+        content: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: eventTitle,
+                textCapitalization: TextCapitalization.words,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+              ),
+              TextField(
+                controller: eventDescription,
+                textCapitalization: TextCapitalization.words,
+                decoration: const InputDecoration(
+                  labelText: 'Description',
+                ),
+              )
+            ]),
+        actions: [
+          TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                eventTitle.clear();
+                eventDescription.clear();
+                Navigator.pop(context);
+              }),
+          TextButton(
+              child: Text('Add Notice'),
+              onPressed: () {
+                add();
+                Navigator.pop(context);
+              })
+        ],
+      ),
+    );
+  }
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  void add() async {
+    String title = eventTitle.text.trim();
+    String discription = eventDescription.text.trim();
+    print(title);
+    if (title != "" || discription != "") {
+      firestore
+          .collection("noticeboard")
+          .doc()
+          .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
+        (value) => {
+          sendNotificationToAllUsers("New NOtice Arived"),
+          eventTitle.clear(),
+          eventDescription.clear(),
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Notice added"),
+              backgroundColor: Colors.blue,
+            ),
+          ),
+        },
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("please enter all detail"),
+        backgroundColor: Colors.blue,
+      ));
+    }
+  }
+  Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme(); 
     return Scaffold(
       floatingActionButton: role == "admin"
           ? FloatingActionButton(
@@ -302,7 +227,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 110, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -311,15 +236,15 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                         height: 40,
                         child: NeumorphicButton(
                           onPressed: () => {Navigator.pop(context)},
+                          style: theme.back_button,
                           child: Icon(
                             Icons.arrow_back_ios,
                             color: icon_color,
                           ),
-                          style: theme.back_button,
                         ),
                       ),
                       Text(
-                        "Noticeboard",
+                        "Notice",
                         style: page_title_style,
                       ),
                     ],
@@ -352,6 +277,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
               //     day,
               //   );
               // },
+
               calendarFormat: _calendarFormat,
               // @ week , week , month format of calender
               onFormatChanged: (format) {
@@ -359,21 +285,35 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                   _calendarFormat = format;
                 });
               },
-              calendarBuilders: CalendarBuilders(
-                dowBuilder: (context, day) {
-                  if (day.weekday == DateTime.sunday) {
-                    final text = DateFormat.E().format(day);
-                    return Center(
-                      child: Text(
-                        text,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                },
+              headerStyle: HeaderStyle(
+                titleTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                formatButtonTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+              ),
+              calendarStyle: CalendarStyle(
+                defaultTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                weekendTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                outsideTextStyle: TextStyle(
+                  color: isDark
+                      ? HexColor.text_color.withOpacity(0.4)
+                      : HexColor.WblueText.withOpacity(
+                          0.8), 
+                  fontSize: 16, 
+                ),
               ),
             ),
-            Expanded(
+             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('noticeboard')
@@ -381,9 +321,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                     .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      snapshot.data != null &&
-                      snapshot.data!.docs.length != 0) {
+                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
                     documents = snapshot.data!.docs;
                     return ListView.builder(
                       itemCount: documents.length,
@@ -434,6 +372,9 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                                                             .toString())
                                                         .delete();
                                                   },
+                                                  style: theme.button,
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
@@ -444,9 +385,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                                                       style: btn_text,
                                                     ),
                                                   ),
-                                                  style: theme.button,
-                                                  padding:
-                                                      const EdgeInsets.all(5),
                                                 ),
                                               ),
                                             ],
@@ -461,60 +399,20 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> with se
                       },
                     );
                   } else {
-                    if (snapshot.data != null &&
-                        snapshot.data!.docs.length == 0) {
-                      return Center(child: Text("There is no any notice"));
+                    if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
+                       return  Center(child: Text("There are no Notices! 😟" , style: title_style,));
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                   }
                 },
               ),
-              //     StreamBuilder<QuerySnapshot>(
-              //   stream: FirebaseFirestore.instance
-              //       .collection('attendance')
-              //       .doc(widget.sub)
-              //       .collection('lectures')
-              //       .where('date', isEqualTo: day)
-              //       .snapshots(),
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       final documents = snapshot.data!.docs;
-              //       return ListView.builder(
-              //         itemCount: documents.length,
-              //         itemBuilder: (context, index) {
-              //           final data =
-              //               documents[index].data() as Map<String, dynamic>;
-              //           final attendanceData =
-              //               data['attendance'] as Map<String, dynamic>?;
-              //           final lecturePresent =
-              //               attendanceData?[widget.studentId] ?? false;
-              //           final attendanceStatus =
-              //               lecturePresent ? 'Present' : 'Absent';
-              //           return ListTile(
-              //             title: Text('Lecture ${index + 1}'),
-              //             subtitle: Text('${data['start']} - ${data['end']}'),
-              //             trailing: Text(attendanceStatus),
-              //           );
-              //         },
-              //       );
-              //     } else {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     }
-              //   },
-              // ),
             ),
           ],
         ),
       ),
     );
   }
-
-  // List<Event> _getEventsForDay(DateTime day) {
-  //   return events[day] ?? [];
-  // }}
 }

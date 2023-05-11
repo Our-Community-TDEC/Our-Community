@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:our_community/screens/home_page.dart';
 import 'package:our_community/screens/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
@@ -29,6 +30,7 @@ TextEditingController cfamilyMember = TextEditingController();
 TextEditingController csloteController = TextEditingController();
 TextEditingController ctimeHourController = TextEditingController();
 TextEditingController ctimeMinuteController = TextEditingController();
+TextEditingController maintenanceController = TextEditingController();
 
 void main() {
   runApp(const OnBoard());
@@ -46,7 +48,6 @@ class _OnBoardState extends State<OnBoard> {
   bool _isButtonEnabled = true;
   String imageUrl = '';
 
-  WhiteTheme theme = WhiteTheme();
   var getstart_textstyle;
   var labelStyle;
   var textfield_style;
@@ -57,8 +58,9 @@ class _OnBoardState extends State<OnBoard> {
   var textfield_decoration_referral_code;
   var join_textstyle;
   var btn_txt_style;
+  var text_style;
   var back_color;
-  var icon_color = HexColor.WiconColor;
+  var icon_color;
   var hint = ["Name", "Email"];
   bool isDark = false;
 
@@ -66,7 +68,7 @@ class _OnBoardState extends State<OnBoard> {
     print(MediaQuery.of(context).size.width / 2.28);
     icon_color = isDark ? HexColor.text_color : HexColor.WblackText;
     print("Theme" + isDark.toString());
-    if (false) {
+    if (isDark) {
       setState(() {
         // theme = DarkTheme();
         icon_color = HexColor.icon_color;
@@ -81,8 +83,6 @@ class _OnBoardState extends State<OnBoard> {
           fontWeight: FontWeight.w600,
           color: HexColor.text_color,
         );
-
-        back_color = theme.background_color;
 
         join_textstyle = TextStyle(
           color: HexColor.text_color,
@@ -154,12 +154,15 @@ class _OnBoardState extends State<OnBoard> {
         textfield_style = TextStyle(
           color: HexColor.text_color,
         );
+
+        text_style = TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            color: HexColor.text_color,
+            fontFamily: 'poppins');
       });
     } else {
       setState(() {
-        // theme = WhiteTheme();
-        print("object");
-        back_color = theme.background_color;
         icon_color = HexColor.WiconColor;
         getstart_textstyle = TextStyle(
           fontWeight: FontWeight.w700,
@@ -241,6 +244,12 @@ class _OnBoardState extends State<OnBoard> {
         textfield_style = TextStyle(
           color: HexColor.WblueText,
         );
+
+        text_style = TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
+            color: HexColor.WblueText,
+            fontFamily: 'poppins');
       });
     }
   }
@@ -266,12 +275,8 @@ class _OnBoardState extends State<OnBoard> {
   String selecetedbutton = "";
   String serviceProvider = "";
   String role = "";
-  var text_style = TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.w500,
-      color: HexColor.WblueText,
-      fontFamily: 'poppins');
   onboardingPagesList(boxL, minHW, labelStyle, alignStart) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return [
       PageModel(
         widget: DecoratedBox(
@@ -282,7 +287,7 @@ class _OnBoardState extends State<OnBoard> {
               Text(
                 "Select your role",
                 style: TextStyle(
-                    color: HexColor.WblueText,
+                    color: isDark ? HexColor.text_color : HexColor.WblackText,
                     fontSize: 30,
                     fontWeight: FontWeight.w600),
               ),
@@ -475,7 +480,7 @@ class _OnBoardState extends State<OnBoard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 11.0),
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.49,
+                        height: MediaQuery.of(context).size.height * 0.59,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -616,56 +621,36 @@ class _OnBoardState extends State<OnBoard> {
                                       controller: creferralController,
                                     ),
                                   )
+                                : Column(),
+                            role == "admin"
+                                ? Neumorphic(
+                                    style: theme.text_field,
+                                    child: TextField(
+                                      style: textfield_style,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: isDark
+                                            ? HexColor.background_top
+                                            : HexColor.Wbackground_color,
+                                        labelText: 'Maintenance Amount',
+                                        // hintText: 'Enter Your Name',
+                                        labelStyle: TextStyle(
+                                          color: isDark
+                                              ? HexColor.text_color
+                                              : HexColor.WblackText,
+                                          fontSize: 18.0,
+                                        ),
+                                        suffixIcon: Icon(
+                                          Icons.account_circle_outlined,
+                                          color: icon_color,
+                                        ),
+                                      ),
+                                      controller: maintenanceController,
+                                    ),
+                                  )
                                 : Column()
                           ],
                         ),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(20.0),
-                      // child: RichText(
-                      // text: TextSpan(
-                      //   text:
-                      //       'By signing up, you are agree to our Terms & condition and privacy policy',
-                      //   style: TextStyle(
-                      //       color: Colors.white, fontSize: 18.0),
-                      //   children: <TextSpan>[
-                      //     TextSpan(
-                      //         style: TextStyle(
-                      //       fontWeight: FontWeight.bold,
-                      //     )),
-                      //   ],
-                      // ),
-                      // ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: SizedBox(
-                        width: 200,
-                        height: 60,
-                        child: NeumorphicButton(
-                          style: theme.button,
-                          onPressed: () {
-                            createAccount();
-                          },
-                          child: Text(
-                            "Register",
-                            style: btn_txt_style,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LogIn()),
-                        );
-                      },
-                      child: Text(
-                        "Joined us before? Login",
-                        style: join_textstyle,
                       ),
                     ),
                   ],
@@ -1123,12 +1108,20 @@ class _OnBoardState extends State<OnBoard> {
                         child: NeumorphicButton(
                           style: theme.button,
                           onPressed: () {
-                            createAccount();
+                            _isButtonEnabled ? createAccount() : null;
                           },
-                          child: Text(
-                            "Register",
-                            style: btn_txt_style,
-                            textAlign: TextAlign.center,
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: _isButtonEnabled
+                                    ? Text(
+                                        "Register",
+                                        style: btn_txt_style,
+                                        textAlign: TextAlign.center,
+                                      )
+                                    : CircularProgressIndicator(),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -1146,52 +1139,57 @@ class _OnBoardState extends State<OnBoard> {
   static const width = 100.0;
 
   SizedBox _skipButton({void Function(int)? setIndex}) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return SizedBox(
-        width: width,
-        child: SizedBox(
-          // height: 200,
-          // width: 200,
-          child: NeumorphicButton(
-            style: theme.button,
-            onPressed: () {
-              if (index == 1) {
-                print("setIndex");
-                index = 2;
-                setIndex!(2);
-              } else if (setIndex != null) {
-                print(setIndex);
-                index = 1;
-                setIndex(1);
-              }
-            },
-            child: const Text(
-              "Next",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              textAlign: TextAlign.center,
+        width: MediaQuery.of(context).size.width / 3.7,
+        child: NeumorphicButton(
+          style: theme.button,
+          onPressed: () {
+            if (index == 1) {
+              print("setIndex");
+              index = 2;
+              setIndex!(2);
+            } else if (setIndex != null) {
+              print(setIndex);
+              index = 1;
+              setIndex(1);
+            }
+          },
+          child: Text(
+            "Next",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+              color: isDark ? HexColor.text_color : HexColor.WblueText,
             ),
+            textAlign: TextAlign.center,
           ),
         ));
   }
 
   SizedBox get _signupButton {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return SizedBox(
-      width: width,
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Material(
-          borderRadius: defaultProceedButtonBorderRadius,
-          color: defaultProceedButtonColor,
-          child: InkWell(
-            borderRadius: defaultProceedButtonBorderRadius,
-            onTap: () {},
-            child: const Padding(
-              padding: defaultProceedButtonPadding,
-              child: Text(
-                'Sign up',
-                style: defaultProceedButtonTextStyle,
-              ),
-            ),
-          ),
+      width: MediaQuery.of(context).size.width / 3.7,
+      child: NeumorphicButton(
+        style: theme.button,
+        onPressed: () {
+          _isButtonEnabled ? createAccount() : null;
+        },
+        child: Stack(
+          children: [
+            _isButtonEnabled
+                ? Text(
+                    'Sign up',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: isDark ? HexColor.text_color : HexColor.WblueText,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  )
+                : CircularProgressIndicator(),
+          ],
         ),
       ),
     );
@@ -1199,20 +1197,15 @@ class _OnBoardState extends State<OnBoard> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     double minHW = min((MediaQuery.of(context).size.width),
         (MediaQuery.of(context).size.height));
 
     const alignStart = CrossAxisAlignment.start;
     double boxL = minHW * 0.42;
     var height = MediaQuery.of(context).size.height;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Scaffold(
+    return Scaffold(
+      body: Scaffold(
         backgroundColor: HexColor.Wbackground_color,
         body: SingleChildScrollView(
           child: Column(
@@ -1308,6 +1301,7 @@ class _OnBoardState extends State<OnBoard> {
     String hour = ctimeHourController.text.toString().trim();
     String minute = ctimeMinuteController.text.toString().trim();
     String mobile = cMobileNumber.text.toString().trim();
+    String maintenance = maintenanceController.text.toString().trim();
     String DOB = "$date-$month-$year";
 
     if (role == "admin") {
@@ -1343,6 +1337,11 @@ class _OnBoardState extends State<OnBoard> {
       if (slote == "" || minute == "" || hour == "") {
         print("Fill all the field ");
       }
+    } else if (role == "admin" && (maintenance == "")) {
+      print(serviceProvider);
+      if (slote == "" || minute == "" || hour == "") {
+        print("Fill all the field ");
+      }
     } else if (password != confirmPassword) {
       snackBar("Password And Confirm Password not match!");
       print("Password And Confirm Password not match!");
@@ -1371,12 +1370,19 @@ class _OnBoardState extends State<OnBoard> {
           "familyMember": familyMember,
           "profileImg": imageUrl,
           "mobile": mobile,
-          "vehical": vehicalNumber
+          "vehical": vehicalNumber,
         }).then((value) => {
                   if (role == "admin")
                     {
+                      firestore
+                          .collection("user")
+                          .doc(FirebaseAuth.instance.currentUser?.uid)
+                          .set({
+                        "code": refferalcode,
+                        "maintenance": maintenance
+                      }, SetOptions(merge: true)),
                       firestore.collection("refferalcode").doc().set({
-                        "code": refferalcode
+                        "code": refferalcode,
                       }, SetOptions(merge: true)).then(
                           (value) => snackBar("Registration successful"))
                     },
@@ -1425,6 +1431,8 @@ class _OnBoardState extends State<OnBoard> {
                               (value) => snackBar("Registration successful"))
                     },
                   snackBar("Registration successful"),
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()))
                 });
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

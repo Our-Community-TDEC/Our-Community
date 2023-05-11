@@ -19,7 +19,7 @@ class GoogleSignInProviderss extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future googleLogIn() async {
+  Future googleLogIn(String refferalcode) async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
     if (googleUser == null) return;
     _user = googleUser;
@@ -35,13 +35,25 @@ class GoogleSignInProviderss extends ChangeNotifier {
 
     // Get the user's name from their Google account
     final userProfile = googleUser?.displayName;
+    if (_auth.currentUser == null) {
+      print('User already signed in');
+      return;
+    }
     // Save the user's name to Firestore
     if (authResult.user != null) {
-      print(authResult.user!.uid);
-      firestore.collection('user').doc(authResult.user!.uid).set({
+     await firestore.collection('user').doc(authResult.user!.uid).set({
         'userName': userProfile,
         'email': authResult.user!.email,
         'uid': authResult.user!.uid,
+        "password": "",
+        "role": "user",
+        "refferalcode": refferalcode,
+        "flatNumber": "",
+        "dateOfBirth": "",
+        "familyMember": "",
+        "profileImg": "",
+        "mobile": "",
+        "vehical": "",
       });
     } else {
       print("objecthgdbcnk");

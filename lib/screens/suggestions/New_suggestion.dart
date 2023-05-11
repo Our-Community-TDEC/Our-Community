@@ -17,8 +17,7 @@ class NewSuggestion extends StatefulWidget with AddNewSuggestion {
   State<NewSuggestion> createState() => _NewSuggestionState();
 }
 
-class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
-  var theme;
+class _NewSuggestionState extends State<NewSuggestion> with sendnotification {
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
@@ -27,7 +26,6 @@ class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w500,
@@ -48,7 +46,6 @@ class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
 
       icon_color = HexColor.icon_color;
     } else {
-      theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 32,
@@ -71,7 +68,7 @@ class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
     setState(() {});
   }
 
-   getPreference() async {
+  getPreference() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
@@ -97,6 +94,7 @@ class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
   @override
   Widget build(BuildContext context) {
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     void add_data() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
       String refferalcode = await getCurrentUserReferralCode();
@@ -112,7 +110,7 @@ class _NewSuggestionState extends State<NewSuggestion>  with sendnotification{
           "description": description,
           "time": datetime,
           "UID": FirebaseAuth.instance.currentUser?.uid,
-          "refferalcode" : refferalcode
+          "refferalcode": refferalcode
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Suggstion Posted"),
