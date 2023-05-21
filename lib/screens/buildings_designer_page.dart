@@ -16,9 +16,7 @@ class _BuildingsDesignerPageState extends State<BuildingsDesignerPage> {
     print("Theme" + isDark.toString());
     if (isDark) {
       theme = DarkTheme();
-    } else {
-      theme = WhiteTheme();
-    }
+    } else {}
     setState(() {});
   }
 
@@ -36,6 +34,7 @@ class _BuildingsDesignerPageState extends State<BuildingsDesignerPage> {
     getPreference();
     // getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

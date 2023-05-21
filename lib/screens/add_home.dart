@@ -18,9 +18,7 @@ class _AddHomeState extends State<AddHome> {
     print("Theme" + isDark.toString());
     if (isDark) {
       theme = DarkTheme();
-    } else {
-      theme = WhiteTheme();
-    }
+    } else {}
     setState(() {});
   }
 
@@ -38,6 +36,7 @@ class _AddHomeState extends State<AddHome> {
     getPreference();
     // getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -55,11 +54,10 @@ class _AddHomeState extends State<AddHome> {
                 NeumorphicText(
                   "I love flutter",
                   style: NeumorphicStyle(
-                    depth: 4, //customize depth here
-                    color: HexColor.profile_container,
-                    shadowLightColor: HexColor.blue_shadow,
-                    shadowDarkColor: HexColor.black_shadow
-                  ),
+                      depth: 4, //customize depth here
+                      color: HexColor.profile_container,
+                      shadowLightColor: HexColor.blue_shadow,
+                      shadowDarkColor: HexColor.black_shadow),
                   textStyle: NeumorphicTextStyle(
                     fontSize: 67, //customize size here
                     // AND others usual text style properties (fontFamily, fontWeight, ...)

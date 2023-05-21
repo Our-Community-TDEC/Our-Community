@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:time_duration_picker/time_duration_picker.dart';
@@ -16,27 +18,30 @@ class Plumber extends StatefulWidget with Plumber_logic {
   State<StatefulWidget> createState() => _Plumber();
 }
 
-class _Plumber extends State<Plumber> {
+class _Plumber extends State<Plumber> with sendnotification {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
 
-  var icon_color = HexColor.WBlackButton;
+  var icon_color;
   var page_title_style;
-  var theme;
+
   bool isDark = false;
+  var text_color;
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      theme = DarkTheme();
+      icon_color = HexColor.text_color;
+      text_color = HexColor.text_color;
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
         color: HexColor.text_color,
       );
     } else {
-      theme = WhiteTheme();
+      icon_color = HexColor.WblackText;
+      text_color = HexColor.WblueText;
       page_title_style = TextStyle(
         fontSize: 30,
         fontWeight: FontWeight.w400,
@@ -46,13 +51,6 @@ class _Plumber extends State<Plumber> {
     setState(() {});
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
-    themeF(isDark);
-  }
-
   @override
   initState() {
     // TODO: implement initState
@@ -60,6 +58,25 @@ class _Plumber extends State<Plumber> {
     getPreference();
     deleteExpiredDocuments();
     // getTheme();
+  }
+
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    refferalcode = await getCurrentUserRefferalCode();
+    themeF(isDark);
+  }
+
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
   }
 
   Future<String> getslot() async {
@@ -81,21 +98,24 @@ class _Plumber extends State<Plumber> {
   String bookTimeLimit = "2 hr 00 min";
 
   Future<String> getTotalslot() async {
-    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-        .instance
-        .collection("plumber")
-        .doc("plumberdetail")
-        .get();
+  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+      .instance
+      .collection("user")
+      .where("role", isEqualTo: "plumber")
+      .where("refferalcode" , isEqualTo: refferalcode)
+      .get();
 
-    if (snapshot.exists && snapshot.data() != null) {
-      Map<String, dynamic> slotData = snapshot.data() as Map<String, dynamic>;
-      String slot = slotData["slot"];
-      bookTimeLimit = slotData['time'];
-      return slot;
-    } else {
-      return "0";
-    }
+  if (snapshot.docs.isNotEmpty) {
+    Map<String, dynamic> slotData = snapshot.docs.first.data() as Map<String, dynamic>;
+    String slot = slotData["slot"];
+    bookTimeLimit = slotData['time'];
+    return slot;
+  } else {
+    return "0";
   }
+}
+
+
 
   Future<void> deleteExpiredDocuments() async {
     DateTime now = DateTime.now();
@@ -119,7 +139,7 @@ class _Plumber extends State<Plumber> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Add new Notice',
+          'Add new',
           textAlign: TextAlign.center,
         ),
         content: Column(
@@ -168,6 +188,7 @@ class _Plumber extends State<Plumber> {
     String currentSlot = await getslot();
     String totalSlot = await getTotalslot();
     slot = int.parse(currentSlot);
+    print(totalSlot+"sdjfkn");
 
     String timeString = bookTimeLimit;
     List<String> parts = timeString.split(' ');
@@ -186,13 +207,15 @@ class _Plumber extends State<Plumber> {
             "discription": discription,
             "date": day,
             "duration": workDuration,
+            "refferalcode": refferalcode
           }).then(
             (value) => {
+              sendServiceNotificationToAllUsers("New Slot Booked", "plumber"),
               plumbingTitle.clear(),
               plumbingDescription.clear(),
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text("Notice added"),
+                  content: Text("Plumber booked"),
                   backgroundColor: Colors.blue,
                 ),
               ),
@@ -206,8 +229,7 @@ class _Plumber extends State<Plumber> {
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(
-              "you can appoint for only $hours hour $minutes minute"),
+          content: Text("you can appoint for only $hours hour $minutes minute"),
           backgroundColor: Colors.blue,
         ));
       }
@@ -225,6 +247,8 @@ class _Plumber extends State<Plumber> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
+
     double smallerMarginRatio = 0.025;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -232,329 +256,259 @@ class _Plumber extends State<Plumber> {
         onPressed: () => _showAddEventDialog(),
         child: Icon(Icons.add),
       ),
-      backgroundColor: HexColor.Wbackground_color,
-      body: Container(
-        child: Column(children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: NeumorphicButton(
-                        onPressed: () => {Navigator.pop(context)},
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: icon_color,
-                        ),
-                        style: theme.back_button,
-                      ),
-                    ),
-                    Text(
-                      "Plumbing",
-                      style: page_title_style,
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                thickness: 5,
-                indent: 12,
-                endIndent: 12,
-                color: Colors.black,
-              ),
-            ],
-          ),
-          // Row(
-          //   children: [
-          //     SvgPicture.asset(
-          //       'assets/Images/Services/Plumber/background.svg',
-          //       semanticsLabel: 'My SVG Image',
-          //     ),
-          //   ],
-          // ),
-          Row(children: [
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: theme.background_color,
+          child: Column(children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 5, 0, 5),
-                  child: Text(
-                    "Select Services",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600),
-                  ),
-                ),
-                SizedBox(
-                  width: 300,
+                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Drainage();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 71.png',
-                                width: 50,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Drainage"),
-                                  Text("system"),
-                                ],
-                              )
-                            ],
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: icon_color,
                           ),
+                          style: theme.back_button,
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Repair();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 73.png',
-                                width: 60,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Repair"),
-                                  Text("Pipe"),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: (() {
-                          // Fitting();
-                        }),
-                        style: ElevatedButton.styleFrom(
-                            primary: const Color((0xffb4D4E54))),
-                        child: SizedBox(
-                          width: 60,
-                          height: 100,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Image.asset(
-                                'assets/Images/Services/Plumber/image 76.png',
-                                width: 60,
-                                height: 40,
-                              ),
-                              Column(
-                                children: const [
-                                  Text("Fitting"),
-                                  Text("Pipe"),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
+                      Text(
+                        "Plumbing",
+                        style: page_title_style,
                       ),
                     ],
                   ),
                 ),
-                Row(
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: Text(
-                        "Data",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    )
-                  ],
+                Divider(
+                  thickness: 5,
+                  indent: 12,
+                  endIndent: 12,
+                  color: Colors.black,
                 ),
-                SizedBox(
-                  // height: MediaQuery.of(context).size.height/2.,
-                  width: MediaQuery.of(context).size.width,
-                  child: TableCalendar(
-                    firstDay: DateTime.utc(2022, 1, 1),
-                    lastDay: DateTime.utc(2023, 12, 31),
-                    focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) {
-                      return isSameDay(_selectedDay, day);
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        day = DateFormat('dd-MM-yyyy').format(selectedDay);
-                        _focusedDay = focusedDay;
-                      });
-                    },
-                    // eventLoader: (day) {
-                    //   return _getEventsForDay(
-                    //     day,
-                    //   );
-                    // },
-                    calendarFormat: _calendarFormat,
-                    // @ week , week , month format of calender
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    calendarBuilders: CalendarBuilders(
-                      dowBuilder: (context, day) {
-                        if (day.weekday == DateTime.sunday) {
-                          final text = DateFormat.E().format(day);
-                          return Center(
-                            child: Text(
-                              text,
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          );
-                        }
+              ],
+            ),
+            // Row(
+            //   children: [
+            //     SvgPicture.asset(
+            //       'assets/Images/Services/Plumber/background.svg',
+            //       semanticsLabel: 'My SVG Image',
+            //     ),
+            //   ],
+            // ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height - 80,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    // height: MediaQuery.of(context).size.height/2.,
+                    width: MediaQuery.of(context).size.width,
+                    child: TableCalendar(
+                      firstDay: DateTime.utc(2022, 1, 1),
+                      lastDay: DateTime.utc(2023, 12, 31),
+                      focusedDay: _focusedDay,
+                      selectedDayPredicate: (day) {
+                        return isSameDay(_selectedDay, day);
                       },
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          _selectedDay = selectedDay;
+                          day = DateFormat('dd-MM-yyyy').format(selectedDay);
+                          _focusedDay = focusedDay;
+                        });
+                      },
+                      // eventLoader: (day) {
+                      //   return _getEventsForDay(
+                      //     day,
+                      //   );
+                      // },
+
+                      calendarFormat: _calendarFormat,
+                      // @ week , week , month format of calender
+                      onFormatChanged: (format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      },
+                      headerStyle: HeaderStyle(
+                        titleTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        formatButtonTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                      ),
+                      calendarStyle: CalendarStyle(
+                        defaultTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        weekendTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        outsideTextStyle: TextStyle(
+                          color: isDark
+                              ? HexColor.text_color.withOpacity(0.4)
+                              : HexColor.WblueText.withOpacity(0.8),
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
-                )
-              ],
+                  TimeDurationPicker(
+                    diameter: size.width / 2.3,
+                    icon1Data: Icons.more_time_sharp,
+                    icon2Data: Icons.av_timer_sharp,
+                    knobDecoration: theme.knobdecoration,
+                    clockDecoration: theme.clockdecoration,
+                    clockTextStyle: TextStyle(
+                        color:
+                            isDark ? HexColor.text_color : HexColor.WblueText),
+                    knobBackgroundDecoration: theme.knobBackgrounddecoration,
+                    onIcon1RotatedCallback: (value) {
+                      setState(() {
+                        String timeString = value;
+                        DateTime parsedTime =
+                            DateFormat('h:mm a').parse(timeString);
+                        TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
+                        alarmTime = value;
+                      });
+                    },
+                    onIcon2RotatedCallback: (value) {
+                      setState(() {
+                        bedTime = value;
+                      });
+                    },
+                    setDurationCallback: (value) {
+                      setState(() {
+                        String timeString = value;
+                        List<String> parts = timeString.split(' ');
+                        int hours = int.parse(parts[0]);
+                        int minutes = int.parse(parts[2]);
+                        duration = Duration(hours: hours, minutes: minutes);
+                        workDuration = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Total duration",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  workDuration,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Start time",
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  bedTime,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "End Time",
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  alarmTime,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Text(
+                        //   bedTime,
+                        //   style: TextStyle(fontSize: 20),
+                        // ),
+                        // Text(
+                        //   alarmTime,
+                        //   style: TextStyle(fontSize: 20),
+                        // )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            // Next part
           ]),
-          TimeDurationPicker(
-            diameter: size.width / 2.3,
-            icon1Data: Icons.notifications_none,
-            icon2Data: Icons.bed,
-            knobDecoration: BoxDecoration(
-              color: HexColor.WblackText,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  offset: Offset(-2, -2),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.7),
-                  offset: Offset(2, 2),
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                ),
-              ],
-            ),
-            clockDecoration: BoxDecoration(
-              color: HexColor.Wbackground_color,
-              boxShadow: [
-                BoxShadow(
-                  color: HexColor.Wdark_container,
-                  offset: Offset(-2, -2),
-                  blurRadius: 2,
-                  spreadRadius: 4,
-                ),
-                BoxShadow(
-                  color: HexColor.Wlight_container,
-                  offset: Offset(2, 2),
-                  blurRadius: 2,
-                  spreadRadius: 4,
-                ),
-              ],
-            ),
-            knobBackgroundDecoration: BoxDecoration(
-              color: HexColor.Wbackground_color,
-              boxShadow: [
-                BoxShadow(
-                  color: HexColor.Wdark_container,
-                  offset: Offset(0, 0),
-                  blurRadius: 5,
-                  spreadRadius: 7,
-                ),
-                BoxShadow(
-                  color: HexColor.Wlight_container,
-                  offset: Offset(0, 0),
-                  blurRadius: 5,
-                  spreadRadius: 7,
-                ),
-              ],
-            ),
-            onIcon1RotatedCallback: (value) {
-              setState(() {
-                String timeString = value;
-                DateTime parsedTime = DateFormat('h:mm a').parse(timeString);
-                TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
-                alarmTime = value;
-              });
-            },
-            onIcon2RotatedCallback: (value) {
-              setState(() {
-                bedTime = value;
-              });
-            },
-            setDurationCallback: (value) {
-              setState(() {
-                String timeString = value;
-                List<String> parts = timeString.split(' ');
-                int hours = int.parse(parts[0]);
-                int minutes = int.parse(parts[2]);
-                duration = Duration(hours: hours, minutes: minutes);
-                workDuration = value;
-              });
-            },
-          ),
-          //  SizedBox(height: size.height * 2 * smallerMarginRatio),
-          //       SizedBox(
-          //         width: size.width * 0.45,
-          //         child: FittedBox(
-          //           fit: BoxFit.fitWidth,
-          //           child: Text(
-          //             workDuration,
-          //             style: const TextStyle(
-          //               color: Color.fromRGBO(
-          //                 54,
-          //                 61,
-          //                 86,
-          //                 1,
-          //               ),
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            Text(
-              workDuration,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              bedTime,
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              alarmTime,
-              style: TextStyle(fontSize: 20),
-            )
-          ]),
-        ]),
+        ),
       ),
     );
   }

@@ -2,31 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../nuemorphism/border_effect.dart';
-import '../nuemorphism/colors.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class AttendanceCalendarPage extends StatefulWidget {
-  final String sub;
-  final String studentId;
-
-  const AttendanceCalendarPage({
-    Key? key,
-    required this.sub,
-    required this.studentId,
-  }) : super(key: key);
+class Notice extends StatefulWidget {
+  const Notice({super.key});
 
   @override
-  _AttendanceCalendarPageState createState() => _AttendanceCalendarPageState();
+  State<Notice> createState() => _NoticeState();
 }
 
-class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
+class _NoticeState extends State<Notice> with sendnotification {
   var title_style;
   var desc_text_style;
   var page_title_style;
   var icon_color = HexColor.WBlackButton;
   var btn_text;
+  var text_color;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay = DateTime.now();
@@ -35,7 +30,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   bool isUser = true;
   static String role = "";
-  WhiteTheme theme = WhiteTheme();
   bool isDark = false;
   Future<String> getRole() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
@@ -47,26 +41,10 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     return "0";
   }
 
-  Future<void> deleteExpiredDocuments() async {
-    DateTime now = DateTime.now();
-    String day = DateFormat('dd-MM-yyyy').format(now);
-
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('noticeboard')
-        .where('date', isLessThan: day)
-        .get();
-
-    snapshot.docs.forEach((document) async {
-      await document.reference.delete();
-    });
-  }
-
   setrole() {
-    print("obj" + role);
     if (role == "user") {
       isUser = true;
     } else if (role == "admin") {
-      print("object");
       isUser = false;
     }
   }
@@ -74,7 +52,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
   themeF(isDark) {
     print("Theme" + isDark.toString());
     if (isDark) {
-      // theme = DarkTheme();
+      text_color = HexColor.text_color;
       title_style = TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w700,
@@ -100,7 +78,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
           fontSize: 19,
           fontWeight: FontWeight.w600);
     } else {
-      theme = WhiteTheme();
+      text_color = HexColor.WblueText;
       desc_text_style = TextStyle(
           fontSize: 15,
           fontWeight: FontWeight.w400,
@@ -124,12 +102,25 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       btn_text = TextStyle(
           color: HexColor.WblueText, fontSize: 19, fontWeight: FontWeight.w600);
     }
+    setState(() {});
   }
 
-  getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+ String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
+  }
+
+   getPreference() async {
+   SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
   }
 
@@ -139,14 +130,13 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
     super.initState();
     getPreference();
     getRole();
-    deleteExpiredDocuments();
     // getTheme();
   }
 
-  TextEditingController noticeTitle = TextEditingController();
-  TextEditingController noticeDescription = TextEditingController();
+  TextEditingController eventTitle = TextEditingController();
+  TextEditingController eventDescription = TextEditingController();
   @override
-  _showAddEventDialog() async {
+   _showAddEventDialog() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -159,14 +149,14 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextField(
-                controller: noticeTitle,
+                controller: eventTitle,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Title',
                 ),
               ),
               TextField(
-                controller: noticeDescription,
+                controller: eventDescription,
                 textCapitalization: TextCapitalization.words,
                 decoration: const InputDecoration(
                   labelText: 'Description',
@@ -177,8 +167,8 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
           TextButton(
               child: Text('Cancel'),
               onPressed: () {
-                noticeTitle.clear();
-                noticeDescription.clear();
+                eventTitle.clear();
+                eventDescription.clear();
                 Navigator.pop(context);
               }),
           TextButton(
@@ -194,17 +184,18 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   void add() async {
-    String title = noticeTitle.text.trim();
-    String discription = noticeDescription.text.trim();
+    String title = eventTitle.text.trim();
+    String discription = eventDescription.text.trim();
     print(title);
     if (title != "" || discription != "") {
       firestore
           .collection("noticeboard")
           .doc()
-          .set({"title": title, "discription": discription, "date": day}).then(
+          .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
         (value) => {
-          noticeTitle.clear(),
-          noticeDescription.clear(),
+          sendNotificationToAllUsers("New NOtice Arived"),
+          eventTitle.clear(),
+          eventDescription.clear(),
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text("Notice added"),
@@ -220,13 +211,15 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
       ));
     }
   }
-
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme(); 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddEventDialog(),
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: role == "admin"
+          ? FloatingActionButton(
+              onPressed: () => _showAddEventDialog(),
+              child: Icon(Icons.add),
+            )
+          : null,
       body: Container(
         decoration: theme.background_color,
         child: Column(
@@ -234,7 +227,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 110, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -243,15 +236,15 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                         height: 40,
                         child: NeumorphicButton(
                           onPressed: () => {Navigator.pop(context)},
+                          style: theme.back_button,
                           child: Icon(
                             Icons.arrow_back_ios,
                             color: icon_color,
                           ),
-                          style: theme.back_button,
                         ),
                       ),
                       Text(
-                        "Noticeboard",
+                        "Notice",
                         style: page_title_style,
                       ),
                     ],
@@ -284,6 +277,7 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
               //     day,
               //   );
               // },
+
               calendarFormat: _calendarFormat,
               // @ week , week , month format of calender
               onFormatChanged: (format) {
@@ -291,45 +285,49 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                   _calendarFormat = format;
                 });
               },
-              calendarBuilders: CalendarBuilders(
-                dowBuilder: (context, day) {
-                  if (day.weekday == DateTime.sunday) {
-                    print("object");
-                    final text = DateFormat.E().format(day);
-                    return Center(
-                      child: Text(
-                        text,
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }
-                },
+              headerStyle: HeaderStyle(
+                titleTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                formatButtonTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+              ),
+              calendarStyle: CalendarStyle(
+                defaultTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                weekendTextStyle: TextStyle(
+                  color: text_color, 
+                  fontSize: 16, 
+                ),
+                outsideTextStyle: TextStyle(
+                  color: isDark
+                      ? HexColor.text_color.withOpacity(0.4)
+                      : HexColor.WblueText.withOpacity(
+                          0.8), 
+                  fontSize: 16, 
+                ),
               ),
             ),
-            Expanded(
+             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('noticeboard')
                     .where('date', isEqualTo: day)
+                    .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData) {
+                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
                     documents = snapshot.data!.docs;
                     return ListView.builder(
                       itemCount: documents.length,
                       itemBuilder: (context, index) {
                         final data =
                             documents[index].data() as Map<String, dynamic>;
-                        // final attendance =
-                        //     data['attendance'] as Map<String, dynamic>?;
-                        // final lecturePresent = attendance != null &&
-                        //     attendance.containsKey(widget.studentId);
-                        //  &&attendance[widget.studentId] is bool &&
-                        // attendance[widget.studentId] == true;
-                        //  &&attendance[widget.studentId] == false;
-                        // final lecturePresent =
-                        //     data['attendance'][widget.studentId];
-                        // print(lecturePresent);
                         return Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 16),
@@ -374,6 +372,9 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                                                             .toString())
                                                         .delete();
                                                   },
+                                                  style: theme.button,
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   child: Padding(
                                                     padding: const EdgeInsets
                                                             .symmetric(
@@ -384,9 +385,6 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                                                       style: btn_text,
                                                     ),
                                                   ),
-                                                  style: theme.button,
-                                                  padding:
-                                                      const EdgeInsets.all(5),
                                                 ),
                                               ),
                                             ],
@@ -401,55 +399,20 @@ class _AttendanceCalendarPageState extends State<AttendanceCalendarPage> {
                       },
                     );
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
+                       return  Center(child: Text("There are no Notices! 😟" , style: title_style,));
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   }
                 },
               ),
-              //     StreamBuilder<QuerySnapshot>(
-              //   stream: FirebaseFirestore.instance
-              //       .collection('attendance')
-              //       .doc(widget.sub)
-              //       .collection('lectures')
-              //       .where('date', isEqualTo: day)
-              //       .snapshots(),
-              //   builder: (context, snapshot) {
-              //     if (snapshot.hasData) {
-              //       final documents = snapshot.data!.docs;
-              //       return ListView.builder(
-              //         itemCount: documents.length,
-              //         itemBuilder: (context, index) {
-              //           final data =
-              //               documents[index].data() as Map<String, dynamic>;
-              //           final attendanceData =
-              //               data['attendance'] as Map<String, dynamic>?;
-              //           final lecturePresent =
-              //               attendanceData?[widget.studentId] ?? false;
-              //           final attendanceStatus =
-              //               lecturePresent ? 'Present' : 'Absent';
-              //           return ListTile(
-              //             title: Text('Lecture ${index + 1}'),
-              //             subtitle: Text('${data['start']} - ${data['end']}'),
-              //             trailing: Text(attendanceStatus),
-              //           );
-              //         },
-              //       );
-              //     } else {
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     }
-              //   },
-              // ),
             ),
           ],
         ),
       ),
     );
   }
-
-  // List<Event> _getEventsForDay(DateTime day) {
-  //   return events[day] ?? [];
-  // }
 }

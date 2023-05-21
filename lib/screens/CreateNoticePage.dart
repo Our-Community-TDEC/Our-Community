@@ -18,9 +18,7 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
     print("Theme" + isDark.toString());
     if (isDark) {
       theme = DarkTheme();
-    } else {
-      theme = WhiteTheme();
-    }
+    } else {}
     setState(() {});
   }
 
@@ -38,6 +36,7 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
     getPreference();
     // getTheme();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +55,13 @@ class _CreateNoticePageState extends State<CreateNoticePage> {
                       child: IconButton(
                         onPressed: () {
                           print('Clicked on list');
-                          Navigator.pop(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AttendanceCalendarPage(studentId: 'w', sub: 'w',)));
+                          // Navigator.pop(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AttendanceCalendarPage(
+                          //               studentId: 'w',
+                          //               sub: 'w',
+                          //             )));
                         },
                         icon: Icon(Icons.arrow_back),
                         color: Colors.blue,

@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:our_community/nuemorphism/border_effect.dart';
+import 'package:our_community/nuemorphism/colors.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class razer_pay extends StatefulWidget {
   @override
@@ -10,6 +16,92 @@ class razer_pay extends StatefulWidget {
 class razer_pay_State extends State<razer_pay> {
   late Razorpay razorpay;
   TextEditingController textEditingController = new TextEditingController();
+  bool isDark = false;
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    await getUserDetail();
+    themeF(isDark);
+  }
+
+  var icon_color = HexColor.WBlackButton;
+  var page_title_style;
+  var title_style;
+  var name_style;
+  var desc_text_style;
+
+  themeF(isDark) {
+    print("Theme" + isDark.toString());
+    if (isDark) {
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.text_color,
+      );
+
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      name_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w300,
+          color: HexColor.text_color,
+          fontFamily: 'poppins');
+
+      // theme = DarkTheme();
+      icon_color = HexColor.icon_color;
+    } else {
+      desc_text_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w400,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      //
+      icon_color = HexColor.WiconColor;
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblueText,
+      );
+
+      title_style = TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+
+      name_style = TextStyle(
+          fontSize: 15,
+          fontWeight: FontWeight.w300,
+          color: HexColor.WblackText,
+          fontFamily: 'poppins');
+    }
+    setState(() {});
+  }
+
+  Future<String> getUserDetail() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      textEditingController.text = snapshot.get("maintenance");
+    });
+
+    return "0";
+  }
 
   @override
   void initState() {
@@ -20,6 +112,7 @@ class razer_pay_State extends State<razer_pay> {
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
+    getPreference();
   }
 
   @override
@@ -75,28 +168,82 @@ class razer_pay_State extends State<razer_pay> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Maintenance"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
+      body: Container(
+        decoration: theme.background_color,
         child: Column(
           children: [
-            TextField(
-              controller: textEditingController,
-              decoration: InputDecoration(hintText: "amount to pay"),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: icon_color,
+                          ),
+                          style: theme.back_button,
+                        ),
+                      ),
+                      Text(
+                        "Maintenance",
+                        style: page_title_style,
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(
+                  thickness: 5,
+                  indent: 12,
+                  endIndent: 12,
+                  color: isDark ? HexColor.text_color : HexColor.WblueText,
+                ),
+              ],
             ),
-            SizedBox(
-                child: ElevatedButton(
-              child: Text(
-                "Pay Maintenance",
-                style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(30 , 30 , 30 ,0),
+              child: Column(
+                children: [
+                  Neumorphic(
+                    style: theme.text_field,
+                    child: TextField(
+                      
+                      
+                      style: TextStyle(
+                        color:isDark ? HexColor.text_color : HexColor.WblueText
+                      ),
+                      readOnly: true,
+                      controller: textEditingController,
+                      decoration: InputDecoration(hintText: "amount to pay" , suffixIcon: Icon(
+                                    Icons.money,
+                                    color: icon_color,
+                                  ),),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                        child: ElevatedButton(
+                      child: Text(
+                        "Pay Maintenance",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      onPressed: () {
+                        openCheckout();
+                      },
+                    )),
+                  )
+                ],
               ),
-              onPressed: () {
-                openCheckout();
-              },
-            ))
+            )
           ],
         ),
       ),

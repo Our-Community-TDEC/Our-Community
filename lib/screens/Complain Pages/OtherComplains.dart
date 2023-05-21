@@ -1,16 +1,18 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:our_community/logic/OtherComplaints_logic.dart';
 import 'package:intl/intl.dart';
+import 'package:our_community/logic/notification.dart';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 TextEditingController complaint_title = TextEditingController();
 TextEditingController complaint_description = TextEditingController();
@@ -27,12 +29,12 @@ class OtherComplains extends StatefulWidget with OtherComplains_Logic {
   State<OtherComplains> createState() => _OtherComplainsState();
 }
 
-class _OtherComplainsState extends State<OtherComplains> {
+class _OtherComplainsState extends State<OtherComplains> with sendnotification {
   bool uploadingImage = false;
-  bool _isButtonEnabled = true; 
+  bool _isButtonEnabled = true;
 
   // var theme;
-  WhiteTheme theme = WhiteTheme();
+
   var icon_color = HexColor.WBlackButton;
   var page_title_style;
   var text_style;
@@ -40,9 +42,7 @@ class _OtherComplainsState extends State<OtherComplains> {
   bool isDark = false;
   String imageUrl = '';
   themeF(isDark) {
-    print("Theme" + isDark.toString());
     if (isDark) {
-      // theme = DarkTheme();
       page_title_style = TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.w500,
@@ -63,7 +63,6 @@ class _OtherComplainsState extends State<OtherComplains> {
 
       icon_color = HexColor.icon_color;
     } else {
-      theme = WhiteTheme();
       icon_color = HexColor.WiconColor;
       page_title_style = TextStyle(
         fontSize: 32,
@@ -87,10 +86,22 @@ class _OtherComplainsState extends State<OtherComplains> {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    refferalcode = await getCurrentUserRefferalCode();
     themeF(isDark);
+  }
+
+  String refferalcode = "";
+  Future<String> getCurrentUserRefferalCode() async {
+    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+
+    return snapshot.get("refferalcode");
   }
 
   @override
@@ -103,6 +114,8 @@ class _OtherComplainsState extends State<OtherComplains> {
 
   @override
   Widget build(BuildContext context) {
+    
+    final theme = isDark ? DarkTheme() : WhiteTheme(); 
     complaint_title.text = OtherComplains.ttle;
     complaint_description.text = OtherComplains.desc;
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
@@ -121,12 +134,14 @@ class _OtherComplainsState extends State<OtherComplains> {
           "description": description,
           "time": datetime,
           "UID": FirebaseAuth.instance.currentUser?.uid,
-          "img": imageUrl
+          "img": imageUrl,
+          "refferalcode": refferalcode
         }).then((result) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text("Complain Posted"),
             backgroundColor: Colors.blue,
           ));
+          sendNotificationToAllUsers(title);
         }).catchError((onError) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(onError),
@@ -252,7 +267,7 @@ class _OtherComplainsState extends State<OtherComplains> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(11, 20, 0, 0),
                             child: Text(
-                              "Write short discription",
+                              "Write short description",
                               style: text_style,
                             ),
                           ),
@@ -387,23 +402,8 @@ class _OtherComplainsState extends State<OtherComplains> {
                             onPressed: () {
                               _isButtonEnabled ? add_data() : null;
                             },
-                            child: Stack(
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text("Raise Complain", style: button_text),
-                                  ],
-                                ),
-                                Visibility(
-                                  visible: uploadingImage,
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                              ],
-                            ),
+                               child:  Center(child: _isButtonEnabled ? Text("Raise Complain", style: button_text) : CircularProgressIndicator()),
+                                
                           ),
                         ),
                       ),
