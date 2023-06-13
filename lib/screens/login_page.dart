@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/main.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/provider/googlesignin.dart';

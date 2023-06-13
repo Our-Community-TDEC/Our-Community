@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../nuemorphism/border_effect.dart';
@@ -377,7 +377,11 @@ class _show_complaintState extends State<show_complaint> {
                                                             child: Text(
                                                               "Delete",
                                                               style: TextStyle(
-                                                                  color: isDark ? HexColor.text_color : HexColor.WblueText,
+                                                                  color: isDark
+                                                                      ? HexColor
+                                                                          .text_color
+                                                                      : HexColor
+                                                                          .WblueText,
                                                                   fontSize: 19,
                                                                   fontWeight:
                                                                       FontWeight

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
@@ -118,7 +118,10 @@ class _chatpageState extends State<chatpage> with sendnotification {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
                                 child: TextFormField(
-                                  style: TextStyle(color: isDark ? HexColor.text_color : HexColor.WblueText),
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblueText),
                                   decoration: InputDecoration(
                                       hintText: "Messege",
                                       hintStyle: msg_textbox),

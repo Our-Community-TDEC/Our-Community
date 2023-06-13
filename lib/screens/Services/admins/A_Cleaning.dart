@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
@@ -154,7 +153,6 @@ class _A_CleaningState extends State<A_Cleaning> {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   DateTime? _selectedDay = DateTime.now();
   var icon_color = HexColor.WBlackButton;
-  @override
   _showAddEventDialog() async {
     await showDialog(
       context: context,
@@ -290,10 +288,10 @@ class _A_CleaningState extends State<A_Cleaning> {
       floatingActionButton: NeumorphicFloatingActionButton(
         onPressed: () => _showAddEventDialog(),
         child: Icon(
-                    Icons.add,
-                    color: icon_color,
-                  ),
-                  style: theme.back_button,
+          Icons.add,
+          color: icon_color,
+        ),
+        style: theme.back_button,
       ),
       body: Container(
         decoration: theme.background_color,
@@ -334,59 +332,59 @@ class _A_CleaningState extends State<A_Cleaning> {
               ],
             ),
             TableCalendar(
-                firstDay: DateTime.utc(2022, 1, 1),
-                lastDay: DateTime.utc(2023, 12, 31),
-                focusedDay: _focusedDay,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    day = DateFormat('dd-MM-yyyy').format(selectedDay);
-                    _focusedDay = focusedDay;
-                  });
-                },
-                // eventLoader: (day) {
-                //   return _getEventsForDay(
-                //     day,
-                //   );
-                // },
-      
-                calendarFormat: _calendarFormat,
-                // @ week , week , month format of calender
-                onFormatChanged: (format) {
-                  setState(() {
-                    _calendarFormat = format;
-                  });
-                },
-                headerStyle: HeaderStyle(
-                  titleTextStyle: TextStyle(
-                    color: text_color,
-                    fontSize: 16,
-                  ),
-                  formatButtonTextStyle: TextStyle(
-                    color: text_color,
-                    fontSize: 16,
-                  ),
+              firstDay: DateTime.utc(2022, 1, 1),
+              lastDay: DateTime.utc(2023, 12, 31),
+              focusedDay: _focusedDay,
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onDaySelected: (selectedDay, focusedDay) {
+                setState(() {
+                  _selectedDay = selectedDay;
+                  day = DateFormat('dd-MM-yyyy').format(selectedDay);
+                  _focusedDay = focusedDay;
+                });
+              },
+              // eventLoader: (day) {
+              //   return _getEventsForDay(
+              //     day,
+              //   );
+              // },
+
+              calendarFormat: _calendarFormat,
+              // @ week , week , month format of calender
+              onFormatChanged: (format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              },
+              headerStyle: HeaderStyle(
+                titleTextStyle: TextStyle(
+                  color: text_color,
+                  fontSize: 16,
                 ),
-                calendarStyle: CalendarStyle(
-                  defaultTextStyle: TextStyle(
-                    color: text_color,
-                    fontSize: 16,
-                  ),
-                  weekendTextStyle: TextStyle(
-                    color: text_color,
-                    fontSize: 16,
-                  ),
-                  outsideTextStyle: TextStyle(
-                    color: isDark
-                        ? HexColor.text_color.withOpacity(0.4)
-                        : HexColor.WblueText.withOpacity(0.8),
-                    fontSize: 16,
-                  ),
+                formatButtonTextStyle: TextStyle(
+                  color: text_color,
+                  fontSize: 16,
                 ),
               ),
+              calendarStyle: CalendarStyle(
+                defaultTextStyle: TextStyle(
+                  color: text_color,
+                  fontSize: 16,
+                ),
+                weekendTextStyle: TextStyle(
+                  color: text_color,
+                  fontSize: 16,
+                ),
+                outsideTextStyle: TextStyle(
+                  color: isDark
+                      ? HexColor.text_color.withOpacity(0.4)
+                      : HexColor.WblueText.withOpacity(0.8),
+                  fontSize: 16,
+                ),
+              ),
+            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
@@ -408,7 +406,8 @@ class _A_CleaningState extends State<A_Cleaning> {
                             style: theme.com_sugge_container,
                             child: ListTile(
                               title: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     '${data['title']}',

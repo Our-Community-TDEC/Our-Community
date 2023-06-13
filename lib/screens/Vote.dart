@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 import '../nuemorphism/border_effect.dart';
 import '../nuemorphism/colors.dart';
@@ -163,7 +163,6 @@ class Vote extends StatelessWidget {
 
     // -------------------------Print current document id---------------------------
     print("current_documentId :- " + current_documentId);
-
 
     //TODO: Append UID to array in firebase
     print("Voting for " + option);

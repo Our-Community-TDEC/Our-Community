@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 TextEditingController suggestion_title = TextEditingController();
 TextEditingController suggestion_description = TextEditingController();

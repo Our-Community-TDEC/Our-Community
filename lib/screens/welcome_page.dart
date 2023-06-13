@@ -1,15 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
-import 'package:our_community/screens/onboard.dart';
 import 'dart:math';
 import '../../nuemorphism/colors.dart';
-
-import '../nuemorphism/colors.dart';
 import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -68,7 +60,7 @@ class WelcomePage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                   width: 200,
+                  width: 200,
                   height: 60,
                   child: NeumorphicButton(
                     style: Wbutton,
@@ -83,7 +75,7 @@ class WelcomePage extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w500,
-                        color:Colors.blueAccent,
+                        color: Colors.blueAccent,
                       ),
                     ),
                   ),

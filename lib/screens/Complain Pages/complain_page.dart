@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/screens/Complain%20Pages/OtherComplains.dart';
 import 'package:our_community/logic/complain_logic.dart';
@@ -463,7 +463,10 @@ class _ComplainPageState extends State<ComplainPage> {
                                 child: Row(
                                   children: [
                                     Icon(Icons.emoji_emotions,
-                                        size: 40, color: isDark ? Colors.white : Colors.black),
+                                        size: 40,
+                                        color: isDark
+                                            ? Colors.white
+                                            : Colors.black),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 12),
                                       child: Text(
@@ -479,7 +482,6 @@ class _ComplainPageState extends State<ComplainPage> {
                         ],
                       ),
                     ),
-                   
                   ],
                 ),
               )

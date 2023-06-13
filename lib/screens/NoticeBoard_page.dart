@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
@@ -105,7 +105,7 @@ class _NoticeState extends State<Notice> with sendnotification {
     setState(() {});
   }
 
- String refferalcode = "";
+  String refferalcode = "";
   Future<String> getCurrentUserRefferalCode() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
@@ -115,8 +115,8 @@ class _NoticeState extends State<Notice> with sendnotification {
     return snapshot.get("refferalcode");
   }
 
-   getPreference() async {
-   SharedPreferences pref = await SharedPreferences.getInstance();
+  getPreference() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
     if (pref.containsKey("Theme")) {
       isDark = pref.getBool("Theme")!;
     }
@@ -136,7 +136,7 @@ class _NoticeState extends State<Notice> with sendnotification {
   TextEditingController eventTitle = TextEditingController();
   TextEditingController eventDescription = TextEditingController();
   @override
-   _showAddEventDialog() async {
+  _showAddEventDialog() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -188,10 +188,12 @@ class _NoticeState extends State<Notice> with sendnotification {
     String discription = eventDescription.text.trim();
     print(title);
     if (title != "" || discription != "") {
-      firestore
-          .collection("noticeboard")
-          .doc()
-          .set({"title": title, "discription": discription, "date": day, "refferalcode":refferalcode}).then(
+      firestore.collection("noticeboard").doc().set({
+        "title": title,
+        "discription": discription,
+        "date": day,
+        "refferalcode": refferalcode
+      }).then(
         (value) => {
           sendNotificationToAllUsers("New NOtice Arived"),
           eventTitle.clear(),
@@ -211,8 +213,9 @@ class _NoticeState extends State<Notice> with sendnotification {
       ));
     }
   }
+
   Widget build(BuildContext context) {
-    final theme = isDark ? DarkTheme() : WhiteTheme(); 
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return Scaffold(
       floatingActionButton: role == "admin"
           ? FloatingActionButton(
@@ -287,33 +290,32 @@ class _NoticeState extends State<Notice> with sendnotification {
               },
               headerStyle: HeaderStyle(
                 titleTextStyle: TextStyle(
-                  color: text_color, 
-                  fontSize: 16, 
+                  color: text_color,
+                  fontSize: 16,
                 ),
                 formatButtonTextStyle: TextStyle(
-                  color: text_color, 
-                  fontSize: 16, 
+                  color: text_color,
+                  fontSize: 16,
                 ),
               ),
               calendarStyle: CalendarStyle(
                 defaultTextStyle: TextStyle(
-                  color: text_color, 
-                  fontSize: 16, 
+                  color: text_color,
+                  fontSize: 16,
                 ),
                 weekendTextStyle: TextStyle(
-                  color: text_color, 
-                  fontSize: 16, 
+                  color: text_color,
+                  fontSize: 16,
                 ),
                 outsideTextStyle: TextStyle(
                   color: isDark
                       ? HexColor.text_color.withOpacity(0.4)
-                      : HexColor.WblueText.withOpacity(
-                          0.8), 
-                  fontSize: 16, 
+                      : HexColor.WblueText.withOpacity(0.8),
+                  fontSize: 16,
                 ),
               ),
             ),
-             Expanded(
+            Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('noticeboard')
@@ -321,7 +323,9 @@ class _NoticeState extends State<Notice> with sendnotification {
                     .where("refferalcode", isEqualTo: refferalcode)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
+                  if (snapshot.hasData &&
+                      snapshot.data != null &&
+                      snapshot.data!.docs.isNotEmpty) {
                     documents = snapshot.data!.docs;
                     return ListView.builder(
                       itemCount: documents.length,
@@ -400,7 +404,11 @@ class _NoticeState extends State<Notice> with sendnotification {
                     );
                   } else {
                     if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
-                       return  Center(child: Text("There are no Notices! 😟" , style: title_style,));
+                      return Center(
+                          child: Text(
+                        "There are no Notices! 😟",
+                        style: title_style,
+                      ));
                     } else {
                       return const Center(
                         child: CircularProgressIndicator(),

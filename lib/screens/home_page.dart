@@ -3,7 +3,7 @@
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/colors.dart';
@@ -13,13 +13,11 @@ import 'package:our_community/screens/Services/Doctor.dart';
 import 'package:our_community/screens/chat/chatpage.dart';
 import 'package:our_community/screens/emergency_page.dart';
 import 'package:our_community/screens/event.dart';
-import 'package:our_community/screens/onboard.dart';
 import 'package:our_community/screens/profile_page.dart';
 import 'package:our_community/screens/search_page.dart';
 import 'package:our_community/screens/suggestions/Show_Suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:our_community/screens/login_page.dart';
-import 'package:our_community/screens/voting_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../nuemorphism/border_effect.dart';
 import 'Admin/show_complaint.dart';
@@ -67,10 +65,17 @@ class _HomePageState extends State<HomePage> with sendnotification {
   // var theme;
   var text_style;
   var user_name_style;
+  var page_title_style;
   themeF(isDark) {
     if (isDark) {
       print("themf called");
       setState(() {
+        page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.text_color,
+      );
+
         text_style = TextStyle(
             fontSize: 19,
             fontWeight: FontWeight.w500,
@@ -85,6 +90,13 @@ class _HomePageState extends State<HomePage> with sendnotification {
       });
     } else {
       setState(() {
+
+        page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblueText,
+      );
+
         text_style = TextStyle(
           fontSize: 19,
           fontWeight: FontWeight.w500,
@@ -196,7 +208,7 @@ class _HomePageState extends State<HomePage> with sendnotification {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
-        appBar: theme.appbar,
+        // appBar: theme.appbar,
         drawer: Neumorphic(
           style: NeumorphicStyle(
             shadowDarkColor: HexColor.Wdrawer,
@@ -496,8 +508,30 @@ class _HomePageState extends State<HomePage> with sendnotification {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+               
               Column(
                 children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          style: theme.back_button,
+                          child: Icon(
+                            Icons.menu,
+                            color: isDark ? HexColor.icon_color : HexColor.WiconColor,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        "Home",
+                        style: page_title_style,
+                      ),
+                    ],
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -544,8 +578,8 @@ class _HomePageState extends State<HomePage> with sendnotification {
                             width: width,
                             decoration: theme.homepage_button_out,
                             child: SizedBox(
-                              height: height+ 26,
-                              width: width - 4 ,
+                              height: height + 26,
+                              width: width - 4,
                               child: ClipRRect(
                                 borderRadius:
                                     new BorderRadius.all(Radius.circular(44)),
@@ -581,8 +615,8 @@ class _HomePageState extends State<HomePage> with sendnotification {
                             width: width,
                             decoration: theme.homepage_button_out,
                             child: SizedBox(
-                              height: height+ 26,
-                              width: width - 4 ,
+                              height: height + 26,
+                              width: width - 4,
                               child: ClipRRect(
                                 borderRadius:
                                     new BorderRadius.all(Radius.circular(44)),
@@ -622,8 +656,8 @@ class _HomePageState extends State<HomePage> with sendnotification {
                             width: width,
                             decoration: theme.homepage_button_out,
                             child: SizedBox(
-                              height: height+ 26,
-                              width: width - 4 ,
+                              height: height + 26,
+                              width: width - 4,
                               child: ClipRRect(
                                 borderRadius:
                                     new BorderRadius.all(Radius.circular(44)),
@@ -660,8 +694,8 @@ class _HomePageState extends State<HomePage> with sendnotification {
                             width: width,
                             decoration: theme.homepage_button_out,
                             child: SizedBox(
-                              height: height+ 26,
-                             width : boxL - 4,
+                              height: height + 26,
+                              width: boxL - 4,
                               child: ClipRRect(
                                 borderRadius:
                                     new BorderRadius.all(Radius.circular(44)),

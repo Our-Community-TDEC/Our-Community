@@ -10,7 +10,7 @@ import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/screens/suggestions/New_suggestion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../nuemorphism/border_effect.dart';
@@ -181,7 +181,7 @@ class _show_suggestionState extends State<show_suggestion> {
     final user = FirebaseAuth.instance.currentUser!;
     String? user_name = user.displayName;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-final theme = isDark ? DarkTheme() : WhiteTheme(); 
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     return Theme(
         data: ThemeData(fontFamily: 'poppins'),
         child: Scaffold(

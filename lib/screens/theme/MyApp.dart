@@ -1,4 +1,4 @@
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,10 +42,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     if (isDarkModeEnabled) {
-     DarkTheme theme = new DarkTheme();
+      DarkTheme theme = new DarkTheme();
       print(theme);
     } else {
-     WhiteTheme theme = new WhiteTheme();
+      WhiteTheme theme = new WhiteTheme();
     }
     return MaterialApp(
       theme: isDarkModeEnabled

@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
@@ -155,7 +154,6 @@ class _A_ElectricState extends State<A_Electric> {
   var day = DateFormat('dd-MM-yyyy').format(DateTime.now());
   DateTime? _selectedDay = DateTime.now();
 
-  @override
   _showAddEventDialog() async {
     await showDialog(
       context: context,
@@ -291,10 +289,10 @@ class _A_ElectricState extends State<A_Electric> {
       floatingActionButton: NeumorphicFloatingActionButton(
         onPressed: () => _showAddEventDialog(),
         child: Icon(
-                    Icons.add,
-                    color: icon_color,
-                  ),
-                  style: theme.back_button,
+          Icons.add,
+          color: icon_color,
+        ),
+        style: theme.back_button,
       ),
       body: Container(
         decoration: theme.background_color,
