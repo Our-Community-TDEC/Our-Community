@@ -91,16 +91,29 @@ class razer_pay_State extends State<razer_pay> {
     setState(() {});
   }
 
-  Future<String> getUserDetail() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+  Future<bool> getUserDetail() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    setState(() {
-      textEditingController.text = snapshot.get("maintenance");
-    });
 
-    return "0";
+
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("user")
+          .where("role", isEqualTo: 'admin')
+          .where("refferalcode", isEqualTo: snapshot.get("refferalcode"))
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming there is only one document that matches the query
+        var maintenance = querySnapshot.docs[0].get("maintenance");
+        textEditingController.text = maintenance;
+      }
+      return true;
+    } catch (e) {
+      // Handle any errors that occur while querying Firestore
+      return false;
+    }
   }
 
   @override

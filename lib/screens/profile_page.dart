@@ -162,7 +162,12 @@ class _ProfileState extends State<Profile> {
 
                           if (file == null) return;
                           print('pppppaaaaaaathhhhhhh${file.path}');
-
+                          try {
+                            setState(() {
+                              uploadingImage = true;
+                              _isButtonEnabled = false;
+                            });
+                          } catch (e) {}
                           String uniqueFileName =
                               DateTime.now().millisecondsSinceEpoch.toString();
 
@@ -175,11 +180,6 @@ class _ProfileState extends State<Profile> {
                               referenceDirImages.child(uniqueFileName);
 
                           try {
-                            setState(() {
-                              uploadingImage = true;
-                              _isButtonEnabled = false;
-                            });
-
                             await referenceImageToUpload
                                 .putFile(File(file.path));
                             imageUrl =
@@ -265,7 +265,7 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
                 TextField(
-                  controller: cflatNumber,
+                  controller: cfamilyMember,
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     labelText: 'Family Member',
@@ -328,25 +328,16 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Navigator.pop(context);
                 }),
-            Stack(
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    if (uploadingImage)
-                      Center(
-                        child: CircularProgressIndicator(),
-                      )
-                    else
-                      TextButton(
-                        child: Text('Update detail'),
-                        onPressed: _isButtonEnabled ? add : null,
-                      ),
-                  ],
-                ),
-              ],
-            ),
+            if (uploadingImage)
+              TextButton(
+                child: Text('Updating'),
+                onPressed: _isButtonEnabled ? add : null,
+              )
+            else
+              TextButton(
+                child: Text('Update detail'),
+                onPressed: _isButtonEnabled ? add : null,
+              ),
           ],
         ),
       ),
@@ -389,6 +380,7 @@ class _ProfileState extends State<Profile> {
       snackBar("Fill all the field");
     } else {
       print("else");
+      imageUrl == '' ? '' : '';
       firestore
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -397,7 +389,7 @@ class _ProfileState extends State<Profile> {
         "flatNumber": flatNumber,
         "dateOfBirth": DOB,
         "familyMember": familyMember,
-        "profileImg": imageUrl,
+        "profileImg": imageUrl == '' ? imgUrl : imageUrl,
         "mobile": mobile,
         "vehical": vehicalNumber,
       }, SetOptions(merge: true)).then((value) => {
@@ -443,6 +435,10 @@ class _ProfileState extends State<Profile> {
                   },
                 snackBar("Detail Updated"),
               });
+      setState(() {
+        getPreference();
+      });
+      Navigator.pop(context);
     }
   }
 

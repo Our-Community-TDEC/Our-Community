@@ -71,10 +71,10 @@ class _HomePageState extends State<HomePage> with sendnotification {
       print("themf called");
       setState(() {
         page_title_style = TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: HexColor.text_color,
-      );
+          fontSize: 30,
+          fontWeight: FontWeight.w400,
+          color: HexColor.text_color,
+        );
 
         text_style = TextStyle(
             fontSize: 19,
@@ -90,12 +90,11 @@ class _HomePageState extends State<HomePage> with sendnotification {
       });
     } else {
       setState(() {
-
         page_title_style = TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.w400,
-        color: HexColor.WblueText,
-      );
+          fontSize: 30,
+          fontWeight: FontWeight.w400,
+          color: HexColor.WblueText,
+        );
 
         text_style = TextStyle(
           fontSize: 19,
@@ -190,24 +189,25 @@ class _HomePageState extends State<HomePage> with sendnotification {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
       final theme = isDark ? DarkTheme() : WhiteTheme();
+      final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
       return Scaffold(
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 95),
-          child: NeumorphicFloatingActionButton(
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => SearchPage()),
-              )
-            },
-            child: Icon(
-              Icons.search,
-              color: isDark ? HexColor.icon_color : HexColor.WiconColor,
-            ),
-            style: theme.back_button,
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
+        // floatingActionButton: Padding(
+        //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 95),
+        //   child: NeumorphicFloatingActionButton(
+        //     onPressed: () => {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => SearchPage()),
+        //       )
+        //     },
+        //     child: Icon(
+        //       Icons.search,
+        //       color: isDark ? HexColor.icon_color : HexColor.WiconColor,
+        //     ),
+        //     style: theme.back_button,
+        //   ),
+        // ),
+        // floatingActionButtonLocation: FloatingActionButtonLocation.miniEndTop,
         // appBar: theme.appbar,
         drawer: Neumorphic(
           style: NeumorphicStyle(
@@ -505,30 +505,58 @@ class _HomePageState extends State<HomePage> with sendnotification {
           padding: EdgeInsets.all(minHW * 0.05),
           decoration: theme.background_color,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-               
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 40,
-                        height: 40,
+                        width: 60,
+                        height: 60,
                         child: NeumorphicButton(
-                          onPressed: () => {Navigator.pop(context)},
+                          onPressed: () => {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Drawer button pressed'),
+                              ),
+                            ),
+                            _scaffoldKey.currentState?.openDrawer(),
+                          },
                           style: theme.back_button,
                           child: Icon(
                             Icons.menu,
-                            color: isDark ? HexColor.icon_color : HexColor.WiconColor,
+                            color: isDark
+                                ? HexColor.icon_color
+                                : HexColor.WiconColor,
                           ),
                         ),
                       ),
                       Text(
                         "Home",
                         style: page_title_style,
+                      ),
+                      SizedBox(
+                        width: 60,
+                        height: 60,
+                        child: NeumorphicButton(
+                          onPressed: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchPage()),
+                            )
+                          },
+                          style: theme.back_button,
+                          child: Icon(
+                            Icons.search,
+                            color: isDark
+                                ? HexColor.icon_color
+                                : HexColor.WiconColor,
+                          ),
+                        ),
                       ),
                     ],
                   ),
