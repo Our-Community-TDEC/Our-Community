@@ -1,18 +1,13 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/main.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:our_community/provider/googlesignin.dart';
 import 'package:our_community/screens/onboard.dart';
-import 'package:our_community/screens/register/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../logic/login_logic.dart';
-
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 import '../nuemorphism/border_effect.dart';
 

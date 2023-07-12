@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/logic/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,24 +98,23 @@ class _Plumber extends State<Plumber> with sendnotification {
   String bookTimeLimit = "2 hr 00 min";
 
   Future<String> getTotalslot() async {
-  QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
-      .instance
-      .collection("user")
-      .where("role", isEqualTo: "plumber")
-      .where("refferalcode" , isEqualTo: refferalcode)
-      .get();
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection("user")
+        .where("role", isEqualTo: "plumber")
+        .where("refferalcode", isEqualTo: refferalcode)
+        .get();
 
-  if (snapshot.docs.isNotEmpty) {
-    Map<String, dynamic> slotData = snapshot.docs.first.data() as Map<String, dynamic>;
-    String slot = slotData["slot"];
-    bookTimeLimit = slotData['time'];
-    return slot;
-  } else {
-    return "0";
+    if (snapshot.docs.isNotEmpty) {
+      Map<String, dynamic> slotData =
+          snapshot.docs.first.data() as Map<String, dynamic>;
+      String slot = slotData["slot"];
+      bookTimeLimit = slotData['time'];
+      return slot;
+    } else {
+      return "0";
+    }
   }
-}
-
-
 
   Future<void> deleteExpiredDocuments() async {
     DateTime now = DateTime.now();
@@ -139,7 +138,7 @@ class _Plumber extends State<Plumber> with sendnotification {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Add new',
+          'Book Plumber',
           textAlign: TextAlign.center,
         ),
         content: Column(
@@ -170,7 +169,7 @@ class _Plumber extends State<Plumber> with sendnotification {
                 Navigator.pop(context);
               }),
           TextButton(
-              child: Text('Add Notice'),
+              child: Text('Book service'),
               onPressed: () {
                 add();
                 Navigator.pop(context);
@@ -188,7 +187,7 @@ class _Plumber extends State<Plumber> with sendnotification {
     String currentSlot = await getslot();
     String totalSlot = await getTotalslot();
     slot = int.parse(currentSlot);
-    print(totalSlot+"sdjfkn");
+    print(totalSlot + "sdjfkn");
 
     String timeString = bookTimeLimit;
     List<String> parts = timeString.split(' ');
@@ -258,6 +257,7 @@ class _Plumber extends State<Plumber> with sendnotification {
       ),
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: theme.background_color,
           child: Column(children: [
             Column(

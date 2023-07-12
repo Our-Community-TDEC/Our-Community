@@ -11,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 TextEditingController complaint_title = TextEditingController();
@@ -114,8 +114,7 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
 
   @override
   Widget build(BuildContext context) {
-    
-    final theme = isDark ? DarkTheme() : WhiteTheme(); 
+    final theme = isDark ? DarkTheme() : WhiteTheme();
     complaint_title.text = OtherComplains.ttle;
     complaint_description.text = OtherComplains.desc;
     String datetime = (DateFormat.Md('en_US').add_jm().format(DateTime.now()));
@@ -402,8 +401,10 @@ class _OtherComplainsState extends State<OtherComplains> with sendnotification {
                             onPressed: () {
                               _isButtonEnabled ? add_data() : null;
                             },
-                               child:  Center(child: _isButtonEnabled ? Text("Raise Complain", style: button_text) : CircularProgressIndicator()),
-                                
+                            child: Center(
+                                child: _isButtonEnabled
+                                    ? Text("Raise Complain", style: button_text)
+                                    : CircularProgressIndicator()),
                           ),
                         ),
                       ),

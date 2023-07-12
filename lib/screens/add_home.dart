@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';

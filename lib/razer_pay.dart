@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 import 'package:our_community/nuemorphism/colors.dart';
@@ -91,16 +91,29 @@ class razer_pay_State extends State<razer_pay> {
     setState(() {});
   }
 
-  Future<String> getUserDetail() async {
-    DocumentSnapshot snapshot = await FirebaseFirestore.instance
+  Future<bool> getUserDetail() async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection("user")
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    setState(() {
-      textEditingController.text = snapshot.get("maintenance");
-    });
 
-    return "0";
+
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("user")
+          .where("role", isEqualTo: 'admin')
+          .where("refferalcode", isEqualTo: snapshot.get("refferalcode"))
+          .get();
+      if (querySnapshot.docs.isNotEmpty) {
+        // Assuming there is only one document that matches the query
+        var maintenance = querySnapshot.docs[0].get("maintenance");
+        textEditingController.text = maintenance;
+      }
+      return true;
+    } catch (e) {
+      // Handle any errors that occur while querying Firestore
+      return false;
+    }
   }
 
   @override
@@ -209,23 +222,25 @@ class razer_pay_State extends State<razer_pay> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(30 , 30 , 30 ,0),
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: Column(
                 children: [
                   Neumorphic(
                     style: theme.text_field,
                     child: TextField(
-                      
-                      
                       style: TextStyle(
-                        color:isDark ? HexColor.text_color : HexColor.WblueText
-                      ),
+                          color: isDark
+                              ? HexColor.text_color
+                              : HexColor.WblueText),
                       readOnly: true,
                       controller: textEditingController,
-                      decoration: InputDecoration(hintText: "amount to pay" , suffixIcon: Icon(
-                                    Icons.money,
-                                    color: icon_color,
-                                  ),),
+                      decoration: InputDecoration(
+                        hintText: "amount to pay",
+                        suffixIcon: Icon(
+                          Icons.money,
+                          color: icon_color,
+                        ),
+                      ),
                     ),
                   ),
                   Padding(

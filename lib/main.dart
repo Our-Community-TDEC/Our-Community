@@ -1,11 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:our_community/screens/home_page.dart';
 import 'package:our_community/screens/welcome_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:our_community/provider/googlesignin.dart';
 
@@ -34,7 +32,7 @@ Future<void> main() async {
         // MaterialApp is a widget that introduces a number of widgets Navigator,
         //Theme that are required to build a material design app.
         child: MaterialApp(
-          home: BasePage1(),
+          home: BasePage(),
         )),
   );
 }

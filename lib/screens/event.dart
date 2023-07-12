@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:our_community/logic/notification.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
@@ -87,11 +87,11 @@ class _EventState extends State<Event> with sendnotification {
 
       icon_color = HexColor.WiconColor;
 
-        page_title_style = TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w400,
-          color: HexColor.WblueText,
-        );
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblueText,
+      );
 
       title_style = TextStyle(
           fontSize: 20,
@@ -217,12 +217,15 @@ class _EventState extends State<Event> with sendnotification {
   Widget build(BuildContext context) {
     final theme = isDark ? DarkTheme() : WhiteTheme();
     return Theme(
-       data: ThemeData(fontFamily: 'poppins',pageTransitionsTheme: PageTransitionsTheme(
+      data: ThemeData(
+        fontFamily: 'poppins',
+        pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             TargetPlatform.android: FadeInPageTransitionsBuilder(),
             TargetPlatform.iOS: FadeInPageTransitionsBuilder(),
           },
-        ),),
+        ),
+      ),
       child: Scaffold(
         floatingActionButton: role == "admin"
             ? FloatingActionButton(
@@ -287,7 +290,7 @@ class _EventState extends State<Event> with sendnotification {
                 //     day,
                 //   );
                 // },
-    
+
                 calendarFormat: _calendarFormat,
                 // @ week , week , month format of calender
                 onFormatChanged: (format) {
@@ -297,29 +300,28 @@ class _EventState extends State<Event> with sendnotification {
                 },
                 headerStyle: HeaderStyle(
                   titleTextStyle: TextStyle(
-                    color: text_color, 
-                    fontSize: 16, 
+                    color: text_color,
+                    fontSize: 16,
                   ),
                   formatButtonTextStyle: TextStyle(
-                    color: text_color, 
-                    fontSize: 16, 
+                    color: text_color,
+                    fontSize: 16,
                   ),
                 ),
                 calendarStyle: CalendarStyle(
                   defaultTextStyle: TextStyle(
-                    color: text_color, 
-                    fontSize: 16, 
+                    color: text_color,
+                    fontSize: 16,
                   ),
                   weekendTextStyle: TextStyle(
-                    color: text_color, 
-                    fontSize: 16, 
+                    color: text_color,
+                    fontSize: 16,
                   ),
                   outsideTextStyle: TextStyle(
                     color: isDark
                         ? HexColor.text_color.withOpacity(0.4)
-                        : HexColor.WblueText.withOpacity(
-                            0.8), 
-                    fontSize: 16, 
+                        : HexColor.WblueText.withOpacity(0.8),
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -410,8 +412,13 @@ class _EventState extends State<Event> with sendnotification {
                         },
                       );
                     } else {
-                      if (snapshot.data != null && snapshot.data!.docs.isEmpty) {
-                        return  Center(child: Text("There are no events! 😟" , style: title_style,));
+                      if (snapshot.data != null &&
+                          snapshot.data!.docs.isEmpty) {
+                        return Center(
+                            child: Text(
+                          "There are no events! 😟",
+                          style: title_style,
+                        ));
                       } else {
                         return const Center(
                           child: CircularProgressIndicator(),

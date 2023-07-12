@@ -8,12 +8,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:our_community/screens/home_page.dart';
-import 'package:our_community/screens/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
 
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 TextEditingController cemailController = TextEditingController();
 TextEditingController cuserNameController = TextEditingController();

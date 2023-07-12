@@ -45,14 +45,13 @@ dependencies:
 #  razorpay_flutter: ^1.2.1
   http: ^0.13.5
   flutter_local_notifications: ^12.0.3+1
-
   cupertino_icons: ^1.0.2
   pie_chart: ^5.3.2
   fl_chart: ^0.55.0
   syncfusion_flutter_charts: ^20.2.39
   onboarding: ^3.1.0
   google_translator: ^1.0.0
-  flutter_neumorphic: ^3.2.0
+  flutter_neumorphic: ^3.0.3
   shared_preferences: ^2.0.15
   firebase_database: ^10.0.7
   connectivity_plus: ^3.0.2
@@ -73,11 +72,16 @@ dependencies:
   onesignal_flutter: ^3.5.1
   url_launcher: ^6.1.10
   flutter_phone_direct_caller: ^2.1.1
+  neumorphic_ui: ^1.0.0
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
+
+dependency_overrides:
+  package_info_plus: ^1.4.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
