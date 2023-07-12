@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> with sendnotification {
         );
 
         text_style = TextStyle(
-            fontSize: 19,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
             color: Colors.white,
             fontFamily: 'poppins');
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> with sendnotification {
         );
 
         text_style = TextStyle(
-          fontSize: 19,
+          fontSize: 16,
           fontWeight: FontWeight.w500,
           color: HexColor.WblueText,
           fontFamily: 'poppins',
@@ -508,58 +508,57 @@ class _HomePageState extends State<HomePage> with sendnotification {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0,0,70,0),
+                    child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: NeumorphicButton(
+                        onPressed: () => {
+                          
+                          _scaffoldKey.currentState?.openDrawer(),
+                        },
+                        style: theme.back_button,
+                        child: Icon(
+                          Icons.menu,
+                          color:
+                              isDark ? HexColor.icon_color : HexColor.WiconColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Home",
+                    style: page_title_style,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(50,0,0,0),
+                    child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: NeumorphicButton(
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SearchPage()),
+                          )
+                        },
+                        style: theme.back_button,
+                        child: Icon(
+                          Icons.search,
+                          color:
+                              isDark ? HexColor.icon_color : HexColor.WiconColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: NeumorphicButton(
-                          onPressed: () => {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Drawer button pressed'),
-                              ),
-                            ),
-                            _scaffoldKey.currentState?.openDrawer(),
-                          },
-                          style: theme.back_button,
-                          child: Icon(
-                            Icons.menu,
-                            color: isDark
-                                ? HexColor.icon_color
-                                : HexColor.WiconColor,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        "Home",
-                        style: page_title_style,
-                      ),
-                      SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: NeumorphicButton(
-                          onPressed: () => {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchPage()),
-                            )
-                          },
-                          style: theme.back_button,
-                          child: Icon(
-                            Icons.search,
-                            color: isDark
-                                ? HexColor.icon_color
-                                : HexColor.WiconColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

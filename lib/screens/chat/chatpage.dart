@@ -18,6 +18,7 @@ class chatpage extends StatefulWidget {
 class _chatpageState extends State<chatpage> with sendnotification {
   var msg_textbox;
   var icon_color = HexColor.WiconColor;
+  var page_title_style;
   bool isDark = false;
   themeF(isDark) {
     print("Theme" + isDark.toString());
@@ -26,7 +27,18 @@ class _chatpageState extends State<chatpage> with sendnotification {
       msg_textbox =
           TextStyle(color: HexColor.text_color, fontWeight: FontWeight.w400);
       // theme = DarkTheme();
+
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.text_color,
+      );
     } else {
+      page_title_style = TextStyle(
+        fontSize: 30,
+        fontWeight: FontWeight.w400,
+        color: HexColor.WblueText,
+      );
       msg_textbox =
           TextStyle(color: HexColor.WblackText, fontWeight: FontWeight.w500);
       icon_color = HexColor.WiconColor;
@@ -34,12 +46,12 @@ class _chatpageState extends State<chatpage> with sendnotification {
   }
 
   getPreference() async {
-    var pref = await SharedPreferences.getInstance();
-    isDark = pref.getBool("Theme")!;
-    print("object" + isDark.toString());
-    setState(() {
-      themeF(isDark);
-    });
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (pref.containsKey("Theme")) {
+      isDark = pref.getBool("Theme")!;
+    }
+    
+    themeF(isDark);
   }
 
   @override
@@ -78,9 +90,10 @@ class _chatpageState extends State<chatpage> with sendnotification {
   @override
   Widget build(BuildContext context) {
     final theme = isDark ? DarkTheme() : WhiteTheme();
+    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: theme.chatAppBar,
+      // appBar: theme.chatAppBar,
       body: Container(
         decoration: theme.background_color,
         child: SingleChildScrollView(
@@ -88,6 +101,42 @@ class _chatpageState extends State<chatpage> with sendnotification {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 120, 0),
+                    child: SizedBox(
+                      width: 60,
+                      height: 60,
+                      child: NeumorphicButton(
+                        onPressed: () => {
+                          Navigator.pop(context),
+                        },
+                        style: theme.back_button,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.arrow_back_ios,
+                              color: isDark
+                                  ? HexColor.icon_color
+                                  : HexColor.WiconColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0,0,width/3,0),
+                    child: Text(
+                      "Chat",
+                      style: page_title_style,
+                    ),
+                  ),
+                ],
+              ),
               Divider(
                 thickness: 5,
                 indent: 12,
@@ -100,7 +149,7 @@ class _chatpageState extends State<chatpage> with sendnotification {
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: SingleChildScrollView(
                       child: Container(
-                        height: MediaQuery.of(context).size.height * 0.77,
+                        height: MediaQuery.of(context).size.height * 0.83,
                         child: messages(
                           email: email,
                         ),

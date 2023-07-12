@@ -6,7 +6,6 @@ import 'package:our_community/logic/suggestion_logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../nuemorphism/colors.dart';
 import 'package:our_community/nuemorphism/border_effect.dart';
-
 import 'package:neumorphic_ui/neumorphic_ui.dart';
 
 TextEditingController suggestion_title = TextEditingController();

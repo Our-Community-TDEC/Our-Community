@@ -249,240 +249,243 @@ class _CleaningState extends State<Cleaning> with sendnotification {
         onPressed: () => _showAddEventDialog(),
         child: Icon(Icons.add),
       ),
-      body: Container(
-        decoration: theme.background_color,
-        child: Column(children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 40,
-                      height: 40,
-                      child: NeumorphicButton(
-                        onPressed: () => {Navigator.pop(context)},
-                        style: theme.back_button,
-                        child: Icon(
-                          Icons.arrow_back_ios,
-                          color: icon_color,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "Cleaning",
-                      style: page_title_style,
-                    ),
-                  ],
-                ),
-              ),
-              const Divider(
-                thickness: 5,
-                indent: 12,
-                endIndent: 12,
-                color: Colors.black,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 106,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: theme.background_color,
+          child: Column(children: [
+            Column(
               children: [
-                SizedBox(
-                  // height: MediaQuery.of(context).size.height/2.,
-                  width: MediaQuery.of(context).size.width,
-                  child: TableCalendar(
-                    firstDay: DateTime.utc(2022, 1, 1),
-                    lastDay: DateTime.utc(2023, 12, 31),
-                    focusedDay: _focusedDay,
-                    selectedDayPredicate: (day) {
-                      return isSameDay(_selectedDay, day);
-                    },
-                    onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        day = DateFormat('dd-MM-yyyy').format(selectedDay);
-                        _focusedDay = focusedDay;
-                      });
-                    },
-                    // eventLoader: (day) {
-                    //   return _getEventsForDay(
-                    //     day,
-                    //   );
-                    // },
-
-                    calendarFormat: _calendarFormat,
-                    // @ week , week , month format of calender
-                    onFormatChanged: (format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    },
-                    headerStyle: HeaderStyle(
-                      titleTextStyle: TextStyle(
-                        color: text_color,
-                        fontSize: 16,
-                      ),
-                      formatButtonTextStyle: TextStyle(
-                        color: text_color,
-                        fontSize: 16,
-                      ),
-                    ),
-                    calendarStyle: CalendarStyle(
-                      defaultTextStyle: TextStyle(
-                        color: text_color,
-                        fontSize: 16,
-                      ),
-                      weekendTextStyle: TextStyle(
-                        color: text_color,
-                        fontSize: 16,
-                      ),
-                      outsideTextStyle: TextStyle(
-                        color: isDark
-                            ? HexColor.text_color.withOpacity(0.4)
-                            : HexColor.WblueText.withOpacity(0.8),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-                TimeDurationPicker(
-                  diameter: size.width / 2.3,
-                  icon1Data: Icons.more_time_sharp,
-                  icon2Data: Icons.av_timer_sharp,
-                  knobDecoration: theme.knobdecoration,
-                  clockDecoration: theme.clockdecoration,
-                  clockTextStyle: TextStyle(
-                      color: isDark ? HexColor.text_color : HexColor.WblueText),
-                  knobBackgroundDecoration: theme.knobBackgrounddecoration,
-                  onIcon1RotatedCallback: (value) {
-                    setState(() {
-                      String timeString = value;
-                      DateTime parsedTime =
-                          DateFormat('h:mm a').parse(timeString);
-                      TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
-                      alarmTime = value;
-                    });
-                  },
-                  onIcon2RotatedCallback: (value) {
-                    setState(() {
-                      bedTime = value;
-                    });
-                  },
-                  setDurationCallback: (value) {
-                    setState(() {
-                      String timeString = value;
-                      List<String> parts = timeString.split(' ');
-                      int hours = int.parse(parts[0]);
-                      int minutes = int.parse(parts[2]);
-                      duration = Duration(hours: hours, minutes: minutes);
-                      workDuration = value;
-                    });
-                  },
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 70, 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SizedBox(
-                        width: 120,
-                        height: 120,
-                        child: Neumorphic(
-                          style: theme.servive_container,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Total duration",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText,
-                                    fontSize: 20),
-                              ),
-                              Text(
-                                workDuration,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                        width: 40,
+                        height: 40,
+                        child: NeumorphicButton(
+                          onPressed: () => {Navigator.pop(context)},
+                          style: theme.back_button,
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: icon_color,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 120,
-                        height: 120,
-                        child: Neumorphic(
-                          style: theme.servive_container,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Start time",
-                                style: TextStyle(
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText,
-                                    fontSize: 20),
-                              ),
-                              Text(
-                                bedTime,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 120,
-                        height: 120,
-                        child: Neumorphic(
-                          style: theme.servive_container,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "End Time",
-                                style: TextStyle(
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText,
-                                    fontSize: 20),
-                              ),
-                              Text(
-                                alarmTime,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: isDark
-                                        ? HexColor.text_color
-                                        : HexColor.WblackText),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ),
+                      Text(
+                        "Cleaning",
+                        style: page_title_style,
                       ),
                     ],
                   ),
                 ),
+                const Divider(
+                  thickness: 5,
+                  indent: 12,
+                  endIndent: 12,
+                  color: Colors.black,
+                ),
               ],
             ),
-          ),
-        ]),
+            SizedBox(
+              height: MediaQuery.of(context).size.height - 106,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    // height: MediaQuery.of(context).size.height/2.,
+                    width: MediaQuery.of(context).size.width,
+                    child: TableCalendar(
+                      firstDay: DateTime.utc(2022, 1, 1),
+                      lastDay: DateTime.utc(2023, 12, 31),
+                      focusedDay: _focusedDay,
+                      selectedDayPredicate: (day) {
+                        return isSameDay(_selectedDay, day);
+                      },
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          _selectedDay = selectedDay;
+                          day = DateFormat('dd-MM-yyyy').format(selectedDay);
+                          _focusedDay = focusedDay;
+                        });
+                      },
+                      // eventLoader: (day) {
+                      //   return _getEventsForDay(
+                      //     day,
+                      //   );
+                      // },
+      
+                      calendarFormat: _calendarFormat,
+                      // @ week , week , month format of calender
+                      onFormatChanged: (format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      },
+                      headerStyle: HeaderStyle(
+                        titleTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        formatButtonTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                      ),
+                      calendarStyle: CalendarStyle(
+                        defaultTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        weekendTextStyle: TextStyle(
+                          color: text_color,
+                          fontSize: 16,
+                        ),
+                        outsideTextStyle: TextStyle(
+                          color: isDark
+                              ? HexColor.text_color.withOpacity(0.4)
+                              : HexColor.WblueText.withOpacity(0.8),
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                  TimeDurationPicker(
+                    diameter: size.width / 2.3,
+                    icon1Data: Icons.more_time_sharp,
+                    icon2Data: Icons.av_timer_sharp,
+                    knobDecoration: theme.knobdecoration,
+                    clockDecoration: theme.clockdecoration,
+                    clockTextStyle: TextStyle(
+                        color: isDark ? HexColor.text_color : HexColor.WblueText),
+                    knobBackgroundDecoration: theme.knobBackgrounddecoration,
+                    onIcon1RotatedCallback: (value) {
+                      setState(() {
+                        String timeString = value;
+                        DateTime parsedTime =
+                            DateFormat('h:mm a').parse(timeString);
+                        TimeOfDay time = TimeOfDay.fromDateTime(parsedTime);
+                        alarmTime = value;
+                      });
+                    },
+                    onIcon2RotatedCallback: (value) {
+                      setState(() {
+                        bedTime = value;
+                      });
+                    },
+                    setDurationCallback: (value) {
+                      setState(() {
+                        String timeString = value;
+                        List<String> parts = timeString.split(' ');
+                        int hours = int.parse(parts[0]);
+                        int minutes = int.parse(parts[2]);
+                        duration = Duration(hours: hours, minutes: minutes);
+                        workDuration = value;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Total duration",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  workDuration,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Start time",
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  bedTime,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                          height: 120,
+                          child: Neumorphic(
+                            style: theme.servive_container,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "End Time",
+                                  style: TextStyle(
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText,
+                                      fontSize: 20),
+                                ),
+                                Text(
+                                  alarmTime,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: isDark
+                                          ? HexColor.text_color
+                                          : HexColor.WblackText),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

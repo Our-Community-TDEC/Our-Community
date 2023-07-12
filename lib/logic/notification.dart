@@ -17,6 +17,7 @@ class sendnotification {
   }
 
   Future<void> sendNotificationToAllUsers(String message) async {
+    await getrefferalcode();
     // bool hasCustomSounds = await FlutterRingtonePlayer.canCustomize;
 
     // Check if the user has provided privacy consent
@@ -27,11 +28,10 @@ class sendnotification {
           "User has not provided privacy consent yet. Cannot send notification.");
       return;
     }
-
     // Retrieve all users from the 'users' collection in Firestore
     QuerySnapshot userSnapshot = await FirebaseFirestore.instance
         .collection('user')
-        // .where('refferalcode', isEqualTo: refferalcode)
+        .where('refferalcode', isEqualTo: refferalcode)
         .get();
 
     List<String> playerIds = [];
@@ -56,6 +56,7 @@ class sendnotification {
 
   Future<void> sendServiceNotificationToAllUsers(
       String message, String role) async {
+        await getrefferalcode();
     // bool hasCustomSounds = await FlutterRingtonePlayer.canCustomize;
 
     // Check if the user has provided privacy consent
@@ -71,6 +72,7 @@ class sendnotification {
     QuerySnapshot userSnapshot = await FirebaseFirestore.instance
         .collection('user')
         .where('role', isEqualTo: role)
+        .where('refferalcode', isEqualTo: refferalcode)
         .get();
 
     List<String> playerIds = [];

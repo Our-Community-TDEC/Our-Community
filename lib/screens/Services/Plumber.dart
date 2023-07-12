@@ -138,7 +138,7 @@ class _Plumber extends State<Plumber> with sendnotification {
       context: context,
       builder: (context) => AlertDialog(
         title: Text(
-          'Add new',
+          'Book Plumber',
           textAlign: TextAlign.center,
         ),
         content: Column(
@@ -169,7 +169,7 @@ class _Plumber extends State<Plumber> with sendnotification {
                 Navigator.pop(context);
               }),
           TextButton(
-              child: Text('Add Notice'),
+              child: Text('Book service'),
               onPressed: () {
                 add();
                 Navigator.pop(context);
@@ -257,6 +257,7 @@ class _Plumber extends State<Plumber> with sendnotification {
       ),
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: theme.background_color,
           child: Column(children: [
             Column(
